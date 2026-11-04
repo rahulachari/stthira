@@ -44,12 +44,12 @@ export default function CinematicHero() {
 
         {/* STTHIRA Official Brand Lockup (Matches Nav Bar: Emblem on Left, Wordmark & EST. 2026 • INDIA on Right) */}
         <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-7 mb-6 select-none">
-          <StthiraEmblem className="text-white w-10 h-12 sm:w-14 sm:h-16 md:w-16 md:h-20 lg:w-20 lg:h-24 drop-shadow-2xl shrink-0" />
+          <StthiraEmblem className="text-white w-8 h-10 sm:w-14 sm:h-16 md:w-16 md:h-20 lg:w-20 lg:h-24 drop-shadow-2xl shrink-0" />
           <div className="flex flex-col items-start text-left">
-            <h1 className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.1em] uppercase text-white leading-none">
+            <h1 className="font-editorial text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.08em] sm:tracking-[0.1em] uppercase text-white leading-none">
               {t("hero.brand", "STTHIRA")}
             </h1>
-            <span className="font-sans text-[9px] sm:text-[11px] md:text-xs tracking-[0.4em] text-neutral-300 uppercase mt-1">
+            <span className="font-sans text-[8px] sm:text-[11px] md:text-xs tracking-[0.3em] sm:tracking-[0.4em] text-neutral-300 uppercase mt-1">
               EST. 2026 • INDIA
             </span>
           </div>
@@ -57,13 +57,13 @@ export default function CinematicHero() {
 
         {/* Headline */}
         <div className="max-w-4xl mx-auto mb-6">
-          <h2 className="font-editorial text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-neutral-200 leading-tight">
+          <h2 className="font-editorial text-xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-neutral-200 leading-tight">
             {t("hero.headline", "BUILDING A LEGACY. SHAPING TOMORROW.")}
           </h2>
         </div>
 
         {/* Supporting Copy */}
-        <p className="max-w-2xl mx-auto text-sm sm:text-base font-sans text-neutral-300 tracking-wide font-light leading-relaxed mb-10">
+        <p className="max-w-2xl mx-auto text-xs sm:text-base font-sans text-neutral-300 tracking-wide font-light leading-relaxed mb-8 sm:mb-10 px-2 sm:px-0">
           {t(
             "hero.description",
             "Curating India's premier luxury plotted estates rooted in architectural permanence, forensic legal purity, and fiduciary trust."
@@ -71,18 +71,18 @@ export default function CinematicHero() {
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0">
           <Link
             href="/developments"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 font-sans text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-200 transition-all duration-300 shadow-xl"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black px-6 sm:px-8 py-3.5 sm:py-4 font-sans text-xs uppercase tracking-[0.18em] sm:tracking-[0.25em] font-medium hover:bg-neutral-200 transition-all duration-300 shadow-xl"
           >
             <span>{t("hero.explore", "Explore Our Developments")}</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4 shrink-0" />
           </Link>
 
           <Link
             href="/about"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/60 hover:border-white px-8 py-4 font-sans text-xs uppercase tracking-[0.25em] text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/60 hover:border-white px-6 sm:px-8 py-3.5 sm:py-4 font-sans text-xs uppercase tracking-[0.18em] sm:tracking-[0.25em] text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
           >
             <span>{t("hero.discover", "Discover STTHIRA")}</span>
           </Link>

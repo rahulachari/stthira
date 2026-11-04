@@ -84,23 +84,23 @@ export default function Footer() {
   return (
     <footer className="bg-[#f6f8fa] text-neutral-900 border-t border-neutral-200 font-sans">
       {/* Upper Footer: GitHub Clean Style on White / Light Canvas */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-12">
         {/* Top Header Row with Co-Branding Indicator: STTHIRA | ROVERA | AKSHARA */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-10 mb-12 border-b border-neutral-200 gap-6">
-          <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
+        <div className="flex flex-col xl:flex-row items-center justify-between pb-8 sm:pb-10 mb-8 sm:mb-12 border-b border-neutral-200 gap-6">
+          <div className="flex flex-wrap items-center justify-center xl:justify-start gap-4 sm:gap-6 w-full xl:w-auto">
             {/* STTHIRA with architectural emblem */}
-            <Link href="/" className="group flex items-center gap-2.5 transition-opacity hover:opacity-80">
-              <StthiraEmblem className="text-neutral-900 w-6 h-7 transition-transform group-hover:scale-105 duration-300" />
+            <Link href="/" className="group flex items-center gap-2.5 transition-opacity hover:opacity-80 shrink-0">
+              <StthiraEmblem className="text-neutral-900 w-6 h-7 transition-transform group-hover:scale-105 duration-300 shrink-0" />
               <span className="font-editorial text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[0.16em] uppercase text-neutral-900">
                 STTHIRA
               </span>
             </Link>
 
-            <span className="text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
+            <span className="hidden sm:inline text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
 
             {/* ROVERA with official cheetah logo — BIG to match STTHIRA and AKSHARA */}
             <Link href="/developments/rovera" className="group flex items-center transition-opacity hover:opacity-80 shrink-0">
-              <div className="relative w-40 h-12 sm:w-56 sm:h-16 md:w-64 md:h-20 lg:w-72 lg:h-20 shrink-0 select-none">
+              <div className="relative w-40 h-12 sm:w-52 sm:h-15 lg:w-64 lg:h-20 shrink-0 select-none">
                 <Image
                   src="/images/rovera-logo-dark.png"
                   alt="ROVERA — Official Logo"
@@ -111,25 +111,25 @@ export default function Footer() {
               </div>
             </Link>
 
-            <span className="text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
+            <span className="hidden sm:inline text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
 
             {/* AKSHARA linked to official website */}
             <a
               href="https://akshara-three.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 transition-opacity hover:opacity-80"
+              className="group flex items-center gap-1.5 transition-opacity hover:opacity-80 shrink-0"
               title="AKSHARA (opens in a new tab)"
             >
               <span className="font-editorial text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.16em] uppercase text-neutral-700 group-hover:text-black transition-colors">
                 AKSHARA
               </span>
-              <ArrowUpRight className="w-5 h-5 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+              <ArrowUpRight className="w-5 h-5 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
             </a>
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-sans text-neutral-600 shrink-0">
-            <span className="hidden lg:inline text-neutral-500 uppercase tracking-widest text-[10px]">
+          <div className="flex items-center justify-center xl:justify-end w-full xl:w-auto gap-4 text-xs font-sans text-neutral-600 shrink-0">
+            <span className="hidden xl:inline text-neutral-500 uppercase tracking-widest text-[10px]">
               Master Plotted Developments • India
             </span>
             <Link
@@ -142,7 +142,7 @@ export default function Footer() {
         </div>
 
         {/* 5-Column Sitemap Grid (GitHub-style typography: Clean, Legible, Responsive for Mobile, iPad, Desktop) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-10 pb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 pb-12">
           {columns.map((col) => (
             <div key={col.title} className="space-y-3">
               <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-500 font-sans">

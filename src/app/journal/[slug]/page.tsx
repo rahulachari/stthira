@@ -62,7 +62,7 @@ export default async function JournalArticlePage({
               {article.category}
             </span>
 
-            <h1 className="font-editorial text-4xl sm:text-6xl font-light uppercase tracking-tight leading-[1.05]">
+            <h1 className="font-editorial text-2xl sm:text-4xl md:text-6xl font-light uppercase tracking-tight leading-[1.05] break-words">
               {article.title}
             </h1>
 

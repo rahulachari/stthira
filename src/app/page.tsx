@@ -45,20 +45,20 @@ export default function HomePage() {
                 Operating as an elite corporate master developer in India, STTHIRA conceives master-planned plotted communities where each residential parcel is engineered to institutional standards. We eliminate the unpredictability of land ownership through forensic legal due diligence, advanced underground utility grids, and monumental entrance architecture designed to endure for centuries.
               </p>
 
-              <div className="pt-4 flex items-center gap-8">
+              <div className="pt-4 grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-8">
                 <div>
-                  <span className="font-editorial text-4xl sm:text-5xl text-black font-light block">2026</span>
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-sans">Foundation Year</span>
+                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">2026</span>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">Foundation Year</span>
                 </div>
-                <div className="w-px h-12 bg-neutral-300" />
+                <div className="hidden sm:block w-px h-12 bg-neutral-300" />
                 <div>
-                  <span className="font-editorial text-4xl sm:text-5xl text-black font-light block">100%</span>
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-sans">Clear Title Audit</span>
+                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">100%</span>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">Clear Title Audit</span>
                 </div>
-                <div className="w-px h-12 bg-neutral-300" />
+                <div className="hidden sm:block w-px h-12 bg-neutral-300" />
                 <div>
-                  <span className="font-editorial text-4xl sm:text-5xl text-black font-light block">45%</span>
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-sans">Preserved Green Space</span>
+                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">45%</span>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">Preserved Green Space</span>
                 </div>
               </div>
 

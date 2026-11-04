@@ -34,13 +34,13 @@ export default function LanguageSwitcher({
   const isLight = theme === "light";
 
   return (
-    <div ref={containerRef} className={`relative inline-block text-left ${className}`}>
+    <div ref={containerRef} className={`relative text-left ${className}`}>
       {/* Trigger Button: GitHub-style clean pill */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Select language"
-        className={`flex items-center gap-2 px-3 py-1.5 transition-all rounded font-sans text-xs ${
+        className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 transition-all rounded font-sans text-xs ${
           isLight
             ? "bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-800 hover:text-black shadow-xs"
             : "bg-neutral-900/80 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 hover:text-white"

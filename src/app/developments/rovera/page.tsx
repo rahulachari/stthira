@@ -144,8 +144,8 @@ export default function RoveraProjectPage() {
             </div>
 
             {/* Right 4 Key Stat Cards */}
-            <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-              <div className="bg-neutral-50 border border-neutral-200 p-6 space-y-2">
+            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-2">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 font-sans block">Total Land Area</span>
                 <span className="font-editorial text-3xl text-black font-medium block">42+ Acres</span>
                 <p className="text-xs text-neutral-600 font-sans font-light">Master-planned gated enclave in North Bengaluru</p>

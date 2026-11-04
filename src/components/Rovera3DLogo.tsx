@@ -16,7 +16,7 @@ export default function Rovera3DLogo({
     sm: "w-56 h-[68px] sm:w-64 sm:h-[78px]",
     md: "w-72 h-[88px] sm:w-80 sm:h-[96px] md:w-[420px] md:h-[126px]",
     lg: "w-80 h-[96px] sm:w-[480px] sm:h-[144px] md:w-[600px] md:h-[180px]",
-    xl: "w-[300px] h-[90px] sm:w-[500px] sm:h-[150px] md:w-[680px] md:h-[204px] lg:w-[820px] lg:h-[246px]",
+    xl: "w-[260px] h-[78px] xs:w-[300px] xs:h-[90px] sm:w-[500px] sm:h-[150px] md:w-[680px] md:h-[204px] lg:w-[820px] lg:h-[246px]",
   }[size];
 
   const logoSrc =

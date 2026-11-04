@@ -61,26 +61,26 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-black/95 backdrop-blur-md border-b border-neutral-800 py-4 text-white"
-            : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-6 text-white"
+            ? "bg-black/95 backdrop-blur-md border-b border-neutral-800 py-3.5 sm:py-4 text-white"
+            : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4 sm:py-6 text-white"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
-          {/* Logo & Corporate Hierarchy — Protected with shrink-0 and generous spacing */}
-          <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 mr-6 xl:mr-10">
-            <StthiraEmblem className="text-white w-5 h-6 sm:w-6 sm:h-7 transition-transform group-hover:scale-105 duration-300" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
+          {/* Logo & Corporate Hierarchy — Protected with shrink-0 and responsive sizing */}
+          <Link href="/" className="group flex items-center gap-2 sm:gap-3 shrink-0 mr-2 sm:mr-6 xl:mr-10">
+            <StthiraEmblem className="text-white w-5 h-6 sm:w-6 sm:h-7 transition-transform group-hover:scale-105 duration-300 shrink-0" />
             <div className="flex flex-col">
-              <span className="font-editorial text-2xl sm:text-3xl tracking-[0.25em] font-medium uppercase text-white transition-opacity duration-300 group-hover:opacity-80">
+              <span className="font-editorial text-xl sm:text-3xl tracking-[0.2em] sm:tracking-[0.25em] font-medium uppercase text-white transition-opacity duration-300 group-hover:opacity-80">
                 STTHIRA
               </span>
-              <span className="text-[9px] tracking-[0.35em] text-neutral-400 uppercase -mt-1 font-sans">
+              <span className="text-[8px] sm:text-[9px] tracking-[0.25em] sm:tracking-[0.35em] text-neutral-400 uppercase -mt-0.5 sm:-mt-1 font-sans">
                 Est. 2026 • India
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-5 xl:space-x-8 text-xs uppercase tracking-[0.16em] font-sans">
+          <nav className="hidden xl:flex items-center space-x-6 2xl:space-x-8 text-xs uppercase tracking-[0.16em] font-sans">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || (link.hasDropdown && pathname.startsWith("/developments"));
               if (link.hasDropdown) {
@@ -144,13 +144,15 @@ export default function Header() {
           </nav>
 
           {/* Action Button & Mobile Menu Toggle */}
-          <div className="flex items-center space-x-2 sm:space-x-4">
-            <LanguageSwitcher dropUp={false} className="hidden md:inline-block" />
+          <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
+            <div className="hidden md:block shrink-0">
+              <LanguageSwitcher dropUp={false} theme="dark" />
+            </div>
 
             {/* Enquire Now Button — Clean modal trigger */}
             <button
               onClick={() => setEnquiryModalOpen(true)}
-              className="inline-flex items-center justify-center border border-white/70 hover:border-white px-3 sm:px-5 py-1.5 sm:py-2 text-[11px] sm:text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] font-sans text-white hover:bg-white hover:text-black transition-all duration-300 cursor-pointer shadow-md"
+              className="inline-flex items-center justify-center border border-white/70 hover:border-white px-2.5 sm:px-5 py-1.5 sm:py-2 text-[10px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.2em] font-sans text-white hover:bg-white hover:text-black transition-all duration-300 cursor-pointer shadow-md shrink-0"
             >
               <span>{t("nav.enquire", "Enquire Now")}</span>
             </button>
@@ -158,16 +160,16 @@ export default function Header() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="lg:hidden p-2 text-white hover:text-neutral-300 transition-colors cursor-pointer"
+              className="xl:hidden p-1.5 sm:p-2 text-white hover:text-neutral-300 transition-colors cursor-pointer shrink-0"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Fullscreen Navigation Overlay */}
         {mobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[68px] sm:top-[73px] bg-black/98 z-40 px-6 py-8 flex flex-col justify-between overflow-y-auto border-t border-neutral-900 h-[calc(100vh-68px)]">
+          <div className="xl:hidden fixed inset-0 top-[58px] sm:top-[73px] bg-black/98 z-40 px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-between overflow-y-auto border-t border-neutral-900 h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full">
             <div className="space-y-6">
               <div className="text-[10px] tracking-[0.3em] uppercase text-neutral-500 mb-2">
                 Navigation

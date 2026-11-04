@@ -32,7 +32,7 @@ export default function PhilosophyPage() {
               <span>The Architectural Treatise</span>
             </div>
 
-            <h1 className="font-editorial text-5xl sm:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95]">
+            <h1 className="font-editorial text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95] break-words">
               REFINED IN THOUGHT. <br />
               <span className="italic font-light text-neutral-400">BOLD IN VISION.</span>
             </h1>

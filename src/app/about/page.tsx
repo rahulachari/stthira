@@ -30,7 +30,7 @@ export default function AboutPage() {
               <StthiraEmblem className="text-white w-4 h-5" />
               <span>Corporate Profile • Est. 2026</span>
             </div>
-            <h1 className="font-editorial text-5xl sm:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95]">
+            <h1 className="font-editorial text-4xl sm:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95] break-words">
               ARCHITECTURAL <br />
               <span className="italic font-light text-neutral-400">PERMANENCE.</span>
             </h1>

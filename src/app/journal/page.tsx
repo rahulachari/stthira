@@ -39,7 +39,7 @@ export default function JournalPage() {
             <span className="text-xs uppercase tracking-[0.3em] text-neutral-400 font-sans block">
               Architectural &amp; Real Estate Discourse
             </span>
-            <h1 className="font-editorial text-5xl sm:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95]">
+            <h1 className="font-editorial text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95] break-words">
               JOURNAL &amp; INSIGHTS
             </h1>
             <p className="font-sans text-neutral-300 text-base sm:text-xl font-light leading-relaxed max-w-2xl">
