@@ -1,0 +1,59 @@
+[
+  {
+    "fullName": "Siddharth Oberoi",
+    "email": "siddharth.oberoi@investments.in",
+    "phone": "+91 98111 22334",
+    "interestedDevelopment": "ROVERA",
+    "enquiryType": "Schedule Site Visit",
+    "visitDate": "2026-11-15",
+    "preferredTime": "Morning (10:00 AM - 12:00 PM)",
+    "message": "Requesting a private presentation on the 4,000 sq.ft Master Estate parcel facing the green spine.",
+    "privacyConsent": true,
+    "id": "enq-mw2dghzg61j",
+    "createdAt": "2026-11-04T17:09:42.029Z",
+    "status": "Site Visit Scheduled",
+    "notes": "VIP chauffeured pickup confirmed from Kempegowda Airport for Nov 15, 10:00 AM."
+  },
+  {
+    "id": "enq-101",
+    "createdAt": "2026-11-03T14:30:00.000Z",
+    "fullName": "Vikramaditya Singhania",
+    "email": "v.singhania@apexholding.com",
+    "phone": "+91 98200 45112",
+    "interestedDevelopment": "ROVERA",
+    "enquiryType": "Schedule Site Visit",
+    "visitDate": "2026-11-08",
+    "preferredTime": "11:00 AM",
+    "message": "Interested in the 4,000 sq.ft Master Estate parcel. Requesting private chauffeured walkthrough of the western arboretum boundary.",
+    "privacyConsent": true,
+    "status": "Site Visit Scheduled",
+    "notes": "HNW investor based in Mumbai. Managing director requested private executive vehicle pickup from Kempegowda Airport."
+  },
+  {
+    "id": "enq-102",
+    "createdAt": "2026-11-04T09:15:00.000Z",
+    "fullName": "Ananya Deshmukh",
+    "email": "ananya.deshmukh@venturestudio.in",
+    "phone": "+91 99801 88402",
+    "interestedDevelopment": "ROVERA",
+    "enquiryType": "Request Callback",
+    "preferredTime": "Between 2:00 PM – 4:00 PM",
+    "message": "Looking for two contiguous 2,400 sq.ft Signature plots for an extended family compound. Seeking clarification on architectural covenants.",
+    "privacyConsent": true,
+    "status": "New",
+    "notes": "Callback scheduled for relationship manager today."
+  },
+  {
+    "id": "enq-103",
+    "createdAt": "2026-11-02T18:40:00.000Z",
+    "fullName": "Dr. K. R. Nambiar",
+    "email": "kr.nambiar@specialtyhealth.org",
+    "phone": "+91 94480 33291",
+    "interestedDevelopment": "ROVERA",
+    "enquiryType": "General Enquiry",
+    "message": "Please share the comprehensive master-plan documentation and details regarding the underground utility specifications.",
+    "privacyConsent": true,
+    "status": "Contacted",
+    "notes": "Brochure and engineering docket shared via encrypted email."
+  }
+]

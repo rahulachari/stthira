@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 348 420" width="100%" height="100%" fill="currentColor">
+  <defs>
+    <!-- Architectural modular tier forming the STTHIRA monolithic monogram -->
+    <path id="stthira-tier" d="M 0,0 L 100,0 L 100,140 L 85,140 L 85,106 C 85,68 38,32 0,32 Z" />
+  </defs>
+  <!-- Column 1 (Left): Top and Middle tiers -->
+  <use href="#stthira-tier" x="0" y="0" />
+  <use href="#stthira-tier" x="0" y="140" />
+
+  <!-- Column 2 (Center): Top, Middle, and Bottom tiers -->
+  <use href="#stthira-tier" x="124" y="0" />
+  <use href="#stthira-tier" x="124" y="140" />
+  <use href="#stthira-tier" x="124" y="280" />
+
+  <!-- Column 3 (Right): Middle and Bottom tiers -->
+  <use href="#stthira-tier" x="248" y="140" />
+  <use href="#stthira-tier" x="248" y="280" />
+</svg>
+
