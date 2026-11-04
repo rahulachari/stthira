@@ -23,43 +23,6 @@ export default function Footer() {
 
   const currentYear = 2026;
 
-  // Prominently highlighted headings with bold, distinctive, executive colors
-  const COLUMN_THEMES: Record<
-    string,
-    { text: string; bg: string; border: string; dot: string }
-  > = {
-    Developments: {
-      text: "text-amber-950",
-      bg: "bg-amber-100/90",
-      border: "border-amber-300",
-      dot: "bg-amber-600",
-    },
-    Philosophy: {
-      text: "text-indigo-950",
-      bg: "bg-indigo-100/90",
-      border: "border-indigo-300",
-      dot: "bg-indigo-600",
-    },
-    Company: {
-      text: "text-emerald-950",
-      bg: "bg-emerald-100/90",
-      border: "border-emerald-300",
-      dot: "bg-emerald-600",
-    },
-    Legal: {
-      text: "text-rose-950",
-      bg: "bg-rose-100/90",
-      border: "border-rose-300",
-      dot: "bg-rose-600",
-    },
-    Connect: {
-      text: "text-blue-950",
-      bg: "bg-blue-100/90",
-      border: "border-blue-300",
-      dot: "bg-blue-600",
-    },
-  };
-
   const columns = [
     {
       title: "Developments",
@@ -180,23 +143,16 @@ export default function Footer() {
 
         {/* 5-Column Sitemap Grid (GitHub-style typography: Clean, Legible, Responsive for Mobile, iPad, Desktop) */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 pb-12">
-          {columns.map((col) => {
-            const theme = COLUMN_THEMES[col.title] || {
-              text: "text-neutral-900",
-              bg: "bg-neutral-100",
-              border: "border-neutral-300",
-              dot: "bg-neutral-900",
-            };
-
-            return (
-              <div key={col.title} className="space-y-3.5">
-                <div
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border font-sans text-xs font-bold uppercase tracking-wider ${theme.bg} ${theme.border} ${theme.text} shadow-2xs select-none`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
-                  <h4>{col.title}</h4>
-                </div>
-                <ul className="space-y-2.5 text-neutral-800 font-sans text-[13px] sm:text-sm">
+          {columns.map((col) => (
+            <div key={col.title} className="space-y-3.5">
+              {/* Highlighted in Dark Black with clean architectural underline */}
+              <div className="flex items-center gap-2 pb-1.5 border-b-2 border-black">
+                <span className="w-1.5 h-1.5 bg-black shrink-0" />
+                <h4 className="text-xs font-bold uppercase tracking-[0.16em] text-black font-sans select-none">
+                  {col.title}
+                </h4>
+              </div>
+              <ul className="space-y-2.5 text-neutral-800 font-sans text-[13px] sm:text-sm">
                 {col.links.map((link) => {
                   const isExternal = link.href.startsWith("http") || link.href.startsWith("tel:");
                   const isSection = link.href.includes("#");
@@ -236,9 +192,8 @@ export default function Footer() {
                 })}
               </ul>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
 
         {/* Corporate Hierarchy & Alliance Statement */}
         <div className="py-6 border-y border-neutral-200 text-xs text-neutral-600 font-sans leading-relaxed flex flex-col md:flex-row md:items-center justify-between gap-4">
