@@ -1,17 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import StthiraEmblem from "./StthiraEmblem";
+import { useLanguage } from "@/context/LanguageContext";
 
-interface PartnershipBannerProps {
-  className?: string;
-}
+export default function PartnershipBanner() {
+  const { t } = useLanguage();
 
-export default function PartnershipBanner({ className = "" }: PartnershipBannerProps) {
   return (
-    <section className={`bg-[#ecebe6] border-y border-neutral-300/80 py-12 sm:py-16 lg:py-24 ${className}`}>
+    <section className="py-16 sm:py-24 bg-white border-y border-neutral-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         {/* Co-Branding Display: STTHIRA | ROVERA | AKSHARA */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-14">
@@ -21,36 +20,37 @@ export default function PartnershipBanner({ className = "" }: PartnershipBannerP
             className="group flex items-center justify-center gap-2 sm:gap-3 transition-opacity hover:opacity-75 focus-visible:outline-none shrink-0"
             title="STTHIRA — Master Developer"
           >
-            <StthiraEmblem className="text-neutral-900 w-7 h-8 sm:w-8 sm:h-10 lg:w-11 lg:h-13 transition-transform group-hover:scale-105 duration-300 shrink-0" />
-            <span className="font-editorial text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold tracking-[0.14em] text-neutral-900 uppercase select-none">
-              STTHIRA
+            <StthiraEmblem className="text-black w-8 h-9 sm:w-10 sm:h-12 lg:w-12 lg:h-14 transition-transform group-hover:scale-105 duration-300 shrink-0" />
+            <span className="font-editorial text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold tracking-[0.14em] text-black uppercase select-none">
+              {t("partnership.stthiraBrand", "STTHIRA")}
             </span>
           </Link>
 
           {/* Divider */}
           <div className="w-16 h-px bg-neutral-300 md:hidden shrink-0" />
-          <div className="hidden md:block w-px md:h-14 lg:h-20 bg-neutral-400 shrink-0" />
+          <div className="hidden md:block w-px md:h-14 lg:h-20 bg-neutral-300 shrink-0" />
 
-          {/* 2. ROVERA with official logo design — BIG and matching STTHIRA & AKSHARA */}
+          {/* 2. ROVERA with official logo design — BIG and prominent to match STTHIRA & AKSHARA */}
           <Link
             href="/developments/rovera"
             className="group flex items-center justify-center transition-opacity hover:opacity-75 focus-visible:outline-none shrink-0"
             title="ROVERA — Luxury Plotted Living by STTHIRA"
           >
-            <div className="relative w-48 h-15 sm:w-56 sm:h-17 md:w-64 md:h-20 lg:w-80 lg:h-24 xl:w-96 xl:h-28 shrink-0 select-none">
+            <div className="relative h-12 sm:h-14 md:h-16 lg:h-20 xl:h-22 aspect-[3.48/1] select-none shrink-0">
               <Image
                 src="/images/rovera-logo-dark.png"
-                alt="ROVERA — Official Cheetah Emblem & Logo"
+                alt="ROVERA — Official Logo"
                 fill
                 priority
-                className="object-contain"
+                sizes="(max-width: 640px) 190px, (max-width: 768px) 240px, (max-width: 1024px) 280px, 340px"
+                className="object-contain object-center"
               />
             </div>
           </Link>
 
           {/* Divider */}
           <div className="w-16 h-px bg-neutral-300 md:hidden shrink-0" />
-          <div className="hidden md:block w-px md:h-14 lg:h-20 bg-neutral-400 shrink-0" />
+          <div className="hidden md:block w-px md:h-14 lg:h-20 bg-neutral-300 shrink-0" />
 
           {/* 3. AKSHARA with external link */}
           <a
@@ -60,8 +60,8 @@ export default function PartnershipBanner({ className = "" }: PartnershipBannerP
             className="group inline-flex items-center gap-1.5 sm:gap-2 transition-opacity hover:opacity-75 focus-visible:outline-none shrink-0"
             title="AKSHARA (opens in a new tab)"
           >
-            <span className="font-editorial text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light tracking-[0.14em] text-neutral-900 uppercase select-none">
-              AKSHARA
+            <span className="font-editorial text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light tracking-[0.14em] text-black uppercase select-none">
+              {t("partnership.aksharaBrand", "AKSHARA")}
             </span>
             <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
           </a>

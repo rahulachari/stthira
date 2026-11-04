@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Check, Loader2, ArrowRight, Calendar, PhoneCall, Send } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface EnquiryFormProps {
   defaultDevelopment?: string;
@@ -16,6 +17,7 @@ export default function EnquiryForm({
   onSuccess,
   className = "",
 }: EnquiryFormProps) {
+  const { t } = useLanguage();
   const [enquiryType, setEnquiryType] = useState<"General Enquiry" | "Request Callback" | "Schedule Site Visit">(defaultType);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -89,38 +91,38 @@ export default function EnquiryForm({
         <button
           type="button"
           onClick={() => setEnquiryType("General Enquiry")}
-          className={`py-3 px-2 flex items-center justify-center gap-1.5 transition-all ${
+          className={`py-3 px-2 flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             enquiryType === "General Enquiry"
               ? "bg-white text-black font-medium"
               : "text-neutral-400 hover:text-white bg-neutral-900/50"
           }`}
         >
           <Send className="w-3.5 h-3.5 hidden sm:inline" />
-          <span>Enquiry</span>
+          <span>{t("form.enquiry", "Enquiry")}</span>
         </button>
         <button
           type="button"
           onClick={() => setEnquiryType("Request Callback")}
-          className={`py-3 px-2 flex items-center justify-center gap-1.5 transition-all ${
+          className={`py-3 px-2 flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             enquiryType === "Request Callback"
               ? "bg-white text-black font-medium"
               : "text-neutral-400 hover:text-white bg-neutral-900/50"
           }`}
         >
           <PhoneCall className="w-3.5 h-3.5 hidden sm:inline" />
-          <span>Callback</span>
+          <span>{t("form.callback", "Callback")}</span>
         </button>
         <button
           type="button"
           onClick={() => setEnquiryType("Schedule Site Visit")}
-          className={`py-3 px-2 flex items-center justify-center gap-1.5 transition-all ${
+          className={`py-3 px-2 flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             enquiryType === "Schedule Site Visit"
               ? "bg-white text-black font-medium"
               : "text-neutral-400 hover:text-white bg-neutral-900/50"
           }`}
         >
           <Calendar className="w-3.5 h-3.5 hidden sm:inline" />
-          <span>Site Visit</span>
+          <span>{t("form.sitevisit", "Site Visit")}</span>
         </button>
       </div>
 
@@ -130,14 +132,18 @@ export default function EnquiryForm({
             <Check className="w-8 h-8 text-white" />
           </div>
           <h3 className="font-editorial text-2xl sm:text-3xl font-medium tracking-wide">
-            Your Request Has Been Received
+            {t("form.successTitle", "Your Request Has Been Received")}
           </h3>
           <p className="text-neutral-400 text-sm max-w-md mx-auto font-sans leading-relaxed">
-            Thank you for your interest in STTHIRA. An executive relationship manager has been assigned to your dossier (Ref:{" "}
-            <span className="text-white font-mono">{enquiryId}</span>) and will reach out to schedule your private consultation.
+            {t(
+              "form.successSub",
+              "Thank you for your interest in STTHIRA. An executive relationship manager has been assigned to your dossier and will reach out to schedule your private consultation."
+            )}{" "}
+            (Ref: <span className="text-white font-mono">{enquiryId}</span>)
           </p>
           <div className="pt-4">
             <button
+              type="button"
               onClick={() => {
                 setStatus("idle");
                 setFullName("");
@@ -145,7 +151,7 @@ export default function EnquiryForm({
                 setPhone("");
                 setMessage("");
               }}
-              className="text-xs uppercase tracking-[0.2em] border-b border-white pb-1 hover:text-neutral-400 transition-colors"
+              className="text-xs uppercase tracking-[0.2em] border-b border-white pb-1 hover:text-neutral-400 transition-colors cursor-pointer"
             >
               Submit Another Enquiry
             </button>
@@ -163,7 +169,7 @@ export default function EnquiryForm({
             {/* Full Name */}
             <div>
               <label className="block text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
-                Full Legal Name *
+                {t("form.fullname", "Full Legal Name *")}
               </label>
               <input
                 type="text"
@@ -178,7 +184,7 @@ export default function EnquiryForm({
             {/* Email Address */}
             <div>
               <label className="block text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
-                Email Address *
+                {t("form.email", "Email Address *")}
               </label>
               <input
                 type="email"
@@ -195,7 +201,7 @@ export default function EnquiryForm({
             {/* Phone Number */}
             <div>
               <label className="block text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
-                Contact Phone / WhatsApp *
+                {t("form.phone", "Contact Phone / WhatsApp *")}
               </label>
               <input
                 type="tel"
@@ -210,15 +216,16 @@ export default function EnquiryForm({
             {/* Interested Development */}
             <div>
               <label className="block text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
-                Development of Interest
+                {t("form.dev", "Development of Interest")}
               </label>
               <select
                 value={interestedDevelopment}
                 onChange={(e) => setInterestedDevelopment(e.target.value)}
                 className="w-full bg-neutral-900 border border-neutral-800 px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-colors"
               >
-                <option value="ROVERA">ROVERA — Luxury Plotted Living (Bengaluru)</option>
-                <option value="TERRA">TERRA — Eco-Sanctuary Estates (Nandi Foothills)</option>
+                <option value="ROVERA">ROVERA — Luxury Plotted Living (North Bengaluru)</option>
+                <option value="TERRA">STTHIRA TERRA — Eco-Sanctuary (Nandi Foothills)</option>
+                <option value="AKSHARA">AKSHARA — Strategic Land Alliance</option>
                 <option value="STTHIRA General Portfolio">STTHIRA — General Corporate Portfolio</option>
               </select>
             </div>
@@ -249,63 +256,40 @@ export default function EnquiryForm({
                   onChange={(e) => setPreferredTime(e.target.value)}
                   className="w-full bg-neutral-900 border border-neutral-700 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-colors"
                 >
-                  <option value="">Select Time Window</option>
-                  <option value="Morning (10:00 AM – 12:00 PM)">Morning (10:00 AM – 12:00 PM)</option>
-                  <option value="Afternoon (01:00 PM – 03:00 PM)">Afternoon (01:00 PM – 03:00 PM)</option>
-                  <option value="Late Afternoon (04:00 PM – 06:00 PM)">Late Afternoon (04:00 PM – 06:00 PM)</option>
+                  <option value="Morning">Morning (10:00 AM – 1:00 PM)</option>
+                  <option value="Afternoon">Afternoon (1:00 PM – 4:00 PM)</option>
+                  <option value="Sunset">Sunset Walkthrough (4:00 PM – 6:30 PM)</option>
                 </select>
               </div>
             </div>
           )}
 
-          {/* Conditional Callback Slot */}
-          {enquiryType === "Request Callback" && (
-            <div className="p-4 bg-neutral-900/60 border border-neutral-800">
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
-                Convenient Callback Hours
-              </label>
-              <select
-                value={preferredTime}
-                onChange={(e) => setPreferredTime(e.target.value)}
-                className="w-full bg-neutral-900 border border-neutral-700 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-colors"
-              >
-                <option value="Anytime during business hours (9:30 AM – 6:30 PM)">Anytime during business hours</option>
-                <option value="Morning (9:30 AM – 12:00 PM)">Morning (9:30 AM – 12:00 PM)</option>
-                <option value="Afternoon (1:00 PM – 4:00 PM)">Afternoon (1:00 PM – 4:00 PM)</option>
-                <option value="Evening (4:00 PM – 6:30 PM)">Evening (4:00 PM – 6:30 PM)</option>
-              </select>
-            </div>
-          )}
-
-          {/* Message */}
+          {/* Message / Special Requirements */}
           <div>
             <label className="block text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
-              Specific Inquiries or Requirements
+              {t("form.notes", "Private Consultation Notes")}
             </label>
             <textarea
               rows={3}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="e.g. Inquiring regarding plot dimensions, vastu orientation, or scheduling a chauffeured site inspection..."
-              className="w-full bg-neutral-900 border border-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-colors"
+              placeholder="Specify requirements: plot dimensions (1500 / 2400 / 4000+ sq ft), chauffeured pickup, or investment horizon..."
+              className="w-full bg-neutral-900 border border-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-colors resize-none"
             />
           </div>
 
           {/* Privacy Consent Checkbox */}
-          <div className="flex items-start gap-3 pt-2">
+          <div className="flex items-start gap-3">
             <input
               type="checkbox"
               id="privacyConsent"
+              required
               checked={privacyConsent}
               onChange={(e) => setPrivacyConsent(e.target.checked)}
-              className="mt-1 w-4 h-4 rounded-none accent-white bg-neutral-900 border-neutral-700"
+              className="mt-1 w-4 h-4 rounded-none bg-neutral-900 border-neutral-700 text-white focus:ring-0 focus:ring-offset-0 cursor-pointer"
             />
-            <label htmlFor="privacyConsent" className="text-xs text-neutral-400 font-sans leading-relaxed">
-              I authorize STTHIRA Developments and its accredited relationship partners to contact me via phone, email, or WhatsApp regarding project updates, architectural documentation, and scheduled viewings. I have read and agree to the{" "}
-              <a href="/legal/privacy-policy" target="_blank" className="text-white underline hover:text-neutral-300">
-                Privacy Policy
-              </a>
-              .
+            <label htmlFor="privacyConsent" className="text-xs text-neutral-400 font-sans leading-relaxed cursor-pointer">
+              {t("form.consent", "I authorize STTHIRA and its relationship team to contact me via phone, email, or WhatsApp.")}
             </label>
           </div>
 
@@ -313,20 +297,16 @@ export default function EnquiryForm({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-white text-black font-sans text-xs uppercase tracking-[0.25em] font-medium flex items-center justify-center gap-3 hover:bg-neutral-200 transition-colors disabled:opacity-50"
+            className="w-full bg-white text-black py-4 text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg disabled:opacity-50"
           >
             {loading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Transmitting To Advisory Desk...</span>
+                <span>{t("form.submitting", "Registering Request...")}</span>
               </>
             ) : (
               <>
-                <span>
-                  {enquiryType === "General Enquiry" && "Submit Formal Enquiry"}
-                  {enquiryType === "Request Callback" && "Request Priority Callback"}
-                  {enquiryType === "Schedule Site Visit" && "Confirm Site Visit Dossier"}
-                </span>
+                <span>{t("form.submit", "Submit Formal Enquiry")}</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}

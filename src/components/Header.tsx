@@ -179,20 +179,20 @@ export default function Header() {
                   href="/"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  Home
+                  {t("nav.home", "Home")}
                 </Link>
                 <Link
                   href="/about"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  About STTHIRA
+                  {t("nav.about", "About STTHIRA")}
                 </Link>
                 <div className="border-l border-neutral-800 pl-4 py-1 space-y-2">
                   <Link
                     href="/developments"
                     className="font-editorial text-xl text-neutral-300 hover:text-white block"
                   >
-                    Our Developments (Portfolio)
+                    {t("nav.developments", "Our Developments")}
                   </Link>
                   <Link
                     href="/developments/rovera"
@@ -220,37 +220,37 @@ export default function Header() {
                   href="/philosophy"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  Our Philosophy
+                  {t("nav.philosophy", "Our Philosophy")}
                 </Link>
                 <Link
                   href="/leadership"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  Leadership
+                  {t("nav.leadership", "Leadership")}
                 </Link>
                 <Link
                   href="/journal"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  Journal & Insights
+                  {t("nav.journal", "Journal & Insights")}
                 </Link>
                 <Link
                   href="/gallery"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  Architectural Gallery
+                  {t("nav.gallery", "Architectural Gallery")}
                 </Link>
                 <Link
                   href="/faq"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  FAQ
+                  {t("nav.faq", "FAQ")}
                 </Link>
                 <Link
                   href="/contact"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  Contact
+                  {t("nav.contact", "Contact")}
                 </Link>
               </div>
             </div>

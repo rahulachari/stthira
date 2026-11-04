@@ -2,78 +2,68 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { ArrowUpRight, ShieldCheck } from "lucide-react";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { COMPANY_INFO } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
-import LanguageSwitcher from "./LanguageSwitcher";
-import HalftoneWordmarkFooter from "./ui/halftone-wordmark-footer";
 import StthiraEmblem from "./StthiraEmblem";
 
 export default function Footer() {
-  const { t } = useLanguage();
-  const pathname = usePathname();
-
-  const isRoveraPage = pathname === "/developments/rovera";
-  const wordmarkText = isRoveraPage ? "ROVERA" : "STTHIRA";
-  const wordmarkLabel = isRoveraPage ? "ROVERA • LUXURY PLOTTED LIVING" : "STTHIRA DEVELOPMENTS";
-  const wordmarkMeta = isRoveraPage
-    ? "BY STTHIRA • NORTH BENGALURU • PHASE 1"
-    : "EST. 2026 • BENGALURU, INDIA • LUXURY PLOTTED LIVING";
-
   const currentYear = 2026;
+  const { t } = useLanguage();
 
+  // Comprehensive Sitemap Categories (GitHub Clean Style: Light Background, Bold Black Headings)
   const columns = [
     {
-      title: "Developments",
+      title: t("footer.col1", "DEVELOPMENTS"),
       links: [
-        { label: "All Developments", href: "/developments" },
+        { label: t("footer.allDevs", "All Developments"), href: "/developments" },
         { label: "ROVERA (North Bengaluru)", href: "/developments/rovera" },
-        { label: "STTHIRA TERRA (Nandi)", href: "/developments/terra" },
+        { label: "STTHIRA TERRA (Nandi)", href: "/developments/stthira-terra" },
         { label: "AKSHARA (North Bengaluru)", href: "https://akshara-three.vercel.app/" },
-        { label: "Master Plan Matrix", href: "/developments/rovera#masterplan" },
-        { label: "Plot Configurations", href: "/developments/rovera#plots" },
+        { label: t("footer.masterPlanMatrix", "Master Plan Matrix"), href: "/developments#matrix" },
+        { label: t("footer.plotConfigs", "Plot Configurations"), href: "/developments#configurations" },
       ],
     },
     {
-      title: "Philosophy",
+      title: t("footer.col2", "PHILOSOPHY"),
       links: [
-        { label: "Eight Core Pillars", href: "/philosophy" },
-        { label: "01 Vision & Scale", href: "/philosophy#vision" },
-        { label: "02 Precision Engineering", href: "/philosophy#precision" },
-        { label: "04 Architectural Restraint", href: "/philosophy#architecture" },
-        { label: "05 Native Ecology", href: "/philosophy#nature" },
-        { label: "06 Fiduciary Trust", href: "/philosophy#trust" },
+        { label: t("footer.eightPillars", "Eight Core Pillars"), href: "/philosophy" },
+        { label: t("footer.p1", "01 Vision & Scale"), href: "/philosophy#vision" },
+        { label: t("footer.p2", "02 Precision Engineering"), href: "/philosophy#precision" },
+        { label: t("footer.p4", "04 Architectural Restraint"), href: "/philosophy#architecture" },
+        { label: t("footer.p5", "05 Native Ecology"), href: "/philosophy#nature" },
+        { label: t("footer.p6", "06 Fiduciary Trust"), href: "/philosophy#trust" },
       ],
     },
     {
-      title: "Company",
+      title: t("footer.col3", "COMPANY"),
       links: [
-        { label: "About STTHIRA", href: "/about" },
-        { label: "Leadership & Governance", href: "/leadership" },
-        { label: "STTHIRA | AKSHARA Alliance", href: "/about#alliance" },
-        { label: "Architectural Gallery", href: "/gallery" },
-        { label: "Journal & Insights", href: "/journal" },
-        { label: "Frequently Asked Questions", href: "/faq" },
+        { label: t("footer.aboutStthira", "About STTHIRA"), href: "/about" },
+        { label: t("footer.leadership", "Leadership & Governance"), href: "/leadership" },
+        { label: t("footer.alliance", "STTHIRA | AKSHARA Alliance"), href: "/about#alliance" },
+        { label: t("footer.gallery", "Architectural Gallery"), href: "/gallery" },
+        { label: t("footer.journal", "Journal & Insights"), href: "/journal" },
+        { label: t("footer.faqs", "Frequently Asked Questions"), href: "/faq" },
       ],
     },
     {
-      title: "Legal",
+      title: t("footer.col4", "LEGAL"),
       links: [
-        { label: "Privacy Policy (DPDP Act)", href: "/legal/privacy-policy" },
-        { label: "Terms of Service", href: "/legal/terms" },
-        { label: "Website Disclaimer", href: "/legal/disclaimer" },
-        { label: "Cookie Policy", href: "/legal/cookies" },
-        { label: "Project Disclaimer", href: "/legal/project-disclaimer" },
-        { label: "RERA Disclosures", href: "/legal/rera" },
+        { label: t("footer.privacy", "Privacy Policy (DPDP Act)"), href: "/legal/privacy-policy" },
+        { label: t("footer.terms", "Terms of Service"), href: "/legal/terms" },
+        { label: t("footer.disclaimer", "Website Disclaimer"), href: "/legal/disclaimer" },
+        { label: t("footer.cookies", "Cookie Policy"), href: "/legal/cookies" },
+        { label: t("footer.projectDisclaimer", "Project Disclaimer"), href: "/legal/project-disclaimer" },
+        { label: t("footer.rera", "RERA Disclosures"), href: "/legal/rera" },
       ],
     },
     {
-      title: "Connect",
+      title: t("footer.col5", "CONNECT"),
       links: [
-        { label: "Corporate Office", href: "/contact" },
-        { label: "Direct Concierge", href: "tel:+919845077123" },
-        { label: "WhatsApp Desk", href: `https://wa.me/${COMPANY_INFO.whatsappNumber.replace("+", "")}` },
+        { label: t("footer.office", "Corporate Office"), href: "/contact#office" },
+        { label: t("footer.concierge", "Direct Concierge"), href: "tel:+918045678900" },
+        { label: t("footer.whatsapp", "WhatsApp Desk"), href: `https://wa.me/${COMPANY_INFO.whatsappNumber.replace("+", "")}` },
         { label: "LinkedIn", href: COMPANY_INFO.socials.linkedin },
         { label: "Instagram", href: COMPANY_INFO.socials.instagram },
         { label: "YouTube", href: COMPANY_INFO.socials.youtube },
@@ -83,30 +73,31 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#f6f8fa] text-neutral-900 border-t border-neutral-200 font-sans">
-      {/* Upper Footer: GitHub Clean Style on White / Light Canvas */}
+      {/* Upper Footer: GitHub Clean Style on Light Canvas */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-12">
         {/* Top Header Row with Co-Branding Indicator: STTHIRA | ROVERA | AKSHARA */}
         <div className="flex flex-col xl:flex-row items-center justify-between pb-8 sm:pb-10 mb-8 sm:mb-12 border-b border-neutral-200 gap-6">
           <div className="flex flex-wrap items-center justify-center xl:justify-start gap-4 sm:gap-6 w-full xl:w-auto">
             {/* STTHIRA with architectural emblem */}
             <Link href="/" className="group flex items-center gap-2.5 transition-opacity hover:opacity-80 shrink-0">
-              <StthiraEmblem className="text-neutral-900 w-6 h-7 transition-transform group-hover:scale-105 duration-300 shrink-0" />
-              <span className="font-editorial text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[0.16em] uppercase text-neutral-900">
-                STTHIRA
+              <StthiraEmblem className="text-black w-7 h-8 transition-transform group-hover:scale-105 duration-300 shrink-0" />
+              <span className="font-editorial text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[0.16em] uppercase text-black">
+                {t("partnership.stthiraBrand", "STTHIRA")}
               </span>
             </Link>
 
             <span className="hidden sm:inline text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
 
-            {/* ROVERA with official cheetah logo — BIG to match STTHIRA and AKSHARA */}
+            {/* ROVERA with official logo — BIG and prominent to match STTHIRA and AKSHARA */}
             <Link href="/developments/rovera" className="group flex items-center transition-opacity hover:opacity-80 shrink-0">
-              <div className="relative w-40 h-12 sm:w-52 sm:h-15 lg:w-64 lg:h-20 shrink-0 select-none">
+              <div className="relative h-9 sm:h-11 md:h-12 lg:h-14 aspect-[3.48/1] shrink-0 select-none">
                 <Image
                   src="/images/rovera-logo-dark.png"
                   alt="ROVERA — Official Logo"
                   fill
                   priority
-                  className="object-contain"
+                  sizes="(max-width: 640px) 140px, (max-width: 768px) 180px, 220px"
+                  className="object-contain object-center"
                 />
               </div>
             </Link>
@@ -121,8 +112,8 @@ export default function Footer() {
               className="group flex items-center gap-1.5 transition-opacity hover:opacity-80 shrink-0"
               title="AKSHARA (opens in a new tab)"
             >
-              <span className="font-editorial text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.16em] uppercase text-neutral-700 group-hover:text-black transition-colors">
-                AKSHARA
+              <span className="font-editorial text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.16em] uppercase text-neutral-800 group-hover:text-black transition-colors">
+                {t("partnership.aksharaBrand", "AKSHARA")}
               </span>
               <ArrowUpRight className="w-5 h-5 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
             </a>
@@ -130,29 +121,26 @@ export default function Footer() {
 
           <div className="flex items-center justify-center xl:justify-end w-full xl:w-auto gap-4 text-xs font-sans text-neutral-600 shrink-0">
             <span className="hidden xl:inline text-neutral-500 uppercase tracking-widest text-[10px]">
-              Master Plotted Developments • India
+              {t("hero.badge", "Master Plotted Developments • India")}
             </span>
             <Link
               href="/contact"
               className="px-5 py-2.5 bg-neutral-900 text-white text-xs uppercase tracking-wider font-medium hover:bg-black transition-colors shadow-xs rounded"
             >
-              Contact Advisory
+              {t("footer.contactAdvisory", "Contact Advisory")}
             </Link>
           </div>
         </div>
 
-        {/* 5-Column Sitemap Grid (GitHub-style typography: Clean, Legible, Responsive for Mobile, iPad, Desktop) */}
+        {/* 5-Column Sitemap Grid (GitHub Clean Style: Pure Dark Black Headings, Clean Spacing) */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 pb-12">
           {columns.map((col) => (
-            <div key={col.title} className="space-y-3.5">
-              {/* Highlighted in Dark Black with clean architectural underline */}
-              <div className="flex items-center gap-2 pb-1.5 border-b-2 border-black">
-                <span className="w-1.5 h-1.5 bg-black shrink-0" />
-                <h4 className="text-xs font-bold uppercase tracking-[0.16em] text-black font-sans select-none">
-                  {col.title}
-                </h4>
-              </div>
-              <ul className="space-y-2.5 text-neutral-800 font-sans text-[13px] sm:text-sm">
+            <div key={col.title} className="space-y-3">
+              {/* Highlighted in Dark Black without cheap colored borders or dots */}
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-black font-sans select-none mb-3">
+                {col.title}
+              </h4>
+              <ul className="space-y-2 text-neutral-600 font-sans text-[13px] sm:text-sm">
                 {col.links.map((link) => {
                   const isExternal = link.href.startsWith("http") || link.href.startsWith("tel:");
                   const isSection = link.href.includes("#");
@@ -165,24 +153,23 @@ export default function Footer() {
                           href={link.href}
                           target={link.href.startsWith("http") ? "_blank" : undefined}
                           rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                          className="hover:text-black hover:underline transition-colors inline-flex items-center gap-1 group/item py-0.5"
+                          className="hover:text-black transition-colors inline-flex items-center gap-1 group/item py-0.5"
                         >
                           <span>{link.label}</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 opacity-0 -translate-x-1 translate-y-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:translate-y-0 transition-all duration-200 shrink-0" />
+                          <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 opacity-0 -translate-x-1 translate-y-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:translate-y-0 transition-all duration-200 shrink-0" />
                         </a>
                       ) : takesToAnotherPage ? (
                         <Link
                           href={link.href}
-                          className="hover:text-black hover:underline transition-colors inline-flex items-center gap-1 group/item py-0.5"
+                          className="hover:text-black transition-colors inline-flex items-center gap-1 group/item py-0.5"
                         >
                           <span>{link.label}</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 opacity-0 -translate-x-1 translate-y-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:translate-y-0 transition-all duration-200 shrink-0" />
+                          <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 opacity-0 -translate-x-1 translate-y-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:translate-y-0 transition-all duration-200 shrink-0" />
                         </Link>
                       ) : (
-                        /* For section anchors, clean link with hover underline */
                         <Link
                           href={link.href}
-                          className="hover:text-black hover:underline transition-colors block py-0.5"
+                          className="hover:text-black transition-colors block py-0.5"
                         >
                           {link.label}
                         </Link>
@@ -198,12 +185,15 @@ export default function Footer() {
         {/* Corporate Hierarchy & Alliance Statement */}
         <div className="py-6 border-y border-neutral-200 text-xs text-neutral-600 font-sans leading-relaxed flex flex-col md:flex-row md:items-center justify-between gap-4">
           <p className="max-w-3xl">
-            <strong className="text-neutral-800 uppercase tracking-wider font-medium">Hierarchy &amp; Alliance:</strong>{" "}
-            STTHIRA Developments Private Limited is the parent master developer (Est. 2026, Board of Directors: Lokesh Mudhaliar). ROVERA is an exclusive plotted living development under STTHIRA. In strategic land collaboration with AKSHARA.
+            <strong className="text-black uppercase tracking-wider font-semibold">{t("footer.hierarchyTitle", "Hierarchy & Alliance")}:</strong>{" "}
+            {t(
+              "footer.hierarchyText",
+              "STTHIRA Developments Private Limited is the parent master developer (Est. 2026, Board of Directors: Lokesh Mudhaliar). ROVERA is an exclusive plotted living development under STTHIRA. In strategic land collaboration with AKSHARA."
+            )}
           </p>
-          <div className="flex items-center gap-2 text-neutral-700 shrink-0">
+          <div className="flex items-center gap-2 text-neutral-800 shrink-0">
             <ShieldCheck className="w-4 h-4 text-black" />
-            <span className="uppercase tracking-wider text-[11px] font-medium">RERA &amp; DPDP Compliant</span>
+            <span className="uppercase tracking-wider text-[11px] font-medium">{t("footer.reraCompliance", "RERA & DPDP Compliant")}</span>
           </div>
         </div>
 
@@ -212,23 +202,23 @@ export default function Footer() {
           {/* Left: Copyright and Legal Links */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <span>© {currentYear} STTHIRA DEVELOPMENTS PRIVATE LIMITED.</span>
-            <Link href="/legal/terms" className="hover:text-neutral-900 hover:underline transition-colors">
-              Terms
+            <Link href="/legal/terms" className="hover:text-black hover:underline transition-colors">
+              {t("footer.terms", "Terms")}
             </Link>
-            <Link href="/legal/privacy-policy" className="hover:text-neutral-900 hover:underline transition-colors">
-              Privacy
+            <Link href="/legal/privacy-policy" className="hover:text-black hover:underline transition-colors">
+              {t("footer.privacy", "Privacy")}
             </Link>
-            <Link href="/legal/rera" className="hover:text-neutral-900 hover:underline transition-colors">
-              RERA Audit
+            <Link href="/legal/rera" className="hover:text-black hover:underline transition-colors">
+              {t("footer.reraAudit", "RERA Audit")}
             </Link>
-            <Link href="/legal/cookies" className="hover:text-neutral-900 hover:underline transition-colors">
-              Manage Cookies
+            <Link href="/legal/cookies" className="hover:text-black hover:underline transition-colors">
+              {t("footer.cookies", "Manage Cookies")}
             </Link>
           </div>
 
           {/* Right: Social Media Icons & GitHub-Style Language Switcher */}
           <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-3 text-neutral-500">
+            <div className="flex items-center gap-3 text-neutral-600">
               {/* LinkedIn */}
               <a
                 href={COMPANY_INFO.socials.linkedin}
@@ -288,27 +278,6 @@ export default function Footer() {
             <LanguageSwitcher dropUp={true} theme="light" />
           </div>
         </div>
-      </div>
-
-      {/* Monumental Interactive Halftone Wordmark Canvas in Paper / Light Palette */}
-      <div className="w-full border-t border-neutral-200 bg-[#f6f8fa]">
-        <HalftoneWordmarkFooter
-          wordmark={wordmarkText}
-          label={wordmarkLabel}
-          meta={wordmarkMeta}
-          preset="paper"
-          height="360px"
-          dotGap={6}
-          radius={110}
-          crop={0}
-          grain={0.15}
-          columns={[]}
-          palette={{
-            background: "#f6f8fa",
-            ink: "#1f2328",
-            warm: "#e9762b",
-          }}
-        />
       </div>
     </footer>
   );

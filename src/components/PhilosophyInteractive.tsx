@@ -4,10 +4,12 @@ import { useState } from "react";
 import { PHILOSOPHY_PILLARS } from "@/lib/data";
 import { ArrowRight, Compass } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function PhilosophyInteractive() {
   const [activeIdx, setActiveIdx] = useState(0);
   const activePillar = PHILOSOPHY_PILLARS[activeIdx];
+  const { t } = useLanguage();
 
   return (
     <section className="bg-black text-white py-24 sm:py-32 border-t border-neutral-900 relative overflow-hidden">
@@ -22,15 +24,17 @@ export default function PhilosophyInteractive() {
           <div>
             <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-neutral-400 mb-3">
               <Compass className="w-4 h-4" />
-              <span>Core Brand Direction</span>
+              <span>{t("phil.badge", "Core Brand Direction")}</span>
             </div>
             <h2 className="font-editorial text-4xl sm:text-6xl uppercase tracking-tight font-light leading-none">
-              REFINED IN THOUGHT. <br />
-              <span className="italic text-neutral-400 font-light">BOLD IN VISION.</span>
+              {t("phil.headline", "REFINED IN THOUGHT. BOLD IN VISION.")}
             </h2>
           </div>
           <p className="text-neutral-400 text-xs sm:text-sm font-sans max-w-md leading-relaxed">
-            Our eight foundational pillars dictate every master plan, architectural threshold, and fiduciary commitment under the STTHIRA standard.
+            {t(
+              "phil.sub",
+              "Our eight foundational pillars dictate every master plan, architectural threshold, and fiduciary commitment under the STTHIRA standard."
+            )}
           </p>
         </div>
 
@@ -48,7 +52,7 @@ export default function PhilosophyInteractive() {
                   <button
                     key={pillar.number}
                     onClick={() => setActiveIdx(idx)}
-                    className={`w-full text-left py-4 px-3 flex items-center justify-between transition-all duration-300 group ${
+                    className={`w-full text-left py-4 px-3 flex items-center justify-between transition-all duration-300 group cursor-pointer ${
                       isActive ? "bg-white/5 pl-6" : "hover:bg-neutral-950 hover:pl-4"
                     }`}
                   >
@@ -116,7 +120,7 @@ export default function PhilosophyInteractive() {
                 href="/philosophy"
                 className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-white hover:text-neutral-300 font-medium group"
               >
-                <span>Read Full Treatise</span>
+                <span>{t("phil.read", "Read Full Treatise")}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -126,4 +130,3 @@ export default function PhilosophyInteractive() {
     </section>
   );
 }
-

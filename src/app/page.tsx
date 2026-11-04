@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, ArrowRight, ShieldCheck, CheckCircle2, Building2, Trees, Compass } from "lucide-react";
@@ -10,11 +12,13 @@ import PartnershipBanner from "@/components/PartnershipBanner";
 import DevelopmentsSection from "@/components/DevelopmentsSection";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import { DEVELOPMENTS, LEADERSHIP_INFO, JOURNAL_ARTICLES } from "@/lib/data";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HomePage() {
   const rovera = DEVELOPMENTS[0];
   const featuredArticles = JOURNAL_ARTICLES.slice(0, 3);
   const galleryPreview = rovera.galleryImages.slice(0, 6);
+  const { t } = useLanguage();
 
   return (
     <div className="bg-white text-neutral-900">
@@ -29,36 +33,53 @@ export default function HomePage() {
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-neutral-500 font-sans">
                 <span className="w-6 h-px bg-neutral-400" />
-                <span>The STTHIRA Ethos</span>
+                <span>{t("intro.badge", "The STTHIRA Ethos")}</span>
               </div>
 
               <h2 className="font-editorial text-4xl sm:text-6xl uppercase tracking-tight text-black font-light leading-[1.05]">
-                BEYOND DEVELOPMENT. <br />
-                <span className="italic font-light text-neutral-500">A VISION OF LIVING.</span>
+                {t("intro.headline", "BEYOND DEVELOPMENT. A VISION OF LIVING.")}
               </h2>
 
               <p className="font-sans text-neutral-600 text-base sm:text-lg leading-relaxed font-light">
-                STTHIRA was founded with a singular conviction: that luxury in the 21st century is not measured by decorative excess, but by the quiet permanence of land, architectural restraint, and uncompromising fiduciary integrity.
+                {t(
+                  "intro.text1",
+                  "STTHIRA was founded with a singular conviction: that luxury in the 21st century is not measured by decorative excess, but by the quiet permanence of land, architectural restraint, and uncompromising fiduciary integrity."
+                )}
               </p>
 
               <p className="font-sans text-neutral-600 text-sm leading-relaxed font-light">
-                Operating as an elite corporate master developer in India, STTHIRA conceives master-planned plotted communities where each residential parcel is engineered to institutional standards. We eliminate the unpredictability of land ownership through forensic legal due diligence, advanced underground utility grids, and monumental entrance architecture designed to endure for centuries.
+                {t(
+                  "intro.text2",
+                  "Operating as an elite corporate master developer in India, STTHIRA conceives master-planned plotted communities where each residential parcel is engineered to institutional standards. We eliminate the unpredictability of land ownership through forensic legal due diligence, advanced underground utility grids, and monumental entrance architecture designed to endure for centuries."
+                )}
               </p>
 
               <div className="pt-4 grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-8">
                 <div>
-                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">2026</span>
-                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">Foundation Year</span>
+                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">
+                    {t("stats.yearVal", "2026")}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">
+                    {t("stats.yearLabel", "Foundation Year")}
+                  </span>
                 </div>
                 <div className="hidden sm:block w-px h-12 bg-neutral-300" />
                 <div>
-                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">100%</span>
-                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">Clear Title Audit</span>
+                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">
+                    {t("stats.titleVal", "100%")}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">
+                    {t("stats.titleLabel", "Clear Title Audit")}
+                  </span>
                 </div>
                 <div className="hidden sm:block w-px h-12 bg-neutral-300" />
                 <div>
-                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">45%</span>
-                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">Preserved Green Space</span>
+                  <span className="font-editorial text-2xl sm:text-5xl text-black font-light block">
+                    {t("stats.greenVal", "45%")}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-neutral-500 font-sans block leading-tight">
+                    {t("stats.greenLabel", "Preserved Green Space")}
+                  </span>
                 </div>
               </div>
 
@@ -67,7 +88,7 @@ export default function HomePage() {
                   href="/about"
                   className="inline-flex items-center gap-2 border-b-2 border-black pb-1 font-sans text-xs uppercase tracking-[0.2em] font-semibold text-black hover:text-neutral-600 hover:border-neutral-400 transition-colors"
                 >
-                  <span>Explore STTHIRA Corporate Profile</span>
+                  <span>{t("intro.explore", "Explore STTHIRA Corporate Profile")}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -98,7 +119,7 @@ export default function HomePage() {
       {/* 03. OUR DEVELOPMENTS: ROVERA • STTHIRA • AKSHARA */}
       <DevelopmentsSection />
 
-      {/* 04. OUR PHILOSOPHY (Interactive 8 Pillars: Vision, Precision, Planning, Architecture, Nature, Trust, Community, Legacy) */}
+      {/* 04. OUR PHILOSOPHY (Interactive 8 Pillars) */}
       <PhilosophyInteractive />
 
       {/* 05. THE STTHIRA DIFFERENCE */}
@@ -140,62 +161,54 @@ export default function HomePage() {
             <div className="bg-white border border-neutral-200 p-8 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <Trees className="w-8 h-8 text-black stroke-[1.2]" />
               <h3 className="font-editorial text-2xl uppercase tracking-wider text-black">
-                45% Conserved Ecology
+                Native Biophilic Canopy
               </h3>
               <p className="text-neutral-600 text-xs sm:text-sm font-sans leading-relaxed font-light">
-                Rather than clear-cutting landscapes, our master plans preserve mature tree lines and integrate bioswales that absorb 100% of rainwater runoff.
+                Over 45% of total acreage preserved for indigenous trees, sensory pocket parks, and permeable stone promenade pavements that recharge groundwater.
               </p>
             </div>
 
             <div className="bg-white border border-neutral-200 p-8 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <Compass className="w-8 h-8 text-black stroke-[1.2]" />
               <h3 className="font-editorial text-2xl uppercase tracking-wider text-black">
-                Architectural Covenants
+                Architectural Guidelines
               </h3>
               <p className="text-neutral-600 text-xs sm:text-sm font-sans leading-relaxed font-light">
-                Thoughtfully curated setback envelopes and facade guidelines protect privacy, natural light, and intergenerational property appreciation.
+                Comprehensive structural covenants ensure uniform luxury aesthetics, setback discipline, and harmonious intergenerational neighborhood value.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 06. LEADERSHIP (Lokesh Mudhaliar — Text & Governance Only, Photo Removed Per Request) */}
-      <section className="py-24 sm:py-32 bg-white border-b border-neutral-200">
+      {/* 06. LEADERSHIP PROFILE: LOKESH MUDHALIAR */}
+      <section className="py-24 sm:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left Architectural Monogram & Credentials Card (No Photo, Text Focus) */}
-            <div className="lg:col-span-5 bg-neutral-950 text-white p-8 sm:p-12 border border-neutral-800 shadow-2xl space-y-6">
-              <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
-                <div className="flex items-center gap-2">
-                  <StthiraEmblem className="text-white w-4 h-5" />
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 font-sans">
-                    Corporate Governance
-                  </span>
-                </div>
-                <span className="text-xs font-mono text-neutral-400">Est. 2026</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Leadership Portrait */}
+            <div className="lg:col-span-5 bg-neutral-950 p-8 sm:p-10 border border-neutral-800 text-white space-y-6">
+              <div className="relative aspect-[3/4] w-full bg-neutral-900 border border-neutral-800 overflow-hidden">
+                <Image
+                  src="/images/director-lokesh.jpg"
+                  alt={`${LEADERSHIP_INFO.director} — ${LEADERSHIP_INFO.title}`}
+                  fill
+                  className="object-cover object-top grayscale contrast-110"
+                />
               </div>
 
-              <div>
-                <span className="text-xs uppercase tracking-[0.25em] text-neutral-400 font-sans block mb-1">
-                  Board of Directors
-                </span>
-                <h3 className="font-editorial text-3xl sm:text-4xl uppercase tracking-wider text-white font-medium">
-                  {LEADERSHIP_INFO.director}
+              <div className="space-y-1">
+                <h3 className="font-editorial text-2xl uppercase tracking-wider text-white">
+                  {t("leadership.name", LEADERSHIP_INFO.director)}
                 </h3>
-                <p className="text-xs uppercase tracking-widest text-neutral-400 font-sans mt-1">
-                  {LEADERSHIP_INFO.title} • {LEADERSHIP_INFO.company}
+                <p className="font-sans text-xs uppercase tracking-[0.25em] text-neutral-400">
+                  {t("leadership.directors", LEADERSHIP_INFO.title)} • STTHIRA
                 </p>
               </div>
 
-              <div className="py-4 border-y border-neutral-900 space-y-3 text-xs font-sans text-neutral-300">
+              <div className="pt-4 border-t border-neutral-800 space-y-2 text-xs font-mono">
                 <div className="flex justify-between">
-                  <span className="text-neutral-500">Corporate Mandate:</span>
-                  <span className="text-white">Capital &amp; Land Stewardship</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-neutral-500">Fiduciary Standard:</span>
-                  <span className="text-white">Forensic 30-Year Title Audit</span>
+                  <span className="text-neutral-500">Corporate Entity:</span>
+                  <span className="text-white">STTHIRA Developments Pvt Ltd</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-neutral-500">Jurisdiction:</span>
@@ -212,15 +225,15 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-neutral-500 font-sans">
                 <span className="w-6 h-px bg-neutral-400" />
-                <span>Executive Board Statement</span>
+                <span>{t("leadership.badge", "Board Governance")}</span>
               </div>
 
               <h2 className="font-editorial text-4xl sm:text-5xl uppercase tracking-tight text-black font-light leading-tight">
-                LEADERSHIP &amp; STEWARDSHIP
+                {t("leadership.title", "LEADERSHIP & STEWARDSHIP")}
               </h2>
 
               <blockquote className="border-l-2 border-black pl-6 py-2 my-4 text-neutral-800 font-editorial text-xl sm:text-2xl italic leading-relaxed">
-                &ldquo;{LEADERSHIP_INFO.quote}&rdquo;
+                &ldquo;{t("leadership.quote", LEADERSHIP_INFO.quote)}&rdquo;
               </blockquote>
 
               <div className="space-y-4 text-neutral-600 font-sans text-sm leading-relaxed font-light">
@@ -248,7 +261,7 @@ export default function HomePage() {
                   href="/leadership"
                   className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 font-sans text-xs uppercase tracking-[0.2em] font-medium hover:bg-neutral-800 transition-colors"
                 >
-                  <span>Read Corporate Profile</span>
+                  <span>{t("leadership.viewGovernance", "Read Corporate Profile")}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -257,7 +270,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* STRATEGIC PARTNERSHIP: STTHIRA | AKSHARA (As shown in Reference Image 1) */}
+      {/* STRATEGIC PARTNERSHIP: STTHIRA | ROVERA | AKSHARA */}
       <PartnershipBanner />
 
       {/* 07. ARCHITECTURAL GALLERY PREVIEW */}
@@ -308,17 +321,17 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-neutral-200 pb-10 mb-12 gap-6">
             <div>
               <span className="text-xs uppercase tracking-[0.3em] text-neutral-500 block mb-2 font-sans">
-                Intellectual Capital
+                {t("journal.badge", "Intellectual Capital")}
               </span>
               <h2 className="font-editorial text-4xl sm:text-6xl uppercase tracking-tight text-black font-light leading-none">
-                JOURNAL &amp; INSIGHTS
+                {t("journal.title", "JOURNAL & INSIGHTS")}
               </h2>
             </div>
             <Link
               href="/journal"
               className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-black hover:text-neutral-600 transition-colors"
             >
-              <span>Explore All Publications</span>
+              <span>{t("journal.viewAll", "Explore All Publications")}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -363,7 +376,7 @@ export default function HomePage() {
                     href={`/journal/${article.slug}`}
                     className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] font-medium text-black group-hover:text-neutral-600 transition-colors"
                   >
-                    <span>Read Treatise</span>
+                    <span>{t("journal.readMore", "Read Treatise")}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -378,13 +391,16 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-6 sm:px-8">
           <div className="border-b border-neutral-800 pb-10 mb-12">
             <span className="text-xs uppercase tracking-[0.3em] text-neutral-400 block mb-2 font-sans">
-              Clarity &amp; Verification
+              {t("faq.badge", "Clarity & Verification")}
             </span>
             <h2 className="font-editorial text-4xl sm:text-6xl uppercase tracking-tight font-light leading-none">
-              FREQUENTLY ASKED QUESTIONS
+              {t("faq.title", "FREQUENTLY ASKED QUESTIONS")}
             </h2>
             <p className="text-neutral-400 text-xs sm:text-sm font-sans mt-3 font-light">
-              Clear answers regarding STTHIRA corporate governance, ROVERA plotted living, and legal diligence.
+              {t(
+                "faq.sub",
+                "Clear answers regarding STTHIRA corporate governance, ROVERA plotted living, and legal diligence."
+              )}
             </p>
           </div>
 
@@ -399,48 +415,38 @@ export default function HomePage() {
             {/* Left Narrative */}
             <div className="lg:col-span-5 space-y-6">
               <span className="text-xs uppercase tracking-[0.3em] text-neutral-500 font-sans block">
-                Private Advisory Concierge
+                {t("form.badge", "Private Advisory Concierge")}
               </span>
               <h2 className="font-editorial text-4xl sm:text-6xl uppercase tracking-tight text-black font-light leading-[1.05]">
-                LET&apos;S BEGIN A <br />
-                <span className="italic font-light text-neutral-500">CONVERSATION.</span>
+                {t("form.headline", "LET'S BEGIN A CONVERSATION.")}
               </h2>
 
               <p className="font-sans text-neutral-600 text-sm sm:text-base leading-relaxed font-light">
-                Whether you seek private consultation regarding ROVERA plot configurations, wish to schedule a chauffeured site walkthrough, or are evaluating corporate partnership opportunities with STTHIRA, our relationship directors are at your service.
+                {t(
+                  "form.subDesc",
+                  "Whether you seek private consultation regarding ROVERA plot configurations, wish to schedule a chauffeured site walkthrough, or are evaluating corporate partnership opportunities with STTHIRA, our relationship directors are at your service."
+                )}
               </p>
 
-              <div className="space-y-4 pt-4 border-t border-neutral-200 text-xs font-sans text-neutral-600">
+              <div className="p-6 bg-neutral-50 border border-neutral-200 space-y-4">
                 <div className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-black" />
-                  <span>Chauffeured site visits coordinated with 24 hours notice</span>
+                  <StthiraEmblem className="text-black w-6 h-7 shrink-0" />
+                  <div>
+                    <span className="font-editorial text-lg uppercase text-black font-medium block">
+                      Direct Advisory Line
+                    </span>
+                    <span className="text-xs font-mono text-neutral-500">+91 80 4567 8900</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-black" />
-                  <span>Comprehensive master plan & legal dossier delivered upon request</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-black" />
-                  <span>Complete discretion assured for HNW acquisitions</span>
-                </div>
-              </div>
-
-              <div className="p-6 bg-neutral-100 border border-neutral-200 mt-6">
-                <span className="text-[10px] uppercase tracking-widest text-neutral-500 block mb-1">
-                  Direct Private Desk
-                </span>
-                <p className="font-editorial text-xl text-black font-medium">
-                  +91 98450 77123 / +91 80 4920 8800
-                </p>
-                <p className="text-xs text-neutral-500 font-sans mt-0.5">
-                  enquiry@stthira.com
+                <p className="text-neutral-500 text-xs font-sans leading-relaxed">
+                  Confidential document reviews and plot allotment priority registrations conducted under non-disclosure.
                 </p>
               </div>
             </div>
 
-            {/* Right Interactive Form */}
-            <div className="lg:col-span-7">
-              <EnquiryForm defaultDevelopment="ROVERA" />
+            {/* Right Form Component */}
+            <div className="lg:col-span-7 bg-neutral-50 border border-neutral-200 p-8 sm:p-12 shadow-sm">
+              <EnquiryForm />
             </div>
           </div>
         </div>

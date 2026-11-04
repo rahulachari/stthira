@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, MapPin, ShieldCheck, Compass, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { DEVELOPMENTS, Development } from "@/lib/data";
 import StthiraEmblem from "./StthiraEmblem";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function DevelopmentsSection() {
   const [activePillar, setActivePillar] = useState<"ROVERA" | "STTHIRA" | "AKSHARA">("ROVERA");
+  const { t } = useLanguage();
 
   const rovera = DEVELOPMENTS.find((d) => d.id === "rovera") || DEVELOPMENTS[0];
   const stthira = DEVELOPMENTS.find((d) => d.id === "terra") || DEVELOPMENTS[1];
@@ -25,13 +27,13 @@ export default function DevelopmentsSection() {
           <div>
             <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-neutral-400 mb-2 font-sans">
               <span className="w-2 h-2 rounded-full bg-white" />
-              <span>Master Development Portfolio</span>
+              <span>{t("project.badge", "Featured Master Development")}</span>
             </div>
             <h2 className="font-editorial text-4xl sm:text-6xl uppercase tracking-tight font-light leading-none">
-              OUR DEVELOPMENTS
+              {t("project.title", "OUR DEVELOPMENTS")}
             </h2>
             <p className="font-sans text-neutral-400 text-sm mt-3 max-w-xl font-light">
-              Explore the three architectural pillars of our development portfolio: <strong className="text-white font-medium">ROVERA</strong>, <strong className="text-white font-medium">STTHIRA</strong>, and <strong className="text-white font-medium">AKSHARA</strong>.
+              {t("project.tagline", "An expression of thoughtfully planned luxury plotted living.")}
             </p>
           </div>
           <div className="text-left md:text-right">
@@ -48,8 +50,9 @@ export default function DevelopmentsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
           {/* Pillar 1: ROVERA */}
           <button
+            type="button"
             onClick={() => setActivePillar("ROVERA")}
-            className={`text-left p-6 border transition-all duration-300 relative ${
+            className={`text-left p-6 border transition-all duration-300 relative cursor-pointer ${
               activePillar === "ROVERA"
                 ? "bg-neutral-900 border-white text-white shadow-xl"
                 : "bg-black/60 border-neutral-800 text-neutral-400 hover:border-neutral-600 hover:text-neutral-200"
@@ -61,18 +64,29 @@ export default function DevelopmentsSection() {
               </span>
               <span className={`w-2 h-2 rounded-full ${activePillar === "ROVERA" ? "bg-white" : "bg-neutral-700"}`} />
             </div>
-            <h3 className="font-editorial text-2xl uppercase tracking-wider text-white">
-              ROVERA
-            </h3>
-            <p className="text-xs font-sans text-neutral-400 mt-1 line-clamp-1">
+            <div className="flex items-center gap-3">
+              <div className="relative h-6 w-20 shrink-0">
+                <Image
+                  src="/images/rovera-logo-white.png"
+                  alt="ROVERA"
+                  fill
+                  className="object-contain object-left"
+                />
+              </div>
+              <h3 className="font-editorial text-2xl uppercase tracking-wider text-white">
+                ROVERA
+              </h3>
+            </div>
+            <p className="text-xs font-sans text-neutral-400 mt-2 line-clamp-1">
               Luxury Plotted Living in North Bengaluru
             </p>
           </button>
 
           {/* Pillar 2: STTHIRA */}
           <button
+            type="button"
             onClick={() => setActivePillar("STTHIRA")}
-            className={`text-left p-6 border transition-all duration-300 relative ${
+            className={`text-left p-6 border transition-all duration-300 relative cursor-pointer ${
               activePillar === "STTHIRA"
                 ? "bg-neutral-900 border-white text-white shadow-xl"
                 : "bg-black/60 border-neutral-800 text-neutral-400 hover:border-neutral-600 hover:text-neutral-200"
@@ -90,15 +104,16 @@ export default function DevelopmentsSection() {
                 STTHIRA
               </h3>
             </div>
-            <p className="text-xs font-sans text-neutral-400 mt-1 line-clamp-1">
+            <p className="text-xs font-sans text-neutral-400 mt-2 line-clamp-1">
               STTHIRA TERRA Eco-Luxury Sanctuaries
             </p>
           </button>
 
           {/* Pillar 3: AKSHARA */}
           <button
+            type="button"
             onClick={() => setActivePillar("AKSHARA")}
-            className={`text-left p-6 border transition-all duration-300 relative ${
+            className={`text-left p-6 border transition-all duration-300 relative cursor-pointer ${
               activePillar === "AKSHARA"
                 ? "bg-neutral-900 border-white text-white shadow-xl"
                 : "bg-black/60 border-neutral-800 text-neutral-400 hover:border-neutral-600 hover:text-neutral-200"
@@ -113,7 +128,7 @@ export default function DevelopmentsSection() {
             <h3 className="font-editorial text-2xl uppercase tracking-wider text-white">
               AKSHARA
             </h3>
-            <p className="text-xs font-sans text-neutral-400 mt-1 line-clamp-1">
+            <p className="text-xs font-sans text-neutral-400 mt-2 line-clamp-1">
               AKSHARA MEADOWS Strategic Plotted Enclave
             </p>
           </button>
@@ -154,12 +169,12 @@ export default function DevelopmentsSection() {
             <div>
               <div className="flex items-center gap-3 mb-3">
                 {activeProject.slug === "rovera" && (
-                  <div className="relative w-20 h-10">
+                  <div className="relative w-28 h-8">
                     <Image
                       src="/images/rovera-logo-white.png"
                       alt="ROVERA Official Logo"
                       fill
-                      className="object-contain"
+                      className="object-contain object-left"
                     />
                   </div>
                 )}
@@ -208,14 +223,14 @@ export default function DevelopmentsSection() {
               </div>
             </div>
 
-            {/* CTAs strictly obeying arrow rule: takesToAnotherPage has ↗ */}
+            {/* CTAs */}
             <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
               {activeProject.slug === "rovera" ? (
                 <Link
                   href="/developments/rovera"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black px-6 py-3.5 text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-200 transition-colors"
                 >
-                  <span>Explore ROVERA</span>
+                  <span>{t("project.cta", "Explore ROVERA")}</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               ) : activeProject.slug === "akshara-meadows" ? (
@@ -230,77 +245,24 @@ export default function DevelopmentsSection() {
                 </a>
               ) : (
                 <Link
-                  href="/developments/terra"
+                  href={`/developments/${activeProject.slug}`}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black px-6 py-3.5 text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-200 transition-colors"
                 >
-                  <span>Explore STTHIRA TERRA</span>
+                  <span>View Project Dossier</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               )}
 
               <Link
                 href="/developments"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-neutral-700 px-6 py-3.5 text-xs uppercase tracking-[0.25em] text-neutral-300 hover:text-white hover:border-white transition-colors"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-white px-6 py-3.5 text-xs uppercase tracking-[0.25em] text-white hover:bg-white/10 transition-colors"
               >
-                <span>All 3 Developments</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <span>{t("project.all", "All Developments")}</span>
               </Link>
             </div>
           </div>
-        </div>
-
-        {/* 3 Pillars Summary Grid: ROVERA, STTHIRA, AKSHARA */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-          {DEVELOPMENTS.map((dev) => (
-            <div
-              key={dev.id}
-              className="bg-neutral-900/60 border border-neutral-800 p-6 flex flex-col justify-between hover:border-neutral-600 transition-colors group"
-            >
-              <div>
-                <div className="relative aspect-[16/10] overflow-hidden mb-6 border border-neutral-800">
-                  <Image
-                    src={dev.coverImage}
-                    alt={dev.name}
-                    fill
-                    className="object-cover grayscale contrast-120 group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute top-3 left-3 bg-black/80 px-2.5 py-1 text-[9px] uppercase tracking-widest text-neutral-300 font-sans">
-                    {dev.pillar}
-                  </div>
-                </div>
-
-                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 font-sans block mb-1">
-                  {dev.brand}
-                </span>
-                <h4 className="font-editorial text-2xl uppercase tracking-wider text-white font-light">
-                  {dev.name}
-                </h4>
-                <p className="text-xs text-neutral-400 font-sans mt-2 line-clamp-2 font-light">
-                  {dev.shortIntro}
-                </p>
-              </div>
-
-              <div className="pt-6 mt-6 border-t border-neutral-800/80 flex items-center justify-between">
-                <span className="text-[11px] text-neutral-500 font-sans">{dev.acres} • {dev.plotsCount}</span>
-                <Link
-                  href={
-                    dev.slug === "rovera"
-                      ? "/developments/rovera"
-                      : dev.slug === "akshara-meadows"
-                      ? "/developments/akshara-meadows"
-                      : "/developments/terra"
-                  }
-                  className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-white hover:text-neutral-300 font-sans font-medium"
-                >
-                  <span>View Details</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
   );
 }
-

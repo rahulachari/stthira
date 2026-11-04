@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import SmoothScroll from "@/components/SmoothScroll";
+import ArchitecturalPreloader from "@/components/ArchitecturalPreloader";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { COMPANY_INFO } from "@/lib/data";
 
@@ -132,6 +133,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-white text-neutral-900 font-sans-clean">
         <LanguageProvider>
+          <ArchitecturalPreloader />
           <SmoothScroll>
             <Header />
             <main className="flex-1">{children}</main>
