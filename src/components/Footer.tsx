@@ -23,6 +23,43 @@ export default function Footer() {
 
   const currentYear = 2026;
 
+  // Prominently highlighted headings with bold, distinctive, executive colors
+  const COLUMN_THEMES: Record<
+    string,
+    { text: string; bg: string; border: string; dot: string }
+  > = {
+    Developments: {
+      text: "text-amber-950",
+      bg: "bg-amber-100/90",
+      border: "border-amber-300",
+      dot: "bg-amber-600",
+    },
+    Philosophy: {
+      text: "text-indigo-950",
+      bg: "bg-indigo-100/90",
+      border: "border-indigo-300",
+      dot: "bg-indigo-600",
+    },
+    Company: {
+      text: "text-emerald-950",
+      bg: "bg-emerald-100/90",
+      border: "border-emerald-300",
+      dot: "bg-emerald-600",
+    },
+    Legal: {
+      text: "text-rose-950",
+      bg: "bg-rose-100/90",
+      border: "border-rose-300",
+      dot: "bg-rose-600",
+    },
+    Connect: {
+      text: "text-blue-950",
+      bg: "bg-blue-100/90",
+      border: "border-blue-300",
+      dot: "bg-blue-600",
+    },
+  };
+
   const columns = [
     {
       title: "Developments",
@@ -143,12 +180,23 @@ export default function Footer() {
 
         {/* 5-Column Sitemap Grid (GitHub-style typography: Clean, Legible, Responsive for Mobile, iPad, Desktop) */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 pb-12">
-          {columns.map((col) => (
-            <div key={col.title} className="space-y-3">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-500 font-sans">
-                {col.title}
-              </h4>
-              <ul className="space-y-2.5 text-neutral-700 font-sans text-[13px] sm:text-sm">
+          {columns.map((col) => {
+            const theme = COLUMN_THEMES[col.title] || {
+              text: "text-neutral-900",
+              bg: "bg-neutral-100",
+              border: "border-neutral-300",
+              dot: "bg-neutral-900",
+            };
+
+            return (
+              <div key={col.title} className="space-y-3.5">
+                <div
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border font-sans text-xs font-bold uppercase tracking-wider ${theme.bg} ${theme.border} ${theme.text} shadow-2xs select-none`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
+                  <h4>{col.title}</h4>
+                </div>
+                <ul className="space-y-2.5 text-neutral-800 font-sans text-[13px] sm:text-sm">
                 {col.links.map((link) => {
                   const isExternal = link.href.startsWith("http") || link.href.startsWith("tel:");
                   const isSection = link.href.includes("#");
@@ -188,8 +236,9 @@ export default function Footer() {
                 })}
               </ul>
             </div>
-          ))}
-        </div>
+          );
+        })}
+      </div>
 
         {/* Corporate Hierarchy & Alliance Statement */}
         <div className="py-6 border-y border-neutral-200 text-xs text-neutral-600 font-sans leading-relaxed flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -246,10 +295,8 @@ export default function Footer() {
                 aria-label="STTHIRA Instagram"
                 className="hover:text-black transition-colors"
               >
-                <svg className="w-4 h-4 fill-none stroke-currentColor stroke-2" viewBox="0 0 24 24">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
               </a>
 
