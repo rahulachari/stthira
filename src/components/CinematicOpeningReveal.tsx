@@ -174,11 +174,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       }
 
       // Calculate activation for each item (0 = Emblem, 1..7 = Letters)
+      // Allows 2-3 adjacent letters to be simultaneously visible with realistic trailing falloff (as circled in Video Project.mp4)
       const activations: number[] = [];
       for (let i = 0; i <= 7; i++) {
         const dist = Math.abs(i - sweepProgress);
-        let act = Math.max(0, 1 - dist / 0.85);
-        act = Math.pow(act, 1.8);
+        let act = Math.max(0, 1 - dist / 1.35);
+        act = Math.pow(act, 1.5);
 
         // Climax flash: when sweep reaches 'A' (1.35s - 1.70s), all letters burst with heroic brilliance
         if (elapsed >= 1.35 && elapsed < 1.7) {
@@ -237,11 +238,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         }
       }
 
-      // 03. Draw Volumetric Searchlight Beams & Lens Flares for Each Letter
+      // 03. Draw True Volumetric Diagonal Searchlight Beams (Matching Video Project.mp4)
       ctx.save();
       ctx.globalCompositeOperation = "screen";
 
       const screenCenterX = width / 2;
+      const maxDimension = Math.max(width, height) * 1.35;
 
       for (let i = 0; i <= 7; i++) {
         const act = activations[i];
@@ -254,58 +256,112 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         if (rect.width === 0 || rect.height === 0) continue;
 
         const emitterX = rect.left + rect.width / 2;
-        const emitterY = rect.top + rect.height * 0.15; // Top origin of the letter/emblem
+        const emitterY = rect.top + rect.height * 0.15; // Origin at top of letter
 
-        // Searchlight perspective projection: tilts outward from center (exactly as in Video Project.mp4)
-        const dx = emitterX - screenCenterX;
-        const targetX = emitterX + dx * 0.85;
-        const targetY = emitterY - height * 0.88;
+        // Exact diagonal searchlight perspective angle:
+        // Left items (Emblem, S, T) tilt up-left (-46° to -20°)
+        // Center items (T, H) sweep upwards (-10° to +10°)
+        // Right items (I, R, A) tilt diagonally up-right (+22° to +46°), exactly matching the user's circled beam!
+        const normalizedPos = (i - 3.5) / 3.5; // -1.0 to +1.0
+        const tiltDeg = normalizedPos * 46; // -46° to +46° from vertical
+        const angleRad = -Math.PI / 2 + (tiltDeg * Math.PI) / 180;
 
-        // A. Outer Volumetric God-Ray Shaft
-        const baseW = 14 + act * 18;
-        const topW = 110 + act * 160;
+        const dirX = Math.cos(angleRad);
+        const dirY = Math.sin(angleRad);
 
-        const grad = ctx.createLinearGradient(emitterX, emitterY, targetX, targetY);
-        grad.addColorStop(0, `rgba(255, 255, 255, ${0.92 * act})`);
-        grad.addColorStop(0.12, `rgba(215, 235, 255, ${0.75 * act})`);
-        grad.addColorStop(0.45, `rgba(150, 195, 255, ${0.42 * act})`);
-        grad.addColorStop(0.75, `rgba(70, 130, 220, ${0.15 * act})`);
+        // Perpendicular normal vector across beam width
+        const normX = -dirY;
+        const normY = dirX;
+
+        // Beam endpoints shooting far across the sky
+        const endX = emitterX + dirX * maxDimension;
+        const endY = emitterY + dirY * maxDimension;
+
+        // Narrow, focused theatrical divergence (8° to 12° divergence)
+        const baseW = 20 + act * 16;
+        const endW = 125 + act * 110;
+
+        // Polygon vertices
+        const p1x = emitterX - normX * (baseW / 2);
+        const p1y = emitterY - normY * (baseW / 2);
+        const p2x = endX - normX * (endW / 2);
+        const p2y = endY - normY * (endW / 2);
+        const p3x = endX + normX * (endW / 2);
+        const p3y = endY + normY * (endW / 2);
+        const p4x = emitterX + normX * (baseW / 2);
+        const p4y = emitterY + normY * (baseW / 2);
+
+        // A. Primary Volumetric Searchlight Body (Silvery-white with subtle titanium ice-tint)
+        const grad = ctx.createLinearGradient(emitterX, emitterY, endX, endY);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${0.96 * act})`);
+        grad.addColorStop(0.12, `rgba(240, 246, 255, ${0.82 * act})`);
+        grad.addColorStop(0.38, `rgba(195, 215, 240, ${0.48 * act})`);
+        grad.addColorStop(0.70, `rgba(130, 155, 190, ${0.18 * act})`);
         grad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
 
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.moveTo(emitterX - baseW / 2, emitterY);
-        ctx.lineTo(targetX - topW / 2, targetY);
-        ctx.lineTo(targetX + topW / 2, targetY);
-        ctx.lineTo(emitterX + baseW / 2, emitterY);
+        ctx.moveTo(p1x, p1y);
+        ctx.lineTo(p2x, p2y);
+        ctx.lineTo(p3x, p3y);
+        ctx.lineTo(p4x, p4y);
         ctx.closePath();
         ctx.fill();
 
-        // B. Inner Intense Hot Laser Spine
-        const coreBaseW = 4;
-        const coreTopW = 26 + act * 20;
+        // B. Inner Laser Spine (Intense concentrated white core)
+        const coreBaseW = 5;
+        const coreEndW = 28 + act * 24;
+        const cp1x = emitterX - normX * (coreBaseW / 2);
+        const cp1y = emitterY - normY * (coreBaseW / 2);
+        const cp2x = endX - normX * (coreEndW / 2);
+        const cp2y = endY - normY * (coreEndW / 2);
+        const cp3x = endX + normX * (coreEndW / 2);
+        const cp3y = endY + normY * (coreEndW / 2);
+        const cp4x = emitterX + normX * (coreBaseW / 2);
+        const cp4y = emitterY + normY * (coreBaseW / 2);
 
-        const coreGrad = ctx.createLinearGradient(emitterX, emitterY, targetX, targetY);
-        coreGrad.addColorStop(0, `rgba(255, 255, 255, ${0.98 * act})`);
-        coreGrad.addColorStop(0.25, `rgba(240, 250, 255, ${0.85 * act})`);
-        coreGrad.addColorStop(0.65, `rgba(180, 220, 255, ${0.35 * act})`);
+        const coreGrad = ctx.createLinearGradient(emitterX, emitterY, endX, endY);
+        coreGrad.addColorStop(0, `rgba(255, 255, 255, ${1.0 * act})`);
+        coreGrad.addColorStop(0.22, `rgba(255, 255, 255, ${0.92 * act})`);
+        coreGrad.addColorStop(0.55, `rgba(225, 240, 255, ${0.45 * act})`);
         coreGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
 
         ctx.fillStyle = coreGrad;
         ctx.beginPath();
-        ctx.moveTo(emitterX - coreBaseW, emitterY);
-        ctx.lineTo(targetX - coreTopW, targetY);
-        ctx.lineTo(targetX + coreTopW, targetY);
-        ctx.lineTo(emitterX + coreBaseW, emitterY);
+        ctx.moveTo(cp1x, cp1y);
+        ctx.lineTo(cp2x, cp2y);
+        ctx.lineTo(cp3x, cp3y);
+        ctx.lineTo(cp4x, cp4y);
         ctx.closePath();
         ctx.fill();
 
-        // C. Circular Base Flare Halo at the Letter
-        const flareRad = 32 * act;
+        // C. Internal Atmospheric Striations (Fine god-ray shafts inside the beam)
+        const shaftOffsets = [-0.3, 0.0, 0.3];
+        shaftOffsets.forEach((off) => {
+          const s1x = emitterX + normX * baseW * off;
+          const s1y = emitterY + normY * baseW * off;
+          const s2x = endX + normX * endW * off;
+          const s2y = endY + normY * endW * off;
+
+          const shaftGrad = ctx.createLinearGradient(s1x, s1y, s2x, s2y);
+          shaftGrad.addColorStop(0, `rgba(255, 255, 255, ${0.48 * act})`);
+          shaftGrad.addColorStop(0.4, `rgba(230, 245, 255, ${0.24 * act})`);
+          shaftGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
+
+          ctx.strokeStyle = shaftGrad;
+          ctx.lineWidth = 1.8;
+          ctx.beginPath();
+          ctx.moveTo(s1x, s1y);
+          ctx.lineTo(s2x, s2y);
+          ctx.stroke();
+        });
+
+        // D. Luminous Core Flare at Letter Base
+        const flareRad = 36 * act;
         const flareGrad = ctx.createRadialGradient(emitterX, emitterY, 1, emitterX, emitterY, flareRad);
         flareGrad.addColorStop(0, `rgba(255, 255, 255, ${0.98 * act})`);
-        flareGrad.addColorStop(0.3, `rgba(205, 235, 255, ${0.75 * act})`);
-        flareGrad.addColorStop(0.7, `rgba(120, 180, 255, ${0.25 * act})`);
+        flareGrad.addColorStop(0.3, `rgba(215, 235, 255, ${0.75 * act})`);
+        flareGrad.addColorStop(0.7, `rgba(130, 175, 245, ${0.22 * act})`);
         flareGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
 
         ctx.fillStyle = flareGrad;
@@ -313,14 +369,14 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         ctx.arc(emitterX, emitterY, flareRad, 0, Math.PI * 2);
         ctx.fill();
 
-        // D. Anamorphic Horizontal Starburst Streak across the Letter
-        const streakW = 190 * act;
-        const streakH = 3.5;
+        // E. Anamorphic Horizontal Starburst Streak across Letter
+        const streakW = 200 * act;
+        const streakH = 4;
         const streakGrad = ctx.createLinearGradient(emitterX - streakW, emitterY, emitterX + streakW, emitterY);
         streakGrad.addColorStop(0, "rgba(100, 160, 255, 0)");
-        streakGrad.addColorStop(0.35, `rgba(190, 230, 255, ${0.55 * act})`);
+        streakGrad.addColorStop(0.35, `rgba(205, 235, 255, ${0.65 * act})`);
         streakGrad.addColorStop(0.5, `rgba(255, 255, 255, ${0.98 * act})`);
-        streakGrad.addColorStop(0.65, `rgba(190, 230, 255, ${0.55 * act})`);
+        streakGrad.addColorStop(0.65, `rgba(205, 235, 255, ${0.65 * act})`);
         streakGrad.addColorStop(1, "rgba(100, 160, 255, 0)");
 
         ctx.fillStyle = streakGrad;
