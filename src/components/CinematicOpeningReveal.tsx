@@ -250,13 +250,14 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         if (act <= 0.01) continue;
 
         const el = itemRefs.current[i];
-        if (!el) continue;
+        const rect = el ? el.getBoundingClientRect() : null;
+        const lockupWidth = Math.min(width * 0.92, 780);
+        const fallbackSpacing = lockupWidth / 7;
+        const fallbackX = screenCenterX - lockupWidth / 2 + i * fallbackSpacing;
+        const fallbackY = height / 2;
 
-        const rect = el.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) continue;
-
-        const emitterX = rect.left + rect.width / 2;
-        const emitterY = rect.top + rect.height * 0.15; // Origin at top of letter
+        const emitterX = rect && rect.width > 0 ? rect.left + rect.width / 2 : fallbackX;
+        const emitterY = rect && rect.height > 0 ? rect.top + rect.height * 0.15 : fallbackY;
 
         // Exact diagonal searchlight perspective angle:
         // Left items (Emblem, S, T) tilt up-left (-46° to -20°)
@@ -466,7 +467,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     }
   };
 
-  if (!mounted || isCompleted || isRovera) {
+  if (isCompleted || isRovera) {
     return <>{children}</>;
   }
 
@@ -478,13 +479,13 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         src="/audio/stthira-intro.mp4"
         preload="auto"
         playsInline
-        className="hidden pointer-events-none"
+        style={{ position: "absolute", width: "1px", height: "1px", opacity: 0.001, pointerEvents: "none" }}
       />
       <audio
         ref={audioFallbackRef}
         src="/audio/stthira-intro.mp3"
         preload="auto"
-        className="hidden pointer-events-none"
+        style={{ position: "absolute", width: "1px", height: "1px", opacity: 0.001, pointerEvents: "none" }}
       />
 
       {/* 01. The Cinematic Intro Stage (Cross-Dissolves into the Hero Section) */}
