@@ -506,3 +506,4 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     </div>
   );
 }
+

@@ -254,7 +254,8 @@ export default function HalftoneWordmarkFooter({
       const c = Math.max(0, Math.min(0.6, o.crop))
       m.fillStyle = "#000"
       m.textBaseline = "alphabetic"
-      m.fillText(word, (w - box.width) / 2, h + cap * c)
+      const textY = Math.max(cap + 6, h + cap * c)
+      m.fillText(word, (w - box.width) / 2, textY)
       const img = m.getImageData(0, 0, w, h).data
 
       const gap = Math.max(3, o.dotGap)
