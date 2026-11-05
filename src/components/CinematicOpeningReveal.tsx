@@ -7,6 +7,8 @@ interface CinematicOpeningRevealProps {
   children: React.ReactNode;
 }
 
+const LETTERS = ["S", "T", "T", "H", "I", "R", "A"];
+
 export default function CinematicOpeningReveal({ children }: CinematicOpeningRevealProps) {
   const pathname = usePathname();
   const isRovera = pathname?.includes("/developments/rovera");
@@ -16,7 +18,10 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const videoAudioRef = useRef<HTMLVideoElement | null>(null);
+  const audioFallbackRef = useRef<HTMLAudioElement | null>(null);
+  const itemRefs = useRef<(HTMLElement | null)[]>([]);
+
   const animFrameRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
   const isDismissedRef = useRef<boolean>(false);
@@ -29,19 +34,26 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     isDismissedRef.current = true;
     setIsFadingOut(true);
 
-    if (audioRef.current) {
-      // Natural acoustic fadeout tail
-      const fadeAudio = () => {
-        if (!audioRef.current) return;
-        if (audioRef.current.volume > 0.08) {
-          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.14);
-          setTimeout(fadeAudio, 30);
-        } else {
-          audioRef.current.pause();
-        }
-      };
-      fadeAudio();
-    }
+    // Natural acoustic fadeout tail
+    const fadeAudio = () => {
+      let active = false;
+      if (videoAudioRef.current && videoAudioRef.current.volume > 0.08) {
+        videoAudioRef.current.volume = Math.max(0, videoAudioRef.current.volume - 0.14);
+        active = true;
+      }
+      if (audioFallbackRef.current && audioFallbackRef.current.volume > 0.08) {
+        audioFallbackRef.current.volume = Math.max(0, audioFallbackRef.current.volume - 0.14);
+        active = true;
+      }
+
+      if (active) {
+        setTimeout(fadeAudio, 30);
+      } else {
+        if (videoAudioRef.current) videoAudioRef.current.pause();
+        if (audioFallbackRef.current) audioFallbackRef.current.pause();
+      }
+    };
+    fadeAudio();
 
     // Allow the 1000ms buttery cross-dissolve to complete before unmounting
     setTimeout(() => {
@@ -50,18 +62,36 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   }, []);
 
   const playAudio = useCallback(() => {
-    const audio = audioRef.current;
-    if (!audio || audioStartedRef.current) return;
-    audio.volume = 1.0;
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          audioStartedRef.current = true;
-        })
-        .catch(() => {
-          // Autoplay policy waiting for user touch gesture
-        });
+    if (audioStartedRef.current) return;
+
+    // 01. Primary: Exact Video Audio track from Video Project.mp4
+    const video = videoAudioRef.current;
+    if (video) {
+      video.volume = 1.0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            audioStartedRef.current = true;
+          })
+          .catch(() => {
+            // Autoplay waiting for user interaction
+          });
+      }
+    }
+
+    // 02. Fallback: Pure audio element
+    const audio = audioFallbackRef.current;
+    if (audio && !audioStartedRef.current) {
+      audio.volume = 1.0;
+      const playPromise2 = audio.play();
+      if (playPromise2 !== undefined) {
+        playPromise2
+          .then(() => {
+            audioStartedRef.current = true;
+          })
+          .catch(() => {});
+      }
     }
   }, []);
 
@@ -73,18 +103,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       return;
     }
 
-    // 01. Initialize Audio immediately in memory
-    const audio = new Audio("/audio/stthira-intro.mp3");
-    audio.preload = "auto";
-    audio.volume = 1.0;
-    audioRef.current = audio;
-
-    // Trigger automatic sound playback immediately on load
+    // Initialize Audio immediate playback
     playAudio();
 
-    // Browser Fallback: unlock audio on the very first gesture anywhere
+    // Browser Gesture Fallback: Unlocks audio instantly on the very first touch/click
     const onGesture = () => {
-      if (audioRef.current && !audioStartedRef.current) {
+      if (!audioStartedRef.current) {
         playAudio();
       }
     };
@@ -94,12 +118,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     window.addEventListener("click", onGesture, { passive: true });
     window.addEventListener("keydown", onGesture, { passive: true });
 
-    // 02. Hard Fallback Timer: Guarantees page NEVER gets stuck
+    // Hard Fallback Timer: Guarantees page NEVER gets stuck
     const autoFinishTimer = setTimeout(() => {
       finishIntro();
     }, 3700);
 
-    // 03. Volumetric Searchlight Beams & Specular Sweep Canvas
+    // Volumetric Searchlight Beams & Specular Sweep Canvas
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -130,167 +154,204 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     const render = (now: number) => {
       if (isDismissedRef.current) return;
 
-      const elapsed = (now - startTimeRef.current) / 1000;
+      // Precision Audio Sync: sync exact playback position with the sound track
+      const video = videoAudioRef.current;
+      const audioTime = video && !video.paused && video.currentTime > 0 ? video.currentTime : null;
+      const clockTime = (now - startTimeRef.current) / 1000;
+      const elapsed = audioTime !== null ? audioTime : clockTime;
 
       ctx.clearRect(0, 0, width, height);
 
-      // Light beam sweep position across the full [LOGO + STTHIRA] lockup (0 = far left, 1 = far right)
+      // Sweep progress across the 8 items: [0: Emblem, 1: S, 2: T, 3: T, 4: H, 5: I, 6: R, 7: A]
+      // Sweep moves from 0 to 7 across 0.10s to 1.35s (syncing with sound whoosh)
       let sweepProgress = 0;
-      if (elapsed < 0.3) {
-        sweepProgress = (elapsed / 0.3) * 0.12;
-      } else if (elapsed < 1.6) {
-        const t = (elapsed - 0.3) / 1.3;
-        sweepProgress = 0.12 + (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2) * 0.76;
+      if (elapsed < 0.1) {
+        sweepProgress = (elapsed / 0.1) * 0.5;
+      } else if (elapsed < 1.35) {
+        sweepProgress = 0.5 + ((elapsed - 0.1) / 1.25) * 6.5;
       } else {
-        sweepProgress = 0.88 + Math.min(1, (elapsed - 1.6) / 1.2) * 0.12;
+        sweepProgress = 7.0;
       }
 
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const lockupWidth = Math.min(width * 0.92, 780);
-      const sweepX = centerX - lockupWidth / 2 + sweepProgress * lockupWidth;
-      const beamY = centerY;
+      // Calculate activation for each item (0 = Emblem, 1..7 = Letters)
+      const activations: number[] = [];
+      for (let i = 0; i <= 7; i++) {
+        const dist = Math.abs(i - sweepProgress);
+        let act = Math.max(0, 1 - dist / 0.85);
+        act = Math.pow(act, 1.8);
 
-      // Beam intensity curve
-      let beamAlpha = 0;
-      if (elapsed < 0.3) {
-        beamAlpha = elapsed / 0.3;
-      } else if (elapsed < 2.0) {
-        beamAlpha = 1.0;
-      } else if (elapsed < 3.0) {
-        beamAlpha = 1.0 - (elapsed - 2.0) / 1.0;
-      } else {
-        beamAlpha = 0;
+        // Climax flash: when sweep reaches 'A' (1.35s - 1.70s), all letters burst with heroic brilliance
+        if (elapsed >= 1.35 && elapsed < 1.7) {
+          const climaxPeak = Math.sin(((elapsed - 1.35) / 0.35) * Math.PI);
+          act = Math.max(act, climaxPeak * 0.95);
+        } else if (elapsed >= 1.7) {
+          // Sustained rich platinum luster
+          act = 0.12;
+        }
+
+        activations.push(act);
       }
 
+      // Update DOM Styling for each item dynamically (Zero React re-render overhead, 60fps)
+      // Item 0: Monogram Emblem
+      const emblemEl = itemRefs.current[0];
+      if (emblemEl) {
+        const act0 = activations[0];
+        if (act0 > 0.08) {
+          emblemEl.style.transform = `scale(${1 + 0.07 * act0})`;
+          emblemEl.style.filter = `drop-shadow(0 15px 35px rgba(0,0,0,0.95)) brightness(${1 + 1.2 * act0}) drop-shadow(0 0 ${22 * act0}px rgba(215, 235, 255, ${0.85 * act0}))`;
+        } else {
+          emblemEl.style.transform = "scale(1)";
+          emblemEl.style.filter = "drop-shadow(0 15px 35px rgba(0,0,0,0.95)) brightness(1)";
+        }
+      }
+
+      // Items 1 to 7: S - T - T - H - I - R - A
+      for (let j = 1; j <= 7; j++) {
+        const letterEl = itemRefs.current[j];
+        if (!letterEl) continue;
+
+        const actJ = activations[j];
+        if (actJ > 0.08) {
+          // Active under searchlight: brilliant hot white core, cyan bloom, slight heroic lift
+          letterEl.style.color = "#ffffff";
+          letterEl.style.textShadow = `
+            0 0 ${8 * actJ}px rgba(255, 255, 255, ${0.98 * actJ}),
+            0 0 ${24 * actJ}px rgba(190, 225, 255, ${0.85 * actJ}),
+            0 0 ${55 * actJ}px rgba(120, 180, 255, ${0.55 * actJ})
+          `;
+          letterEl.style.transform = `scale(${1 + 0.08 * actJ})`;
+          letterEl.style.filter = `brightness(${1 + 1.2 * actJ}) drop-shadow(0 0 ${12 * actJ}px rgba(255, 255, 255, ${0.9 * actJ}))`;
+        } else if (elapsed < 1.35 && j > sweepProgress + 0.4) {
+          // Letter not yet reached by beam: deep stealth chrome
+          letterEl.style.color = "#454545";
+          letterEl.style.textShadow = "none";
+          letterEl.style.transform = "scale(1)";
+          letterEl.style.filter = "brightness(0.65)";
+        } else {
+          // Letter has been swept / after climax: polished platinum chrome
+          letterEl.style.color = "#f2f2f2";
+          letterEl.style.textShadow = "0 2px 10px rgba(0,0,0,0.8), 0 0 14px rgba(255,255,255,0.22)";
+          letterEl.style.transform = "scale(1)";
+          letterEl.style.filter = "brightness(1.05)";
+        }
+      }
+
+      // 03. Draw Volumetric Searchlight Beams & Lens Flares for Each Letter
       ctx.save();
       ctx.globalCompositeOperation = "screen";
 
-      // 1. Upward Volumetric Searchlight Beams across Logo + Letters
-      if (beamAlpha > 0.02) {
-        const emitterCount = 8; // 1 for emblem + 7 for S-T-T-H-I-R-A
-        const spacing = lockupWidth / (emitterCount - 1);
+      const screenCenterX = width / 2;
 
-        for (let i = 0; i < emitterCount; i++) {
-          const emitterX = centerX - lockupWidth / 2 + i * spacing;
-          const distFromSweep = Math.abs(emitterX - sweepX);
-          const activation = Math.max(0, 1 - distFromSweep / 125);
+      for (let i = 0; i <= 7; i++) {
+        const act = activations[i];
+        if (act <= 0.01) continue;
 
-          if (activation > 0.01) {
-            const rayIntensity = activation * beamAlpha;
-            const beamSpread = 85 + (1 - activation) * 45;
-            const targetY = centerY - 320;
+        const el = itemRefs.current[i];
+        if (!el) continue;
 
-            // Upward volumetric searchlight ray
-            const gradUp = ctx.createRadialGradient(
-              emitterX,
-              beamY,
-              5,
-              emitterX,
-              targetY,
-              height * 0.75
-            );
-            gradUp.addColorStop(0, `rgba(255, 255, 255, ${0.85 * rayIntensity})`);
-            gradUp.addColorStop(0.12, `rgba(210, 230, 255, ${0.65 * rayIntensity})`);
-            gradUp.addColorStop(0.45, `rgba(140, 180, 240, ${0.35 * rayIntensity})`);
-            gradUp.addColorStop(0.8, `rgba(60, 100, 180, ${0.12 * rayIntensity})`);
-            gradUp.addColorStop(1, "rgba(0, 0, 0, 0)");
+        const rect = el.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) continue;
 
-            ctx.fillStyle = gradUp;
-            ctx.beginPath();
-            ctx.moveTo(emitterX - 12, beamY);
-            ctx.lineTo(emitterX - beamSpread, targetY);
-            ctx.lineTo(emitterX + beamSpread, targetY);
-            ctx.lineTo(emitterX + 12, beamY);
-            ctx.closePath();
-            ctx.fill();
-          }
-        }
+        const emitterX = rect.left + rect.width / 2;
+        const emitterY = rect.top + rect.height * 0.15; // Top origin of the letter/emblem
 
-        // 2. Central Fanned God-Rays behind Lockup
-        if (elapsed > 0.8 && elapsed < 2.6) {
-          const fanPeak = Math.sin(((elapsed - 0.8) / 1.8) * Math.PI);
-          const fanAlpha = fanPeak * 0.55 * beamAlpha;
+        // Searchlight perspective projection: tilts outward from center (exactly as in Video Project.mp4)
+        const dx = emitterX - screenCenterX;
+        const targetX = emitterX + dx * 0.85;
+        const targetY = emitterY - height * 0.88;
 
-          const fanGrad = ctx.createRadialGradient(
-            centerX,
-            centerY,
-            20,
-            centerX,
-            centerY,
-            Math.max(width, height) * 0.65
-          );
-          fanGrad.addColorStop(0, `rgba(225, 240, 255, ${fanAlpha * 0.75})`);
-          fanGrad.addColorStop(0.3, `rgba(150, 190, 245, ${fanAlpha * 0.45})`);
-          fanGrad.addColorStop(0.65, `rgba(70, 110, 190, ${fanAlpha * 0.18})`);
-          fanGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+        // A. Outer Volumetric God-Ray Shaft
+        const baseW = 14 + act * 18;
+        const topW = 110 + act * 160;
 
-          ctx.fillStyle = fanGrad;
+        const grad = ctx.createLinearGradient(emitterX, emitterY, targetX, targetY);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${0.92 * act})`);
+        grad.addColorStop(0.12, `rgba(215, 235, 255, ${0.75 * act})`);
+        grad.addColorStop(0.45, `rgba(150, 195, 255, ${0.42 * act})`);
+        grad.addColorStop(0.75, `rgba(70, 130, 220, ${0.15 * act})`);
+        grad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(emitterX - baseW / 2, emitterY);
+        ctx.lineTo(targetX - topW / 2, targetY);
+        ctx.lineTo(targetX + topW / 2, targetY);
+        ctx.lineTo(emitterX + baseW / 2, emitterY);
+        ctx.closePath();
+        ctx.fill();
+
+        // B. Inner Intense Hot Laser Spine
+        const coreBaseW = 4;
+        const coreTopW = 26 + act * 20;
+
+        const coreGrad = ctx.createLinearGradient(emitterX, emitterY, targetX, targetY);
+        coreGrad.addColorStop(0, `rgba(255, 255, 255, ${0.98 * act})`);
+        coreGrad.addColorStop(0.25, `rgba(240, 250, 255, ${0.85 * act})`);
+        coreGrad.addColorStop(0.65, `rgba(180, 220, 255, ${0.35 * act})`);
+        coreGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
+
+        ctx.fillStyle = coreGrad;
+        ctx.beginPath();
+        ctx.moveTo(emitterX - coreBaseW, emitterY);
+        ctx.lineTo(targetX - coreTopW, targetY);
+        ctx.lineTo(targetX + coreTopW, targetY);
+        ctx.lineTo(emitterX + coreBaseW, emitterY);
+        ctx.closePath();
+        ctx.fill();
+
+        // C. Circular Base Flare Halo at the Letter
+        const flareRad = 32 * act;
+        const flareGrad = ctx.createRadialGradient(emitterX, emitterY, 1, emitterX, emitterY, flareRad);
+        flareGrad.addColorStop(0, `rgba(255, 255, 255, ${0.98 * act})`);
+        flareGrad.addColorStop(0.3, `rgba(205, 235, 255, ${0.75 * act})`);
+        flareGrad.addColorStop(0.7, `rgba(120, 180, 255, ${0.25 * act})`);
+        flareGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+        ctx.fillStyle = flareGrad;
+        ctx.beginPath();
+        ctx.arc(emitterX, emitterY, flareRad, 0, Math.PI * 2);
+        ctx.fill();
+
+        // D. Anamorphic Horizontal Starburst Streak across the Letter
+        const streakW = 190 * act;
+        const streakH = 3.5;
+        const streakGrad = ctx.createLinearGradient(emitterX - streakW, emitterY, emitterX + streakW, emitterY);
+        streakGrad.addColorStop(0, "rgba(100, 160, 255, 0)");
+        streakGrad.addColorStop(0.35, `rgba(190, 230, 255, ${0.55 * act})`);
+        streakGrad.addColorStop(0.5, `rgba(255, 255, 255, ${0.98 * act})`);
+        streakGrad.addColorStop(0.65, `rgba(190, 230, 255, ${0.55 * act})`);
+        streakGrad.addColorStop(1, "rgba(100, 160, 255, 0)");
+
+        ctx.fillStyle = streakGrad;
+        ctx.fillRect(emitterX - streakW, emitterY - streakH / 2, streakW * 2, streakH);
+      }
+
+      // 04. Climax Radial God-Rays (1.35s - 2.50s)
+      if (elapsed > 1.35 && elapsed < 2.5) {
+        const fanPeak = Math.sin(((elapsed - 1.35) / 1.15) * Math.PI);
+        const fanAlpha = fanPeak * 0.45;
+
+        const centerY = height / 2;
+        const rayCount = 14;
+        for (let r = 0; r < rayCount; r++) {
+          const angle = -Math.PI / 2 + ((r - (rayCount - 1) / 2) / rayCount) * 1.35;
+          const rayLength = height * 0.75;
+          const rayWidth = 14 + (r % 3) * 7;
+
+          ctx.strokeStyle = `rgba(190, 220, 255, ${fanAlpha * 0.22})`;
+          ctx.lineWidth = rayWidth;
           ctx.beginPath();
-          ctx.arc(centerX, centerY, Math.max(width, height) * 0.65, 0, Math.PI * 2);
-          ctx.fill();
-
-          // Radial spokes
-          const rayCount = 14;
-          for (let r = 0; r < rayCount; r++) {
-            const angle = -Math.PI / 2 + ((r - (rayCount - 1) / 2) / rayCount) * 1.35;
-            const rayLength = height * 0.75;
-            const rayWidth = 14 + (r % 3) * 7;
-
-            ctx.strokeStyle = `rgba(190, 220, 255, ${fanAlpha * 0.22})`;
-            ctx.lineWidth = rayWidth;
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(
-              centerX + Math.sin(angle) * rayLength,
-              centerY - Math.cos(angle) * rayLength
-            );
-            ctx.stroke();
-          }
-        }
-
-        // 3. Anamorphic Lens Flare Following the Sweep Beam
-        if (elapsed > 0.3 && elapsed < 2.2) {
-          const flareAlpha = Math.sin(((elapsed - 0.3) / 1.9) * Math.PI);
-
-          // Horizontal anamorphic streak
-          const streakGrad = ctx.createLinearGradient(
-            sweepX - 260,
-            beamY,
-            sweepX + 260,
-            beamY
+          ctx.moveTo(screenCenterX, centerY);
+          ctx.lineTo(
+            screenCenterX + Math.sin(angle) * rayLength,
+            centerY - Math.cos(angle) * rayLength
           );
-          streakGrad.addColorStop(0, "rgba(100, 160, 255, 0)");
-          streakGrad.addColorStop(0.35, `rgba(180, 220, 255, ${0.45 * flareAlpha})`);
-          streakGrad.addColorStop(0.5, `rgba(255, 255, 255, ${0.95 * flareAlpha})`);
-          streakGrad.addColorStop(0.65, `rgba(180, 220, 255, ${0.45 * flareAlpha})`);
-          streakGrad.addColorStop(1, "rgba(100, 160, 255, 0)");
-
-          ctx.fillStyle = streakGrad;
-          ctx.fillRect(sweepX - 260, beamY - 2.5, 520, 5);
-
-          // Central circular flare core
-          const coreGrad = ctx.createRadialGradient(
-            sweepX,
-            beamY,
-            2,
-            sweepX,
-            beamY,
-            46
-          );
-          coreGrad.addColorStop(0, `rgba(255, 255, 255, ${0.95 * flareAlpha})`);
-          coreGrad.addColorStop(0.3, `rgba(200, 230, 255, ${0.65 * flareAlpha})`);
-          coreGrad.addColorStop(0.7, `rgba(120, 170, 255, ${0.25 * flareAlpha})`);
-          coreGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-          ctx.fillStyle = coreGrad;
-          ctx.beginPath();
-          ctx.arc(sweepX, beamY, 46, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.stroke();
         }
       }
 
-      // 4. Atmospheric Particulates
+      // 05. Atmospheric Particulates
       particles.forEach((p) => {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -298,10 +359,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
 
-        const distToSweep = Math.abs(p.x - sweepX);
-        const illumination = Math.max(0.2, 1 - distToSweep / 260) * beamAlpha;
-
-        ctx.fillStyle = `rgba(215, 235, 255, ${p.alpha * illumination})`;
+        ctx.fillStyle = `rgba(215, 235, 255, ${p.alpha * 0.45})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
@@ -309,7 +367,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       ctx.restore();
 
-      // Trigger smooth dissolve at 3.6s
+      // Trigger smooth dissolve at DURATION (3.6s)
       if (elapsed >= DURATION) {
         finishIntro();
         return;
@@ -335,8 +393,11 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       window.removeEventListener("pointerdown", onGesture);
       window.removeEventListener("touchstart", onGesture);
       window.removeEventListener("click", onGesture);
-      if (audioRef.current) {
-        audioRef.current.pause();
+      if (videoAudioRef.current) {
+        videoAudioRef.current.pause();
+      }
+      if (audioFallbackRef.current) {
+        audioFallbackRef.current.pause();
       }
     };
   }, [isRovera, finishIntro, playAudio]);
@@ -355,6 +416,21 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
   return (
     <div className="relative w-full min-h-screen bg-black overflow-x-hidden">
+      {/* Precision Audio Sources (Exact audio from Video Project.mp4 + MP3 fallback) */}
+      <video
+        ref={videoAudioRef}
+        src="/audio/stthira-intro.mp4"
+        preload="auto"
+        playsInline
+        className="hidden pointer-events-none"
+      />
+      <audio
+        ref={audioFallbackRef}
+        src="/audio/stthira-intro.mp3"
+        preload="auto"
+        className="hidden pointer-events-none"
+      />
+
       {/* 01. The Cinematic Intro Stage (Cross-Dissolves into the Hero Section) */}
       <div
         aria-label="STTHIRA Cinematic Opening"
@@ -371,16 +447,21 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
           className="absolute inset-0 z-0 pointer-events-none"
         />
 
-        {/* 3D Chrome STTHIRA Brand: Monogram Beside STTHIRA (Horizontal Side-by-Side Lockup) */}
+        {/* 3D Chrome STTHIRA Brand: Monogram Beside STTHIRA (Horizontal Side-by-Side Lockup with Per-Letter Searchlights) */}
         <div className="relative z-10 flex items-center justify-center pointer-events-none px-4 sm:px-6 text-center">
           <div className="flex items-center justify-center gap-3.5 sm:gap-6 md:gap-8 lg:gap-10">
             
-            {/* STTHIRA 3D Chrome Monogram Logo on the LEFT side */}
-            <div className="relative shrink-0 drop-shadow-[0_15px_35px_rgba(0,0,0,0.95)]">
+            {/* Item 0: STTHIRA 3D Chrome Monogram Logo on the LEFT side */}
+            <div
+              ref={(el) => {
+                itemRefs.current[0] = el;
+              }}
+              className="relative shrink-0 will-change-transform will-change-[filter] transition-all duration-150"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 348 420"
-                className="w-12 h-16 sm:w-16 sm:h-22 md:w-22 md:h-28 lg:w-28 lg:h-36 xl:w-32 xl:h-40"
+                className="w-12 h-16 sm:w-16 sm:h-22 md:w-22 md:h-28 lg:w-28 lg:h-36 xl:w-32 xl:h-40 drop-shadow-[0_15px_35px_rgba(0,0,0,0.95)]"
               >
                 <defs>
                   {/* 3D Chrome High-Contrast Linear Gradient */}
@@ -449,11 +530,25 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
               </svg>
             </div>
 
-            {/* STTHIRA Wordmark on the RIGHT side in Bold Clash Display */}
-            <div className="relative">
-              <h1 className="font-clash text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-[0.2em] sm:tracking-[0.24em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-500 drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)] select-none">
-                STTHIRA
-              </h1>
+            {/* Items 1 to 7: STTHIRA Individual Letters with Per-Letter Searchlight Emitters */}
+            <div className="relative flex items-center tracking-[0.16em] sm:tracking-[0.24em] font-clash text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold uppercase select-none">
+              {LETTERS.map((char, idx) => {
+                const itemIndex = idx + 1; // 1 to 7
+                return (
+                  <span
+                    key={idx}
+                    ref={(el) => {
+                      itemRefs.current[itemIndex] = el;
+                    }}
+                    className="relative inline-block will-change-transform will-change-[filter] transition-all duration-150 drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)]"
+                    style={{
+                      color: "#454545",
+                    }}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
             </div>
 
           </div>
