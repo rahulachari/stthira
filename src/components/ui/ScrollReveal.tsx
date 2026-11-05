@@ -35,6 +35,14 @@ interface LookConfig {
 }
 
 const paintPiece = (piece: HTMLElement, t: number, look: LookConfig) => {
+  if (t >= 1) {
+    piece.style.opacity = '1';
+    piece.style.transform = 'none';
+    piece.style.filter = 'none';
+    piece.style.color = '';
+    return;
+  }
+
   let reveal = t;
   let fadeIn = t;
   let motion = '';
@@ -58,9 +66,9 @@ const paintPiece = (piece: HTMLElement, t: number, look: LookConfig) => {
   if (look.highlightColor) fadeIn = Math.max(fadeIn, clamp01(t / 0.35));
   const settle = clamp01(reveal);
   const lift = look.offset * (1 - settle);
-  piece.style.opacity = t >= 1 ? '' : (look.baseOpacity + (1 - look.baseOpacity) * fadeIn).toFixed(3);
+  piece.style.opacity = (look.baseOpacity + (1 - look.baseOpacity) * fadeIn).toFixed(3);
   piece.style.transform = [lift ? `translateY(${lift.toFixed(2)}px)` : '', motion].filter(Boolean).join(' ');
-  piece.style.filter = look.blur && settle < 1 ? `blur(${(look.blur * (1 - settle)).toFixed(2)}px)` : '';
+  piece.style.filter = look.blur && settle < 1 ? `blur(${(look.blur * (1 - settle)).toFixed(2)}px)` : 'none';
   if (look.highlightColor) {
     const glow = glowAt(t);
     piece.style.color =
@@ -94,22 +102,22 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   scrollContainerRef,
   enableBlur = true,
-  baseOpacity = 0.1,
-  baseRotation = 3,
-  blurStrength = 4,
+  baseOpacity = 0.15,
+  baseRotation = 0,
+  blurStrength = 3,
   baseOffset = 0,
-  stagger = 0.05,
+  stagger = 0.03,
   smoothing = 0,
   splitBy = 'words',
   effect = 'fade',
-  mode = 'scrub',
-  duration = 0.8,
+  mode = 'enter',
+  duration = 0.75,
   highlightColor = '',
   containerClassName = '',
   textClassName = '',
   rotationEnd = 'bottom bottom',
-  wordAnimationEnd = 'bottom bottom',
-  as: Component = 'h2',
+  wordAnimationEnd = 'top 30%',
+  as: Component = 'div',
 }) => {
   const containerRef = useRef<HTMLElement | null>(null);
   const textRef = useRef<HTMLElement | null>(null);
@@ -153,7 +161,6 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     const scroller = scrollContainerRef?.current || window;
     const wrappers = Array.from(el.querySelectorAll('.scroll-reveal-word')) as HTMLElement[];
     const pieces = (wrappers.length ? Array.from(el.querySelectorAll('.scroll-reveal-piece')) : [textEl]) as HTMLElement[];
-    const viewportHeight = () => (scroller instanceof HTMLElement ? scroller.clientHeight : window.innerHeight);
     const scrub = smoothing > 0 ? smoothing : true;
     const span = mode === 'enter' ? Math.max(0.05, duration) : SCRUB_SPAN;
     const gap = Math.max(0, stagger);
@@ -165,142 +172,169 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
       offset: baseOffset,
       highlightColor
     };
-    const mm = gsap.matchMedia();
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      const order = pieces.map((_, index) => index);
-      const last = pieces.map(() => -1);
-      const state = { p: 0 };
-      let count = pieces.length;
-
-      const measure = () => {
-        if (splitBy !== 'lines' || !wrappers.length) return;
-        let line = -1;
-        let top = -Infinity;
-        wrappers.forEach((wrapper, index) => {
-          const next = wrapper.offsetTop;
-          if (Math.abs(next - top) > 2) {
-            line += 1;
-            top = next;
-          }
-          order[index] = line;
-        });
-        count = line + 1;
-      };
-
-      const total = () => span + Math.max(0, count - 1) * gap;
-
-      const render = () => {
-        const at = state.p * total();
-        pieces.forEach((piece, index) => {
-          const t = clamp01((at - order[index] * gap) / span);
-          if (t === last[index]) return;
-          last[index] = t;
-          paintPiece(piece, t, look);
-        });
-      };
-
-      measure();
-      pieces.forEach(piece => {
-        piece.style.willChange =
-          pieces.length > 80 ? '' : effect === 'fade' && !baseOffset ? 'opacity' : 'opacity, transform';
-        piece.style.transformOrigin = effect === 'flip' ? '50% 100%' : '';
+    // Check prefers-reduced-motion
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      pieces.forEach(p => {
+        p.style.opacity = '1';
+        p.style.transform = 'none';
+        p.style.filter = 'none';
       });
-      if (look.masked) {
-        wrappers.forEach(wrapper => {
-          wrapper.style.clipPath = RISE_MASK;
-        });
-      }
-      render();
+      return;
+    }
 
-      if (mode === 'enter') {
-        let played = false;
-        const play = () => {
-          if (played) return;
-          played = true;
-          gsap.to(state, { p: 1, duration: total(), ease: 'none', onUpdate: render });
-          if (baseRotation) gsap.to(el, { rotate: 0, duration: Math.min(total(), 1.4), ease: 'power3.out' });
-        };
-        const startAt = () => {
-          const view = viewportHeight();
-          const top =
-            el.getBoundingClientRect().top -
-            (scroller instanceof HTMLElement
-              ? scroller.getBoundingClientRect().top + scroller.clientTop - scroller.scrollTop
-              : -window.scrollY);
-          const raw = top - view + 0.2 * Math.min(el.offsetHeight, view);
-          return Math.min(raw, ScrollTrigger.maxScroll(scroller) - 1);
-        };
-        if (baseRotation) gsap.set(el, { transformOrigin: '0% 50%', rotate: baseRotation });
-        ScrollTrigger.create({
+    const order = pieces.map((_, index) => index);
+    const last = pieces.map(() => -1);
+    const state = { p: 0 };
+    let count = pieces.length;
+
+    const measure = () => {
+      if (splitBy !== 'lines' || !wrappers.length) return;
+      let line = -1;
+      let top = -Infinity;
+      wrappers.forEach((wrapper, index) => {
+        const next = wrapper.offsetTop;
+        if (Math.abs(next - top) > 2) {
+          line += 1;
+          top = next;
+        }
+        order[index] = line;
+      });
+      count = line + 1;
+    };
+
+    const total = () => span + Math.max(0, count - 1) * gap;
+
+    const render = () => {
+      const at = state.p * total();
+      pieces.forEach((piece, index) => {
+        const t = clamp01((at - order[index] * gap) / span);
+        if (t === last[index]) return;
+        last[index] = t;
+        paintPiece(piece, t, look);
+      });
+    };
+
+    measure();
+    pieces.forEach(piece => {
+      piece.style.willChange = 'opacity, transform, filter';
+      piece.style.transformOrigin = effect === 'flip' ? '50% 100%' : '';
+    });
+    if (look.masked) {
+      wrappers.forEach(wrapper => {
+        wrapper.style.clipPath = RISE_MASK;
+      });
+    }
+
+    // Initial paint at rest
+    render();
+
+    let triggerInstance: ScrollTrigger | null = null;
+
+    if (mode === 'enter') {
+      let played = false;
+      const play = () => {
+        if (played) return;
+        played = true;
+        gsap.to(state, {
+          p: 1,
+          duration: total(),
+          ease: 'power2.out',
+          onUpdate: render,
+          onComplete: () => {
+            // Ensure 100% clean styles on finish
+            pieces.forEach(p => {
+              p.style.opacity = '1';
+              p.style.transform = 'none';
+              p.style.filter = 'none';
+              p.style.color = '';
+            });
+          }
+        });
+        if (baseRotation) {
+          gsap.to(el, { rotate: 0, duration: Math.min(total(), 1.4), ease: 'power3.out' });
+        }
+      };
+
+      if (baseRotation) {
+        gsap.set(el, { transformOrigin: '0% 50%', rotate: baseRotation });
+      }
+
+      // Check if element is already within viewport on initial load
+      const rect = el.getBoundingClientRect();
+      const inViewOnMount = rect.top < window.innerHeight * 0.9 && rect.bottom > 0;
+      if (inViewOnMount) {
+        play();
+      } else {
+        triggerInstance = ScrollTrigger.create({
           trigger: el,
           scroller,
-          start: startAt,
+          start: 'top 85%',
           onEnter: play,
-          onLeave: play,
+          onEnterBack: play,
           onRefresh: self => {
             if (self.progress > 0) play();
           }
         });
-      } else {
-        if (baseRotation) {
-          gsap.fromTo(
-            el,
-            { transformOrigin: '0% 50%', rotate: baseRotation },
-            {
-              ease: 'none',
-              rotate: 0,
-              scrollTrigger: {
-                trigger: el,
-                scroller,
-                start: 'top bottom',
-                end: clampToScroll(rotationEnd),
-                scrub
-              }
+      }
+    } else {
+      if (baseRotation) {
+        gsap.fromTo(
+          el,
+          { transformOrigin: '0% 50%', rotate: baseRotation },
+          {
+            ease: 'none',
+            rotate: 0,
+            scrollTrigger: {
+              trigger: el,
+              scroller,
+              start: 'top 90%',
+              end: clampToScroll(rotationEnd),
+              scrub
             }
-          );
-        }
-        gsap.to(state, {
-          p: 1,
-          ease: 'none',
-          onUpdate: render,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: () => `top bottom-=${0.2 * Math.min(el.offsetHeight, viewportHeight())}`,
-            end: clampToScroll(wordAnimationEnd),
-            scrub
           }
-        });
+        );
       }
 
-      const resizeObserver =
-        splitBy === 'lines' && typeof ResizeObserver !== 'undefined'
-          ? new ResizeObserver(() => {
-              measure();
-              last.fill(-1);
-              render();
-            })
-          : null;
-      resizeObserver?.observe(textEl);
+      triggerInstance = ScrollTrigger.create({
+        trigger: el,
+        scroller,
+        start: 'top 85%',
+        end: clampToScroll(wordAnimationEnd),
+        scrub,
+        onUpdate: self => {
+          state.p = self.progress;
+          render();
+        }
+      });
+    }
 
-      return () => {
-        resizeObserver?.disconnect();
-        pieces.forEach(piece => {
-          piece.style.opacity = '';
-          piece.style.transform = '';
-          piece.style.transformOrigin = '';
-          piece.style.filter = '';
-          piece.style.color = '';
-          piece.style.willChange = '';
-        });
-        wrappers.forEach(wrapper => {
-          wrapper.style.clipPath = '';
-        });
-      };
-    });
+    const resizeObserver =
+      splitBy === 'lines' && typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(() => {
+            measure();
+            last.fill(-1);
+            render();
+          })
+        : null;
+    resizeObserver?.observe(textEl);
 
-    return () => mm.revert();
+    return () => {
+      resizeObserver?.disconnect();
+      triggerInstance?.kill();
+      pieces.forEach(piece => {
+        piece.style.opacity = '';
+        piece.style.transform = '';
+        piece.style.transformOrigin = '';
+        piece.style.filter = '';
+        piece.style.color = '';
+        piece.style.willChange = '';
+      });
+      wrappers.forEach(wrapper => {
+        wrapper.style.clipPath = '';
+      });
+    };
   }, [
     mounted,
     scrollContainerRef,
@@ -337,4 +371,3 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
 };
 
 export default ScrollReveal;
-

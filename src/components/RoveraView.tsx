@@ -142,11 +142,13 @@ export default function RoveraView() {
           {/* Editorial Project Headline */}
           <ScrollReveal
             as="h1"
-            mode="scrub"
+            mode="enter"
             splitBy="words"
             effect="fade"
+            duration={0.85}
+            stagger={0.03}
             enableBlur={true}
-            blurStrength={4}
+            blurStrength={3}
             baseOpacity={0.2}
             highlightColor="#ff6a00"
             containerClassName="!m-0"
@@ -224,9 +226,11 @@ export default function RoveraView() {
 
               <ScrollReveal
                 as="h2"
-                mode="scrub"
+                mode="enter"
                 splitBy="words"
                 effect="fade"
+                duration={0.8}
+                stagger={0.025}
                 enableBlur={true}
                 blurStrength={3}
                 baseOpacity={0.15}

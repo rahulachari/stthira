@@ -114,48 +114,54 @@ export default function HomePage() {
       {/* 02. CLEAN, UNDERSTANDABLE BRAND INTRODUCTION */}
       <section id="about" className="py-20 sm:py-28 bg-white border-b border-neutral-200">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
             {/* Left Narrative */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium">
-                <span className="w-5 h-px bg-neutral-400" />
-                <span>{t("intro.badge", "The STTHIRA Vision")}</span>
+            <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium">
+                  <span className="w-5 h-px bg-neutral-400" />
+                  <span>{t("intro.badge", "The STTHIRA Vision")}</span>
+                </div>
+
+                <ScrollReveal
+                  as="h2"
+                  mode="enter"
+                  splitBy="words"
+                  effect="fade"
+                  duration={0.75}
+                  stagger={0.025}
+                  enableBlur={true}
+                  blurStrength={3}
+                  baseOpacity={0.15}
+                  highlightColor="#ff6a00"
+                  containerClassName="!m-0"
+                  textClassName="font-editorial text-3xl sm:text-5xl uppercase tracking-tight text-black font-light leading-tight !block"
+                >
+                  {t("intro.headline", "LUXURY PLOTTED LIVING. TIMELESS INTEGRITY.")}
+                </ScrollReveal>
+
+                <ScrollReveal
+                  as="p"
+                  mode="enter"
+                  splitBy="words"
+                  effect="fade"
+                  duration={0.85}
+                  stagger={0.015}
+                  enableBlur={true}
+                  blurStrength={2}
+                  baseOpacity={0.25}
+                  containerClassName="!m-0"
+                  textClassName="text-neutral-700 text-base sm:text-lg leading-relaxed font-light !block"
+                >
+                  {t(
+                    "intro.text1",
+                    "STTHIRA conceives master-planned plotted communities where each residential parcel is engineered to institutional standards. We combine world-class architectural restraint, 100% forensic legal purity, and generational value."
+                  )}
+                </ScrollReveal>
               </div>
 
-              <ScrollReveal
-                as="h2"
-                mode="scrub"
-                splitBy="words"
-                effect="fade"
-                enableBlur={true}
-                blurStrength={3}
-                baseOpacity={0.15}
-                highlightColor="#ff6a00"
-                containerClassName="!m-0"
-                textClassName="font-editorial text-3xl sm:text-5xl uppercase tracking-tight text-black font-light leading-tight !block"
-              >
-                {t("intro.headline", "LUXURY PLOTTED LIVING. TIMELESS INTEGRITY.")}
-              </ScrollReveal>
-
-              <ScrollReveal
-                as="p"
-                mode="scrub"
-                splitBy="words"
-                effect="fade"
-                enableBlur={true}
-                blurStrength={2}
-                baseOpacity={0.25}
-                containerClassName="!m-0"
-                textClassName="text-neutral-700 text-base sm:text-lg leading-relaxed font-light !block"
-              >
-                {t(
-                  "intro.text1",
-                  "STTHIRA conceives master-planned plotted communities where each residential parcel is engineered to institutional standards. We combine world-class architectural restraint, 100% forensic legal purity, and generational value."
-                )}
-              </ScrollReveal>
-
               {/* 3 Core Highlights Metrics with 21st.dev Dot Matrix Numbers */}
-              <div className="pt-5 grid grid-cols-3 gap-4 border-t border-neutral-200">
+              <div className="pt-6 grid grid-cols-3 gap-4 border-t border-neutral-200 mt-auto">
                 <div>
                   <div className="text-black mb-1.5 flex items-center">
                     <DotMatrixNumber value="2026" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
@@ -183,8 +189,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Clean Visual Plate */}
-            <div className="lg:col-span-5 relative aspect-[4/3] sm:aspect-square bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 shadow-xl">
+            {/* Right Clean Visual Plate — Perfectly matches the full height of the text block */}
+            <div className="lg:col-span-5 relative w-full min-h-[460px] sm:min-h-[520px] lg:min-h-full aspect-[4/3] lg:aspect-auto bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 shadow-xl flex flex-col justify-end">
               <Image
                 src="/images/brand-story.jpg"
                 alt="STTHIRA Architecture"
@@ -192,8 +198,8 @@ export default function HomePage() {
                 priority
                 className="object-cover object-center grayscale contrast-115"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
+              <div className="relative z-10 p-6 sm:p-8 text-white">
                 <span className="text-[9px] uppercase tracking-[0.25em] text-neutral-300 block mb-1">
                   Bengaluru, India
                 </span>
@@ -408,11 +414,13 @@ export default function HomePage() {
               </span>
               <ScrollReveal
                 as="h2"
-                mode="scrub"
+                mode="enter"
                 splitBy="words"
                 effect="fade"
+                duration={0.75}
+                stagger={0.025}
                 enableBlur={true}
-                blurStrength={4}
+                blurStrength={3}
                 baseOpacity={0.2}
                 highlightColor="#ff6a00"
                 containerClassName="!m-0"
