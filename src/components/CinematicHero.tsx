@@ -12,7 +12,7 @@ export default function CinematicHero() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative h-screen min-h-[700px] w-full flex items-center justify-center overflow-hidden bg-black text-white">
+    <section id="hero" className="relative h-screen min-h-[700px] w-full flex items-center justify-center overflow-hidden bg-black text-white">
       {/* Background Cinematic Luxury Video (Assetz Property Style) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video

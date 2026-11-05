@@ -103,7 +103,7 @@ export default function RoveraView() {
   return (
     <div className="bg-white text-neutral-900 font-sans">
       {/* 01. CINEMATIC LUXURY HERO SECTION */}
-      <section className="relative min-h-[92vh] lg:min-h-screen w-full flex items-center justify-center overflow-hidden bg-black text-white pt-24 pb-16">
+      <section id="hero" className="relative min-h-[92vh] lg:min-h-screen w-full flex items-center justify-center overflow-hidden bg-black text-white pt-24 pb-16">
         {/* Background Visual with Architectural Tone */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -553,3 +553,4 @@ export default function RoveraView() {
     </div>
   );
 }
+
