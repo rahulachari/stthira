@@ -285,15 +285,84 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Monumental Interactive Stochastic Dithered Wordmark (Brand Name Big & Clean with Drifting Dots & Mouse Spotlight) */}
-      <div className="w-full border-t border-neutral-200 bg-[#efebe3] overflow-hidden">
-        <DitheredBand
-          brand={wordmark}
-          accent="#111111"
-          bgColor="#efebe3"
-          height="h-64 sm:h-80 md:h-[480px]"
-        />
-      </div>
+      {/* Below-Footer Brand Wordmark Band */}
+      {isRovera ? (
+        /* Exclusive ROVERA Leopard Skin Wordmark Sanctuary (ONLY on ROVERA Page) */
+        <section
+          aria-label="ROVERA Brand Wordmark"
+          className="relative w-full overflow-hidden bg-black text-white py-16 sm:py-24 md:py-32 select-none border-t border-neutral-900"
+        >
+          {/* Leopard Skin Background with Rich Atmospheric Vignette */}
+          <div
+            className="absolute inset-0 bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center bg-no-repeat scale-105"
+            style={{ filter: "brightness(0.95) contrast(1.15)" }}
+          />
+
+          {/* Deep Luxury Gradient / Vignette Overlay ensuring text pops with 100% crisp visibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/85 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.75)_100%)] pointer-events-none" />
+
+          {/* Top Leopard Skin Border Accent Strip */}
+          <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center shadow-lg z-20" />
+
+          {/* Content Container */}
+          <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 text-center flex flex-col items-center justify-center">
+            {/* Skin-Bordered Luxury Tag */}
+            <div className="p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-full shadow-2xl mb-6 sm:mb-8 inline-block">
+              <div className="px-5 sm:px-7 py-1.5 sm:py-2 bg-black/90 backdrop-blur-md rounded-full flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-neutral-200 font-sans font-medium">
+                  Exclusive Plotted Living • North Bengaluru
+                </span>
+              </div>
+            </div>
+
+            {/* Monumental Brand Name on top of skin background - Crisp, Visible, Majestic */}
+            <div className="relative my-2 sm:my-4">
+              <h2 className="font-editorial text-6xl sm:text-8xl md:text-9xl lg:text-[140px] xl:text-[170px] font-bold tracking-[0.14em] uppercase text-white drop-shadow-[0_12px_36px_rgba(0,0,0,0.95)] leading-none select-none">
+                ROVERA
+              </h2>
+            </div>
+
+            {/* Architectural Hierarchy / Brand Subtitle */}
+            <div className="mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm uppercase tracking-[0.25em] text-neutral-200 font-sans font-light drop-shadow-md">
+              <span className="font-medium text-white">BY STTHIRA</span>
+              <span className="text-amber-400/80">•</span>
+              <span>42+ ACRE SANCTUARY</span>
+              <span className="text-amber-400/80">•</span>
+              <span>186 BESPOKE PLOTS</span>
+            </div>
+
+            {/* Quick Action Button with Skin Border */}
+            <div className="mt-8 sm:mt-10">
+              <div className="p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-full shadow-2xl hover:scale-105 transition-transform duration-300">
+                <a
+                  href="#hero"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-black/90 hover:bg-black text-white text-xs uppercase tracking-[0.2em] font-medium rounded-full transition-colors"
+                >
+                  <span>Return to Top</span>
+                  <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                    <path d="M12 19V5M5 12l7-7 7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Leopard Skin Border Accent Strip */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center shadow-lg z-20" />
+        </section>
+      ) : (
+        /* Monumental Interactive Stochastic Dithered Wordmark for STTHIRA on other pages */
+        <div className="w-full border-t border-neutral-200 bg-[#efebe3] overflow-hidden">
+          <DitheredBand
+            brand={wordmark}
+            accent="#111111"
+            bgColor="#efebe3"
+            height="h-64 sm:h-80 md:h-[480px]"
+          />
+        </div>
+      )}
     </footer>
   );
 }

@@ -122,12 +122,14 @@ export default function RoveraView() {
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 w-full text-center flex flex-col items-center justify-center">
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2.5 border border-white/20 bg-black/50 backdrop-blur-md px-4 py-1.5 mb-6 shadow-xl">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-neutral-300 font-sans">
-              STTHIRA Inaugural Project • North Bengaluru • Phase 1
-            </span>
+          {/* Status Badge with Leopard Skin Border Accent */}
+          <div className="p-[1.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-6 shadow-xl rounded-sm">
+            <div className="inline-flex items-center gap-2.5 bg-black/85 backdrop-blur-md px-4 py-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-neutral-200 font-sans font-medium">
+                STTHIRA Inaugural Project • North Bengaluru • Phase 1
+              </span>
+            </div>
           </div>
 
           {/* Crisp, Bold Official ROVERA Brand Mark */}
@@ -151,27 +153,29 @@ export default function RoveraView() {
             A 42+ acre master-planned enclave crafted by STTHIRA in North Bengaluru. Featuring 186 curated residential parcels, 100% underground civil utilities, and 45% conserved native canopy.
           </p>
 
-          {/* Key Facts Pill (Assetz Style Clean Strip with Dot Matrix Numbers) */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] sm:text-xs uppercase tracking-widest text-neutral-300 font-sans mb-10 py-2.5 px-6 bg-black/40 border border-white/15 backdrop-blur-md">
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-white" />
-              <span>North Bengaluru</span>
-            </span>
-            <span className="text-neutral-500">•</span>
-            <span className="flex items-center gap-1.5">
-              <DotMatrixNumber value="42+" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-              <span>Acres Enclave</span>
-            </span>
-            <span className="text-neutral-500">•</span>
-            <span className="flex items-center gap-1.5">
-              <DotMatrixNumber value="186" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-              <span>Curated Plots</span>
-            </span>
-            <span className="text-neutral-500">•</span>
-            <span className="text-white font-semibold flex items-center gap-1.5">
-              <DotMatrixNumber value="18" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-              <span>Mins to Airport</span>
-            </span>
+          {/* Key Facts Pill Framed with Leopard Skin Border Accent */}
+          <div className="p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-10 shadow-2xl rounded-sm max-w-full">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] sm:text-xs uppercase tracking-widest text-neutral-200 font-sans py-3 px-6 bg-black/85 backdrop-blur-md">
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-white" />
+                <span>North Bengaluru</span>
+              </span>
+              <span className="text-neutral-500">•</span>
+              <span className="flex items-center gap-1.5">
+                <DotMatrixNumber value="42+" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
+                <span>Acres Enclave</span>
+              </span>
+              <span className="text-neutral-500">•</span>
+              <span className="flex items-center gap-1.5">
+                <DotMatrixNumber value="186" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
+                <span>Curated Plots</span>
+              </span>
+              <span className="text-neutral-500">•</span>
+              <span className="text-white font-semibold flex items-center gap-1.5">
+                <DotMatrixNumber value="18" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
+                <span>Mins to Airport</span>
+              </span>
+            </div>
           </div>
 
           {/* Action CTAs */}
@@ -306,51 +310,78 @@ export default function RoveraView() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {plotConfigurations.map((plot) => (
-              <div
-                key={plot.id}
-                className="bg-white border border-neutral-200 p-7 sm:p-8 flex flex-col justify-between hover:border-black transition-all shadow-xs hover:shadow-md rounded-lg group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">
-                      {plot.badge}
-                    </span>
-                    <span className="text-xs font-semibold text-black bg-neutral-100 px-2.5 py-1 rounded font-doto tracking-wider">
-                      {plot.areaSqFt}
-                    </span>
-                  </div>
-
-                  <h3 className="font-editorial text-2xl uppercase tracking-wide text-black mb-3">
-                    {plot.name}
-                  </h3>
-
-                  <div className="py-3 border-y border-neutral-100 my-4 space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-neutral-500">Dimensions:</span>
-                      <span className="text-black font-medium">{plot.dimension}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-neutral-500">Orientation:</span>
-                      <span className="text-black font-medium">{plot.facing}</span>
-                    </div>
-                  </div>
-
-                  <p className="text-neutral-600 text-xs font-light leading-relaxed mb-6">
-                    {plot.idealFor}
-                  </p>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => openEnquiry(plot.name)}
-                  className="w-full text-center py-3.5 bg-black text-white hover:bg-neutral-800 text-xs uppercase tracking-widest font-semibold transition-colors rounded cursor-pointer"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {plotConfigurations.map((plot) => {
+              const isSignature = plot.id === "sign";
+              const cardInner = (
+                <div
+                  className={`bg-white ${
+                    isSignature ? "p-7 sm:p-8" : "border border-neutral-200 p-7 sm:p-8 rounded-lg"
+                  } flex flex-col justify-between hover:border-black transition-all shadow-xs hover:shadow-md h-full group`}
                 >
-                  Enquire This Size
-                </button>
-              </div>
-            ))}
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      {isSignature ? (
+                        <div className="p-[1.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded">
+                          <span className="text-[10px] uppercase tracking-widest text-white bg-black px-2 py-0.5 rounded font-mono font-medium block">
+                            {plot.badge}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">
+                          {plot.badge}
+                        </span>
+                      )}
+                      <span className="text-xs font-semibold text-black bg-neutral-100 px-2.5 py-1 rounded font-doto tracking-wider">
+                        {plot.areaSqFt}
+                      </span>
+                    </div>
+
+                    <h3 className="font-editorial text-2xl uppercase tracking-wide text-black mb-3">
+                      {plot.name}
+                    </h3>
+
+                    <div className="py-3 border-y border-neutral-100 my-4 space-y-2 text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-neutral-500">Dimensions:</span>
+                        <span className="text-black font-medium">{plot.dimension}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-neutral-500">Orientation:</span>
+                        <span className="text-black font-medium">{plot.facing}</span>
+                      </div>
+                    </div>
+
+                    <p className="text-neutral-600 text-xs font-light leading-relaxed mb-6">
+                      {plot.idealFor}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => openEnquiry(plot.name)}
+                    className="w-full text-center py-3.5 bg-black text-white hover:bg-neutral-800 text-xs uppercase tracking-widest font-semibold transition-colors rounded cursor-pointer"
+                  >
+                    Enquire This Size
+                  </button>
+                </div>
+              );
+
+              return isSignature ? (
+                <div
+                  key={plot.id}
+                  className="p-[2.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-xl shadow-xl transform md:-translate-y-2 transition-transform"
+                >
+                  <div className="rounded-[10px] overflow-hidden h-full">
+                    {cardInner}
+                  </div>
+                </div>
+              ) : (
+                <div key={plot.id} className="h-full">
+                  {cardInner}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -513,22 +544,24 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 08. STATUTORY TRANSPARENCY & RERA DISCLOSURE */}
+      {/* 08. STATUTORY TRANSPARENCY & RERA DISCLOSURE Framed with Leopard Skin Border */}
       <section className="py-16 bg-white border-b border-neutral-200">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
-          <div className="border-l-4 border-black pl-6 space-y-2">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-black" />
-              <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">
-                Statutory Transparency
-              </span>
+          <div className="p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-xl shadow-lg">
+            <div className="bg-neutral-50 p-6 sm:p-8 rounded-[10px] space-y-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-black" />
+                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-600 font-semibold">
+                  Statutory Transparency &amp; Governance
+                </span>
+              </div>
+              <h3 className="font-editorial text-xl sm:text-2xl uppercase tracking-wider text-black">
+                STATUTORY APPROVALS &amp; RERA DISCLOSURE
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed font-light">
+                ROVERA by STTHIRA is currently completing statutory project approvals with local planning authorities in North Bengaluru. Cadastral survey boundaries and certified legal title dossiers are open for private inspection at our corporate office for registered prospective buyers. In accordance with RERA, formal allotment will proceed immediately upon registration certificate issuance.
+              </p>
             </div>
-            <h3 className="font-editorial text-xl uppercase tracking-wider text-black">
-              STATUTORY APPROVALS &amp; RERA DISCLOSURE
-            </h3>
-            <p className="text-xs text-neutral-600 leading-relaxed font-light">
-              ROVERA by STTHIRA is currently completing statutory project approvals with local planning authorities in North Bengaluru. Cadastral survey boundaries and certified legal title dossiers are open for private inspection at our corporate office for registered prospective buyers. In accordance with RERA, formal allotment will proceed immediately upon registration certificate issuance.
-            </p>
           </div>
         </div>
       </section>
@@ -540,25 +573,27 @@ export default function RoveraView() {
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Advisory Card */}
-            <div className="md:col-span-5 bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-neutral-200/90 shadow-2xl space-y-4">
-              <StthiraEmblem className="text-black w-8 h-10" />
-              <h2 className="font-editorial text-3xl sm:text-4xl uppercase tracking-tight text-black font-light leading-tight">
-                SCHEDULE SITE WALKTHROUGH
-              </h2>
-              <p className="text-neutral-600 text-sm leading-relaxed font-light">
-                Speak directly with a senior relationship manager to review ROVERA plot layouts, Phase 1 pricing, and certified legal title dossiers.
-              </p>
-              <div className="pt-3 border-t border-neutral-200">
-                <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">
-                  Direct Project Concierge
-                </span>
-                <a
-                  href="tel:+918045678900"
-                  className="text-base font-semibold text-black hover:underline"
-                >
-                  +91 80 4567 8900
-                </a>
+            {/* Left Advisory Card with Leopard Skin Border Accent */}
+            <div className="md:col-span-5 p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-2xl shadow-2xl">
+              <div className="bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-[14px] space-y-4 h-full">
+                <StthiraEmblem className="text-black w-8 h-10" />
+                <h2 className="font-editorial text-3xl sm:text-4xl uppercase tracking-tight text-black font-light leading-tight">
+                  SCHEDULE SITE WALKTHROUGH
+                </h2>
+                <p className="text-neutral-600 text-sm leading-relaxed font-light">
+                  Speak directly with a senior relationship manager to review ROVERA plot layouts, Phase 1 pricing, and certified legal title dossiers.
+                </p>
+                <div className="pt-3 border-t border-neutral-200">
+                  <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">
+                    Direct Project Concierge
+                  </span>
+                  <a
+                    href="tel:+918045678900"
+                    className="text-base font-semibold text-black hover:underline"
+                  >
+                    +91 80 4567 8900
+                  </a>
+                </div>
               </div>
             </div>
 
