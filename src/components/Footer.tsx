@@ -287,45 +287,97 @@ export default function Footer() {
 
       {/* Below-Footer Brand Wordmark Band */}
       {isRovera ? (
-        /* Exclusive ROVERA Leaping Cheetah Artwork Emblem Sanctuary (Matching Image 2 Artwork) */
+        /* Exclusive ROVERA "Heavenward" Leopard on Ancient Branch Fine-Art Sanctuary (Showpiece Highlight) */
         <section
-          aria-label="ROVERA Brand Emblem Sanctuary"
-          className="relative w-full overflow-hidden bg-[#edece8] py-16 sm:py-24 md:py-28 select-none border-t border-neutral-300"
+          aria-label="ROVERA Fine-Art Sanctuary"
+          className="relative w-full overflow-hidden bg-white text-neutral-900 py-16 sm:py-24 md:py-32 select-none border-t border-neutral-200"
         >
-          <div className="max-w-5xl mx-auto px-6 sm:px-8 text-center flex flex-col items-center justify-center">
-            {/* The Official Leaping Cheetah ROVERA Artwork (Image 2) */}
-            <div className="relative w-full max-w-md sm:max-w-xl md:max-w-2xl aspect-[1.12/1] max-h-[380px] sm:max-h-[460px] my-2 select-none">
+          {/* Architectural Hairline Blueprint Crosshairs in Corners */}
+          <div className="absolute top-6 left-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
+            + [ROVERA SANCTUARY • 13°11&apos;52&quot;N 77°35&apos;44&quot;E]
+          </div>
+          <div className="absolute top-6 right-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
+            [ELEVATION: 920M • NORTH BENGALURU] +
+          </div>
+          <div className="absolute bottom-6 left-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
+            + [45% CONSERVED INDIGENOUS CANOPY]
+          </div>
+          <div className="absolute bottom-6 right-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
+            [STTHIRA MASTER DEVELOPER • EST. 2026] +
+          </div>
+
+          <div className="max-w-6xl mx-auto px-4 sm:px-8 text-center flex flex-col items-center justify-center">
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2 border border-neutral-300 bg-neutral-50 px-4 py-1.5 mb-4 sm:mb-6 rounded-full shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-neutral-700 font-sans font-medium">
+                The ROVERA Sanctuary • North Bengaluru
+              </span>
+            </div>
+
+            {/* Monumental Architectural Wordmark */}
+            <h2 className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.2em] sm:tracking-[0.26em] uppercase text-neutral-950 leading-none select-none mb-2 sm:mb-4">
+              ROVERA
+            </h2>
+
+            {/* The Fine-Art Leopard on Ancient Bough (Matches User Reference Image Perfectly) */}
+            <div className="relative w-full max-w-3xl sm:max-w-4xl md:max-w-5xl aspect-[1.91/1] select-none my-2 sm:my-4 transition-transform duration-700 hover:scale-[1.015]">
               <Image
-                src="/images/rovera-art.jpg"
-                alt="ROVERA — Official Leaping Cheetah Emblem"
+                src="/images/rovera-leopard-branch-retina.png"
+                alt="ROVERA — Untamed Sanctuary Leopard Resting on Weathered Bough"
                 fill
                 priority
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 600px, 800px"
-                className="object-contain object-center drop-shadow-xs"
+                quality={95}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+                className="object-contain object-center"
               />
             </div>
 
-            {/* Editorial Hierarchy / Subtitle */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm uppercase tracking-[0.25em] text-neutral-700 font-sans font-light">
-              <span className="font-semibold text-black">BY STTHIRA</span>
-              <span className="text-neutral-400">•</span>
-              <span>42+ ACRE SANCTUARY</span>
-              <span className="text-neutral-400">•</span>
-              <span>186 BESPOKE PLOTS</span>
-              <span className="text-neutral-400">•</span>
-              <span>NORTH BENGALURU</span>
+            {/* Editorial Poetic Cadence */}
+            <p className="font-editorial text-lg sm:text-2xl md:text-3xl italic font-light text-neutral-800 max-w-2xl mx-auto mt-4 sm:mt-6 text-center leading-relaxed">
+              &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
+            </p>
+
+            {/* 4 Sanctuary Spec Metrics (Assetz Clean Strip with DotMatrix Numbers) */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-8 text-[11px] sm:text-xs uppercase tracking-widest text-neutral-700 font-sans py-3 px-6 sm:px-8 bg-neutral-50 border border-neutral-200 rounded-full shadow-2xs">
+              <span className="flex items-center gap-1.5">
+                <span className="font-semibold text-black">42+</span>
+                <span className="text-neutral-500">Acres Sanctuary</span>
+              </span>
+              <span className="text-neutral-300">•</span>
+              <span className="flex items-center gap-1.5">
+                <span className="font-semibold text-black">186</span>
+                <span className="text-neutral-500">Curated Parcels</span>
+              </span>
+              <span className="text-neutral-300">•</span>
+              <span className="flex items-center gap-1.5">
+                <span className="font-semibold text-black">45%</span>
+                <span className="text-neutral-500">Conserved Canopy</span>
+              </span>
+              <span className="text-neutral-300">•</span>
+              <span className="flex items-center gap-1.5 text-black font-medium">
+                <span>18 Mins Airport</span>
+              </span>
             </div>
 
-            {/* Refined Architectural Return to Top Button */}
-            <div className="mt-8 sm:mt-10">
+            {/* Actions: Return to Top & Schedule Walkthrough */}
+            <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
                 href="#hero"
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 border border-neutral-400 hover:border-black text-black hover:bg-black/5 text-xs uppercase tracking-[0.2em] font-medium rounded-full transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 border border-neutral-300 hover:border-black text-black hover:bg-neutral-50 text-xs uppercase tracking-[0.2em] font-medium rounded-full transition-all cursor-pointer shadow-2xs"
               >
                 <span>Return to Top</span>
                 <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                   <path d="M12 19V5M5 12l7-7 7 7" />
                 </svg>
+              </a>
+
+              <a
+                href="#enquiry"
+                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-black hover:bg-neutral-800 text-white text-xs uppercase tracking-[0.2em] font-medium rounded-full transition-all cursor-pointer shadow-md"
+              >
+                <span>Schedule Walkthrough</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
