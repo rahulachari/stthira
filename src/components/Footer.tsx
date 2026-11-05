@@ -339,48 +339,24 @@ export default function Footer() {
           </div>
         </section>
       ) : (
-        /* Monumental Interactive Halftone Wordmark for STTHIRA (21st.dev Pure White Canvas with Warm Reactive Dots) */
+        /* Monumental Interactive Halftone Wordmark for STTHIRA — Pure Reactive Dot Matrix Canvas (Clean White Background) */
         <div className="w-full border-t border-neutral-200 bg-white overflow-hidden">
           <HalftoneWordmarkFooter
             wordmark="stthira"
-            label="STTHIRA DEVELOPMENTS"
-            meta="EST. 2026 · ARCHITECTURAL PERMANENCE"
-            columns={[
-              {
-                title: "Portfolio",
-                links: [
-                  { label: "ROVERA Sanctuary", href: "/developments/rovera" },
-                  { label: "STTHIRA TERRA", href: "/developments/terra" },
-                  { label: "AKSHARA MEADOWS", href: "/developments/akshara-meadows" },
-                ],
-              },
-              {
-                title: "Governance",
-                links: [
-                  { label: "Title Purity Audit", href: "/governance" },
-                  { label: "Civil Infrastructure", href: "/philosophy" },
-                  { label: "DPDP & RERA Audit", href: "/rera-audit" },
-                ],
-              },
-              {
-                title: "Advisory",
-                links: [
-                  { label: "contact@stthira.in", href: "mailto:contact@stthira.in" },
-                  { label: "+91 80 4567 8900", href: "tel:+918045678900" },
-                  { label: "Private Consultation", href: "/contact" },
-                ],
-              },
-            ]}
+            label=""
+            meta=""
+            columns={[]}
+            backToTop={false}
             preset="paper"
             palette={{
               background: "#ffffff",
               ink: "#17150f",
               warm: "#ff6a00",
             }}
-            height="520px"
+            height="340px"
             dotGap={6}
             radius={85}
-            crop={0.15}
+            crop={0.12}
             interactive={true}
           />
         </div>
