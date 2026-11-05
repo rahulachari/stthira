@@ -8,7 +8,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { COMPANY_INFO } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
 import StthiraEmblem from "./StthiraEmblem";
-import HalftoneWordmarkFooter from "./ui/halftone-wordmark-footer";
+import { DitheredBand } from "./ui/dithered-footer";
 
 export default function Footer() {
   const currentYear = 2026;
@@ -285,16 +285,13 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Monumental Interactive Halftone Wordmark Section (Brand Name Big & Clean - Fits Full Section) */}
+      {/* Monumental Interactive Stochastic Dithered Wordmark (Brand Name Big & Clean with Drifting Dots & Mouse Spotlight) */}
       <div className="w-full border-t border-neutral-200 bg-[#efebe3] overflow-hidden">
-        <HalftoneWordmarkFooter
-          wordmark={wordmark}
-          preset="paper"
-          height="560px"
-          dotGap={5}
-          radius={110}
-          crop={0}
-          interactive={true}
+        <DitheredBand
+          brand={wordmark}
+          accent="#111111"
+          bgColor="#efebe3"
+          height="h-64 sm:h-80 md:h-[480px]"
         />
       </div>
     </footer>
