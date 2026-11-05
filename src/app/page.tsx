@@ -397,8 +397,8 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* WebGL Refractive Liquid FlexCarousel (Adaptive across Mobile, Tablet/iPad & Desktop) */}
-          <div className="relative w-full h-[380px] sm:h-[460px] md:h-[520px] lg:h-[580px] rounded-xl overflow-hidden bg-neutral-900/60 border border-neutral-800/80 shadow-2xl">
+          {/* WebGL Refractive Liquid FlexCarousel (Seamlessly blending with section background) */}
+          <div className="relative w-full h-[380px] sm:h-[460px] md:h-[520px] lg:h-[580px] overflow-hidden bg-transparent">
             <FlexCarousel
               items={architecturalArchiveItems}
               preset="liquid"
