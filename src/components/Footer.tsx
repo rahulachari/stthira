@@ -287,10 +287,10 @@ export default function Footer() {
 
       {/* Below-Footer Brand Wordmark Band */}
       {isRovera ? (
-        /* Exclusive ROVERA "Heavenward" Leopard on Ancient Branch Fine-Art Sanctuary (Showpiece Highlight) */
+        /* Exclusive ROVERA "Heavenward" Leopard Fine-Art Sanctuary (Editorial Side-by-Side) */
         <section
           aria-label="ROVERA Fine-Art Sanctuary"
-          className="relative w-full overflow-hidden bg-white text-neutral-900 py-16 sm:py-24 md:py-32 select-none border-t border-neutral-200"
+          className="relative w-full overflow-hidden bg-white text-neutral-900 py-16 sm:py-20 md:py-24 select-none border-t border-neutral-200"
         >
           {/* Architectural Hairline Blueprint Crosshairs in Corners */}
           <div className="absolute top-6 left-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
@@ -306,79 +306,44 @@ export default function Footer() {
             [STTHIRA MASTER DEVELOPER • EST. 2026] +
           </div>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-8 text-center flex flex-col items-center justify-center">
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 border border-neutral-300 bg-neutral-50 px-4 py-1.5 mb-4 sm:mb-6 rounded-full shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-neutral-700 font-sans font-medium">
-                The ROVERA Sanctuary • North Bengaluru
-              </span>
-            </div>
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left Column: The Feathered Fine-Art Leopard on Weathered Bough */}
+              <div className="lg:col-span-7 relative w-full aspect-[1.91/1] select-none transition-transform duration-700 hover:scale-[1.015]">
+                <Image
+                  src="/images/rovera-cheetah-beside-retina.png"
+                  alt="ROVERA — Untamed Sanctuary Leopard Resting on Weathered Bough"
+                  fill
+                  priority
+                  quality={95}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 850px"
+                  className="object-contain object-center lg:object-left"
+                />
+              </div>
 
-            {/* Monumental Architectural Wordmark */}
-            <h2 className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.2em] sm:tracking-[0.26em] uppercase text-neutral-950 leading-none select-none mb-2 sm:mb-4">
-              ROVERA
-            </h2>
+              {/* Right Column: Monumental Brand Name BESIDE the Cheetah */}
+              <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-3 sm:space-y-4">
+                {/* Status Pill */}
+                <div className="inline-flex items-center gap-2 border border-neutral-300 bg-neutral-50 px-3.5 py-1 rounded-full shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-neutral-700 font-sans font-medium">
+                    The ROVERA Sanctuary
+                  </span>
+                </div>
 
-            {/* The Fine-Art Leopard on Ancient Bough (Matches User Reference Image Perfectly) */}
-            <div className="relative w-full max-w-3xl sm:max-w-4xl md:max-w-5xl aspect-[1.91/1] select-none my-2 sm:my-4 transition-transform duration-700 hover:scale-[1.015]">
-              <Image
-                src="/images/rovera-leopard-branch-retina.png"
-                alt="ROVERA — Untamed Sanctuary Leopard Resting on Weathered Bough"
-                fill
-                priority
-                quality={95}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
-                className="object-contain object-center"
-              />
-            </div>
+                {/* Monumental Brand Name Beside the Cheetah */}
+                <h2 className="font-editorial text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-light tracking-[0.16em] uppercase text-black leading-none select-none">
+                  ROVERA
+                </h2>
 
-            {/* Editorial Poetic Cadence */}
-            <p className="font-editorial text-lg sm:text-2xl md:text-3xl italic font-light text-neutral-800 max-w-2xl mx-auto mt-4 sm:mt-6 text-center leading-relaxed">
-              &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
-            </p>
+                <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.3em] text-neutral-500 font-medium">
+                  North Bengaluru • By STTHIRA
+                </p>
 
-            {/* 4 Sanctuary Spec Metrics (Assetz Clean Strip with DotMatrix Numbers) */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-8 text-[11px] sm:text-xs uppercase tracking-widest text-neutral-700 font-sans py-3 px-6 sm:px-8 bg-neutral-50 border border-neutral-200 rounded-full shadow-2xs">
-              <span className="flex items-center gap-1.5">
-                <span className="font-semibold text-black">42+</span>
-                <span className="text-neutral-500">Acres Sanctuary</span>
-              </span>
-              <span className="text-neutral-300">•</span>
-              <span className="flex items-center gap-1.5">
-                <span className="font-semibold text-black">186</span>
-                <span className="text-neutral-500">Curated Parcels</span>
-              </span>
-              <span className="text-neutral-300">•</span>
-              <span className="flex items-center gap-1.5">
-                <span className="font-semibold text-black">45%</span>
-                <span className="text-neutral-500">Conserved Canopy</span>
-              </span>
-              <span className="text-neutral-300">•</span>
-              <span className="flex items-center gap-1.5 text-black font-medium">
-                <span>18 Mins Airport</span>
-              </span>
-            </div>
-
-            {/* Actions: Return to Top & Schedule Walkthrough */}
-            <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-4">
-              <a
-                href="#hero"
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 border border-neutral-300 hover:border-black text-black hover:bg-neutral-50 text-xs uppercase tracking-[0.2em] font-medium rounded-full transition-all cursor-pointer shadow-2xs"
-              >
-                <span>Return to Top</span>
-                <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                  <path d="M12 19V5M5 12l7-7 7 7" />
-                </svg>
-              </a>
-
-              <a
-                href="#enquiry"
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-black hover:bg-neutral-800 text-white text-xs uppercase tracking-[0.2em] font-medium rounded-full transition-all cursor-pointer shadow-md"
-              >
-                <span>Schedule Walkthrough</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+                <p className="font-editorial text-base sm:text-xl italic font-light text-neutral-700 leading-relaxed pt-1 max-w-md">
+                  &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
+                </p>
+              </div>
             </div>
           </div>
         </section>
