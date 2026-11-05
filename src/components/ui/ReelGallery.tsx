@@ -45,14 +45,14 @@ const DEFAULT_IMAGES = [
 export default function ReelGallery({
   images = DEFAULT_IMAGES,
   rows = 4,
-  rowHeight = 175,
-  rowGap = 22,
-  itemGap = 20,
-  tilt = -12,
-  speed = 1.2,
+  rowHeight = 185,
+  rowGap = 24,
+  itemGap = 22,
+  tilt = -11,
+  speed = 1.3,
   alternate = true,
-  grayscale = 1,
-  opacity = 0.35,
+  grayscale = 0,
+  opacity = 0.85,
   className = "",
 }: ReelGalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -64,8 +64,8 @@ export default function ReelGallery({
   });
 
   // Calculate parallax scroll transforms for alternating directions
-  const moveXRight = useTransform(scrollYProgress, [0, 1], [-140 * speed, 140 * speed]);
-  const moveXLeft = useTransform(scrollYProgress, [0, 1], [140 * speed, -140 * speed]);
+  const moveXRight = useTransform(scrollYProgress, [0, 1], [-160 * speed, 160 * speed]);
+  const moveXLeft = useTransform(scrollYProgress, [0, 1], [160 * speed, -160 * speed]);
 
   // Distribute images evenly across the specified number of rows
   const rowData = Array.from({ length: rows }, (_, rowIndex) => {
@@ -99,7 +99,7 @@ export default function ReelGallery({
       >
         {rowData.map((row, i) => {
           const motionX = row.isReverse ? moveXRight : moveXLeft;
-          const animDuration = 48 + (i % 3) * 10;
+          const animDuration = 44 + (i % 3) * 8;
 
           return (
             <motion.div
@@ -119,7 +119,7 @@ export default function ReelGallery({
                 {[...row.items, ...row.items].map((src, idx) => (
                   <div
                     key={`${row.id}-${idx}`}
-                    className="relative shrink-0 rounded-lg overflow-hidden bg-neutral-900 border border-black/10 shadow-lg"
+                    className="relative shrink-0 rounded-xl overflow-hidden bg-neutral-900 border border-black/15 shadow-2xl"
                     style={{
                       height: `${rowHeight}px`,
                       width: `${Math.round(rowHeight * 1.55)}px`,
@@ -130,14 +130,14 @@ export default function ReelGallery({
                       src={src}
                       alt="STTHIRA Architecture Reel"
                       fill
-                      sizes="300px"
+                      sizes="350px"
                       className="object-cover object-center"
                       style={{
-                        filter: `grayscale(${grayscale * 100}%) contrast(115%) brightness(95%)`,
+                        filter: `grayscale(${grayscale * 100}%) contrast(108%) brightness(100%)`,
                       }}
                     />
                     {/* Subtle Architectural Glass Surface Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-white/10 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-white/15 pointer-events-none" />
                   </div>
                 ))}
               </div>
@@ -146,9 +146,12 @@ export default function ReelGallery({
         })}
       </div>
 
-      {/* Luxury Vignette & Soft Gradient Masks so text & forms on top remain 100% readable */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-white/85 to-white pointer-events-none" />
-      <div className="absolute inset-0 bg-radial from-transparent via-white/60 to-white pointer-events-none" />
+      {/* Seamless Edge Blends into Above and Below Sections without covering center */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
+      
+      {/* Light Delicate Scrim: ensures rich visibility while maintaining balanced ambient background depth */}
+      <div className="absolute inset-0 bg-white/20 pointer-events-none" />
     </div>
   );
 }

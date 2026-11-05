@@ -512,14 +512,14 @@ export default function RoveraView() {
       </section>
 
       {/* 09. ASSETZ-STYLE CLEAN INLINE ENQUIRY SECTION */}
-      <section id="enquiry" className="relative py-20 sm:py-28 bg-white overflow-hidden">
+      <section id="enquiry" className="relative py-24 sm:py-32 bg-neutral-100/40 overflow-hidden">
         {/* React Bits Pro Reel Gallery: Tilted reels of images that glide as you scroll (Enquire Now section only) */}
         <ReelGallery />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Advisory Card */}
-            <div className="md:col-span-5 space-y-4">
+            <div className="md:col-span-5 bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-neutral-200/90 shadow-2xl space-y-4">
               <StthiraEmblem className="text-black w-8 h-10" />
               <h2 className="font-editorial text-3xl sm:text-4xl uppercase tracking-tight text-black font-light leading-tight">
                 SCHEDULE SITE WALKTHROUGH
@@ -527,13 +527,13 @@ export default function RoveraView() {
               <p className="text-neutral-600 text-sm leading-relaxed font-light">
                 Speak directly with a senior relationship manager to review ROVERA plot layouts, Phase 1 pricing, and certified legal title dossiers.
               </p>
-              <div className="pt-2 border-t border-neutral-200">
+              <div className="pt-3 border-t border-neutral-200">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">
                   Direct Project Concierge
                 </span>
                 <a
                   href="tel:+918045678900"
-                  className="text-sm font-semibold text-black hover:underline"
+                  className="text-base font-semibold text-black hover:underline"
                 >
                   +91 80 4567 8900
                 </a>
@@ -542,7 +542,11 @@ export default function RoveraView() {
 
             {/* Right Clean 3-Field Form */}
             <div className="md:col-span-7">
-              <EnquiryForm defaultDevelopment="ROVERA (North Bengaluru)" defaultType="Schedule Site Visit" />
+              <EnquiryForm
+                defaultDevelopment="ROVERA (North Bengaluru)"
+                defaultType="Schedule Site Visit"
+                className="bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl border-neutral-200/90"
+              />
             </div>
           </div>
         </div>
