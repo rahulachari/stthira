@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
-import { Volume2, VolumeX } from "lucide-react";
 
 interface CinematicOpeningRevealProps {
   children: React.ReactNode;
@@ -15,8 +14,6 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   const [mounted, setMounted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [audioStarted, setAudioStarted] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -24,7 +21,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   const startTimeRef = useRef<number>(0);
   const isDismissedRef = useRef<boolean>(false);
 
-  const DURATION = 3.9; // 3.9 seconds matching the original video duration
+  const DURATION = 3.8; // 3.8 seconds matching the authentic video sweep duration
 
   const finishIntro = useCallback(() => {
     if (isDismissedRef.current) return;
@@ -35,9 +32,9 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       // Smooth audio fadeout
       const fadeAudio = () => {
         if (!audioRef.current) return;
-        if (audioRef.current.volume > 0.05) {
-          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.1);
-          setTimeout(fadeAudio, 40);
+        if (audioRef.current.volume > 0.08) {
+          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.12);
+          setTimeout(fadeAudio, 35);
         } else {
           audioRef.current.pause();
         }
@@ -47,31 +44,8 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
     setTimeout(() => {
       setIsCompleted(true);
-    }, 600);
+    }, 650);
   }, []);
-
-  const toggleMute = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!audioRef.current) return;
-    const nextMuted = !isMuted;
-    setIsMuted(nextMuted);
-    audioRef.current.muted = nextMuted;
-  }, [isMuted]);
-
-  // Attempt to play audio
-  const startAudio = useCallback(() => {
-    if (!audioRef.current || audioStarted) return;
-    audioRef.current.volume = 1.0;
-    audioRef.current.currentTime = 0;
-    audioRef.current
-      .play()
-      .then(() => {
-        setAudioStarted(true);
-      })
-      .catch(() => {
-        // Autoplay policy prevented playback until user gesture
-      });
-  }, [audioStarted]);
 
   useEffect(() => {
     setMounted(true);
@@ -81,16 +55,47 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       return;
     }
 
-    // Initialize Audio
+    // 01. Automatic Sound Initialization & Immediate Playback
     const audio = new Audio("/audio/stthira-intro.mp3");
     audio.preload = "auto";
+    audio.volume = 1.0;
     audioRef.current = audio;
 
-    // Try autoplay immediately
-    audio.play().then(() => setAudioStarted(true)).catch(() => {
-      // Will play on first click/interaction
-    });
+    const playAudio = () => {
+      if (audioRef.current && !isDismissedRef.current) {
+        audioRef.current.play().catch(() => {
+          // Autoplay policy waiting for user interaction
+        });
+      }
+    };
 
+    // Immediate attempt to play sound automatically
+    playAudio();
+
+    // Fallback: unlock audio on the very first interaction (mouse movement, touch, click, scroll, or key)
+    const unlockAudio = () => {
+      playAudio();
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("touchstart", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
+      window.removeEventListener("wheel", unlockAudio);
+      window.removeEventListener("scroll", unlockAudio);
+      window.removeEventListener("mousemove", unlockAudio);
+    };
+
+    window.addEventListener("pointerdown", unlockAudio, { once: true, passive: true });
+    window.addEventListener("touchstart", unlockAudio, { once: true, passive: true });
+    window.addEventListener("keydown", unlockAudio, { once: true, passive: true });
+    window.addEventListener("wheel", unlockAudio, { once: true, passive: true });
+    window.addEventListener("scroll", unlockAudio, { once: true, passive: true });
+    window.addEventListener("mousemove", unlockAudio, { once: true, passive: true });
+
+    // 02. Hard Fallback Timer: Guarantees page NEVER gets stuck
+    const autoFinishTimer = setTimeout(() => {
+      finishIntro();
+    }, 3800);
+
+    // 03. Dynamic Volumetric Rays & Specular Floor Canvas
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -106,14 +111,14 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     };
     window.addEventListener("resize", onResize);
 
-    // Dust particles floating in atmospheric beam
-    const particles = Array.from({ length: 45 }, () => ({
+    // Fine floating atmospheric particulates
+    const particles = Array.from({ length: 40 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       size: Math.random() * 2 + 0.5,
       speedX: (Math.random() - 0.5) * 0.4,
-      speedY: -Math.random() * 0.6 - 0.2,
-      alpha: Math.random() * 0.7 + 0.2,
+      speedY: -Math.random() * 0.5 - 0.2,
+      alpha: Math.random() * 0.6 + 0.2,
     }));
 
     startTimeRef.current = performance.now();
@@ -122,25 +127,15 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       if (isDismissedRef.current) return;
 
       const elapsed = (now - startTimeRef.current) / 1000;
-      const progress = Math.min(1, elapsed / DURATION);
-
-      // Lightstorm Sweep Timing:
-      // 0.0s - 0.4s: Initial left glow
-      // 0.4s - 1.5s: Main beam sweeps from left to right across wordmark
-      // 1.5s - 2.4s: Majestic volumetric rays fan out behind central monogram
-      // 2.4s - 3.3s: Rays settle into subtle atmospheric rim highlights
-      // 3.3s - 3.9s: Smooth dissolve into website
 
       ctx.clearRect(0, 0, width, height);
 
-      // Dynamic light beam sweep position (0 = far left, 1 = far right)
-      // Uses smooth acceleration then deceleration
+      // Light beam sweep position across the STTHIRA wordmark (0 = left, 1 = right)
       let sweepProgress = 0;
       if (elapsed < 0.3) {
         sweepProgress = (elapsed / 0.3) * 0.12;
       } else if (elapsed < 1.6) {
         const t = (elapsed - 0.3) / 1.3;
-        // EaseInOut cubic
         sweepProgress = 0.12 + (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2) * 0.76;
       } else {
         sweepProgress = 0.88 + Math.min(1, (elapsed - 1.6) / 1.2) * 0.12;
@@ -148,11 +143,11 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       const centerX = width / 2;
       const centerY = height / 2;
-      const wordmarkY = centerY + 95;
-      const wordmarkWidth = Math.min(width * 0.82, 540);
+      const horizonY = centerY + 15;
+      const wordmarkWidth = Math.min(width * 0.88, 620);
       const sweepX = centerX - wordmarkWidth / 2 + sweepProgress * wordmarkWidth;
 
-      // Calculate beam intensity curve
+      // Beam intensity curve
       let beamAlpha = 0;
       if (elapsed < 0.3) {
         beamAlpha = elapsed / 0.3;
@@ -167,59 +162,83 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       ctx.save();
       ctx.globalCompositeOperation = "screen";
 
-      // 1. Volumetric Searchlight Rays shooting upwards from wordmark letters
+      // 1. Dual Upward Rays AND Downward Mirrored Floor Reflections
       if (beamAlpha > 0.02) {
-        // Individual ray emitters corresponding to S T T H I R A
         const letterCount = 7;
         const letterSpacing = wordmarkWidth / (letterCount - 1);
 
         for (let i = 0; i < letterCount; i++) {
           const letterX = centerX - wordmarkWidth / 2 + i * letterSpacing;
           const distFromSweep = Math.abs(letterX - sweepX);
-          const letterActivation = Math.max(0, 1 - distFromSweep / 110);
+          const letterActivation = Math.max(0, 1 - distFromSweep / 120);
 
           if (letterActivation > 0.01) {
             const rayIntensity = letterActivation * beamAlpha;
-            // Divergent conic searchlight beam
             const beamSpread = 90 + (1 - letterActivation) * 50;
-            const targetY = centerY - 280;
+            const targetY = centerY - 300;
 
-            const grad = ctx.createRadialGradient(
+            // Upward volumetric searchlight ray
+            const gradUp = ctx.createRadialGradient(
               letterX,
-              wordmarkY,
+              horizonY,
               5,
               letterX,
               targetY,
               height * 0.75
             );
-            grad.addColorStop(0, `rgba(255, 255, 255, ${0.85 * rayIntensity})`);
-            grad.addColorStop(0.12, `rgba(210, 230, 255, ${0.65 * rayIntensity})`);
-            grad.addColorStop(0.45, `rgba(140, 180, 240, ${0.35 * rayIntensity})`);
-            grad.addColorStop(0.8, `rgba(60, 100, 180, ${0.12 * rayIntensity})`);
-            grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+            gradUp.addColorStop(0, `rgba(255, 255, 255, ${0.85 * rayIntensity})`);
+            gradUp.addColorStop(0.12, `rgba(210, 230, 255, ${0.65 * rayIntensity})`);
+            gradUp.addColorStop(0.45, `rgba(140, 180, 240, ${0.35 * rayIntensity})`);
+            gradUp.addColorStop(0.8, `rgba(60, 100, 180, ${0.12 * rayIntensity})`);
+            gradUp.addColorStop(1, "rgba(0, 0, 0, 0)");
 
-            ctx.fillStyle = grad;
+            ctx.fillStyle = gradUp;
             ctx.beginPath();
-            ctx.moveTo(letterX - 12, wordmarkY);
+            ctx.moveTo(letterX - 12, horizonY);
             ctx.lineTo(letterX - beamSpread, targetY);
             ctx.lineTo(letterX + beamSpread, targetY);
-            ctx.lineTo(letterX + 12, wordmarkY);
+            ctx.lineTo(letterX + 12, horizonY);
+            ctx.closePath();
+            ctx.fill();
+
+            // Downward glossy floor reflection ray (mirror reflection as shown in video)
+            const refTargetY = horizonY + (horizonY - targetY) * 0.65;
+            const refSpread = beamSpread * 0.65;
+            const gradDown = ctx.createRadialGradient(
+              letterX,
+              horizonY,
+              3,
+              letterX,
+              refTargetY,
+              height * 0.5
+            );
+            gradDown.addColorStop(0, `rgba(255, 255, 255, ${0.5 * rayIntensity})`);
+            gradDown.addColorStop(0.15, `rgba(180, 215, 255, ${0.32 * rayIntensity})`);
+            gradDown.addColorStop(0.5, `rgba(80, 130, 210, ${0.12 * rayIntensity})`);
+            gradDown.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+            ctx.fillStyle = gradDown;
+            ctx.beginPath();
+            ctx.moveTo(letterX - 10, horizonY);
+            ctx.lineTo(letterX - refSpread, refTargetY);
+            ctx.lineTo(letterX + refSpread, refTargetY);
+            ctx.lineTo(letterX + 10, horizonY);
             ctx.closePath();
             ctx.fill();
           }
         }
 
-        // 2. Central Majestic Fanned Light Arc behind STTHIRA Emblem (peaks at 1.2s - 2.2s)
+        // 2. Central Fanned God-Rays behind STTHIRA Emblem
         if (elapsed > 0.8 && elapsed < 2.8) {
           const fanPeak = Math.sin(((elapsed - 0.8) / 2.0) * Math.PI);
           const fanAlpha = fanPeak * 0.55 * beamAlpha;
 
           const fanGrad = ctx.createRadialGradient(
             centerX,
-            centerY - 20,
+            centerY - 60,
             20,
             centerX,
-            centerY - 20,
+            centerY - 60,
             Math.max(width, height) * 0.65
           );
           fanGrad.addColorStop(0, `rgba(225, 240, 255, ${fanAlpha * 0.75})`);
@@ -229,38 +248,38 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
           ctx.fillStyle = fanGrad;
           ctx.beginPath();
-          ctx.arc(centerX, centerY - 20, Math.max(width, height) * 0.65, 0, Math.PI * 2);
+          ctx.arc(centerX, centerY - 60, Math.max(width, height) * 0.65, 0, Math.PI * 2);
           ctx.fill();
 
-          // Radial searchlight spokes / god rays
-          const rayCount = 14;
+          // Radial spokes
+          const rayCount = 12;
           for (let r = 0; r < rayCount; r++) {
-            const angle = -Math.PI / 2 + ((r - (rayCount - 1) / 2) / rayCount) * 1.4;
-            const rayLength = height * 0.8;
-            const rayWidth = 14 + (r % 3) * 8;
+            const angle = -Math.PI / 2 + ((r - (rayCount - 1) / 2) / rayCount) * 1.35;
+            const rayLength = height * 0.75;
+            const rayWidth = 14 + (r % 3) * 7;
 
             ctx.strokeStyle = `rgba(190, 220, 255, ${fanAlpha * 0.22})`;
             ctx.lineWidth = rayWidth;
             ctx.beginPath();
-            ctx.moveTo(centerX, centerY + 30);
+            ctx.moveTo(centerX, centerY - 20);
             ctx.lineTo(
               centerX + Math.sin(angle) * rayLength,
-              centerY - Math.cos(angle) * rayLength
+              centerY - 60 - Math.cos(angle) * rayLength
             );
             ctx.stroke();
           }
         }
 
-        // 3. Anamorphic Lens Flare & Specular Flare following the sweep beam
-        if (elapsed > 0.3 && elapsed < 2.0) {
-          const flareAlpha = Math.sin(((elapsed - 0.3) / 1.7) * Math.PI);
+        // 3. Anamorphic Lens Flare & Specular Horizon Shine
+        if (elapsed > 0.3 && elapsed < 2.2) {
+          const flareAlpha = Math.sin(((elapsed - 0.3) / 1.9) * Math.PI);
 
-          // Horizontal streak
+          // Horizontal anamorphic streak along horizon
           const streakGrad = ctx.createLinearGradient(
-            sweepX - 220,
-            wordmarkY,
-            sweepX + 220,
-            wordmarkY
+            sweepX - 260,
+            horizonY,
+            sweepX + 260,
+            horizonY
           );
           streakGrad.addColorStop(0, "rgba(100, 160, 255, 0)");
           streakGrad.addColorStop(0.35, `rgba(180, 220, 255, ${0.45 * flareAlpha})`);
@@ -269,16 +288,16 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
           streakGrad.addColorStop(1, "rgba(100, 160, 255, 0)");
 
           ctx.fillStyle = streakGrad;
-          ctx.fillRect(sweepX - 220, wordmarkY - 2.5, 440, 5);
+          ctx.fillRect(sweepX - 260, horizonY - 2, 520, 4);
 
           // Central circular flare core
           const coreGrad = ctx.createRadialGradient(
             sweepX,
-            wordmarkY,
+            horizonY,
             2,
             sweepX,
-            wordmarkY,
-            42
+            horizonY,
+            46
           );
           coreGrad.addColorStop(0, `rgba(255, 255, 255, ${0.95 * flareAlpha})`);
           coreGrad.addColorStop(0.3, `rgba(200, 230, 255, ${0.65 * flareAlpha})`);
@@ -287,7 +306,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
           ctx.fillStyle = coreGrad;
           ctx.beginPath();
-          ctx.arc(sweepX, wordmarkY, 42, 0, Math.PI * 2);
+          ctx.arc(sweepX, horizonY, 46, 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -300,7 +319,6 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
 
-        // Catch light when near the sweep beam
         const distToSweep = Math.abs(p.x - sweepX);
         const illumination = Math.max(0.2, 1 - distToSweep / 260) * beamAlpha;
 
@@ -312,7 +330,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       ctx.restore();
 
-      // Check for automatic completion at 3.9s
+      // Automatic completion at 3.8s
       if (elapsed >= DURATION) {
         finishIntro();
         return;
@@ -324,16 +342,20 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     animFrameRef.current = requestAnimationFrame(render);
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
         finishIntro();
       }
     };
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
+      clearTimeout(autoFinishTimer);
       cancelAnimationFrame(animFrameRef.current);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("touchstart", unlockAudio);
+      window.removeEventListener("mousemove", unlockAudio);
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -346,7 +368,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
   return (
     <div className="relative w-full min-h-screen bg-black overflow-x-hidden">
-      {/* 00. Audio Element with Authentic Video Sound Effect */}
+      {/* Authentic Video Sound Effect (Autoplay Enabled) */}
       <audio
         ref={audioRef}
         src="/audio/stthira-intro.mp3"
@@ -354,12 +376,10 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         playsInline
       />
 
-      {/* 01. The Lightstorm-Style Cinematic Opening Stage */}
+      {/* The Lightstorm-Style Cinematic Opening Stage (Click anywhere to smoothly enter) */}
       <div
         aria-label="STTHIRA Cinematic Opening"
-        onClick={() => {
-          if (!audioStarted) startAudio();
-        }}
+        onClick={finishIntro}
         className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black select-none cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isFadingOut
             ? "-translate-y-full opacity-0 pointer-events-none scale-[1.015]"
@@ -372,14 +392,15 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
           className="absolute inset-0 z-0 pointer-events-none"
         />
 
-        {/* 3D Chrome / Beveled Monolithic STTHIRA Brand Presentation */}
-        <div className="relative z-10 flex flex-col items-center justify-center pointer-events-none px-6 text-center">
+        {/* 3D Chrome STTHIRA Monolithic Brand Presentation */}
+        <div className="relative z-10 flex flex-col items-center justify-center pointer-events-none px-4 text-center">
+          
           {/* SVG 3D Chrome Monogram with Specular Shading */}
-          <div className="relative mb-5 drop-shadow-[0_15px_35px_rgba(0,0,0,0.95)]">
+          <div className="relative mb-3 sm:mb-4 drop-shadow-[0_15px_35px_rgba(0,0,0,0.95)]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 348 420"
-              className="w-24 h-28 sm:w-32 sm:h-36 md:w-40 md:h-48"
+              className="w-20 h-24 sm:w-28 sm:h-34 md:w-36 md:h-44"
             >
               <defs>
                 {/* 3D Chrome High-Contrast Linear Gradient */}
@@ -448,62 +469,58 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
             </svg>
           </div>
 
-          {/* 3D Chiseled Chrome Wordmark: S T T H I R A */}
-          <div className="relative mb-3">
-            <h1 className="font-editorial text-4xl sm:text-6xl md:text-7xl font-bold tracking-[0.32em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-300 to-neutral-600 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] select-none">
+          {/* Big STTHIRA Name with Monumental Clash Display Font Style */}
+          <div className="relative">
+            <h1 className="font-clash text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[0.24em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-500 drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)] select-none">
               STTHIRA
             </h1>
           </div>
 
-          {/* Spaced Subtitle: ARCHITECTURAL PERMANENCE */}
-          <div className="flex items-center gap-3 text-[10px] sm:text-xs uppercase tracking-[0.4em] font-sans font-light text-neutral-400 select-none">
-            <span>Architectural Permanence</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
-            <span>Est. 2026</span>
-          </div>
-        </div>
+          {/* Specular Horizon Hairline Glint */}
+          <div className="w-full max-w-xl h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent my-1 sm:my-1.5 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]" />
 
-        {/* Top Controls: Sound Toggle & Skip */}
-        <div className="absolute top-6 left-6 z-20 pointer-events-auto flex items-center gap-3">
-          <button
-            type="button"
-            onClick={toggleMute}
-            className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-neutral-400 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-neutral-800 hover:border-neutral-600 bg-black/60 backdrop-blur-xs font-sans cursor-pointer"
-            title={isMuted ? "Unmute Sound" : "Mute Sound"}
-          >
-            {isMuted ? <VolumeX className="w-3.5 h-3.5 text-neutral-400" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-400" />}
-            <span>{isMuted ? "Sound Off" : "Sound On"}</span>
-          </button>
-        </div>
-
-        <div className="absolute top-6 right-6 z-20 pointer-events-auto">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              finishIntro();
+          {/* 04. Luxury Mirrored Floor Reflection Effect (as shown in the video) */}
+          <div
+            aria-hidden="true"
+            className="relative flex flex-col items-center select-none pointer-events-none transform -scale-y-100 opacity-50"
+            style={{
+              maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 35%, rgba(0,0,0,0) 75%)",
+              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 35%, rgba(0,0,0,0) 75%)",
+              filter: "blur(1.2px) brightness(0.85)",
             }}
-            className="text-[10px] uppercase tracking-[0.25em] text-neutral-400 hover:text-white transition-colors px-4 py-1.5 rounded-full border border-neutral-800 hover:border-neutral-600 bg-black/60 backdrop-blur-xs font-sans cursor-pointer shadow-lg"
           >
-            Skip Intro →
-          </button>
-        </div>
+            {/* Reflected STTHIRA Wordmark (inverted closest to horizon) */}
+            <div className="relative">
+              <div className="font-clash text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[0.24em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-300 to-neutral-600 select-none">
+                STTHIRA
+              </div>
+            </div>
 
-        {/* Bottom Ambient Prompt */}
-        {!audioStarted && (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-sans font-light animate-pulse">
-              Click anywhere for full cinematic sound
-            </span>
+            {/* Reflected Monogram */}
+            <div className="relative mt-3 sm:mt-4 opacity-70">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 348 420"
+                className="w-20 h-24 sm:w-28 sm:h-34 md:w-36 md:h-44"
+              >
+                <use href="#stthira-tier-chrome" x="0" y="0" />
+                <use href="#stthira-tier-chrome" x="0" y="140" />
+                <use href="#stthira-tier-chrome" x="124" y="0" />
+                <use href="#stthira-tier-chrome" x="124" y="140" />
+                <use href="#stthira-tier-chrome" x="124" y="280" />
+                <use href="#stthira-tier-chrome" x="248" y="140" />
+                <use href="#stthira-tier-chrome" x="248" y="280" />
+              </svg>
+            </div>
           </div>
-        )}
+
+        </div>
       </div>
 
-      {/* 02. The Main Website Page underneath */}
+      {/* The Main Website Page underneath */}
       <div className="relative z-10 w-full min-h-screen bg-white">
         {children}
       </div>
     </div>
   );
 }
-
