@@ -77,7 +77,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[#f6f8fa] text-neutral-900 border-t border-neutral-200 font-sans">
+    <footer className="bg-white text-neutral-900 border-t border-neutral-200 font-sans">
       {/* Upper Footer: GitHub Clean Style on Light Canvas */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-12">
         {/* Top Header Row with Co-Branding Indicator: STTHIRA | ROVERA | AKSHARA */}
@@ -353,13 +353,13 @@ export default function Footer() {
           <div className="absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center shadow-lg z-20" />
         </section>
       ) : (
-        /* Monumental Interactive Stochastic Dithered Wordmark for STTHIRA on other pages */
-        <div className="w-full border-t border-neutral-200 bg-[#efebe3] overflow-hidden">
+        /* Monumental Interactive Stochastic Dithered Wordmark for STTHIRA on other pages (Matching 21st.dev Pure White & Orange Dither) */
+        <div className="w-full border-t border-neutral-100 bg-white overflow-hidden">
           <DitheredBand
             brand={wordmark}
-            accent="#111111"
-            bgColor="#efebe3"
-            height="h-64 sm:h-80 md:h-[480px]"
+            accent="#ff6a00"
+            bgColor="#ffffff"
+            height="h-64 sm:h-72 md:h-80"
           />
         </div>
       )}
