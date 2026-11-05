@@ -20,6 +20,7 @@ import StthiraEmblem from "@/components/StthiraEmblem";
 import ReelGallery from "@/components/ui/ReelGallery";
 import FlexCarousel from "@/components/ui/FlexCarousel";
 import DotMatrixNumber from "@/components/ui/DotMatrixNumber";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import { DEVELOPMENTS, FAQS } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -121,16 +122,37 @@ export default function HomePage() {
                 <span>{t("intro.badge", "The STTHIRA Vision")}</span>
               </div>
 
-              <h2 className="font-editorial text-3xl sm:text-5xl uppercase tracking-tight text-black font-light leading-tight">
+              <ScrollReveal
+                as="h2"
+                mode="scrub"
+                splitBy="words"
+                effect="fade"
+                enableBlur={true}
+                blurStrength={3}
+                baseOpacity={0.15}
+                highlightColor="#ff6a00"
+                containerClassName="!m-0"
+                textClassName="font-editorial text-3xl sm:text-5xl uppercase tracking-tight text-black font-light leading-tight !block"
+              >
                 {t("intro.headline", "LUXURY PLOTTED LIVING. TIMELESS INTEGRITY.")}
-              </h2>
+              </ScrollReveal>
 
-              <p className="text-neutral-700 text-base sm:text-lg leading-relaxed font-light">
+              <ScrollReveal
+                as="p"
+                mode="scrub"
+                splitBy="words"
+                effect="fade"
+                enableBlur={true}
+                blurStrength={2}
+                baseOpacity={0.25}
+                containerClassName="!m-0"
+                textClassName="text-neutral-700 text-base sm:text-lg leading-relaxed font-light !block"
+              >
                 {t(
                   "intro.text1",
                   "STTHIRA conceives master-planned plotted communities where each residential parcel is engineered to institutional standards. We combine world-class architectural restraint, 100% forensic legal purity, and generational value."
                 )}
-              </p>
+              </ScrollReveal>
 
               {/* 3 Core Highlights Metrics with 21st.dev Dot Matrix Numbers */}
               <div className="pt-5 grid grid-cols-3 gap-4 border-t border-neutral-200">
@@ -384,9 +406,20 @@ export default function HomePage() {
               <span className="text-xs uppercase tracking-[0.25em] text-neutral-400 block mb-1">
                 Visual Curation
               </span>
-              <h2 className="font-editorial text-3xl sm:text-5xl uppercase tracking-tight font-light">
+              <ScrollReveal
+                as="h2"
+                mode="scrub"
+                splitBy="words"
+                effect="fade"
+                enableBlur={true}
+                blurStrength={4}
+                baseOpacity={0.2}
+                highlightColor="#ff6a00"
+                containerClassName="!m-0"
+                textClassName="font-editorial text-3xl sm:text-5xl uppercase tracking-tight font-light !block"
+              >
                 ARCHITECTURAL ARCHIVES
-              </h2>
+              </ScrollReveal>
             </div>
             <Link
               href="/gallery"

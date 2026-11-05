@@ -21,6 +21,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import ReelGallery from "@/components/ui/ReelGallery";
 import DotMatrixNumber from "@/components/ui/DotMatrixNumber";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import RoveraIntroAnimation from "./RoveraIntroAnimation";
 
 export default function RoveraView() {
@@ -147,9 +148,20 @@ export default function RoveraView() {
           </div>
 
           {/* Editorial Project Headline */}
-          <h1 className="font-editorial text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-wide uppercase text-neutral-100 max-w-4xl leading-tight mb-4 px-2">
+          <ScrollReveal
+            as="h1"
+            mode="scrub"
+            splitBy="words"
+            effect="fade"
+            enableBlur={true}
+            blurStrength={4}
+            baseOpacity={0.2}
+            highlightColor="#ff6a00"
+            containerClassName="!m-0"
+            textClassName="font-editorial text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-wide uppercase text-neutral-100 max-w-4xl leading-tight mb-4 px-2 !block"
+          >
             SANCTUARY OF TIMELESS RESIDENCE.
-          </h1>
+          </ScrollReveal>
 
           <p className="max-w-2xl mx-auto text-xs sm:text-base md:text-lg font-sans text-neutral-300 font-light leading-relaxed mb-8 sm:mb-10 px-2 sm:px-0">
             A 42+ acre master-planned enclave crafted by STTHIRA in North Bengaluru. Featuring 186 curated residential parcels, 100% underground civil utilities, and 45% conserved native canopy.
@@ -219,10 +231,20 @@ export default function RoveraView() {
                 <span>The ROVERA Standard</span>
               </div>
 
-              <h2 className="font-editorial text-3xl sm:text-5xl uppercase tracking-tight text-black font-light leading-tight">
-                GROUNDED IN QUALITY. <br />
-                <span className="italic text-neutral-500 font-light">BUILT FOR GENERATIONS.</span>
-              </h2>
+              <ScrollReveal
+                as="h2"
+                mode="scrub"
+                splitBy="words"
+                effect="fade"
+                enableBlur={true}
+                blurStrength={3}
+                baseOpacity={0.15}
+                highlightColor="#ff6a00"
+                containerClassName="!m-0"
+                textClassName="font-editorial text-3xl sm:text-5xl uppercase tracking-tight text-black font-light leading-tight !block"
+              >
+                GROUNDED IN QUALITY. BUILT FOR GENERATIONS.
+              </ScrollReveal>
 
               <p className="font-sans text-neutral-700 text-sm sm:text-base leading-relaxed font-light">
                 <strong>ROVERA</strong> is the inaugural plotted living development by <strong>STTHIRA</strong> (Founded 2026, Board of Directors: Lokesh Mudhaliar), established in strategic land collaboration with <strong>AKSHARA</strong>.

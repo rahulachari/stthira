@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Compass } from "lucide-react";
 import { PHILOSOPHY_PILLARS } from "@/lib/data";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
   title: "Our Philosophy — Refined in Thought. Bold in Vision. | STTHIRA",
@@ -32,10 +33,20 @@ export default function PhilosophyPage() {
               <span>The Architectural Treatise</span>
             </div>
 
-            <h1 className="font-editorial text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95] break-words">
-              REFINED IN THOUGHT. <br />
-              <span className="italic font-light text-neutral-400">BOLD IN VISION.</span>
-            </h1>
+            <ScrollReveal
+              as="h1"
+              mode="scrub"
+              splitBy="words"
+              effect="fade"
+              enableBlur={true}
+              blurStrength={4}
+              baseOpacity={0.2}
+              highlightColor="#ff6a00"
+              containerClassName="!m-0"
+              textClassName="font-editorial text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95] break-words !block"
+            >
+              REFINED IN THOUGHT. BOLD IN VISION.
+            </ScrollReveal>
 
             <p className="font-sans text-neutral-300 text-base sm:text-xl font-light leading-relaxed max-w-2xl">
               An architectural philosophy inspired by the permanence of stone, the discipline of geometry, and the solemn fiduciary duty owed to the land.

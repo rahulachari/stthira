@@ -15,6 +15,7 @@ import GalleryView from "@/components/GalleryView";
 import FaqAccordion from "@/components/FaqAccordion";
 import EnquiryForm from "@/components/EnquiryForm";
 import StthiraEmblem from "@/components/StthiraEmblem";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata = {
   title: "AKSHARA MEADOWS — Strategic Alliance with STTHIRA | Plotted Living",
@@ -124,10 +125,20 @@ export default function AksharaMeadowsPage() {
               <span className="text-xs uppercase tracking-[0.3em] text-neutral-500 font-sans block">
                 Master Development Overview
               </span>
-              <h2 className="font-editorial text-4xl sm:text-6xl uppercase tracking-tight text-black font-light leading-[1.05]">
-                SOVEREIGN LIVING. <br />
-                <span className="italic font-light text-neutral-500">CURATED COLLABORATION.</span>
-              </h2>
+              <ScrollReveal
+                as="h2"
+                mode="scrub"
+                splitBy="words"
+                effect="fade"
+                enableBlur={true}
+                blurStrength={3}
+                baseOpacity={0.15}
+                highlightColor="#ff6a00"
+                containerClassName="!m-0"
+                textClassName="font-editorial text-4xl sm:text-6xl uppercase tracking-tight text-black font-light leading-[1.05] !block"
+              >
+                SOVEREIGN LIVING. CURATED COLLABORATION.
+              </ScrollReveal>
 
               <p className="font-sans text-neutral-600 text-sm sm:text-base leading-relaxed font-light">
                 {project.description}
