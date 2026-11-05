@@ -125,9 +125,14 @@ export default function DevelopmentsSection() {
               </span>
               <span className={`w-2 h-2 rounded-full ${activePillar === "AKSHARA" ? "bg-white" : "bg-neutral-700"}`} />
             </div>
-            <h3 className="font-editorial text-2xl uppercase tracking-wider text-white">
-              AKSHARA
-            </h3>
+            <div className="relative h-7 w-32 my-1 select-none">
+              <Image
+                src="/images/akshara-horizontal-white.png"
+                alt="AKSHARA"
+                fill
+                className="object-contain object-left"
+              />
+            </div>
             <p className="text-xs font-sans text-neutral-400 mt-2 line-clamp-1">
               AKSHARA MEADOWS Strategic Plotted Enclave
             </p>
@@ -173,6 +178,16 @@ export default function DevelopmentsSection() {
                     <Image
                       src="/images/rovera-logo-white.png"
                       alt="ROVERA Official Logo"
+                      fill
+                      className="object-contain object-left"
+                    />
+                  </div>
+                )}
+                {activeProject.slug === "akshara-meadows" && (
+                  <div className="relative w-36 h-9">
+                    <Image
+                      src="/images/akshara-horizontal-white.png"
+                      alt="AKSHARA Official Logo"
                       fill
                       className="object-contain object-left"
                     />

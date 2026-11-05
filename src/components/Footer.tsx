@@ -109,7 +109,7 @@ export default function Footer() {
 
             <span className="hidden sm:inline text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
 
-            {/* AKSHARA linked to official website */}
+            {/* AKSHARA linked to official website with official logo */}
             <a
               href="https://akshara-three.vercel.app/"
               target="_blank"
@@ -117,10 +117,15 @@ export default function Footer() {
               className="group flex items-center gap-1.5 transition-opacity hover:opacity-80 shrink-0"
               title="AKSHARA (opens in a new tab)"
             >
-              <span className="font-editorial text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.16em] uppercase text-neutral-800 group-hover:text-black transition-colors">
-                {t("partnership.aksharaBrand", "AKSHARA")}
-              </span>
-              <ArrowUpRight className="w-5 h-5 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              <div className="relative h-7 sm:h-9 md:h-10 aspect-[5.1/1] select-none shrink-0">
+                <Image
+                  src="/images/akshara-horizontal-dark.png"
+                  alt="AKSHARA — Strategic Alliance"
+                  fill
+                  className="object-contain object-left"
+                />
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
             </a>
           </div>
 

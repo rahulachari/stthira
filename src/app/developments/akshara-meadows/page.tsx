@@ -14,6 +14,7 @@ import { DEVELOPMENTS } from "@/lib/data";
 import GalleryView from "@/components/GalleryView";
 import FaqAccordion from "@/components/FaqAccordion";
 import EnquiryForm from "@/components/EnquiryForm";
+import StthiraEmblem from "@/components/StthiraEmblem";
 
 export const metadata = {
   title: "AKSHARA MEADOWS — Strategic Alliance with STTHIRA | Plotted Living",
@@ -42,14 +43,25 @@ export default function AksharaMeadowsPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full text-center flex flex-col items-center justify-center">
           {/* Partnership Badge */}
-          <div className="inline-flex items-center gap-2 border border-white/20 bg-black/60 backdrop-blur-md px-4 py-1.5 mb-6">
+          <div className="inline-flex items-center gap-2 border border-white/20 bg-black/60 backdrop-blur-md px-4 py-1.5 mb-4">
             <Handshake className="w-3.5 h-3.5 text-white" />
             <span className="text-[10px] uppercase tracking-[0.35em] text-neutral-300 font-sans">
               Strategic Land Alliance: STTHIRA | AKSHARA
             </span>
           </div>
 
-          <h1 className="font-editorial text-5xl sm:text-7xl lg:text-8xl uppercase tracking-wider font-light text-white my-4 leading-none">
+          {/* Official AKSHARA Brand Emblem */}
+          <div className="relative w-32 sm:w-44 md:w-52 aspect-square mb-3 select-none drop-shadow-2xl">
+            <Image
+              src="/images/akshara-logo.jpg"
+              alt="AKSHARA Official Logo"
+              fill
+              priority
+              className="object-contain rounded-2xl border border-white/15 shadow-2xl"
+            />
+          </div>
+
+          <h1 className="font-editorial text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wider font-light text-white my-2 leading-none">
             AKSHARA MEADOWS
           </h1>
 
@@ -125,6 +137,24 @@ export default function AksharaMeadowsPage() {
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block mb-2 font-sans">
                   Alliance Governance
                 </span>
+                
+                {/* Official Co-Branding Display */}
+                <div className="flex items-center gap-3 py-2.5 my-2">
+                  <div className="flex items-center gap-1.5">
+                    <StthiraEmblem className="text-black w-5 h-6 shrink-0" />
+                    <span className="font-editorial text-base font-semibold tracking-wider text-black">STTHIRA</span>
+                  </div>
+                  <span className="text-neutral-300 font-light text-base">×</span>
+                  <div className="relative h-6 w-28 shrink-0">
+                    <Image
+                      src="/images/akshara-horizontal-dark.png"
+                      alt="AKSHARA"
+                      fill
+                      className="object-contain object-left"
+                    />
+                  </div>
+                </div>
+
                 <p className="font-sans text-xs text-neutral-600 leading-relaxed font-light">
                   A high-conviction alliance where AKSHARA brings generational regional land acquisition expertise, and STTHIRA deploys institutional master planning, forensic legal diligence, and uncompromising engineering guidelines.
                 </p>

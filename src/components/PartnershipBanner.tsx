@@ -52,18 +52,25 @@ export default function PartnershipBanner() {
           <div className="w-16 h-px bg-neutral-300 md:hidden shrink-0" />
           <div className="hidden md:block w-px md:h-14 lg:h-20 bg-neutral-300 shrink-0" />
 
-          {/* 3. AKSHARA with external link */}
+          {/* 3. AKSHARA with official logo */}
           <a
             href="https://akshara-three.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1.5 sm:gap-2 transition-opacity hover:opacity-75 focus-visible:outline-none shrink-0"
+            className="group flex items-center justify-center gap-1.5 sm:gap-2 transition-opacity hover:opacity-75 focus-visible:outline-none shrink-0"
             title="AKSHARA (opens in a new tab)"
           >
-            <span className="font-editorial text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light tracking-[0.14em] text-black uppercase select-none">
-              {t("partnership.aksharaBrand", "AKSHARA")}
-            </span>
-            <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+            <div className="relative h-12 sm:h-16 md:h-20 lg:h-24 aspect-[5.1/1] select-none shrink-0">
+              <Image
+                src="/images/akshara-horizontal-dark.png"
+                alt="AKSHARA — Strategic Alliance"
+                fill
+                priority
+                sizes="(max-width: 640px) 200px, (max-width: 768px) 260px, 340px"
+                className="object-contain object-center"
+              />
+            </div>
+            <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
           </a>
         </div>
       </div>
