@@ -14,7 +14,6 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   const [mounted, setMounted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  const [audioStarted, setAudioStarted] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -23,7 +22,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   const isDismissedRef = useRef<boolean>(false);
   const audioStartedRef = useRef<boolean>(false);
 
-  const DURATION = 3.9; // 3.9 seconds matching the authentic video sweep duration
+  const DURATION = 3.6; // 3.6s active sweep duration before cinematic dissolve
 
   const finishIntro = useCallback(() => {
     if (isDismissedRef.current) return;
@@ -31,12 +30,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     setIsFadingOut(true);
 
     if (audioRef.current) {
-      // Smooth audio fadeout
+      // Natural acoustic fadeout tail
       const fadeAudio = () => {
         if (!audioRef.current) return;
         if (audioRef.current.volume > 0.08) {
-          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.12);
-          setTimeout(fadeAudio, 35);
+          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.14);
+          setTimeout(fadeAudio, 30);
         } else {
           audioRef.current.pause();
         }
@@ -44,24 +43,25 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       fadeAudio();
     }
 
+    // Allow the 1000ms buttery cross-dissolve to complete before unmounting
     setTimeout(() => {
       setIsCompleted(true);
-    }, 650);
+    }, 1000);
   }, []);
 
-  const tryPlayAudio = useCallback(() => {
+  const playAudio = useCallback(() => {
     const audio = audioRef.current;
     if (!audio || audioStartedRef.current) return;
     audio.volume = 1.0;
-    const p = audio.play();
-    if (p !== undefined) {
-      p.then(() => {
-        audioStartedRef.current = true;
-        setAudioStarted(true);
-      }).catch((err) => {
-        // Browser autoplay policy requires a user touch/click gesture
-        console.warn("Autoplay gesture pending:", err);
-      });
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          audioStartedRef.current = true;
+        })
+        .catch(() => {
+          // Autoplay policy waiting for user touch gesture
+        });
     }
   }, []);
 
@@ -73,12 +73,20 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       return;
     }
 
-    // 01. Automatic Sound Playback
-    tryPlayAudio();
+    // 01. Initialize Audio immediately in memory
+    const audio = new Audio("/audio/stthira-intro.mp3");
+    audio.preload = "auto";
+    audio.volume = 1.0;
+    audioRef.current = audio;
+
+    // Trigger automatic sound playback immediately on load
+    playAudio();
 
     // Browser Fallback: unlock audio on the very first gesture anywhere
     const onGesture = () => {
-      tryPlayAudio();
+      if (audioRef.current && !audioStartedRef.current) {
+        playAudio();
+      }
     };
 
     window.addEventListener("pointerdown", onGesture, { passive: true });
@@ -89,9 +97,9 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     // 02. Hard Fallback Timer: Guarantees page NEVER gets stuck
     const autoFinishTimer = setTimeout(() => {
       finishIntro();
-    }, 3900);
+    }, 3700);
 
-    // 03. Dynamic Volumetric Rays & Specular Sweep Canvas
+    // 03. Volumetric Searchlight Beams & Specular Sweep Canvas
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -108,7 +116,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     window.addEventListener("resize", onResize);
 
     // Fine floating atmospheric particulates
-    const particles = Array.from({ length: 40 }, () => ({
+    const particles = Array.from({ length: 35 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       size: Math.random() * 2 + 0.5,
@@ -149,8 +157,8 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         beamAlpha = elapsed / 0.3;
       } else if (elapsed < 2.0) {
         beamAlpha = 1.0;
-      } else if (elapsed < 3.2) {
-        beamAlpha = 1.0 - (elapsed - 2.0) / 1.2;
+      } else if (elapsed < 3.0) {
+        beamAlpha = 1.0 - (elapsed - 2.0) / 1.0;
       } else {
         beamAlpha = 0;
       }
@@ -200,8 +208,8 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         }
 
         // 2. Central Fanned God-Rays behind Lockup
-        if (elapsed > 0.8 && elapsed < 2.8) {
-          const fanPeak = Math.sin(((elapsed - 0.8) / 2.0) * Math.PI);
+        if (elapsed > 0.8 && elapsed < 2.6) {
+          const fanPeak = Math.sin(((elapsed - 0.8) / 1.8) * Math.PI);
           const fanAlpha = fanPeak * 0.55 * beamAlpha;
 
           const fanGrad = ctx.createRadialGradient(
@@ -282,7 +290,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         }
       }
 
-      // 4. Floating atmospheric particulate
+      // 4. Atmospheric Particulates
       particles.forEach((p) => {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -301,7 +309,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       ctx.restore();
 
-      // Automatic completion at 3.9s
+      // Trigger smooth dissolve at 3.6s
       if (elapsed >= DURATION) {
         finishIntro();
         return;
@@ -331,14 +339,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         audioRef.current.pause();
       }
     };
-  }, [isRovera, finishIntro, tryPlayAudio]);
+  }, [isRovera, finishIntro, playAudio]);
 
   const handleStageClick = () => {
     if (!audioStartedRef.current) {
-      // First click immediately starts sound if browser blocked initial autoplay!
-      tryPlayAudio();
+      playAudio();
     } else {
-      // Clicking when sound is already active smoothly advances to the website
       finishIntro();
     }
   };
@@ -349,23 +355,14 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
   return (
     <div className="relative w-full min-h-screen bg-black overflow-x-hidden">
-      {/* Authentic Video Sound Effect (Autoplay Enabled) */}
-      <audio
-        ref={audioRef}
-        src="/audio/stthira-intro.mp3"
-        preload="auto"
-        autoPlay
-        playsInline
-      />
-
-      {/* The Lightstorm-Style Cinematic Opening Stage */}
+      {/* 01. The Cinematic Intro Stage (Cross-Dissolves into the Hero Section) */}
       <div
         aria-label="STTHIRA Cinematic Opening"
         onClick={handleStageClick}
-        className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black select-none cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black select-none cursor-pointer overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isFadingOut
-            ? "-translate-y-full opacity-0 pointer-events-none scale-[1.015]"
-            : "translate-y-0 opacity-100 scale-100"
+            ? "opacity-0 pointer-events-none scale-[1.05] filter blur-[3px]"
+            : "opacity-100 scale-100 filter blur-0"
         }`}
       >
         {/* Dynamic Volumetric Searchlight Canvas */}
@@ -461,20 +458,16 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
           </div>
         </div>
-
-        {/* Ambient Subtle Prompt if browser blocked initial unmuted autoplay */}
-        {!audioStarted && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center opacity-70 animate-pulse">
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-neutral-400 font-sans font-light">
-              Tap anywhere to enable sound
-            </span>
-          </div>
-        )}
-
       </div>
 
-      {/* The Main Website Page underneath */}
-      <div className="relative z-10 w-full min-h-screen bg-white">
+      {/* 02. The Hero Section & Main Page Underneath (Glides smoothly into focus) */}
+      <div
+        className={`relative z-10 w-full min-h-screen bg-black transition-all duration-1200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isFadingOut
+            ? "opacity-100 scale-100 filter blur-0"
+            : "opacity-40 scale-[0.985] filter blur-[2px]"
+        }`}
+      >
         {children}
       </div>
     </div>
