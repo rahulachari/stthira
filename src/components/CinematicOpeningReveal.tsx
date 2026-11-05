@@ -13,7 +13,6 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   const pathname = usePathname();
   const isRovera = pathname?.includes("/developments/rovera");
 
-  const [mounted, setMounted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
@@ -75,7 +74,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
             audioStartedRef.current = true;
           })
           .catch(() => {
-            // Autoplay waiting for user interaction
+            // Autoplay waiting for user gesture
           });
       }
     }
@@ -96,8 +95,6 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   }, []);
 
   useEffect(() => {
-    setMounted(true);
-
     if (isRovera) {
       setIsCompleted(true);
       return;
@@ -121,9 +118,9 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     // Hard Fallback Timer: Guarantees page NEVER gets stuck
     const autoFinishTimer = setTimeout(() => {
       finishIntro();
-    }, 3700);
+    }, 3900);
 
-    // Volumetric Searchlight Beams & Specular Sweep Canvas
+    // Volumetric Searchlight Beams Canvas
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -140,12 +137,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     window.addEventListener("resize", onResize);
 
     // Fine floating atmospheric particulates
-    const particles = Array.from({ length: 35 }, () => ({
+    const particles = Array.from({ length: 40 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       size: Math.random() * 2 + 0.5,
-      speedX: (Math.random() - 0.5) * 0.4,
-      speedY: -Math.random() * 0.5 - 0.2,
+      speedX: (Math.random() - 0.5) * 0.35,
+      speedY: -Math.random() * 0.45 - 0.15,
       alpha: Math.random() * 0.6 + 0.2,
     }));
 
@@ -153,6 +150,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
     const render = (now: number) => {
       if (isDismissedRef.current) return;
+
+      // Ensure canvas matches viewport
+      if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
 
       // Precision Audio Sync: sync exact playback position with the sound track
       const video = videoAudioRef.current;
@@ -162,83 +165,76 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       ctx.clearRect(0, 0, width, height);
 
-      // Sweep progress across the 8 items: [0: Emblem, 1: S, 2: T, 3: T, 4: H, 5: I, 6: R, 7: A]
-      // Sweep moves from 0 to 7 across 0.10s to 1.35s (syncing with sound whoosh)
-      let sweepProgress = 0;
-      if (elapsed < 0.1) {
-        sweepProgress = (elapsed / 0.1) * 0.5;
-      } else if (elapsed < 1.35) {
-        sweepProgress = 0.5 + ((elapsed - 0.1) / 1.25) * 6.5;
+      // Smooth Hermite cubic-bezier sweep progression across the 8 items: [0: Emblem, 1: S, 2: T, 3: T, 4: H, 5: I, 6: R, 7: A]
+      // Accelerates and glides organically across the wordmark between 0.12s and 1.38s
+      let smoothProgress = 0;
+      if (elapsed < 0.12) {
+        smoothProgress = (elapsed / 0.12) * 0.3;
+      } else if (elapsed < 1.38) {
+        const t = (elapsed - 0.12) / 1.26;
+        // Smooth Hermite curve: 3t^2 - 2t^3
+        const ease = t * t * (3 - 2 * t);
+        smoothProgress = 0.3 + ease * 6.7;
       } else {
-        sweepProgress = 7.0;
+        smoothProgress = 7.0;
       }
 
       // Calculate activation for each item (0 = Emblem, 1..7 = Letters)
-      // Allows 2-3 adjacent letters to be simultaneously visible with realistic trailing falloff (as circled in Video Project.mp4)
+      // Allows 2-3 adjacent letters to be simultaneously visible with realistic trailing falloff (as in Video Project.mp4)
       const activations: number[] = [];
       for (let i = 0; i <= 7; i++) {
-        const dist = Math.abs(i - sweepProgress);
-        let act = Math.max(0, 1 - dist / 1.35);
-        act = Math.pow(act, 1.5);
+        const dist = Math.abs(i - smoothProgress);
+        let act = Math.max(0, 1 - dist / 1.45);
+        act = Math.pow(act, 1.6);
 
-        // Climax flash: when sweep reaches 'A' (1.35s - 1.70s), all letters burst with heroic brilliance
-        if (elapsed >= 1.35 && elapsed < 1.7) {
-          const climaxPeak = Math.sin(((elapsed - 1.35) / 0.35) * Math.PI);
-          act = Math.max(act, climaxPeak * 0.95);
-        } else if (elapsed >= 1.7) {
+        // Grand Climax: when sweep reaches 'A' (1.38s - 1.75s), all letters burst with heroic brilliance
+        if (elapsed >= 1.38 && elapsed < 1.75) {
+          const climaxPeak = Math.sin(((elapsed - 1.38) / 0.37) * Math.PI);
+          act = Math.max(act, climaxPeak * 0.96);
+        } else if (elapsed >= 1.75) {
           // Sustained rich platinum luster
-          act = 0.12;
+          act = 0.14;
         }
 
         activations.push(act);
       }
 
-      // Update DOM Styling for each item dynamically (Zero React re-render overhead, 60fps)
+      // Dynamic Specular Surface Lighting on Letters (Zero React re-render overhead, 60fps)
       // Item 0: Monogram Emblem
       const emblemEl = itemRefs.current[0];
       if (emblemEl) {
         const act0 = activations[0];
         if (act0 > 0.08) {
-          emblemEl.style.transform = `scale(${1 + 0.07 * act0})`;
-          emblemEl.style.filter = `drop-shadow(0 15px 35px rgba(0,0,0,0.95)) brightness(${1 + 1.2 * act0}) drop-shadow(0 0 ${22 * act0}px rgba(215, 235, 255, ${0.85 * act0}))`;
+          emblemEl.style.transform = `scale(${1 + 0.05 * act0})`;
+          emblemEl.style.filter = `drop-shadow(0 15px 35px rgba(0,0,0,0.95)) brightness(${1 + 1.15 * act0}) drop-shadow(0 0 ${20 * act0}px rgba(220, 240, 255, ${0.8 * act0}))`;
         } else {
           emblemEl.style.transform = "scale(1)";
           emblemEl.style.filter = "drop-shadow(0 15px 35px rgba(0,0,0,0.95)) brightness(1)";
         }
       }
 
-      // Items 1 to 7: S - T - T - H - I - R - A
+      // Items 1 to 7: S - T - T - H - I - R - A (3D Chiseled Titanium Letters)
       for (let j = 1; j <= 7; j++) {
         const letterEl = itemRefs.current[j];
         if (!letterEl) continue;
 
         const actJ = activations[j];
         if (actJ > 0.08) {
-          // Active under searchlight: brilliant hot white core, cyan bloom, slight heroic lift
-          letterEl.style.color = "#ffffff";
-          letterEl.style.textShadow = `
-            0 0 ${8 * actJ}px rgba(255, 255, 255, ${0.98 * actJ}),
-            0 0 ${24 * actJ}px rgba(190, 225, 255, ${0.85 * actJ}),
-            0 0 ${55 * actJ}px rgba(120, 180, 255, ${0.55 * actJ})
-          `;
-          letterEl.style.transform = `scale(${1 + 0.08 * actJ})`;
-          letterEl.style.filter = `brightness(${1 + 1.2 * actJ}) drop-shadow(0 0 ${12 * actJ}px rgba(255, 255, 255, ${0.9 * actJ}))`;
-        } else if (elapsed < 1.35 && j > sweepProgress + 0.4) {
-          // Letter not yet reached by beam: deep stealth chrome
-          letterEl.style.color = "#454545";
-          letterEl.style.textShadow = "none";
+          // Active under searchlight: intense white specular flash, luminous ice-blue halo
+          letterEl.style.transform = `scale(${1 + 0.06 * actJ})`;
+          letterEl.style.filter = `brightness(${1 + 1.25 * actJ}) drop-shadow(0 0 ${14 * actJ}px rgba(255, 255, 255, ${0.92 * actJ})) drop-shadow(0 0 ${28 * actJ}px rgba(180, 220, 255, ${0.75 * actJ}))`;
+        } else if (elapsed < 1.38 && j > smoothProgress + 0.4) {
+          // Letter not yet reached by beam: deep stealth titanium
           letterEl.style.transform = "scale(1)";
-          letterEl.style.filter = "brightness(0.65)";
+          letterEl.style.filter = "brightness(0.68)";
         } else {
           // Letter has been swept / after climax: polished platinum chrome
-          letterEl.style.color = "#f2f2f2";
-          letterEl.style.textShadow = "0 2px 10px rgba(0,0,0,0.8), 0 0 14px rgba(255,255,255,0.22)";
           letterEl.style.transform = "scale(1)";
-          letterEl.style.filter = "brightness(1.05)";
+          letterEl.style.filter = "brightness(1.05) drop-shadow(0 0 10px rgba(255, 255, 255, 0.2))";
         }
       }
 
-      // 03. Draw True Volumetric Diagonal Searchlight Beams (Matching Video Project.mp4)
+      // 03. Draw Multi-Pass Volumetric Searchlight Beams (Soft, Atmospheric, Hollywood-Grade)
       ctx.save();
       ctx.globalCompositeOperation = "screen";
 
@@ -259,12 +255,12 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         const emitterX = rect && rect.width > 0 ? rect.left + rect.width / 2 : fallbackX;
         const emitterY = rect && rect.height > 0 ? rect.top + rect.height * 0.15 : fallbackY;
 
-        // Exact diagonal searchlight perspective angle:
-        // Left items (Emblem, S, T) tilt up-left (-46° to -20°)
-        // Center items (T, H) sweep upwards (-10° to +10°)
-        // Right items (I, R, A) tilt diagonally up-right (+22° to +46°), exactly matching the user's circled beam!
+        // Diagonal searchlight perspective projection (matching Video Project.mp4):
+        // Left items (Emblem, S, T) tilt up-left (-42° to -18°)
+        // Center items (T, H) sweep upwards (-8° to +8°)
+        // Right items (I, R, A) tilt diagonally up-right (+18° to +44°), exactly matching the user's circled beam!
         const normalizedPos = (i - 3.5) / 3.5; // -1.0 to +1.0
-        const tiltDeg = normalizedPos * 46; // -46° to +46° from vertical
+        const tiltDeg = normalizedPos * 44; // -44° to +44° from vertical
         const angleRad = -Math.PI / 2 + (tiltDeg * Math.PI) / 180;
 
         const dirX = Math.cos(angleRad);
@@ -278,125 +274,110 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         const endX = emitterX + dirX * maxDimension;
         const endY = emitterY + dirY * maxDimension;
 
-        // Narrow, focused theatrical divergence (8° to 12° divergence)
-        const baseW = 20 + act * 16;
-        const endW = 125 + act * 110;
+        // PASS 1: Broad Atmospheric Volumetric Haze (Soft feathered fog volume)
+        ctx.filter = "blur(22px)";
+        const hazeBaseW = 28 + act * 20;
+        const hazeEndW = 160 + act * 140;
 
-        // Polygon vertices
-        const p1x = emitterX - normX * (baseW / 2);
-        const p1y = emitterY - normY * (baseW / 2);
-        const p2x = endX - normX * (endW / 2);
-        const p2y = endY - normY * (endW / 2);
-        const p3x = endX + normX * (endW / 2);
-        const p3y = endY + normY * (endW / 2);
-        const p4x = emitterX + normX * (baseW / 2);
-        const p4y = emitterY + normY * (baseW / 2);
+        const hazeGrad = ctx.createLinearGradient(emitterX, emitterY, endX, endY);
+        hazeGrad.addColorStop(0, `rgba(255, 255, 255, ${0.45 * act})`);
+        hazeGrad.addColorStop(0.15, `rgba(225, 240, 255, ${0.32 * act})`);
+        hazeGrad.addColorStop(0.45, `rgba(165, 195, 235, ${0.16 * act})`);
+        hazeGrad.addColorStop(0.75, `rgba(100, 140, 200, ${0.06 * act})`);
+        hazeGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
 
-        // A. Primary Volumetric Searchlight Body (Silvery-white with subtle titanium ice-tint)
-        const grad = ctx.createLinearGradient(emitterX, emitterY, endX, endY);
-        grad.addColorStop(0, `rgba(255, 255, 255, ${0.96 * act})`);
-        grad.addColorStop(0.12, `rgba(240, 246, 255, ${0.82 * act})`);
-        grad.addColorStop(0.38, `rgba(195, 215, 240, ${0.48 * act})`);
-        grad.addColorStop(0.70, `rgba(130, 155, 190, ${0.18 * act})`);
-        grad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
-
-        ctx.fillStyle = grad;
+        ctx.fillStyle = hazeGrad;
         ctx.beginPath();
-        ctx.moveTo(p1x, p1y);
-        ctx.lineTo(p2x, p2y);
-        ctx.lineTo(p3x, p3y);
-        ctx.lineTo(p4x, p4y);
+        ctx.moveTo(emitterX - normX * (hazeBaseW / 2), emitterY - normY * (hazeBaseW / 2));
+        ctx.lineTo(endX - normX * (hazeEndW / 2), endY - normY * (hazeEndW / 2));
+        ctx.lineTo(endX + normX * (hazeEndW / 2), endY + normY * (hazeEndW / 2));
+        ctx.lineTo(emitterX + normX * (hazeBaseW / 2), emitterY + normY * (hazeBaseW / 2));
         ctx.closePath();
         ctx.fill();
 
-        // B. Inner Laser Spine (Intense concentrated white core)
+        // PASS 2: Focused Volumetric Beam Body (Silvery-white with delicate titanium blue tint)
+        ctx.filter = "blur(8px)";
+        const bodyBaseW = 18 + act * 14;
+        const bodyEndW = 105 + act * 95;
+
+        const bodyGrad = ctx.createLinearGradient(emitterX, emitterY, endX, endY);
+        bodyGrad.addColorStop(0, `rgba(255, 255, 255, ${0.88 * act})`);
+        bodyGrad.addColorStop(0.12, `rgba(240, 248, 255, ${0.72 * act})`);
+        bodyGrad.addColorStop(0.38, `rgba(195, 220, 245, ${0.38 * act})`);
+        bodyGrad.addColorStop(0.70, `rgba(130, 165, 210, ${0.14 * act})`);
+        bodyGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
+
+        ctx.fillStyle = bodyGrad;
+        ctx.beginPath();
+        ctx.moveTo(emitterX - normX * (bodyBaseW / 2), emitterY - normY * (bodyBaseW / 2));
+        ctx.lineTo(endX - normX * (bodyEndW / 2), endY - normY * (bodyEndW / 2));
+        ctx.lineTo(endX + normX * (bodyEndW / 2), endY + normY * (bodyEndW / 2));
+        ctx.lineTo(emitterX + normX * (bodyBaseW / 2), emitterY + normY * (bodyBaseW / 2));
+        ctx.closePath();
+        ctx.fill();
+
+        // PASS 3: Inner Intense Hot Laser Spine
+        ctx.filter = "blur(2.5px)";
         const coreBaseW = 5;
-        const coreEndW = 28 + act * 24;
-        const cp1x = emitterX - normX * (coreBaseW / 2);
-        const cp1y = emitterY - normY * (coreBaseW / 2);
-        const cp2x = endX - normX * (coreEndW / 2);
-        const cp2y = endY - normY * (coreEndW / 2);
-        const cp3x = endX + normX * (coreEndW / 2);
-        const cp3y = endY + normY * (coreEndW / 2);
-        const cp4x = emitterX + normX * (coreBaseW / 2);
-        const cp4y = emitterY + normY * (coreBaseW / 2);
+        const coreEndW = 26 + act * 20;
 
         const coreGrad = ctx.createLinearGradient(emitterX, emitterY, endX, endY);
         coreGrad.addColorStop(0, `rgba(255, 255, 255, ${1.0 * act})`);
-        coreGrad.addColorStop(0.22, `rgba(255, 255, 255, ${0.92 * act})`);
-        coreGrad.addColorStop(0.55, `rgba(225, 240, 255, ${0.45 * act})`);
+        coreGrad.addColorStop(0.22, `rgba(255, 255, 255, ${0.88 * act})`);
+        coreGrad.addColorStop(0.55, `rgba(230, 245, 255, ${0.38 * act})`);
         coreGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
 
         ctx.fillStyle = coreGrad;
         ctx.beginPath();
-        ctx.moveTo(cp1x, cp1y);
-        ctx.lineTo(cp2x, cp2y);
-        ctx.lineTo(cp3x, cp3y);
-        ctx.lineTo(cp4x, cp4y);
+        ctx.moveTo(emitterX - normX * (coreBaseW / 2), emitterY - normY * (coreBaseW / 2));
+        ctx.lineTo(endX - normX * (coreEndW / 2), endY - normY * (coreEndW / 2));
+        ctx.lineTo(endX + normX * (coreEndW / 2), endY + normY * (coreEndW / 2));
+        ctx.lineTo(emitterX + normX * (coreBaseW / 2), emitterY + normY * (coreBaseW / 2));
         ctx.closePath();
         ctx.fill();
 
-        // C. Internal Atmospheric Striations (Fine god-ray shafts inside the beam)
-        const shaftOffsets = [-0.3, 0.0, 0.3];
-        shaftOffsets.forEach((off) => {
-          const s1x = emitterX + normX * baseW * off;
-          const s1y = emitterY + normY * baseW * off;
-          const s2x = endX + normX * endW * off;
-          const s2y = endY + normY * endW * off;
-
-          const shaftGrad = ctx.createLinearGradient(s1x, s1y, s2x, s2y);
-          shaftGrad.addColorStop(0, `rgba(255, 255, 255, ${0.48 * act})`);
-          shaftGrad.addColorStop(0.4, `rgba(230, 245, 255, ${0.24 * act})`);
-          shaftGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
-
-          ctx.strokeStyle = shaftGrad;
-          ctx.lineWidth = 1.8;
-          ctx.beginPath();
-          ctx.moveTo(s1x, s1y);
-          ctx.lineTo(s2x, s2y);
-          ctx.stroke();
-        });
-
-        // D. Luminous Core Flare at Letter Base
-        const flareRad = 36 * act;
+        // PASS 4: Optical Lens Flare Halo at Letter Base
+        ctx.filter = "blur(3px)";
+        const flareRad = 32 * act;
         const flareGrad = ctx.createRadialGradient(emitterX, emitterY, 1, emitterX, emitterY, flareRad);
         flareGrad.addColorStop(0, `rgba(255, 255, 255, ${0.98 * act})`);
-        flareGrad.addColorStop(0.3, `rgba(215, 235, 255, ${0.75 * act})`);
-        flareGrad.addColorStop(0.7, `rgba(130, 175, 245, ${0.22 * act})`);
-        flareGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+        flareGrad.addColorStop(0.3, `rgba(220, 240, 255, ${0.72 * act})`);
+        flareGrad.addColorStop(0.7, `rgba(135, 185, 250, ${0.2 * act})`);
+        flareGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
 
         ctx.fillStyle = flareGrad;
         ctx.beginPath();
         ctx.arc(emitterX, emitterY, flareRad, 0, Math.PI * 2);
         ctx.fill();
 
-        // E. Anamorphic Horizontal Starburst Streak across Letter
-        const streakW = 200 * act;
-        const streakH = 4;
+        // Anamorphic Horizontal Starburst Streak across Letter
+        const streakW = 180 * act;
+        const streakH = 3;
         const streakGrad = ctx.createLinearGradient(emitterX - streakW, emitterY, emitterX + streakW, emitterY);
         streakGrad.addColorStop(0, "rgba(100, 160, 255, 0)");
-        streakGrad.addColorStop(0.35, `rgba(205, 235, 255, ${0.65 * act})`);
+        streakGrad.addColorStop(0.35, `rgba(215, 240, 255, ${0.62 * act})`);
         streakGrad.addColorStop(0.5, `rgba(255, 255, 255, ${0.98 * act})`);
-        streakGrad.addColorStop(0.65, `rgba(205, 235, 255, ${0.65 * act})`);
-        streakGrad.addColorStop(1, "rgba(100, 160, 255, 0)");
+        streakGrad.addColorStop(0.65, `rgba(215, 240, 255, ${0.62 * act})`);
+        streakGrad.addColorStop(1.0, "rgba(100, 160, 255, 0)");
 
         ctx.fillStyle = streakGrad;
         ctx.fillRect(emitterX - streakW, emitterY - streakH / 2, streakW * 2, streakH);
       }
 
-      // 04. Climax Radial God-Rays (1.35s - 2.50s)
-      if (elapsed > 1.35 && elapsed < 2.5) {
-        const fanPeak = Math.sin(((elapsed - 1.35) / 1.15) * Math.PI);
-        const fanAlpha = fanPeak * 0.45;
+      // 04. Climax Radial God-Rays (1.38s - 2.50s)
+      if (elapsed > 1.38 && elapsed < 2.5) {
+        ctx.filter = "blur(14px)";
+        const fanPeak = Math.sin(((elapsed - 1.38) / 1.12) * Math.PI);
+        const fanAlpha = fanPeak * 0.42;
 
         const centerY = height / 2;
         const rayCount = 14;
         for (let r = 0; r < rayCount; r++) {
           const angle = -Math.PI / 2 + ((r - (rayCount - 1) / 2) / rayCount) * 1.35;
-          const rayLength = height * 0.75;
-          const rayWidth = 14 + (r % 3) * 7;
+          const rayLength = height * 0.8;
+          const rayWidth = 16 + (r % 3) * 8;
 
-          ctx.strokeStyle = `rgba(190, 220, 255, ${fanAlpha * 0.22})`;
+          ctx.strokeStyle = `rgba(195, 225, 255, ${fanAlpha * 0.22})`;
           ctx.lineWidth = rayWidth;
           ctx.beginPath();
           ctx.moveTo(screenCenterX, centerY);
@@ -409,6 +390,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       }
 
       // 05. Atmospheric Particulates
+      ctx.filter = "blur(1px)";
       particles.forEach((p) => {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -416,12 +398,13 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
 
-        ctx.fillStyle = `rgba(215, 235, 255, ${p.alpha * 0.45})`;
+        ctx.fillStyle = `rgba(225, 240, 255, ${p.alpha * 0.42})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
 
+      ctx.filter = "none";
       ctx.restore();
 
       // Trigger smooth dissolve at DURATION (3.6s)
@@ -587,7 +570,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
               </svg>
             </div>
 
-            {/* Items 1 to 7: STTHIRA Individual Letters with Per-Letter Searchlight Emitters */}
+            {/* Items 1 to 7: STTHIRA Individual 3D Chiseled Titanium Chrome Letters */}
             <div className="relative flex items-center tracking-[0.16em] sm:tracking-[0.24em] font-clash text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold uppercase select-none">
               {LETTERS.map((char, idx) => {
                 const itemIndex = idx + 1; // 1 to 7
@@ -599,7 +582,10 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
                     }}
                     className="relative inline-block will-change-transform will-change-[filter] transition-all duration-150 drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)]"
                     style={{
-                      color: "#454545",
+                      backgroundImage: "linear-gradient(180deg, #ffffff 0%, #d1d5db 25%, #64748b 55%, #1e293b 70%, #94a3b8 85%, #f8fafc 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      textShadow: "0 2px 10px rgba(0,0,0,0.9)",
                     }}
                   >
                     {char}
