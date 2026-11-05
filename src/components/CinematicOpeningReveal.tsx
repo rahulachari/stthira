@@ -14,14 +14,16 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
   const [mounted, setMounted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [audioStarted, setAudioStarted] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const animFrameRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
   const isDismissedRef = useRef<boolean>(false);
+  const audioStartedRef = useRef<boolean>(false);
 
-  const DURATION = 3.8; // 3.8 seconds matching the authentic video sweep duration
+  const DURATION = 3.9; // 3.9 seconds matching the authentic video sweep duration
 
   const finishIntro = useCallback(() => {
     if (isDismissedRef.current) return;
@@ -47,6 +49,22 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
     }, 650);
   }, []);
 
+  const tryPlayAudio = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || audioStartedRef.current) return;
+    audio.volume = 1.0;
+    const p = audio.play();
+    if (p !== undefined) {
+      p.then(() => {
+        audioStartedRef.current = true;
+        setAudioStarted(true);
+      }).catch((err) => {
+        // Browser autoplay policy requires a user touch/click gesture
+        console.warn("Autoplay gesture pending:", err);
+      });
+    }
+  }, []);
+
   useEffect(() => {
     setMounted(true);
 
@@ -55,47 +73,25 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       return;
     }
 
-    // 01. Automatic Sound Initialization & Immediate Playback
-    const audio = new Audio("/audio/stthira-intro.mp3");
-    audio.preload = "auto";
-    audio.volume = 1.0;
-    audioRef.current = audio;
+    // 01. Automatic Sound Playback
+    tryPlayAudio();
 
-    const playAudio = () => {
-      if (audioRef.current && !isDismissedRef.current) {
-        audioRef.current.play().catch(() => {
-          // Autoplay policy waiting for user interaction
-        });
-      }
+    // Browser Fallback: unlock audio on the very first gesture anywhere
+    const onGesture = () => {
+      tryPlayAudio();
     };
 
-    // Immediate attempt to play sound automatically
-    playAudio();
-
-    // Fallback: unlock audio on the very first interaction (mouse movement, touch, click, scroll, or key)
-    const unlockAudio = () => {
-      playAudio();
-      window.removeEventListener("pointerdown", unlockAudio);
-      window.removeEventListener("touchstart", unlockAudio);
-      window.removeEventListener("keydown", unlockAudio);
-      window.removeEventListener("wheel", unlockAudio);
-      window.removeEventListener("scroll", unlockAudio);
-      window.removeEventListener("mousemove", unlockAudio);
-    };
-
-    window.addEventListener("pointerdown", unlockAudio, { once: true, passive: true });
-    window.addEventListener("touchstart", unlockAudio, { once: true, passive: true });
-    window.addEventListener("keydown", unlockAudio, { once: true, passive: true });
-    window.addEventListener("wheel", unlockAudio, { once: true, passive: true });
-    window.addEventListener("scroll", unlockAudio, { once: true, passive: true });
-    window.addEventListener("mousemove", unlockAudio, { once: true, passive: true });
+    window.addEventListener("pointerdown", onGesture, { passive: true });
+    window.addEventListener("touchstart", onGesture, { passive: true });
+    window.addEventListener("click", onGesture, { passive: true });
+    window.addEventListener("keydown", onGesture, { passive: true });
 
     // 02. Hard Fallback Timer: Guarantees page NEVER gets stuck
     const autoFinishTimer = setTimeout(() => {
       finishIntro();
-    }, 3800);
+    }, 3900);
 
-    // 03. Dynamic Volumetric Rays & Specular Floor Canvas
+    // 03. Dynamic Volumetric Rays & Specular Sweep Canvas
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -130,7 +126,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       ctx.clearRect(0, 0, width, height);
 
-      // Light beam sweep position across the STTHIRA wordmark (0 = left, 1 = right)
+      // Light beam sweep position across the full [LOGO + STTHIRA] lockup (0 = far left, 1 = far right)
       let sweepProgress = 0;
       if (elapsed < 0.3) {
         sweepProgress = (elapsed / 0.3) * 0.12;
@@ -143,9 +139,9 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       const centerX = width / 2;
       const centerY = height / 2;
-      const horizonY = centerY + 15;
-      const wordmarkWidth = Math.min(width * 0.88, 620);
-      const sweepX = centerX - wordmarkWidth / 2 + sweepProgress * wordmarkWidth;
+      const lockupWidth = Math.min(width * 0.92, 780);
+      const sweepX = centerX - lockupWidth / 2 + sweepProgress * lockupWidth;
+      const beamY = centerY;
 
       // Beam intensity curve
       let beamAlpha = 0;
@@ -162,27 +158,27 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       ctx.save();
       ctx.globalCompositeOperation = "screen";
 
-      // 1. Dual Upward Rays AND Downward Mirrored Floor Reflections
+      // 1. Upward Volumetric Searchlight Beams across Logo + Letters
       if (beamAlpha > 0.02) {
-        const letterCount = 7;
-        const letterSpacing = wordmarkWidth / (letterCount - 1);
+        const emitterCount = 8; // 1 for emblem + 7 for S-T-T-H-I-R-A
+        const spacing = lockupWidth / (emitterCount - 1);
 
-        for (let i = 0; i < letterCount; i++) {
-          const letterX = centerX - wordmarkWidth / 2 + i * letterSpacing;
-          const distFromSweep = Math.abs(letterX - sweepX);
-          const letterActivation = Math.max(0, 1 - distFromSweep / 120);
+        for (let i = 0; i < emitterCount; i++) {
+          const emitterX = centerX - lockupWidth / 2 + i * spacing;
+          const distFromSweep = Math.abs(emitterX - sweepX);
+          const activation = Math.max(0, 1 - distFromSweep / 125);
 
-          if (letterActivation > 0.01) {
-            const rayIntensity = letterActivation * beamAlpha;
-            const beamSpread = 90 + (1 - letterActivation) * 50;
-            const targetY = centerY - 300;
+          if (activation > 0.01) {
+            const rayIntensity = activation * beamAlpha;
+            const beamSpread = 85 + (1 - activation) * 45;
+            const targetY = centerY - 320;
 
             // Upward volumetric searchlight ray
             const gradUp = ctx.createRadialGradient(
-              letterX,
-              horizonY,
+              emitterX,
+              beamY,
               5,
-              letterX,
+              emitterX,
               targetY,
               height * 0.75
             );
@@ -194,51 +190,26 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
             ctx.fillStyle = gradUp;
             ctx.beginPath();
-            ctx.moveTo(letterX - 12, horizonY);
-            ctx.lineTo(letterX - beamSpread, targetY);
-            ctx.lineTo(letterX + beamSpread, targetY);
-            ctx.lineTo(letterX + 12, horizonY);
-            ctx.closePath();
-            ctx.fill();
-
-            // Downward glossy floor reflection ray (mirror reflection as shown in video)
-            const refTargetY = horizonY + (horizonY - targetY) * 0.65;
-            const refSpread = beamSpread * 0.65;
-            const gradDown = ctx.createRadialGradient(
-              letterX,
-              horizonY,
-              3,
-              letterX,
-              refTargetY,
-              height * 0.5
-            );
-            gradDown.addColorStop(0, `rgba(255, 255, 255, ${0.5 * rayIntensity})`);
-            gradDown.addColorStop(0.15, `rgba(180, 215, 255, ${0.32 * rayIntensity})`);
-            gradDown.addColorStop(0.5, `rgba(80, 130, 210, ${0.12 * rayIntensity})`);
-            gradDown.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-            ctx.fillStyle = gradDown;
-            ctx.beginPath();
-            ctx.moveTo(letterX - 10, horizonY);
-            ctx.lineTo(letterX - refSpread, refTargetY);
-            ctx.lineTo(letterX + refSpread, refTargetY);
-            ctx.lineTo(letterX + 10, horizonY);
+            ctx.moveTo(emitterX - 12, beamY);
+            ctx.lineTo(emitterX - beamSpread, targetY);
+            ctx.lineTo(emitterX + beamSpread, targetY);
+            ctx.lineTo(emitterX + 12, beamY);
             ctx.closePath();
             ctx.fill();
           }
         }
 
-        // 2. Central Fanned God-Rays behind STTHIRA Emblem
+        // 2. Central Fanned God-Rays behind Lockup
         if (elapsed > 0.8 && elapsed < 2.8) {
           const fanPeak = Math.sin(((elapsed - 0.8) / 2.0) * Math.PI);
           const fanAlpha = fanPeak * 0.55 * beamAlpha;
 
           const fanGrad = ctx.createRadialGradient(
             centerX,
-            centerY - 60,
+            centerY,
             20,
             centerX,
-            centerY - 60,
+            centerY,
             Math.max(width, height) * 0.65
           );
           fanGrad.addColorStop(0, `rgba(225, 240, 255, ${fanAlpha * 0.75})`);
@@ -248,11 +219,11 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
           ctx.fillStyle = fanGrad;
           ctx.beginPath();
-          ctx.arc(centerX, centerY - 60, Math.max(width, height) * 0.65, 0, Math.PI * 2);
+          ctx.arc(centerX, centerY, Math.max(width, height) * 0.65, 0, Math.PI * 2);
           ctx.fill();
 
           // Radial spokes
-          const rayCount = 12;
+          const rayCount = 14;
           for (let r = 0; r < rayCount; r++) {
             const angle = -Math.PI / 2 + ((r - (rayCount - 1) / 2) / rayCount) * 1.35;
             const rayLength = height * 0.75;
@@ -261,25 +232,25 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
             ctx.strokeStyle = `rgba(190, 220, 255, ${fanAlpha * 0.22})`;
             ctx.lineWidth = rayWidth;
             ctx.beginPath();
-            ctx.moveTo(centerX, centerY - 20);
+            ctx.moveTo(centerX, centerY);
             ctx.lineTo(
               centerX + Math.sin(angle) * rayLength,
-              centerY - 60 - Math.cos(angle) * rayLength
+              centerY - Math.cos(angle) * rayLength
             );
             ctx.stroke();
           }
         }
 
-        // 3. Anamorphic Lens Flare & Specular Horizon Shine
+        // 3. Anamorphic Lens Flare Following the Sweep Beam
         if (elapsed > 0.3 && elapsed < 2.2) {
           const flareAlpha = Math.sin(((elapsed - 0.3) / 1.9) * Math.PI);
 
-          // Horizontal anamorphic streak along horizon
+          // Horizontal anamorphic streak
           const streakGrad = ctx.createLinearGradient(
             sweepX - 260,
-            horizonY,
+            beamY,
             sweepX + 260,
-            horizonY
+            beamY
           );
           streakGrad.addColorStop(0, "rgba(100, 160, 255, 0)");
           streakGrad.addColorStop(0.35, `rgba(180, 220, 255, ${0.45 * flareAlpha})`);
@@ -288,15 +259,15 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
           streakGrad.addColorStop(1, "rgba(100, 160, 255, 0)");
 
           ctx.fillStyle = streakGrad;
-          ctx.fillRect(sweepX - 260, horizonY - 2, 520, 4);
+          ctx.fillRect(sweepX - 260, beamY - 2.5, 520, 5);
 
           // Central circular flare core
           const coreGrad = ctx.createRadialGradient(
             sweepX,
-            horizonY,
+            beamY,
             2,
             sweepX,
-            horizonY,
+            beamY,
             46
           );
           coreGrad.addColorStop(0, `rgba(255, 255, 255, ${0.95 * flareAlpha})`);
@@ -306,7 +277,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
           ctx.fillStyle = coreGrad;
           ctx.beginPath();
-          ctx.arc(sweepX, horizonY, 46, 0, Math.PI * 2);
+          ctx.arc(sweepX, beamY, 46, 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -330,7 +301,7 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
 
       ctx.restore();
 
-      // Automatic completion at 3.8s
+      // Automatic completion at 3.9s
       if (elapsed >= DURATION) {
         finishIntro();
         return;
@@ -353,14 +324,24 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
       cancelAnimationFrame(animFrameRef.current);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("pointerdown", unlockAudio);
-      window.removeEventListener("touchstart", unlockAudio);
-      window.removeEventListener("mousemove", unlockAudio);
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("touchstart", onGesture);
+      window.removeEventListener("click", onGesture);
       if (audioRef.current) {
         audioRef.current.pause();
       }
     };
-  }, [isRovera, finishIntro]);
+  }, [isRovera, finishIntro, tryPlayAudio]);
+
+  const handleStageClick = () => {
+    if (!audioStartedRef.current) {
+      // First click immediately starts sound if browser blocked initial autoplay!
+      tryPlayAudio();
+    } else {
+      // Clicking when sound is already active smoothly advances to the website
+      finishIntro();
+    }
+  };
 
   if (!mounted || isCompleted || isRovera) {
     return <>{children}</>;
@@ -373,13 +354,14 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
         ref={audioRef}
         src="/audio/stthira-intro.mp3"
         preload="auto"
+        autoPlay
         playsInline
       />
 
-      {/* The Lightstorm-Style Cinematic Opening Stage (Click anywhere to smoothly enter) */}
+      {/* The Lightstorm-Style Cinematic Opening Stage */}
       <div
         aria-label="STTHIRA Cinematic Opening"
-        onClick={finishIntro}
+        onClick={handleStageClick}
         className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black select-none cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isFadingOut
             ? "-translate-y-full opacity-0 pointer-events-none scale-[1.015]"
@@ -392,129 +374,103 @@ export default function CinematicOpeningReveal({ children }: CinematicOpeningRev
           className="absolute inset-0 z-0 pointer-events-none"
         />
 
-        {/* 3D Chrome STTHIRA Monolithic Brand Presentation */}
-        <div className="relative z-10 flex flex-col items-center justify-center pointer-events-none px-4 text-center">
-          
-          {/* SVG 3D Chrome Monogram with Specular Shading */}
-          <div className="relative mb-3 sm:mb-4 drop-shadow-[0_15px_35px_rgba(0,0,0,0.95)]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 348 420"
-              className="w-20 h-24 sm:w-28 sm:h-34 md:w-36 md:h-44"
-            >
-              <defs>
-                {/* 3D Chrome High-Contrast Linear Gradient */}
-                <linearGradient id="chrome-face" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="18%" stopColor="#d5dbe5" />
-                  <stop offset="38%" stopColor="#7a8599" />
-                  <stop offset="52%" stopColor="#282d38" />
-                  <stop offset="70%" stopColor="#181c24" />
-                  <stop offset="85%" stopColor="#8a97ae" />
-                  <stop offset="100%" stopColor="#f0f4fa" />
-                </linearGradient>
-
-                {/* Chrome Bevel Highlight Rim */}
-                <linearGradient id="chrome-rim" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#404858" />
-                  <stop offset="30%" stopColor="#ffffff" />
-                  <stop offset="55%" stopColor="#1e222b" />
-                  <stop offset="80%" stopColor="#d0dcf0" />
-                  <stop offset="100%" stopColor="#ffffff" />
-                </linearGradient>
-
-                {/* SVG Specular 3D Emboss Filter */}
-                <filter id="chrome-3d-bevel" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="blur" />
-                  <feSpecularLighting
-                    in="blur"
-                    surfaceScale="4.5"
-                    specularConstant="1.4"
-                    specularExponent="24"
-                    lightingColor="#eef4ff"
-                    result="specular"
-                  >
-                    <fePointLight x="-180" y="-120" z="240" />
-                  </feSpecularLighting>
-                  <feComposite in="specular" in2="SourceAlpha" operator="in" result="specular-composite" />
-                  <feMerge>
-                    <feMergeNode in="SourceGraphic" />
-                    <feMergeNode in="specular-composite" />
-                  </feMerge>
-                </filter>
-
-                {/* Architectural cantilever tier forming the STTHIRA monolithic monogram */}
-                <path
-                  id="stthira-tier-chrome"
-                  d="M 0,0 L 100,0 L 100,140 L 85,140 L 85,106 C 85,68 38,32 0,32 Z"
-                  fill="url(#chrome-face)"
-                  stroke="url(#chrome-rim)"
-                  strokeWidth="2.8"
-                  filter="url(#chrome-3d-bevel)"
-                />
-              </defs>
-
-              {/* Column 1 (Left): Top and Middle tiers */}
-              <use href="#stthira-tier-chrome" x="0" y="0" />
-              <use href="#stthira-tier-chrome" x="0" y="140" />
-
-              {/* Column 2 (Center): Top, Middle, and Bottom tiers */}
-              <use href="#stthira-tier-chrome" x="124" y="0" />
-              <use href="#stthira-tier-chrome" x="124" y="140" />
-              <use href="#stthira-tier-chrome" x="124" y="280" />
-
-              {/* Column 3 (Right): Middle and Bottom tiers */}
-              <use href="#stthira-tier-chrome" x="248" y="140" />
-              <use href="#stthira-tier-chrome" x="248" y="280" />
-            </svg>
-          </div>
-
-          {/* Big STTHIRA Name with Monumental Clash Display Font Style */}
-          <div className="relative">
-            <h1 className="font-clash text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[0.24em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-500 drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)] select-none">
-              STTHIRA
-            </h1>
-          </div>
-
-          {/* Specular Horizon Hairline Glint */}
-          <div className="w-full max-w-xl h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent my-1 sm:my-1.5 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]" />
-
-          {/* 04. Luxury Mirrored Floor Reflection Effect (as shown in the video) */}
-          <div
-            aria-hidden="true"
-            className="relative flex flex-col items-center select-none pointer-events-none transform -scale-y-100 opacity-50"
-            style={{
-              maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 35%, rgba(0,0,0,0) 75%)",
-              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 35%, rgba(0,0,0,0) 75%)",
-              filter: "blur(1.2px) brightness(0.85)",
-            }}
-          >
-            {/* Reflected STTHIRA Wordmark (inverted closest to horizon) */}
-            <div className="relative">
-              <div className="font-clash text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[0.24em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-300 to-neutral-600 select-none">
-                STTHIRA
-              </div>
-            </div>
-
-            {/* Reflected Monogram */}
-            <div className="relative mt-3 sm:mt-4 opacity-70">
+        {/* 3D Chrome STTHIRA Brand: Monogram Beside STTHIRA (Horizontal Side-by-Side Lockup) */}
+        <div className="relative z-10 flex items-center justify-center pointer-events-none px-4 sm:px-6 text-center">
+          <div className="flex items-center justify-center gap-3.5 sm:gap-6 md:gap-8 lg:gap-10">
+            
+            {/* STTHIRA 3D Chrome Monogram Logo on the LEFT side */}
+            <div className="relative shrink-0 drop-shadow-[0_15px_35px_rgba(0,0,0,0.95)]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 348 420"
-                className="w-20 h-24 sm:w-28 sm:h-34 md:w-36 md:h-44"
+                className="w-12 h-16 sm:w-16 sm:h-22 md:w-22 md:h-28 lg:w-28 lg:h-36 xl:w-32 xl:h-40"
               >
+                <defs>
+                  {/* 3D Chrome High-Contrast Linear Gradient */}
+                  <linearGradient id="chrome-face" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#ffffff" />
+                    <stop offset="18%" stopColor="#d5dbe5" />
+                    <stop offset="38%" stopColor="#7a8599" />
+                    <stop offset="52%" stopColor="#282d38" />
+                    <stop offset="70%" stopColor="#181c24" />
+                    <stop offset="85%" stopColor="#8a97ae" />
+                    <stop offset="100%" stopColor="#f0f4fa" />
+                  </linearGradient>
+
+                  {/* Chrome Bevel Highlight Rim */}
+                  <linearGradient id="chrome-rim" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#404858" />
+                    <stop offset="30%" stopColor="#ffffff" />
+                    <stop offset="55%" stopColor="#1e222b" />
+                    <stop offset="80%" stopColor="#d0dcf0" />
+                    <stop offset="100%" stopColor="#ffffff" />
+                  </linearGradient>
+
+                  {/* SVG Specular 3D Emboss Filter */}
+                  <filter id="chrome-3d-bevel" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="blur" />
+                    <feSpecularLighting
+                      in="blur"
+                      surfaceScale="4.5"
+                      specularConstant="1.4"
+                      specularExponent="24"
+                      lightingColor="#eef4ff"
+                      result="specular"
+                    >
+                      <fePointLight x="-180" y="-120" z="240" />
+                    </feSpecularLighting>
+                    <feComposite in="specular" in2="SourceAlpha" operator="in" result="specular-composite" />
+                    <feMerge>
+                      <feMergeNode in="SourceGraphic" />
+                      <feMergeNode in="specular-composite" />
+                    </feMerge>
+                  </filter>
+
+                  {/* Architectural cantilever tier forming the STTHIRA monolithic monogram */}
+                  <path
+                    id="stthira-tier-chrome"
+                    d="M 0,0 L 100,0 L 100,140 L 85,140 L 85,106 C 85,68 38,32 0,32 Z"
+                    fill="url(#chrome-face)"
+                    stroke="url(#chrome-rim)"
+                    strokeWidth="2.8"
+                    filter="url(#chrome-3d-bevel)"
+                  />
+                </defs>
+
+                {/* Column 1 (Left): Top and Middle tiers */}
                 <use href="#stthira-tier-chrome" x="0" y="0" />
                 <use href="#stthira-tier-chrome" x="0" y="140" />
+
+                {/* Column 2 (Center): Top, Middle, and Bottom tiers */}
                 <use href="#stthira-tier-chrome" x="124" y="0" />
                 <use href="#stthira-tier-chrome" x="124" y="140" />
                 <use href="#stthira-tier-chrome" x="124" y="280" />
+
+                {/* Column 3 (Right): Middle and Bottom tiers */}
                 <use href="#stthira-tier-chrome" x="248" y="140" />
                 <use href="#stthira-tier-chrome" x="248" y="280" />
               </svg>
             </div>
-          </div>
 
+            {/* STTHIRA Wordmark on the RIGHT side in Bold Clash Display */}
+            <div className="relative">
+              <h1 className="font-clash text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-[0.2em] sm:tracking-[0.24em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-500 drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)] select-none">
+                STTHIRA
+              </h1>
+            </div>
+
+          </div>
         </div>
+
+        {/* Ambient Subtle Prompt if browser blocked initial unmuted autoplay */}
+        {!audioStarted && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center opacity-70 animate-pulse">
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-neutral-400 font-sans font-light">
+              Tap anywhere to enable sound
+            </span>
+          </div>
+        )}
+
       </div>
 
       {/* The Main Website Page underneath */}
