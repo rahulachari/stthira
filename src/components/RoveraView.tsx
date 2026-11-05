@@ -124,63 +124,36 @@ export default function RoveraView() {
           <div className="absolute inset-0 bg-black/20 pointer-events-none" />
         </div>
 
-        {/* Hero Content */}
+        {/* Hero Content — Ultra-Clean Luxury Brand Showcase */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 w-full text-center flex flex-col items-center justify-center">
-          {/* Status Badge with Leopard Skin Border Accent */}
-          <div className="p-[1.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-4 sm:mb-6 shadow-xl rounded-sm max-w-full">
-            <div className="inline-flex items-center gap-2 bg-black/85 backdrop-blur-md px-3 sm:px-4 py-1.5 text-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-              <span className="text-[9px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.25em] text-neutral-200 font-sans font-medium">
-                STTHIRA Inaugural Project • North Bengaluru
-              </span>
-            </div>
+          {/* Subtle Monolithic Category Eyebrow */}
+          <div className="inline-flex items-center gap-2 mb-6 sm:mb-8 text-neutral-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-neutral-300 font-sans font-medium">
+              STTHIRA Inaugural Project • North Bengaluru
+            </span>
           </div>
 
           {/* Crisp, Bold Official ROVERA Brand Mark */}
-          <div className="relative h-12 sm:h-20 md:h-26 lg:h-30 aspect-[3.4/1] mb-4 sm:mb-6 select-none shrink-0 drop-shadow-2xl">
+          <div className="relative h-16 sm:h-24 md:h-32 lg:h-36 aspect-[3.4/1] mb-6 sm:mb-8 select-none shrink-0 drop-shadow-2xl">
             <Image
               src="/images/rovera-logo-white.png"
               alt="ROVERA — Luxury Plotted Living"
               fill
               priority
-              sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 420px"
+              sizes="(max-width: 640px) 260px, (max-width: 768px) 360px, 460px"
               className="object-contain object-center"
             />
           </div>
 
           {/* Editorial Project Headline */}
-          <h1 className="font-editorial text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-wide uppercase text-neutral-100 max-w-3xl leading-tight mb-4">
+          <h1 className="font-editorial text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-wide uppercase text-neutral-100 max-w-4xl leading-tight mb-4 px-2">
             SANCTUARY OF TIMELESS RESIDENCE.
           </h1>
 
-          <p className="max-w-2xl mx-auto text-xs sm:text-base font-sans text-neutral-300 font-light leading-relaxed mb-8 px-2 sm:px-0">
+          <p className="max-w-2xl mx-auto text-xs sm:text-base md:text-lg font-sans text-neutral-300 font-light leading-relaxed mb-8 sm:mb-10 px-2 sm:px-0">
             A 42+ acre master-planned enclave crafted by STTHIRA in North Bengaluru. Featuring 186 curated residential parcels, 100% underground civil utilities, and 45% conserved native canopy.
           </p>
-
-          {/* Key Facts Pill Framed with Leopard Skin Border Accent */}
-          <div className="p-[1.5px] sm:p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-8 sm:mb-10 shadow-2xl rounded-sm w-full max-w-2xl">
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 sm:gap-6 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-200 font-sans py-2.5 sm:py-3 px-3 sm:px-6 bg-black/85 backdrop-blur-md">
-              <div className="flex items-center justify-center gap-1.5 col-span-2 sm:col-span-1">
-                <MapPin className="w-3.5 h-3.5 text-white shrink-0" />
-                <span className="font-medium">North Bengaluru</span>
-              </div>
-              <span className="hidden sm:inline text-neutral-500">•</span>
-              <div className="flex items-center justify-center gap-1.5">
-                <DotMatrixNumber value="42+" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-                <span>Acres</span>
-              </div>
-              <span className="hidden sm:inline text-neutral-500">•</span>
-              <div className="flex items-center justify-center gap-1.5">
-                <DotMatrixNumber value="186" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-                <span>Plots</span>
-              </div>
-              <span className="hidden sm:inline text-neutral-500">•</span>
-              <div className="flex items-center justify-center gap-1.5 col-span-2 sm:col-span-1 text-white font-semibold">
-                <DotMatrixNumber value="18" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-                <span>Mins Airport</span>
-              </div>
-            </div>
-          </div>
 
           {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -338,17 +311,13 @@ export default function RoveraView() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      {isSignature ? (
-                        <div className="p-[1.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded">
-                          <span className="text-[10px] uppercase tracking-widest text-white bg-black px-2 py-0.5 rounded font-mono font-medium block">
-                            {plot.badge}
-                          </span>
-                        </div>
-                      ) : (
-                        <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">
-                          {plot.badge}
-                        </span>
-                      )}
+                      <span className={`text-[10px] uppercase tracking-widest font-mono font-medium block px-2.5 py-0.5 rounded ${
+                        isSignature 
+                          ? "bg-black text-white" 
+                          : "text-neutral-400 bg-neutral-100"
+                      }`}>
+                        {plot.badge}
+                      </span>
                       <span className="text-xs font-semibold text-black bg-neutral-100 px-2.5 py-1 rounded font-doto tracking-wider">
                         {plot.areaSqFt}
                       </span>
@@ -387,7 +356,7 @@ export default function RoveraView() {
               return isSignature ? (
                 <div
                   key={plot.id}
-                  className="p-[2.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-xl shadow-xl transform md:-translate-y-2 transition-transform"
+                  className="rounded-xl border-2 border-black shadow-xl transform md:-translate-y-2 transition-transform bg-white"
                 >
                   <div className="rounded-[10px] overflow-hidden h-full">
                     {cardInner}
@@ -564,8 +533,8 @@ export default function RoveraView() {
       {/* 08. STATUTORY TRANSPARENCY & RERA DISCLOSURE Framed with Leopard Skin Border */}
       <section className="py-10 sm:py-16 bg-white border-b border-neutral-200">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
-          <div className="p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-xl shadow-lg">
-            <div className="bg-neutral-50 p-5 sm:p-8 rounded-[10px] space-y-3">
+          <div className="border border-neutral-200 bg-neutral-50 rounded-xl shadow-sm">
+            <div className="p-6 sm:p-8 space-y-3">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-black" />
                 <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-600 font-semibold">
@@ -590,9 +559,9 @@ export default function RoveraView() {
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Advisory Card with Leopard Skin Border Accent */}
-            <div className="md:col-span-5 p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-2xl shadow-2xl">
-              <div className="bg-white/95 backdrop-blur-md p-5 sm:p-8 md:p-10 rounded-[14px] space-y-3 sm:space-y-4 h-full">
+            {/* Left Advisory Card */}
+            <div className="md:col-span-5 bg-white border border-neutral-200 rounded-2xl shadow-xl">
+              <div className="p-6 sm:p-8 md:p-10 space-y-4 h-full">
                 <StthiraEmblem className="text-black w-8 h-10" />
                 <h2 className="font-editorial text-3xl sm:text-4xl uppercase tracking-tight text-black font-light leading-tight">
                   SCHEDULE SITE WALKTHROUGH
