@@ -1,16 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import StthiraEmblem from "./StthiraEmblem";
 import DotMatrixNumber from "./ui/DotMatrixNumber";
 
 export default function ArchitecturalPreloader() {
+  const pathname = usePathname();
+  const isRovera = pathname?.includes("/developments/rovera");
+
   const [progress, setProgress] = useState(1);
   const [stageText, setStageText] = useState("INITIALIZING GEODETIC SURVEY");
   const [isCompleted, setIsCompleted] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
+    // If on ROVERA page, skip global preloader completely so ROVERA's bespoke opening animation runs exclusively without any glitch or conflict
+    if (isRovera) {
+      setIsDismissed(true);
+      return;
+    }
+
     // Check if preloader already played in this browser session
     const hasLoaded = sessionStorage.getItem("stthira_preloaded");
     if (hasLoaded) {
@@ -62,7 +72,7 @@ export default function ArchitecturalPreloader() {
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  if (isDismissed) return null;
+  if (isRovera || isDismissed) return null;
 
   const formattedNum = progress < 10 ? `00${progress}` : progress < 100 ? `0${progress}` : `${progress}`;
 
