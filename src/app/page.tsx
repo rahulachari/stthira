@@ -18,6 +18,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import ReelGallery from "@/components/ui/ReelGallery";
+import FlexCarousel from "@/components/ui/FlexCarousel";
 import { DEVELOPMENTS, FAQS } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -48,6 +49,58 @@ export default function HomePage() {
       id: "buying-1",
       q: "How can I schedule a private site walkthrough?",
       a: "You can click 'Enquire Now' or call our direct concierge at +91 80 4567 8900. Our relationship directors arrange private, chauffeured site visits and one-on-one legal title walkthroughs.",
+    },
+  ];
+
+  // Visual Curation Items for React Bits FlexCarousel
+  const architecturalArchiveItems = [
+    {
+      src: "/images/rovera-avenues.jpg",
+      alt: "50-Foot Tree-Lined Arterial Boulevards",
+      title: "Arterial Boulevards",
+      subtitle: "50-Ft Tree Canopy • Underground Electrical Grid",
+    },
+    {
+      src: "/images/rovera-clubhouse.jpg",
+      alt: "The Monolith Club Pavilion",
+      title: "The Monolith Club",
+      subtitle: "20,000 Sq.Ft Concrete & Flamed Basalt Architecture",
+    },
+    {
+      src: "/images/rovera-wellness.jpg",
+      alt: "Aura 25m Semi-Olympic Heated Lap Pool",
+      title: "Aura Lap Pool",
+      subtitle: "Flamed Black Granite Decking • Wellness Cabanas",
+    },
+    {
+      src: "/images/aerial-view.jpg",
+      alt: "42+ Acre Master Plan Matrix",
+      title: "Master Plan Matrix",
+      subtitle: "42+ Acre Plotted Enclave • 186 Curated Villa Parcels",
+    },
+    {
+      src: "/images/landscape-nature.jpg",
+      alt: "The Forest Spine Conserved Bioswales",
+      title: "The Forest Spine",
+      subtitle: "3+ Acres Native Woodland • Rainwater Aquifers",
+    },
+    {
+      src: "/images/lifestyle-amenities.jpg",
+      alt: "Zenith Championship Sports Arena",
+      title: "Zenith Sports Arena",
+      subtitle: "Plexicushion Tennis Court • Glass Padel Court",
+    },
+    {
+      src: "/images/entrance-structure.jpg",
+      alt: "Monumental Entrance Gateways",
+      title: "Basalt Gateways",
+      subtitle: "Forensic Cadastral Diligence • 100% Clear Title",
+    },
+    {
+      src: "/images/modern-architecture.jpg",
+      alt: "Architectural Permanence & Structural Honesty",
+      title: "Structural Permanence",
+      subtitle: "Timeless Plotted Living • Generational Wealth",
     },
   ];
 
@@ -303,10 +356,10 @@ export default function HomePage() {
       {/* 05. STRATEGIC ALLIANCE (STTHIRA | ROVERA | AKSHARA) */}
       <PartnershipBanner />
 
-      {/* 06. ARCHITECTURAL GALLERY (Clean 4-Plate Showcase) */}
-      <section className="py-20 sm:py-28 bg-neutral-950 text-white border-b border-neutral-900">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-neutral-800">
+      {/* 06. ARCHITECTURAL GALLERY (React Bits WebGL Refractive FlexCarousel) */}
+      <section className="py-20 sm:py-28 bg-neutral-950 text-white border-b border-neutral-900 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4 pb-6 border-b border-neutral-800">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] text-neutral-400 block mb-1">
                 Visual Curation
@@ -324,27 +377,28 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {rovera.galleryImages.slice(0, 4).map((img, idx) => (
-              <div
-                key={img.url || idx}
-                className="group relative aspect-[4/3] bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800"
-              >
-                <Image
-                  src={img.url}
-                  alt={img.title}
-                  fill
-                  className="object-cover object-center grayscale contrast-110 group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <span className="text-[9px] uppercase tracking-wider text-neutral-400 block">
-                    {img.category}
-                  </span>
-                  <p className="text-xs font-medium truncate">{img.title}</p>
-                </div>
-              </div>
-            ))}
+          {/* WebGL Refractive Liquid FlexCarousel (Adaptive across Mobile, Tablet/iPad & Desktop) */}
+          <div className="relative w-full h-[380px] sm:h-[460px] md:h-[520px] lg:h-[580px] rounded-xl overflow-hidden bg-neutral-900/60 border border-neutral-800/80 shadow-2xl">
+            <FlexCarousel
+              items={architecturalArchiveItems}
+              preset="liquid"
+              intro="rise"
+              fit="natural"
+              cardHeight={0.52}
+              gap={16}
+              radius={8}
+              squeeze={0.2}
+              focusOnClick={true}
+              captions={true}
+              captureWheel={false}
+              autoplay={false}
+            />
+          </div>
+
+          {/* Interaction Guide */}
+          <div className="mt-4 flex items-center justify-between text-[11px] uppercase tracking-widest text-neutral-500 font-sans px-2">
+            <span>← Drag or Swipe to Navigate →</span>
+            <span className="hidden sm:inline">Click any plate to focus & expand</span>
           </div>
         </div>
       </section>
