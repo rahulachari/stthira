@@ -8,7 +8,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { COMPANY_INFO } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
 import StthiraEmblem from "./StthiraEmblem";
-import { DitheredBand } from "./ui/dithered-footer";
+import HalftoneWordmarkFooter from "./ui/halftone-wordmark-footer";
 
 export default function Footer() {
   const currentYear = 2026;
@@ -339,13 +339,49 @@ export default function Footer() {
           </div>
         </section>
       ) : (
-        /* Monumental Interactive Stochastic Dithered Wordmark for STTHIRA on other pages (Matching 21st.dev Pure White & Orange Dither) */
-        <div className="w-full border-t border-neutral-100 bg-white overflow-hidden">
-          <DitheredBand
-            brand={wordmark}
-            accent="#ff6a00"
-            bgColor="#ffffff"
-            height="h-64 sm:h-72 md:h-80"
+        /* Monumental Interactive Halftone Wordmark for STTHIRA (21st.dev Pure White Canvas with Warm Reactive Dots) */
+        <div className="w-full border-t border-neutral-200 bg-white overflow-hidden">
+          <HalftoneWordmarkFooter
+            wordmark="stthira"
+            label="STTHIRA DEVELOPMENTS"
+            meta="EST. 2026 · ARCHITECTURAL PERMANENCE"
+            columns={[
+              {
+                title: "Portfolio",
+                links: [
+                  { label: "ROVERA Sanctuary", href: "/developments/rovera" },
+                  { label: "STTHIRA TERRA", href: "/developments/terra" },
+                  { label: "AKSHARA MEADOWS", href: "/developments/akshara-meadows" },
+                ],
+              },
+              {
+                title: "Governance",
+                links: [
+                  { label: "Title Purity Audit", href: "/governance" },
+                  { label: "Civil Infrastructure", href: "/philosophy" },
+                  { label: "DPDP & RERA Audit", href: "/rera-audit" },
+                ],
+              },
+              {
+                title: "Advisory",
+                links: [
+                  { label: "contact@stthira.in", href: "mailto:contact@stthira.in" },
+                  { label: "+91 80 4567 8900", href: "tel:+918045678900" },
+                  { label: "Private Consultation", href: "/contact" },
+                ],
+              },
+            ]}
+            preset="paper"
+            palette={{
+              background: "#ffffff",
+              ink: "#17150f",
+              warm: "#ff6a00",
+            }}
+            height="520px"
+            dotGap={6}
+            radius={85}
+            crop={0.15}
+            interactive={true}
           />
         </div>
       )}
