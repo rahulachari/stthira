@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import SmoothScroll from "@/components/SmoothScroll";
-import ReactDropsPageReveal from "@/components/ReactDropsPageReveal";
+import CinematicOpeningReveal from "@/components/CinematicOpeningReveal";
 import FloatingEnquiryTab from "@/components/FloatingEnquiryTab";
 import ScrollToHeroSling from "@/components/ScrollToHeroSling";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -135,7 +135,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full w-full max-w-full flex flex-col bg-white text-neutral-900 font-sans-clean overflow-x-hidden">
         <LanguageProvider>
-          <ReactDropsPageReveal>
+          <CinematicOpeningReveal>
             <SmoothScroll>
               <Header />
               <FloatingEnquiryTab />
@@ -144,7 +144,7 @@ export default function RootLayout({
               <Footer />
               <CookieBanner />
             </SmoothScroll>
-          </ReactDropsPageReveal>
+          </CinematicOpeningReveal>
         </LanguageProvider>
       </body>
     </html>
