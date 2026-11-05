@@ -79,7 +79,7 @@ export default function Footer() {
   return (
     <footer className="bg-white text-neutral-900 border-t border-neutral-200 font-sans">
       {/* Upper Footer: GitHub Clean Style on Light Canvas */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-6 sm:pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-4 sm:pb-6">
         {/* Top Header Row with Co-Branding Indicator: STTHIRA | ROVERA | AKSHARA */}
         <div className="flex flex-col xl:flex-row items-center justify-between pb-8 sm:pb-10 mb-8 sm:mb-12 border-b border-neutral-200 gap-6">
           <div className="flex flex-wrap items-center justify-center xl:justify-start gap-4 sm:gap-6 w-full xl:w-auto">
@@ -208,7 +208,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Exact GitHub Footer layout (Copyright & Legal on Left, Social & Language on Right) */}
-        <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs text-neutral-500 font-sans">
+        <div className="pt-6 sm:pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs text-neutral-500 font-sans">
           {/* Left: Copyright and Legal Links */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <span>© <span className="font-doto tracking-widest">{currentYear}</span> STTHIRA DEVELOPMENTS PRIVATE LIMITED.</span>
@@ -353,7 +353,7 @@ export default function Footer() {
               ink: "#17150f",
               warm: "#ff6a00",
             }}
-            height="clamp(88px, 21vw, 340px)"
+            height="clamp(72px, 20vw, 300px)"
             dotGap={6}
             radius={85}
             crop={0.12}

@@ -254,7 +254,12 @@ export default function HalftoneWordmarkFooter({
       const c = Math.max(0, Math.min(0.6, o.crop))
       m.fillStyle = "#000"
       m.textBaseline = "alphabetic"
-      const textY = Math.max(cap + 6, h + cap * c)
+      // If there are top links/headers inside this canvas, anchor wordmark to bottom.
+      // If used as a standalone wordmark band (no internal header), keep wordmark near top to avoid blank void.
+      const hasTopContent = Boolean(label || (columns && columns.length > 0))
+      const textY = hasTopContent
+        ? Math.max(cap + 6, h + cap * c)
+        : Math.min(Math.max(cap + 6, h + cap * c), cap + 10)
       m.fillText(word, (w - box.width) / 2, textY)
       const img = m.getImageData(0, 0, w, h).data
 

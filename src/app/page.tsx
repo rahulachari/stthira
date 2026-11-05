@@ -116,7 +116,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
             {/* Left Narrative */}
-            <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div className="lg:col-span-7 flex flex-col justify-between space-y-6 h-full">
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium">
                   <span className="w-5 h-px bg-neutral-400" />
@@ -190,7 +190,7 @@ export default function HomePage() {
             </div>
 
             {/* Right Clean Visual Plate — Perfectly matches the full height of the text block */}
-            <div className="lg:col-span-5 relative w-full min-h-[460px] sm:min-h-[520px] lg:min-h-full aspect-[4/3] lg:aspect-auto bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 shadow-xl flex flex-col justify-end">
+            <div className="lg:col-span-5 relative w-full h-full min-h-[440px] sm:min-h-[500px] lg:min-h-0 self-stretch rounded-lg overflow-hidden border border-neutral-200 shadow-xl flex flex-col justify-end bg-neutral-100">
               <Image
                 src="/images/brand-story.jpg"
                 alt="STTHIRA Architecture"

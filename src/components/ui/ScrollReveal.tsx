@@ -231,6 +231,8 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     render();
 
     let triggerInstance: ScrollTrigger | null = null;
+    let io: IntersectionObserver | null = null;
+    let fallbackTimer: NodeJS.Timeout | null = null;
 
     if (mode === 'enter') {
       let played = false;
@@ -261,16 +263,29 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         gsap.set(el, { transformOrigin: '0% 50%', rotate: baseRotation });
       }
 
-      // Check if element is already within viewport on initial load
+      // 01. IntersectionObserver Dual-Guarantee: triggers reliably across all mobile/desktop devices
+      if (typeof IntersectionObserver !== 'undefined') {
+        io = new IntersectionObserver(
+          entries => {
+            if (entries[0]?.isIntersecting) {
+              play();
+            }
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+        io.observe(el);
+      }
+
+      // 02. Immediate In-View Check
       const rect = el.getBoundingClientRect();
-      const inViewOnMount = rect.top < window.innerHeight * 0.9 && rect.bottom > 0;
+      const inViewOnMount = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
       if (inViewOnMount) {
         play();
       } else {
         triggerInstance = ScrollTrigger.create({
           trigger: el,
           scroller,
-          start: 'top 85%',
+          start: 'top 88%',
           onEnter: play,
           onEnterBack: play,
           onRefresh: self => {
@@ -278,6 +293,11 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
           }
         });
       }
+
+      // 03. Ultimate Readability Safeguard: Guarantee text is never stuck faded
+      fallbackTimer = setTimeout(() => {
+        if (!played) play();
+      }, 3500);
     } else {
       if (baseRotation) {
         gsap.fromTo(
@@ -321,6 +341,8 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     resizeObserver?.observe(textEl);
 
     return () => {
+      if (fallbackTimer) clearTimeout(fallbackTimer);
+      io?.disconnect();
       resizeObserver?.disconnect();
       triggerInstance?.kill();
       pieces.forEach(piece => {

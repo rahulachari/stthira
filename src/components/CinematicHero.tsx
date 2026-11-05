@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import EnquiryModal from "./EnquiryModal";
 import { useLanguage } from "@/context/LanguageContext";
 import StthiraEmblem from "./StthiraEmblem";
+import ElectricLogo from "./ui/ElectricLogo";
 
 export default function CinematicHero() {
   const [enquiryOpen, setEnquiryOpen] = useState(false);
@@ -42,9 +43,28 @@ export default function CinematicHero() {
           </span>
         </div>
 
-        {/* STTHIRA Official Brand Lockup (Matches Nav Bar: Emblem on Left, Wordmark on Right) */}
+        {/* STTHIRA Official Brand Lockup with Interactive React Bits ElectricLogo */}
         <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-7 mb-6 select-none">
-          <StthiraEmblem className="text-white w-9 h-11 sm:w-14 sm:h-16 md:w-16 md:h-20 lg:w-20 lg:h-24 drop-shadow-2xl shrink-0" />
+          <div className="relative w-12 h-14 sm:w-16 sm:h-20 md:w-20 md:h-24 lg:w-24 lg:h-28 shrink-0">
+            <ElectricLogo
+              src="/images/stthira-emblem-white.png"
+              color="#e6e7e9"
+              glowColor="#e6e7e9"
+              scale={0.75}
+              strands={4}
+              bend={0.6}
+              crackle={0.85}
+              arcs={1.3}
+              speed={0.4}
+              interactive={true}
+              intensity={0.25}
+              glow={1.15}
+              thickness={1.2}
+              fill={0.35}
+              cursorIntensity={0.55}
+              cursorRadius={80}
+            />
+          </div>
           <div className="flex flex-col items-start text-left">
             <h1 className="font-editorial text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.08em] sm:tracking-[0.1em] uppercase text-white leading-none">
               {t("hero.brand", "STTHIRA")}
