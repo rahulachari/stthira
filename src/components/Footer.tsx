@@ -295,12 +295,12 @@ export default function Footer() {
         /* Exclusive ROVERA Leopard Fine-Art Sanctuary (Editorial Side-by-Side with Official ROVERA Logo) */
         <section
           aria-label="ROVERA Fine-Art Sanctuary"
-          className="relative w-full overflow-hidden bg-white text-neutral-900 py-10 sm:py-16 md:py-20 select-none border-t border-neutral-200"
+          className="relative w-full overflow-hidden bg-white text-neutral-900 pt-10 pb-24 sm:pt-16 sm:pb-20 md:pt-20 select-none border-t border-neutral-200"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
-              {/* Left Column: The Feathered Fine-Art Leopard on Weathered Bough */}
-              <div className="lg:col-span-7 relative w-full aspect-[1.8/1] sm:aspect-[1.91/1] select-none transition-transform duration-700 hover:scale-[1.015]">
+            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
+              {/* On Desktop: Left Column (7 cols) / On Mobile: Positioned below brand identity (order-2 lg:order-1) */}
+              <div className="order-2 lg:order-1 lg:col-span-7 relative w-full max-w-lg lg:max-w-none aspect-[1.8/1] sm:aspect-[1.91/1] select-none transition-transform duration-700 hover:scale-[1.015]">
                 <Image
                   src="/images/rovera-cheetah-beside-retina.png"
                   alt="ROVERA — Untamed Sanctuary Leopard Resting on Weathered Bough"
@@ -312,17 +312,17 @@ export default function Footer() {
                 />
               </div>
 
-              {/* Right Column: Official ROVERA Brand Logo BESIDE the Cheetah */}
-              <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-2 sm:space-y-3.5">
+              {/* On Desktop: Right Column (5 cols) / On Mobile: Leads first for immediate brand prestige (order-1 lg:order-2) */}
+              <div className="order-1 lg:order-2 lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-2 sm:space-y-3.5 w-full">
                 {/* Official ROVERA Brand Logo */}
-                <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 xl:w-[400px] aspect-[3.4/1] select-none">
+                <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 xl:w-[400px] aspect-[3.4/1] select-none">
                   <Image
                     src="/images/rovera-logo-dark.png"
                     alt="ROVERA"
                     fill
                     priority
                     quality={95}
-                    sizes="(max-width: 640px) 220px, (max-width: 1024px) 320px, 420px"
+                    sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 420px"
                     className="object-contain object-center lg:object-left"
                   />
                 </div>

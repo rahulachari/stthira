@@ -9,8 +9,8 @@ export default function FloatingEnquiryTab() {
 
   return (
     <>
-      {/* Assetz-Style Fixed Vertical Tab on Right Viewport Edge */}
-      <aside aria-label="Quick Enquiry" className="fixed right-0 top-1/2 -translate-y-1/2 z-40">
+      {/* Assetz-Style Fixed Vertical Tab on Right Viewport Edge (Desktop only to prevent mobile viewport occlusion) */}
+      <aside aria-label="Quick Enquiry" className="hidden md:block fixed right-0 top-1/2 -translate-y-1/2 z-40">
         <button
           type="button"
           onClick={() => setModalOpen(true)}

@@ -125,7 +125,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${manrope.variable} h-full antialiased selection:bg-black selection:text-white`}
+      className={`${cormorant.variable} ${manrope.variable} h-full antialiased selection:bg-black selection:text-white overflow-x-hidden`}
     >
       <head>
         <script
@@ -133,14 +133,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-white text-neutral-900 font-sans-clean">
+      <body className="min-h-full w-full max-w-full flex flex-col bg-white text-neutral-900 font-sans-clean overflow-x-hidden">
         <LanguageProvider>
           <ArchitecturalPreloader />
           <SmoothScroll>
             <Header />
             <FloatingEnquiryTab />
             <ScrollToHeroSling />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
             <Footer />
             <CookieBanner />
           </SmoothScroll>
