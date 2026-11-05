@@ -33,7 +33,7 @@ export default function ScrollToHeroSling() {
 
   return (
     <div
-      className={`fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 transition-all duration-300 ${
+      className={`fixed bottom-20 right-6 sm:bottom-24 sm:right-8 z-40 transition-all duration-300 ${
         visible
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 translate-y-6 pointer-events-none"
@@ -42,36 +42,34 @@ export default function ScrollToHeroSling() {
     >
       <div className="relative group flex items-center justify-center">
         {/* Subtle Luxury Tooltip */}
-        <span className="absolute -top-8 right-0 bg-neutral-900/90 text-white text-[10px] uppercase tracking-widest font-sans font-medium px-2.5 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap border border-white/10 backdrop-blur-xs">
-          Pull to Sling • Reach Hero ↑
+        <span className="absolute -top-7 right-0 bg-neutral-950/95 text-white text-[9px] uppercase tracking-widest font-sans font-medium px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap border border-white/10 backdrop-blur-xs">
+          Pull or Tap • Top ↑
         </span>
 
-        {/* Ambient Drop Shadow & Glass Ring */}
-        <div className="absolute inset-0 rounded-full bg-black/40 blur-md scale-95 pointer-events-none" />
+        {/* Ambient Subtle Shadow */}
+        <div className="absolute inset-0 rounded-full bg-black/30 blur-md pointer-events-none" />
 
-        {/* React Bits SlingButton component configured for luxury aesthetics */}
-        <div className="relative rounded-full shadow-2xl p-1 bg-neutral-950/80 border border-white/20 backdrop-blur-md">
-          <SlingButton
-            onSend={handleLaunchToHero}
-            padColor="#18181b"
-            iconColor="#ffffff"
-            accentColor="#ffffff"
-            wellColor="#27272a"
-            bandColor="#71717a"
-            size={52}
-            strokeWidth={3}
-            armAt={44}
-            maxPull={150}
-            launchSpeed={2600}
-            recoil={0.25}
-            flight={130}
-            particles={16}
-            spread={60}
-            axis="any"
-            tapSends={true}
-            ariaLabel="Slingshot to reach hero section"
-          />
-        </div>
+        {/* React Bits SlingButton component - Compact, Elevated, High-Visibility */}
+        <SlingButton
+          onSend={handleLaunchToHero}
+          padColor="#18181b"
+          iconColor="#ffffff"
+          accentColor="#e9762b"
+          wellColor="#27272a"
+          bandColor="#9ca3af"
+          size={40}
+          strokeWidth={2.5}
+          armAt={20}
+          maxPull={80}
+          launchSpeed={2600}
+          recoil={0.25}
+          flight={150}
+          particles={16}
+          spread={70}
+          axis="any"
+          tapSends={true}
+          ariaLabel="Slingshot to reach hero section"
+        />
       </div>
     </div>
   );

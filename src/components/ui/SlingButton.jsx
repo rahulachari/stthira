@@ -20,7 +20,7 @@ const FINGER_MAX = 3000;
 const HAND_MAX = 6000;
 const CANCEL = 0.5;
 const POWER_CAP = 1.5;
-const DOT_MS = 300;
+const DOT_MS = 650;
 const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
@@ -71,7 +71,7 @@ export default function SlingButton({
   const power = useRef(0);
   const iconRef = useRef(null);
   const grip = useRef(null);
-  const dir = useRef({ ux: 0, uy: -1 });
+  const dir = useRef({ ux: 0, uy: 1 });
   const animX = useRef(null);
   const animY = useRef(null);
   const armedRef = useRef(false);
@@ -99,12 +99,12 @@ export default function SlingButton({
       const angle = base + (lead ? 0 : (Math.random() + Math.random() - 1) * (cone / 2));
       const cx = Math.cos(angle);
       const cy = Math.sin(angle);
-      const reach = (lead ? flight : flight * (0.3 + Math.random())) * push;
-      const drift = lead ? 0 : (Math.random() - 0.5) * flight * 0.4;
-      const scale = lead ? 1 : 0.3 + Math.random() * 0.6;
-      const shrink = lead ? 0.6 : scale * (0.2 + Math.random() * 0.4);
-      const duration = lead ? DOT_MS : DOT_MS * (0.7 + Math.random());
-      const delay = lead ? 0 : Math.random() * 70;
+      const reach = (lead ? flight : flight * (0.35 + Math.random() * 0.75)) * push;
+      const drift = lead ? 0 : (Math.random() - 0.5) * flight * 0.45;
+      const scale = lead ? 1.1 : 0.4 + Math.random() * 0.7;
+      const shrink = lead ? 0.7 : scale * (0.2 + Math.random() * 0.4);
+      const duration = lead ? DOT_MS : DOT_MS * (0.75 + Math.random() * 0.35);
+      const delay = lead ? 0 : Math.random() * 80;
       const to = wellR + reach;
       dot.animate(
         [
@@ -116,11 +116,33 @@ export default function SlingButton({
       dot.animate(
         [
           { opacity: 1, offset: 0 },
-          { opacity: 1, offset: 0.55 },
+          { opacity: 0.95, offset: 0.6 },
           { opacity: 0, offset: 1 }
         ],
         { duration, delay, easing: 'linear', fill: 'none' }
       );
+    });
+  };
+
+  const triggerTapSling = () => {
+    dir.current = { ux: 0, uy: 1 };
+    power.current = 1.0;
+    if (reduce) {
+      setSent(true);
+      setTimeout(() => setSent(false), 240);
+      return;
+    }
+    animY.current?.stop();
+    animX.current?.stop();
+    // Pull pad downward smoothly to stretch band, then snap release with spring recoil
+    animate(py, Math.max(14, size * 0.38), {
+      duration: 0.09,
+      ease: 'easeOut'
+    }).then(() => {
+      setSent(true);
+      setTimeout(() => setSent(false), 260);
+      launchDot();
+      settle({ x: 0, y: -launchSpeed * 0.7 });
     });
   };
 
@@ -292,7 +314,10 @@ export default function SlingButton({
     }
     if (!g.moved) {
       relaxIcon();
-      if (tapSends && !cancelled) onSend?.();
+      if (tapSends && !cancelled) {
+        triggerTapSling();
+        onSend?.();
+      }
     } else {
       const fire = armedRef.current && !cancelled;
       const launch = fire ? launchSpeed * Math.min(p, POWER_CAP) : CANCEL * launchSpeed * Math.min(p, 1);
@@ -396,7 +421,10 @@ export default function SlingButton({
               skipClick.current = false;
               return;
             }
-            if (!disabled) onSend?.();
+            if (!disabled) {
+              triggerTapSling();
+              onSend?.();
+            }
           }}
         >
           <span className="sling-button__face">
