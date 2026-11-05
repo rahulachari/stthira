@@ -87,3 +87,26 @@
   background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* Infinite Smooth Reel Gallery Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  animation: marquee linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse linear infinite;
+  display: flex;
+  width: max-content;
+}

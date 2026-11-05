@@ -19,6 +19,7 @@ import { DEVELOPMENTS } from "@/lib/data";
 import EnquiryModal from "@/components/EnquiryModal";
 import EnquiryForm from "@/components/EnquiryForm";
 import StthiraEmblem from "@/components/StthiraEmblem";
+import ReelGallery from "@/components/ui/ReelGallery";
 
 export default function RoveraView() {
   const rovera = DEVELOPMENTS[0];
@@ -511,8 +512,11 @@ export default function RoveraView() {
       </section>
 
       {/* 09. ASSETZ-STYLE CLEAN INLINE ENQUIRY SECTION */}
-      <section id="enquiry" className="py-20 sm:py-28 bg-white">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+      <section id="enquiry" className="relative py-20 sm:py-28 bg-white overflow-hidden">
+        {/* React Bits Pro Reel Gallery: Tilted reels of images that glide as you scroll (Enquire Now section only) */}
+        <ReelGallery />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
             {/* Left Advisory Card */}
             <div className="md:col-span-5 space-y-4">

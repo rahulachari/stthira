@@ -25,3 +25,4 @@ export interface SlingButtonProps {
 }
 
 export default function SlingButton(props: SlingButtonProps): React.JSX.Element;
+
