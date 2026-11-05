@@ -1,4 +1,5 @@
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -48,6 +49,15 @@
 .font-editorial {
   font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: -0.01em;
+}
+
+/* 21st.dev Style Dot Matrix Numbers */
+.font-dot-matrix,
+.font-doto {
+  font-family: 'Doto', monospace, sans-serif;
+  font-variation-settings: 'ROND' 100;
+  font-feature-settings: 'tnum' on, 'zero' on;
+  letter-spacing: 0.06em;
 }
 
 .font-sans-clean {

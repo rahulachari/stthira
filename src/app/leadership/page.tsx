@@ -43,7 +43,7 @@ export default function LeadershipPage() {
                     Board Governance
                   </span>
                 </div>
-                <span className="text-xs font-mono text-neutral-400">Est. 2026</span>
+                <span className="text-xs font-doto text-neutral-400 tracking-wider">Est. 2026</span>
               </div>
 
               <div>

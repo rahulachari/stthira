@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import StthiraEmblem from "./StthiraEmblem";
+import DotMatrixNumber from "./ui/DotMatrixNumber";
 
 export default function ArchitecturalPreloader() {
   const [progress, setProgress] = useState(1);
@@ -114,14 +115,28 @@ export default function ArchitecturalPreloader() {
           <span>ARCHITECTURAL MATRIX CALIBRATION</span>
         </div>
 
-        {/* Large Rolling Number (001 -> 100) */}
-        <div className="flex items-baseline justify-center tracking-tighter">
-          <span className="font-editorial text-7xl sm:text-9xl md:text-[12rem] lg:text-[14rem] font-light text-white leading-none tabular-nums drop-shadow-2xl">
-            {formattedNum}
-          </span>
-          <span className="font-editorial text-3xl sm:text-5xl md:text-6xl text-neutral-500 font-light ml-2">
-            %
-          </span>
+        {/* Large Rolling Dot Matrix Number (001% -> 100%) - Authentic 21st.dev Style */}
+        <div className="flex items-center justify-center my-4 py-2 overflow-x-auto max-w-full">
+          <div className="hidden sm:block">
+            <DotMatrixNumber
+              value={`${formattedNum}%`}
+              dotSize={8}
+              dotGap={3}
+              color="#ffffff"
+              inactiveColor="rgba(255,255,255,0.08)"
+              glow
+            />
+          </div>
+          <div className="sm:hidden">
+            <DotMatrixNumber
+              value={`${formattedNum}%`}
+              dotSize={5}
+              dotGap={2}
+              color="#ffffff"
+              inactiveColor="rgba(255,255,255,0.08)"
+              glow
+            />
+          </div>
         </div>
 
         {/* Dynamic Construction Milestone Stage Text */}

@@ -19,6 +19,7 @@ import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import ReelGallery from "@/components/ui/ReelGallery";
 import FlexCarousel from "@/components/ui/FlexCarousel";
+import DotMatrixNumber from "@/components/ui/DotMatrixNumber";
 import { DEVELOPMENTS, FAQS } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -131,29 +132,29 @@ export default function HomePage() {
                 )}
               </p>
 
-              {/* 3 Core Highlights Metrics */}
-              <div className="pt-4 grid grid-cols-3 gap-4 border-t border-neutral-200">
+              {/* 3 Core Highlights Metrics with 21st.dev Dot Matrix Numbers */}
+              <div className="pt-5 grid grid-cols-3 gap-4 border-t border-neutral-200">
                 <div>
-                  <span className="font-editorial text-2xl sm:text-4xl text-black font-normal block">
-                    2026
-                  </span>
-                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 font-medium block mt-1">
+                  <div className="text-black mb-1.5 flex items-center">
+                    <DotMatrixNumber value="2026" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                  </div>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 font-medium block">
                     Foundation Year
                   </span>
                 </div>
                 <div className="border-l border-neutral-200 pl-4">
-                  <span className="font-editorial text-2xl sm:text-4xl text-black font-normal block">
-                    100%
-                  </span>
-                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 font-medium block mt-1">
+                  <div className="text-black mb-1.5 flex items-center">
+                    <DotMatrixNumber value="100%" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                  </div>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 font-medium block">
                     Clear Title Audit
                   </span>
                 </div>
                 <div className="border-l border-neutral-200 pl-4">
-                  <span className="font-editorial text-2xl sm:text-4xl text-black font-normal block">
-                    45%
-                  </span>
-                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 font-medium block mt-1">
+                  <div className="text-black mb-1.5 flex items-center">
+                    <DotMatrixNumber value="45%" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                  </div>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 font-medium block">
                     Preserved Nature
                   </span>
                 </div>
@@ -247,23 +248,36 @@ export default function HomePage() {
                   A grand 42+ acre master-planned plotted enclave featuring 186 luxury villa plots, monumental entrance architecture, 100% underground utilities, and expansive tree-lined boulevards.
                 </p>
 
-                {/* 4 Quick Key Numbers */}
+                {/* 4 Quick Key Numbers in Dot Matrix Display */}
                 <div className="grid grid-cols-2 gap-3 pt-2">
                   <div className="p-3 bg-neutral-50 rounded border border-neutral-200">
-                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block">Total Acreage</span>
-                    <span className="text-base font-bold text-neutral-900">42+ Acres</span>
+                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block mb-1">Total Acreage</span>
+                    <div className="flex items-center gap-1.5">
+                      <DotMatrixNumber value="42+" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                      <span className="text-xs font-semibold text-neutral-800 font-sans">Acres</span>
+                    </div>
                   </div>
                   <div className="p-3 bg-neutral-50 rounded border border-neutral-200">
-                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block">Plot Count</span>
-                    <span className="text-base font-bold text-neutral-900">186 Plots</span>
+                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block mb-1">Plot Count</span>
+                    <div className="flex items-center gap-1.5">
+                      <DotMatrixNumber value="186" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                      <span className="text-xs font-semibold text-neutral-800 font-sans">Plots</span>
+                    </div>
                   </div>
                   <div className="p-3 bg-neutral-50 rounded border border-neutral-200">
-                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block">Plot Sizes</span>
-                    <span className="text-base font-bold text-neutral-900">1,500 – 4,000+ sq ft</span>
+                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block mb-1">Plot Sizes</span>
+                    <div className="flex items-center flex-wrap gap-1">
+                      <DotMatrixNumber value="1,500" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                      <span className="text-xs text-neutral-400 font-sans">–</span>
+                      <DotMatrixNumber value="4,000+" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                      <span className="text-[10px] font-semibold text-neutral-700 font-sans">sq ft</span>
+                    </div>
                   </div>
                   <div className="p-3 bg-neutral-50 rounded border border-neutral-200">
-                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block">Statutory Status</span>
-                    <span className="text-base font-bold text-neutral-900">RERA Approved</span>
+                    <span className="text-neutral-400 text-[10px] uppercase tracking-wider block mb-1">Statutory Status</span>
+                    <span className="text-xs font-bold text-neutral-900 font-doto tracking-widest uppercase">
+                      RERA Approved
+                    </span>
                   </div>
                 </div>
               </div>
@@ -309,9 +323,12 @@ export default function HomePage() {
             {/* Pillar 1 */}
             <div className="p-7 bg-[#fbfbfb] border border-neutral-200 rounded-lg space-y-3 hover:border-black transition-colors">
               <ShieldCheck className="w-8 h-8 text-black stroke-[1.5]" />
-              <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
-                100% Clear Title
-              </h3>
+              <div className="flex items-center gap-2">
+                <DotMatrixNumber value="100%" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
+                  Clear Title
+                </h3>
+              </div>
               <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed font-light">
                 Every parcel passes 30-year unencumbered legal vetting by tier-one advocates and full RERA compliance.
               </p>
@@ -331,9 +348,12 @@ export default function HomePage() {
             {/* Pillar 3 */}
             <div className="p-7 bg-[#fbfbfb] border border-neutral-200 rounded-lg space-y-3 hover:border-black transition-colors">
               <Trees className="w-8 h-8 text-black stroke-[1.5]" />
-              <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
-                45% Green Canopy
-              </h3>
+              <div className="flex items-center gap-2">
+                <DotMatrixNumber value="45%" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
+                  Green Canopy
+                </h3>
+              </div>
               <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed font-light">
                 Nearly half of the acreage is dedicated to wide tree promenades, sensory gardens, and eco-parks.
               </p>

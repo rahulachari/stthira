@@ -28,7 +28,7 @@ export default function AboutPage() {
           <div className="max-w-4xl space-y-6">
             <div className="inline-flex items-center gap-2.5 text-xs uppercase tracking-[0.3em] text-neutral-400 font-sans">
               <StthiraEmblem className="text-white w-4 h-5" />
-              <span>Corporate Profile • Est. 2026</span>
+              <span>Corporate Profile • Est. <span className="font-doto">2026</span></span>
             </div>
             <h1 className="font-editorial text-4xl sm:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-[0.95] break-words">
               ARCHITECTURAL <br />
@@ -226,7 +226,7 @@ export default function AboutPage() {
               </p>
               <div className="pt-3 border-t border-neutral-900 text-xs font-sans text-neutral-300 space-y-2">
                 <div>Corporate Standard: <span className="text-white">Forensic Title Purity</span></div>
-                <div>Foundation Year: <span className="text-white">2026</span></div>
+                <div>Foundation Year: <span className="text-white font-doto tracking-widest font-semibold">2026</span></div>
               </div>
             </div>
 

@@ -122,15 +122,15 @@ export default function DevelopmentsPage() {
                   {dev.shortIntro}
                 </p>
 
-                {/* Key Metrics */}
+                {/* Key Metrics with Dot Matrix Numbers */}
                 <div className="grid grid-cols-2 gap-4 py-4 border-y border-neutral-200 text-xs font-sans">
                   <div>
                     <span className="text-neutral-400 uppercase tracking-widest text-[10px] block">Scale</span>
-                    <span className="text-black font-medium">{dev.acres}</span>
+                    <span className="text-black font-medium font-doto tracking-wider">{dev.acres}</span>
                   </div>
                   <div>
                     <span className="text-neutral-400 uppercase tracking-widest text-[10px] block">Availability</span>
-                    <span className="text-black font-medium">{dev.plotsCount}</span>
+                    <span className="text-black font-medium font-doto tracking-wider">{dev.plotsCount}</span>
                   </div>
                   <div>
                     <span className="text-neutral-400 uppercase tracking-widest text-[10px] block">Category</span>
@@ -138,7 +138,7 @@ export default function DevelopmentsPage() {
                   </div>
                   <div>
                     <span className="text-neutral-400 uppercase tracking-widest text-[10px] block">Pricing</span>
-                    <span className="text-black font-medium">{dev.priceGuide}</span>
+                    <span className="text-black font-medium font-doto tracking-wider">{dev.priceGuide}</span>
                   </div>
                 </div>
 

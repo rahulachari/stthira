@@ -20,6 +20,7 @@ import EnquiryModal from "@/components/EnquiryModal";
 import EnquiryForm from "@/components/EnquiryForm";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import ReelGallery from "@/components/ui/ReelGallery";
+import DotMatrixNumber from "@/components/ui/DotMatrixNumber";
 
 export default function RoveraView() {
   const rovera = DEVELOPMENTS[0];
@@ -150,18 +151,27 @@ export default function RoveraView() {
             A 42+ acre master-planned enclave crafted by STTHIRA in North Bengaluru. Featuring 186 curated residential parcels, 100% underground civil utilities, and 45% conserved native canopy.
           </p>
 
-          {/* Key Facts Pill (Assetz Style Clean Strip) */}
+          {/* Key Facts Pill (Assetz Style Clean Strip with Dot Matrix Numbers) */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] sm:text-xs uppercase tracking-widest text-neutral-300 font-sans mb-10 py-2.5 px-6 bg-black/40 border border-white/15 backdrop-blur-md">
             <span className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-white" />
               <span>North Bengaluru</span>
             </span>
             <span className="text-neutral-500">•</span>
-            <span>42+ Acres Enclave</span>
+            <span className="flex items-center gap-1.5">
+              <DotMatrixNumber value="42+" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
+              <span>Acres Enclave</span>
+            </span>
             <span className="text-neutral-500">•</span>
-            <span>186 Curated Plots</span>
+            <span className="flex items-center gap-1.5">
+              <DotMatrixNumber value="186" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
+              <span>Curated Plots</span>
+            </span>
             <span className="text-neutral-500">•</span>
-            <span className="text-white font-semibold">18 Mins to Airport</span>
+            <span className="text-white font-semibold flex items-center gap-1.5">
+              <DotMatrixNumber value="18" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
+              <span>Mins to Airport</span>
+            </span>
           </div>
 
           {/* Action CTAs */}
@@ -239,29 +249,41 @@ export default function RoveraView() {
               </div>
             </div>
 
-            {/* Right 4 Specification Cards */}
+            {/* Right 4 Specification Cards with Dot Matrix Numbers */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
               <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Total Area</span>
-                <span className="font-editorial text-3xl text-black font-medium block">42+ Acres</span>
+                <div className="flex items-center gap-1.5 text-black">
+                  <DotMatrixNumber value="42+" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                  <span className="font-editorial text-xl text-black font-medium">Acres</span>
+                </div>
                 <p className="text-xs text-neutral-600 font-light">Master-planned gated enclave</p>
               </div>
 
               <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Villa Parcels</span>
-                <span className="font-editorial text-3xl text-black font-medium block">186 Plots</span>
+                <div className="flex items-center gap-1.5 text-black">
+                  <DotMatrixNumber value="186" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                  <span className="font-editorial text-xl text-black font-medium">Plots</span>
+                </div>
                 <p className="text-xs text-neutral-600 font-light">Limited Phase 1 inventory</p>
               </div>
 
               <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Green Cover</span>
-                <span className="font-editorial text-3xl text-black font-medium block">45% Conserved</span>
+                <div className="flex items-center gap-1 text-black">
+                  <DotMatrixNumber value="45%" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                  <span className="font-editorial text-lg text-black font-medium ml-1">Conserved</span>
+                </div>
                 <p className="text-xs text-neutral-600 font-light">Parks, swales &amp; forest spine</p>
               </div>
 
               <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Utilities</span>
-                <span className="font-editorial text-3xl text-black font-medium block">100% Concealed</span>
+                <div className="flex items-center gap-1 text-black">
+                  <DotMatrixNumber value="100%" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                  <span className="font-editorial text-lg text-black font-medium ml-1">Concealed</span>
+                </div>
                 <p className="text-xs text-neutral-600 font-light">Zero overhead wires or poles</p>
               </div>
             </div>
@@ -295,7 +317,7 @@ export default function RoveraView() {
                     <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">
                       {plot.badge}
                     </span>
-                    <span className="text-xs font-semibold text-black bg-neutral-100 px-2.5 py-1 rounded">
+                    <span className="text-xs font-semibold text-black bg-neutral-100 px-2.5 py-1 rounded font-doto tracking-wider">
                       {plot.areaSqFt}
                     </span>
                   </div>

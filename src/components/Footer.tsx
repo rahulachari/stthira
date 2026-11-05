@@ -206,7 +206,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs text-neutral-500 font-sans">
           {/* Left: Copyright and Legal Links */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <span>© {currentYear} STTHIRA DEVELOPMENTS PRIVATE LIMITED.</span>
+            <span>© <span className="font-doto tracking-widest">{currentYear}</span> STTHIRA DEVELOPMENTS PRIVATE LIMITED.</span>
             <Link href="/legal/terms" className="hover:text-black hover:underline transition-colors">
               {t("footer.terms", "Terms")}
             </Link>

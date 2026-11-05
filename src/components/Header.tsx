@@ -74,7 +74,7 @@ export default function Header() {
                 STTHIRA
               </span>
               <span className="text-[8px] sm:text-[9px] tracking-[0.25em] sm:tracking-[0.35em] text-neutral-400 uppercase -mt-0.5 sm:-mt-1 font-sans">
-                Est. 2026 • India
+                Est. <span className="font-doto">2026</span> • India
               </span>
             </div>
           </Link>
