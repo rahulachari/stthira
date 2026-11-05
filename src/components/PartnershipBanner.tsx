@@ -36,13 +36,13 @@ export default function PartnershipBanner() {
             className="group flex items-center justify-center transition-opacity hover:opacity-75 focus-visible:outline-none shrink-0"
             title="ROVERA — Luxury Plotted Living by STTHIRA"
           >
-            <div className="relative h-12 sm:h-14 md:h-16 lg:h-20 xl:h-22 aspect-[3.48/1] select-none shrink-0">
+            <div className="relative h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 aspect-[3.4/1] select-none shrink-0">
               <Image
                 src="/images/rovera-logo-dark.png"
                 alt="ROVERA — Official Logo"
                 fill
                 priority
-                sizes="(max-width: 640px) 190px, (max-width: 768px) 240px, (max-width: 1024px) 280px, 340px"
+                sizes="(max-width: 640px) 240px, (max-width: 768px) 300px, (max-width: 1024px) 380px, 440px"
                 className="object-contain object-center"
               />
             </div>

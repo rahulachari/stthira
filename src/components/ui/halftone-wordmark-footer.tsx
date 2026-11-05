@@ -36,27 +36,29 @@ export interface FooterColumn {
 }
 
 export interface HalftoneWordmarkFooterProps {
-  /** The giant word printed in dots. Lowercase reads best. */
+  /** The giant word printed in dots. */
   wordmark?: string
+  /** Whether to show top metadata/links bar. Defaults to false for full clean canvas. */
+  showTopBar?: boolean
   /** Top-left studio line. */
   label?: string
   /** The muted line under it. */
   meta?: string
   /** Link columns along the top. */
   columns?: FooterColumn[]
-  /** Show the back-to-top link. It scrolls the window to 0. Defaults to true. */
+  /** Show the back-to-top link. Defaults to false. */
   backToTop?: boolean
-  /** Starting colours. Defaults to "night". */
+  /** Starting colours. Defaults to "paper". */
   preset?: HalftonePreset
   /** Colour overrides, merged over the preset. */
   palette?: { background?: string; ink?: string; warm?: string }
-  /** Distance between dot centres, in CSS px. Defaults to 6. */
+  /** Distance between dot centres, in CSS px. Defaults to 5. */
   dotGap?: number
-  /** How far the pointer pushes, in CSS px. Defaults to 80. */
+  /** How far the pointer pushes, in CSS px. Defaults to 110. */
   radius?: number
-  /** How much of the word's cap height hangs below the bottom edge, 0–0.6. Defaults to 0.2. */
+  /** How much of the word's cap height hangs below the bottom edge. Defaults to 0. */
   crop?: number
-  /** Print grain over everything, 0–1. Defaults to 0.5. */
+  /** Print grain over everything, 0–1. Defaults to 0.4. */
   grain?: number
   /** Pointer and click response. Defaults to true. */
   interactive?: boolean
@@ -66,7 +68,7 @@ export interface HalftoneWordmarkFooterProps {
   fontWeight?: number
   /** Face for the small type. */
   monoFamily?: string
-  /** Root height. A definite length, never a percentage. */
+  /** Root height. A definite length, e.g. "560px". */
   height?: string
   /** Extra root class names. */
   className?: string
@@ -79,11 +81,8 @@ const PRESETS: { [K in HalftonePreset]: HalftonePalette } = {
   cobalt: { background: "#0d1b4d", ink: "#dfe7ff", warm: "#ffcd3c" },
 }
 
-const DEFAULT_COLUMNS: FooterColumn[] = [
-  { title: "Work", links: [{ label: "Index" }, { label: "Archive" }, { label: "Journal" }] },
-  { title: "Studio", links: [{ label: "About" }, { label: "Process" }, { label: "Careers" }] },
-  { title: "Contact", links: [{ label: "hello@halden.co" }, { label: "+47 22 00 41 00" }] },
-]
+// Clean columns default (empty to prevent any dummy placeholders)
+const DEFAULT_COLUMNS: FooterColumn[] = []
 
 const SANS_STACK = '"Clash Display", "Inter Tight", "Inter Variable", "Inter", "Helvetica Neue", Arial, system-ui, sans-serif'
 const MONO_STACK = '"JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace'
@@ -180,29 +179,30 @@ const HWF_CSS = `
 `
 
 export default function HalftoneWordmarkFooter({
-  wordmark = "stthira",
-  label = "STTHIRA DEVELOPMENTS",
-  meta = "©2026 · Bengaluru, India",
+  wordmark = "STTHIRA",
+  showTopBar = false,
+  label = "",
+  meta = "",
   columns = DEFAULT_COLUMNS,
-  backToTop = true,
-  preset = "night",
+  backToTop = false,
+  preset = "paper",
   palette,
-  dotGap = 6,
-  radius = 85,
-  crop = 0.22,
-  grain = 0.5,
+  dotGap = 5,
+  radius = 110,
+  crop = 0,
+  grain = 0.4,
   interactive = true,
   fontFamily = SANS_STACK,
-  fontWeight = 800,
+  fontWeight = 900,
   monoFamily = MONO_STACK,
-  height = "520px",
+  height = "560px",
   className = "",
 }: HalftoneWordmarkFooterProps) {
-  const colors = { ...(PRESETS[preset] || PRESETS.night), ...(palette || {}) }
+  const colors = { ...(PRESETS[preset] || PRESETS.paper), ...(palette || {}) }
   const rootRef = React.useRef(null as HTMLElement | null)
   const canvasRef = React.useRef(null as HTMLCanvasElement | null)
-  const opts = React.useRef({ colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark, columns })
-  opts.current = { colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark, columns }
+  const opts = React.useRef({ colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark, columns, showTopBar, label, meta })
+  opts.current = { colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark, columns, showTopBar, label, meta }
   const key = [wordmark, dotGap, crop, grain, fontFamily, fontWeight, colors.background, colors.ink, colors.warm].join("|")
 
   React.useEffect(() => {
@@ -226,7 +226,7 @@ export default function HalftoneWordmarkFooter({
     let dots = new Float32Array(0)
     let count = 0
     let grainTile = null as HTMLCanvasElement | null
-    const ink = hwfHex(opts.current.colors.ink) || [233, 228, 218]
+    const ink = hwfHex(opts.current.colors.ink) || [23, 21, 15]
     const warm = hwfHex(opts.current.colors.warm) || [233, 118, 43]
 
     const layout = () => {
@@ -254,15 +254,15 @@ export default function HalftoneWordmarkFooter({
       const d100 = box100.actualBoundingBoxDescent || 20
       const h100 = a100 + d100
 
-      // Calculate available space for wordmark
-      const hasColumns = o.columns && o.columns.length > 0
-      const topOffset = hasColumns ? 120 : 64
-      const availW = w * 0.92
-      const availH = Math.max(100, h - topOffset - 24)
+      // Calculate available space for wordmark: when showTopBar is false, wordmark spans full height
+      const hasTopBar = o.showTopBar && ((o.columns && o.columns.length > 0) || o.label)
+      const topOffset = hasTopBar ? 90 : 0
+      const availW = w * 0.95
+      const availH = Math.max(80, h - topOffset)
 
-      // Fit by width and height proportionally so STTHIRA is always fully visible
+      // Fit by width and height proportionally so wordmark fills the section grandly and cleanly
       const fitByW = (availW / w100) * 100
-      const fitByH = (availH * 0.82 / h100) * 100
+      const fitByH = (availH * 0.88 / h100) * 100
       const fit = Math.min(fitByW, fitByH)
 
       m.font = o.fontWeight + " " + fit + "px " + o.fontFamily
@@ -271,7 +271,7 @@ export default function HalftoneWordmarkFooter({
       const descent = box.actualBoundingBoxDescent || fit * 0.2
       const textActualW = box.width
 
-      // Perfectly center horizontally & vertically in designated canvas space
+      // Perfectly center horizontally & vertically in canvas space
       const startX = (w - textActualW) / 2
       const centerY = topOffset + availH / 2
       const baselineY = Math.round(centerY + (cap - descent) / 2)
@@ -478,7 +478,7 @@ export default function HalftoneWordmarkFooter({
   return (
     <footer
       ref={rootRef}
-      className={"hwf-root " + className}
+      className={"hwf-root select-none cursor-crosshair " + className}
       style={
         {
           height,
@@ -491,41 +491,30 @@ export default function HalftoneWordmarkFooter({
       <style>{HWF_CSS}</style>
       <canvas ref={canvasRef} aria-hidden="true" />
       <span className="hwf-sr">{wordmark}</span>
-      <div className={`hwf-top ${(!columns || columns.length === 0) ? "flex justify-between items-center" : ""}`}>
-        <div className="hwf-brand">
-          <strong>{label}</strong>
-          <span>{meta}</span>
-        </div>
-        {columns && columns.length > 0 ? (
-          columns.map((col) => (
-            <nav className="hwf-col" key={col.title} aria-label={col.title}>
-              <h3>{col.title}</h3>
-              <ul>
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <a href={l.href || "#"}>{l.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))
-        ) : (
-          <div className="hwf-action">
-            {backToTop ? (
-              <button type="button" className="hwf-up" onClick={toTop}>
-                Back to top ↑
-              </button>
-            ) : null}
-          </div>
-        )}
-      </div>
-      {columns && columns.length > 0 && (
-        <div className="hwf-rule">
-          {backToTop ? (
-            <button type="button" className="hwf-up" onClick={toTop}>
-              Back to top ↑
-            </button>
-          ) : null}
+
+      {/* Only render top bar if explicitly requested — otherwise clean full canvas */}
+      {showTopBar && (
+        <div className={`hwf-top ${(!columns || columns.length === 0) ? "flex justify-between items-center" : ""}`}>
+          {label && (
+            <div className="hwf-brand">
+              <strong>{label}</strong>
+              {meta && <span>{meta}</span>}
+            </div>
+          )}
+          {columns && columns.length > 0 && (
+            columns.map((col) => (
+              <nav className="hwf-col" key={col.title} aria-label={col.title}>
+                <h3>{col.title}</h3>
+                <ul>
+                  {col.links.map((l) => (
+                    <li key={l.label}>
+                      <a href={l.href || "#"}>{l.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))
+          )}
         </div>
       )}
     </footer>

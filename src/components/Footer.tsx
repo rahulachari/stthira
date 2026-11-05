@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { COMPANY_INFO } from "@/lib/data";
@@ -12,6 +13,9 @@ import HalftoneWordmarkFooter from "./ui/halftone-wordmark-footer";
 export default function Footer() {
   const currentYear = 2026;
   const { t } = useLanguage();
+  const pathname = usePathname();
+  const isRovera = pathname?.includes("/developments/rovera");
+  const wordmark = isRovera ? "ROVERA" : "STTHIRA";
 
   // Comprehensive Sitemap Categories (GitHub Clean Style: Light Background, Bold Black Headings)
   const columns = [
@@ -91,13 +95,13 @@ export default function Footer() {
 
             {/* ROVERA with official logo — BIG and prominent to match STTHIRA and AKSHARA */}
             <Link href="/developments/rovera" className="group flex items-center transition-opacity hover:opacity-80 shrink-0">
-              <div className="relative h-9 sm:h-11 md:h-12 lg:h-14 aspect-[3.48/1] shrink-0 select-none">
+              <div className="relative h-11 sm:h-13 md:h-15 lg:h-17 aspect-[3.4/1] shrink-0 select-none">
                 <Image
                   src="/images/rovera-logo-dark.png"
                   alt="ROVERA — Official Logo"
                   fill
                   priority
-                  sizes="(max-width: 640px) 140px, (max-width: 768px) 180px, 220px"
+                  sizes="(max-width: 640px) 180px, (max-width: 768px) 220px, 280px"
                   className="object-contain object-center"
                 />
               </div>
@@ -281,17 +285,15 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Monumental Interactive Halftone Wordmark Canvas (Restored & Ultra-Smooth) */}
-      <div className="w-full border-t border-neutral-200 bg-[#f6f8fa] overflow-hidden">
+      {/* Monumental Interactive Halftone Wordmark Section (Brand Name Big & Clean - Fits Full Section) */}
+      <div className="w-full border-t border-neutral-200 bg-[#efebe3] overflow-hidden">
         <HalftoneWordmarkFooter
-          wordmark="STTHIRA"
-          label="STTHIRA • MASTER PLOTTED DEVELOPMENTS"
-          meta="EST. 2026 • BENGALURU, INDIA • FORENSIC TITLE AUDIT"
+          wordmark={wordmark}
           preset="paper"
-          height="320px"
-          dotGap={6}
-          radius={90}
-          crop={0.1}
+          height="560px"
+          dotGap={5}
+          radius={110}
+          crop={0}
           interactive={true}
         />
       </div>
