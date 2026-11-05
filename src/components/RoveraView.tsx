@@ -127,22 +127,14 @@ export default function RoveraView() {
 
         {/* Hero Content — Ultra-Clean Luxury Brand Showcase */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 w-full text-center flex flex-col items-center justify-center">
-          {/* Subtle Monolithic Category Eyebrow */}
-          <div className="inline-flex items-center gap-2 mb-6 sm:mb-8 text-neutral-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-neutral-300 font-sans font-medium">
-              STTHIRA Inaugural Project • North Bengaluru
-            </span>
-          </div>
-
-          {/* Crisp, Bold Official ROVERA Brand Mark */}
-          <div className="relative h-16 sm:h-24 md:h-32 lg:h-36 aspect-[3.4/1] mb-6 sm:mb-8 select-none shrink-0 drop-shadow-2xl">
+          {/* Crisp, Bold Official ROVERA Brand Mark — Clean, Prestigious, Zero Gimmicks */}
+          <div className="relative h-20 sm:h-28 md:h-36 lg:h-40 aspect-[3.4/1] mb-6 sm:mb-8 select-none shrink-0 drop-shadow-2xl">
             <Image
               src="/images/rovera-logo-white.png"
               alt="ROVERA — Luxury Plotted Living"
               fill
               priority
-              sizes="(max-width: 640px) 260px, (max-width: 768px) 360px, 460px"
+              sizes="(max-width: 640px) 280px, (max-width: 768px) 380px, 480px"
               className="object-contain object-center"
             />
           </div>
@@ -200,8 +192,7 @@ export default function RoveraView() {
           <div className="flex items-center gap-6">
             <button
               onClick={() => {
-                sessionStorage.removeItem("rovera_intro_completed");
-                window.location.reload();
+                window.dispatchEvent(new CustomEvent("replay-rovera-intro"));
               }}
               className="text-neutral-400 hover:text-white transition-colors cursor-pointer text-[11px] flex items-center gap-1.5"
               title="Replay Opening Page Animation"
