@@ -78,22 +78,24 @@ export default function RoveraIntroAnimation() {
       </div>
 
       {/* Top Telemetry & Skip Action */}
-      <div className="absolute top-6 left-6 right-6 flex items-center justify-between text-[10px] sm:text-xs uppercase tracking-[0.25em] text-neutral-600 font-sans z-20">
-        <span className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-600 animate-pulse" />
-          <span className="font-medium text-neutral-700">ROVERA SANCTUARY • NORTH BENGALURU</span>
+      <div className="absolute top-4 sm:top-6 left-4 sm:left-6 right-4 sm:right-6 flex items-center justify-between text-[9px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.25em] text-neutral-600 font-sans z-20">
+        <span className="flex items-center gap-1.5 sm:gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-600 animate-pulse shrink-0" />
+          <span className="font-medium text-neutral-700 truncate max-w-[190px] sm:max-w-none">
+            ROVERA SANCTUARY • NORTH BENGALURU
+          </span>
         </span>
         <button
           type="button"
           onClick={handleSkip}
-          className="text-neutral-600 hover:text-black transition-colors uppercase tracking-[0.2em] font-medium py-1 px-3.5 border border-neutral-300 hover:border-black rounded-full text-[10px] bg-white/70 backdrop-blur-xs cursor-pointer shadow-2xs"
+          className="text-neutral-600 hover:text-black transition-colors uppercase tracking-[0.15em] sm:tracking-[0.2em] font-medium py-1 px-2.5 sm:px-3.5 border border-neutral-300 hover:border-black rounded-full text-[9px] sm:text-[10px] bg-white/70 backdrop-blur-xs cursor-pointer shadow-2xs shrink-0"
         >
           Skip Intro →
         </button>
       </div>
 
       {/* Central Cinematic Stage */}
-      <div className="relative w-full max-w-4xl px-6 aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center">
+      <div className="relative w-full max-w-4xl px-4 sm:px-6 aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center">
         {/* Layer 1: Monumental Background Wordmark that greets the leap */}
         <div
           className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-out pointer-events-none ${
@@ -104,10 +106,10 @@ export default function RoveraIntroAnimation() {
               : "opacity-0 scale-105"
           }`}
         >
-          <span className="font-editorial text-7xl sm:text-8xl md:text-9xl tracking-[0.25em] uppercase text-neutral-800 font-light drop-shadow-xs">
+          <span className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-[0.18em] sm:tracking-[0.25em] uppercase text-neutral-800 font-light drop-shadow-xs">
             ROVERA
           </span>
-          <span className="font-sans text-[10px] sm:text-xs uppercase tracking-[0.4em] text-neutral-500 mt-2 font-medium">
+          <span className="font-sans text-[9px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.4em] text-neutral-500 mt-1 sm:mt-2 font-medium">
             Sanctuary of Timeless Residence
           </span>
         </div>
@@ -116,20 +118,20 @@ export default function RoveraIntroAnimation() {
         <div
           className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             phase === "enter"
-              ? "-translate-x-32 sm:-translate-x-48 opacity-0 scale-90"
+              ? "-translate-x-20 sm:-translate-x-48 opacity-0 scale-90"
               : phase === "leap"
               ? "translate-x-0 opacity-100 scale-100 filter drop-shadow-xl"
               : "opacity-0 scale-105 filter blur-xs"
           }`}
         >
-          <div className="relative w-full max-w-2xl aspect-[3.15/1]">
+          <div className="relative w-full max-w-xs sm:max-w-xl md:max-w-2xl aspect-[3.15/1]">
             <Image
               src="/images/rovera-cheetah-isolated-retina.png"
               alt="ROVERA Aerodynamic Leaping Cheetah"
               fill
               priority
               quality={95}
-              sizes="(max-width: 768px) 100vw, 850px"
+              sizes="(max-width: 640px) 320px, (max-width: 768px) 580px, 850px"
               className="object-contain object-center"
             />
           </div>
@@ -145,24 +147,24 @@ export default function RoveraIntroAnimation() {
               : "opacity-0 scale-95 translate-y-4"
           }`}
         >
-          <div className="relative w-72 sm:w-96 md:w-[440px] aspect-[1.09/1]">
+          <div className="relative w-56 sm:w-72 md:w-96 aspect-[1.09/1]">
             <Image
               src="/images/rovera-art.jpg"
               alt="ROVERA Fine-Art Monogram Emblem"
               fill
               priority
               quality={95}
-              sizes="(max-width: 640px) 280px, (max-width: 768px) 380px, 440px"
+              sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 440px"
               className="object-contain object-center drop-shadow-sm"
             />
           </div>
 
           {/* Luxury Caption beneath Emblem */}
-          <div className="mt-4 text-center max-w-lg px-4">
-            <p className="font-editorial text-sm sm:text-base italic text-neutral-700 font-light tracking-wide">
+          <div className="mt-3 sm:mt-4 text-center max-w-lg px-3 sm:px-4">
+            <p className="font-editorial text-xs sm:text-base italic text-neutral-700 font-light tracking-wide leading-relaxed">
               &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
             </p>
-            <p className="font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-medium mt-1.5">
+            <p className="font-sans text-[8px] sm:text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500 font-medium mt-1">
               STTHIRA Inaugural Sanctuary • North Bengaluru
             </p>
           </div>
@@ -170,7 +172,7 @@ export default function RoveraIntroAnimation() {
       </div>
 
       {/* Bottom Subtitle / Brand Credential */}
-      <div className="absolute bottom-8 left-6 right-6 text-center text-[10px] sm:text-xs uppercase tracking-[0.3em] text-neutral-500 font-sans font-medium">
+      <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-6 right-4 sm:right-6 text-center text-[9px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-neutral-500 font-sans font-medium">
         <span>A MASTER-PLANNED RESIDENCE BY STTHIRA • 186 BESPOKE PLOTS</span>
       </div>
     </div>

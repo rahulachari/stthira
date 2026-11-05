@@ -109,7 +109,7 @@ export default function RoveraView() {
       <RoveraIntroAnimation />
 
       {/* 01. CINEMATIC LUXURY HERO SECTION */}
-      <section id="hero" className="relative min-h-[92vh] lg:min-h-screen w-full flex items-center justify-center overflow-hidden bg-black text-white pt-24 pb-16">
+      <section id="hero" className="relative min-h-[90vh] sm:min-h-[92vh] lg:min-h-screen w-full flex items-center justify-center overflow-hidden bg-black text-white pt-20 pb-12 sm:pt-28 sm:pb-16">
         {/* Background Visual with Architectural Tone */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -125,19 +125,19 @@ export default function RoveraView() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 w-full text-center flex flex-col items-center justify-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 w-full text-center flex flex-col items-center justify-center">
           {/* Status Badge with Leopard Skin Border Accent */}
-          <div className="p-[1.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-6 shadow-xl rounded-sm">
-            <div className="inline-flex items-center gap-2.5 bg-black/85 backdrop-blur-md px-4 py-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-neutral-200 font-sans font-medium">
-                STTHIRA Inaugural Project • North Bengaluru • Phase 1
+          <div className="p-[1.5px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-4 sm:mb-6 shadow-xl rounded-sm max-w-full">
+            <div className="inline-flex items-center gap-2 bg-black/85 backdrop-blur-md px-3 sm:px-4 py-1.5 text-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+              <span className="text-[9px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.25em] text-neutral-200 font-sans font-medium">
+                STTHIRA Inaugural Project • North Bengaluru
               </span>
             </div>
           </div>
 
           {/* Crisp, Bold Official ROVERA Brand Mark */}
-          <div className="relative h-16 sm:h-22 md:h-26 lg:h-30 aspect-[3.4/1] mb-6 select-none shrink-0 drop-shadow-2xl">
+          <div className="relative h-12 sm:h-20 md:h-26 lg:h-30 aspect-[3.4/1] mb-4 sm:mb-6 select-none shrink-0 drop-shadow-2xl">
             <Image
               src="/images/rovera-logo-white.png"
               alt="ROVERA — Luxury Plotted Living"
@@ -158,27 +158,27 @@ export default function RoveraView() {
           </p>
 
           {/* Key Facts Pill Framed with Leopard Skin Border Accent */}
-          <div className="p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-10 shadow-2xl rounded-sm max-w-full">
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] sm:text-xs uppercase tracking-widest text-neutral-200 font-sans py-3 px-6 bg-black/85 backdrop-blur-md">
-              <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-white" />
-                <span>North Bengaluru</span>
-              </span>
-              <span className="text-neutral-500">•</span>
-              <span className="flex items-center gap-1.5">
+          <div className="p-[1.5px] sm:p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center mb-8 sm:mb-10 shadow-2xl rounded-sm w-full max-w-2xl">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 sm:gap-6 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-200 font-sans py-2.5 sm:py-3 px-3 sm:px-6 bg-black/85 backdrop-blur-md">
+              <div className="flex items-center justify-center gap-1.5 col-span-2 sm:col-span-1">
+                <MapPin className="w-3.5 h-3.5 text-white shrink-0" />
+                <span className="font-medium">North Bengaluru</span>
+              </div>
+              <span className="hidden sm:inline text-neutral-500">•</span>
+              <div className="flex items-center justify-center gap-1.5">
                 <DotMatrixNumber value="42+" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-                <span>Acres Enclave</span>
-              </span>
-              <span className="text-neutral-500">•</span>
-              <span className="flex items-center gap-1.5">
+                <span>Acres</span>
+              </div>
+              <span className="hidden sm:inline text-neutral-500">•</span>
+              <div className="flex items-center justify-center gap-1.5">
                 <DotMatrixNumber value="186" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-                <span>Curated Plots</span>
-              </span>
-              <span className="text-neutral-500">•</span>
-              <span className="text-white font-semibold flex items-center gap-1.5">
+                <span>Plots</span>
+              </div>
+              <span className="hidden sm:inline text-neutral-500">•</span>
+              <div className="flex items-center justify-center gap-1.5 col-span-2 sm:col-span-1 text-white font-semibold">
                 <DotMatrixNumber value="18" size="xs" color="#ffffff" inactiveColor="rgba(255,255,255,0.12)" />
-                <span>Mins to Airport</span>
-              </span>
+                <span>Mins Airport</span>
+              </div>
             </div>
           </div>
 
@@ -236,7 +236,7 @@ export default function RoveraView() {
       </nav>
 
       {/* 03. EXECUTIVE PROJECT OVERVIEW */}
-      <section id="overview" className="py-20 sm:py-28 border-b border-neutral-200 scroll-mt-24">
+      <section id="overview" className="py-14 sm:py-24 border-b border-neutral-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Narrative */}
@@ -271,8 +271,8 @@ export default function RoveraView() {
             </div>
 
             {/* Right 4 Specification Cards with Dot Matrix Numbers */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-              <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
+            <div className="lg:col-span-5 grid grid-cols-2 gap-2.5 sm:gap-4">
+              <div className="bg-neutral-50 border border-neutral-200 p-3.5 sm:p-5 md:p-6 space-y-1 sm:space-y-1.5 rounded-lg">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Total Area</span>
                 <div className="flex items-center gap-1.5 text-black">
                   <DotMatrixNumber value="42+" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
@@ -281,7 +281,7 @@ export default function RoveraView() {
                 <p className="text-xs text-neutral-600 font-light">Master-planned gated enclave</p>
               </div>
 
-              <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
+              <div className="bg-neutral-50 border border-neutral-200 p-3.5 sm:p-5 md:p-6 space-y-1 sm:space-y-1.5 rounded-lg">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Villa Parcels</span>
                 <div className="flex items-center gap-1.5 text-black">
                   <DotMatrixNumber value="186" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
@@ -290,7 +290,7 @@ export default function RoveraView() {
                 <p className="text-xs text-neutral-600 font-light">Limited Phase 1 inventory</p>
               </div>
 
-              <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
+              <div className="bg-neutral-50 border border-neutral-200 p-3.5 sm:p-5 md:p-6 space-y-1 sm:space-y-1.5 rounded-lg">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Green Cover</span>
                 <div className="flex items-center gap-1 text-black">
                   <DotMatrixNumber value="45%" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
@@ -299,7 +299,7 @@ export default function RoveraView() {
                 <p className="text-xs text-neutral-600 font-light">Parks, swales &amp; forest spine</p>
               </div>
 
-              <div className="bg-neutral-50 border border-neutral-200 p-5 sm:p-6 space-y-1.5">
+              <div className="bg-neutral-50 border border-neutral-200 p-3.5 sm:p-5 md:p-6 space-y-1 sm:space-y-1.5 rounded-lg">
                 <span className="text-[10px] uppercase tracking-widest text-neutral-500 block">Utilities</span>
                 <div className="flex items-center gap-1 text-black">
                   <DotMatrixNumber value="100%" size="sm" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
@@ -313,7 +313,7 @@ export default function RoveraView() {
       </section>
 
       {/* 04. PLOT CONFIGURATIONS (Clean 3-Card Assetz Style) */}
-      <section id="plots" className="py-20 sm:py-28 bg-[#fafafa] border-b border-neutral-200 scroll-mt-24">
+      <section id="plots" className="py-14 sm:py-24 bg-[#fafafa] border-b border-neutral-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs uppercase tracking-[0.25em] text-neutral-500 block mb-2">
@@ -333,7 +333,7 @@ export default function RoveraView() {
               const cardInner = (
                 <div
                   className={`bg-white ${
-                    isSignature ? "p-7 sm:p-8" : "border border-neutral-200 p-7 sm:p-8 rounded-lg"
+                    isSignature ? "p-5 sm:p-7 md:p-8" : "border border-neutral-200 p-5 sm:p-7 md:p-8 rounded-lg"
                   } flex flex-col justify-between hover:border-black transition-all shadow-xs hover:shadow-md h-full group`}
                 >
                   <div>
@@ -404,7 +404,7 @@ export default function RoveraView() {
       </section>
 
       {/* 05. MASTER PLAN & INFRASTRUCTURE MATRIX */}
-      <section id="masterplan" className="py-20 sm:py-28 bg-neutral-950 text-white border-b border-neutral-900 scroll-mt-24">
+      <section id="masterplan" className="py-14 sm:py-24 bg-neutral-950 text-white border-b border-neutral-900 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs uppercase tracking-[0.25em] text-neutral-400 block mb-2">
@@ -418,7 +418,7 @@ export default function RoveraView() {
             </p>
           </div>
 
-          <div className="relative aspect-[16/9] w-full bg-neutral-900 border border-neutral-800 overflow-hidden group rounded-lg mb-8">
+          <div className="relative aspect-[4/3] sm:aspect-[16/9] w-full bg-neutral-900 border border-neutral-800 overflow-hidden group rounded-lg mb-6 sm:mb-8">
             <Image
               src="/images/aerial-view.jpg"
               alt="ROVERA Master Plan Aerial Perspective"
@@ -426,7 +426,7 @@ export default function RoveraView() {
               className="object-cover object-center grayscale contrast-125 group-hover:scale-103 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
               <div>
                 <span className="text-[10px] uppercase tracking-widest text-neutral-400 block mb-1">
                   Master Layout Perspective
@@ -438,7 +438,7 @@ export default function RoveraView() {
               <button
                 type="button"
                 onClick={() => openEnquiry("Master Plan High-Res Dossier")}
-                className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-colors shrink-0 rounded cursor-pointer"
+                className="inline-flex items-center gap-2 bg-white text-black px-4 sm:px-6 py-2.5 sm:py-3 text-[11px] sm:text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-colors shrink-0 rounded cursor-pointer w-full sm:w-auto justify-center"
               >
                 <span>Request Master Layout</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -447,20 +447,20 @@ export default function RoveraView() {
           </div>
 
           {/* 4 Civil Specs Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-            <div className="p-4 bg-neutral-900/80 border border-neutral-800 rounded">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 text-xs">
+            <div className="p-3 sm:p-4 bg-neutral-900/80 border border-neutral-800 rounded">
               <span className="text-neutral-400 block mb-1 uppercase tracking-wider text-[10px]">Avenue Width</span>
               <span className="text-white font-medium text-sm">50-Foot Tree Avenues</span>
             </div>
-            <div className="p-4 bg-neutral-900/80 border border-neutral-800 rounded">
+            <div className="p-3 sm:p-4 bg-neutral-900/80 border border-neutral-800 rounded">
               <span className="text-neutral-400 block mb-1 uppercase tracking-wider text-[10px]">Electrical Grid</span>
               <span className="text-white font-medium text-sm">100% Underground</span>
             </div>
-            <div className="p-4 bg-neutral-900/80 border border-neutral-800 rounded">
+            <div className="p-3 sm:p-4 bg-neutral-900/80 border border-neutral-800 rounded">
               <span className="text-neutral-400 block mb-1 uppercase tracking-wider text-[10px]">Water Infrastructure</span>
               <span className="text-white font-medium text-sm">Dual Aquifer Network</span>
             </div>
-            <div className="p-4 bg-neutral-900/80 border border-neutral-800 rounded">
+            <div className="p-3 sm:p-4 bg-neutral-900/80 border border-neutral-800 rounded">
               <span className="text-neutral-400 block mb-1 uppercase tracking-wider text-[10px]">Gate Architecture</span>
               <span className="text-white font-medium text-sm">Flamed Basalt Stone</span>
             </div>
@@ -469,7 +469,7 @@ export default function RoveraView() {
       </section>
 
       {/* 06. CURATED AMENITIES */}
-      <section id="amenities" className="py-20 sm:py-28 bg-white border-b border-neutral-200 scroll-mt-24">
+      <section id="amenities" className="py-14 sm:py-24 bg-white border-b border-neutral-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs uppercase tracking-[0.25em] text-neutral-500 block mb-2">
@@ -521,7 +521,7 @@ export default function RoveraView() {
       </section>
 
       {/* 07. STRATEGIC CONNECTIVITY MATRIX */}
-      <section id="location" className="py-20 sm:py-28 bg-[#fafafa] border-b border-neutral-200 scroll-mt-24">
+      <section id="location" className="py-14 sm:py-24 bg-[#fafafa] border-b border-neutral-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6 sm:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs uppercase tracking-[0.25em] text-neutral-500 block mb-2">
@@ -562,10 +562,10 @@ export default function RoveraView() {
       </section>
 
       {/* 08. STATUTORY TRANSPARENCY & RERA DISCLOSURE Framed with Leopard Skin Border */}
-      <section className="py-16 bg-white border-b border-neutral-200">
+      <section className="py-10 sm:py-16 bg-white border-b border-neutral-200">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-xl shadow-lg">
-            <div className="bg-neutral-50 p-6 sm:p-8 rounded-[10px] space-y-3">
+            <div className="bg-neutral-50 p-5 sm:p-8 rounded-[10px] space-y-3">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-black" />
                 <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-600 font-semibold">
@@ -584,7 +584,7 @@ export default function RoveraView() {
       </section>
 
       {/* 09. ASSETZ-STYLE CLEAN INLINE ENQUIRY SECTION */}
-      <section id="enquiry" className="relative py-24 sm:py-32 bg-neutral-100/40 overflow-hidden">
+      <section id="enquiry" className="relative py-14 sm:py-24 bg-neutral-100/40 overflow-hidden">
         {/* React Bits Pro Reel Gallery: Tilted reels of images that glide as you scroll (Enquire Now section only) */}
         <ReelGallery />
 
@@ -592,7 +592,7 @@ export default function RoveraView() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Advisory Card with Leopard Skin Border Accent */}
             <div className="md:col-span-5 p-[2px] bg-[url('/images/rovera-skin.jpg')] bg-cover bg-center rounded-2xl shadow-2xl">
-              <div className="bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-[14px] space-y-4 h-full">
+              <div className="bg-white/95 backdrop-blur-md p-5 sm:p-8 md:p-10 rounded-[14px] space-y-3 sm:space-y-4 h-full">
                 <StthiraEmblem className="text-black w-8 h-10" />
                 <h2 className="font-editorial text-3xl sm:text-4xl uppercase tracking-tight text-black font-light leading-tight">
                   SCHEDULE SITE WALKTHROUGH

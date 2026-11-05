@@ -287,29 +287,15 @@ export default function Footer() {
 
       {/* Below-Footer Brand Wordmark Band */}
       {isRovera ? (
-        /* Exclusive ROVERA "Heavenward" Leopard Fine-Art Sanctuary (Editorial Side-by-Side) */
+        /* Exclusive ROVERA Leopard Fine-Art Sanctuary (Editorial Side-by-Side with Official ROVERA Logo) */
         <section
           aria-label="ROVERA Fine-Art Sanctuary"
-          className="relative w-full overflow-hidden bg-white text-neutral-900 py-16 sm:py-20 md:py-24 select-none border-t border-neutral-200"
+          className="relative w-full overflow-hidden bg-white text-neutral-900 py-10 sm:py-16 md:py-20 select-none border-t border-neutral-200"
         >
-          {/* Architectural Hairline Blueprint Crosshairs in Corners */}
-          <div className="absolute top-6 left-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
-            + [ROVERA SANCTUARY • 13°11&apos;52&quot;N 77°35&apos;44&quot;E]
-          </div>
-          <div className="absolute top-6 right-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
-            [ELEVATION: 920M • NORTH BENGALURU] +
-          </div>
-          <div className="absolute bottom-6 left-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
-            + [45% CONSERVED INDIGENOUS CANOPY]
-          </div>
-          <div className="absolute bottom-6 right-6 font-mono text-[9px] text-neutral-400 tracking-widest hidden sm:block">
-            [STTHIRA MASTER DEVELOPER • EST. 2026] +
-          </div>
-
-          <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
               {/* Left Column: The Feathered Fine-Art Leopard on Weathered Bough */}
-              <div className="lg:col-span-7 relative w-full aspect-[1.91/1] select-none transition-transform duration-700 hover:scale-[1.015]">
+              <div className="lg:col-span-7 relative w-full aspect-[1.8/1] sm:aspect-[1.91/1] select-none transition-transform duration-700 hover:scale-[1.015]">
                 <Image
                   src="/images/rovera-cheetah-beside-retina.png"
                   alt="ROVERA — Untamed Sanctuary Leopard Resting on Weathered Bough"
@@ -321,26 +307,26 @@ export default function Footer() {
                 />
               </div>
 
-              {/* Right Column: Monumental Brand Name BESIDE the Cheetah */}
-              <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-3 sm:space-y-4">
-                {/* Status Pill */}
-                <div className="inline-flex items-center gap-2 border border-neutral-300 bg-neutral-50 px-3.5 py-1 rounded-full shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-neutral-700 font-sans font-medium">
-                    The ROVERA Sanctuary
-                  </span>
+              {/* Right Column: Official ROVERA Brand Logo BESIDE the Cheetah */}
+              <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-2 sm:space-y-3.5">
+                {/* Official ROVERA Brand Logo */}
+                <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 xl:w-[400px] aspect-[3.4/1] select-none">
+                  <Image
+                    src="/images/rovera-logo-dark.png"
+                    alt="ROVERA"
+                    fill
+                    priority
+                    quality={95}
+                    sizes="(max-width: 640px) 220px, (max-width: 1024px) 320px, 420px"
+                    className="object-contain object-center lg:object-left"
+                  />
                 </div>
 
-                {/* Monumental Brand Name Beside the Cheetah */}
-                <h2 className="font-editorial text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-light tracking-[0.16em] uppercase text-black leading-none select-none">
-                  ROVERA
-                </h2>
-
-                <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.3em] text-neutral-500 font-medium">
+                <p className="font-sans text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500 font-medium">
                   North Bengaluru • By STTHIRA
                 </p>
 
-                <p className="font-editorial text-base sm:text-xl italic font-light text-neutral-700 leading-relaxed pt-1 max-w-md">
+                <p className="font-editorial text-sm sm:text-base md:text-lg lg:text-xl italic font-light text-neutral-700 leading-relaxed max-w-md px-2 sm:px-0">
                   &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
                 </p>
               </div>
