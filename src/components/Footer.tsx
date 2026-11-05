@@ -7,6 +7,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { COMPANY_INFO } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
 import StthiraEmblem from "./StthiraEmblem";
+import HalftoneWordmarkFooter from "./ui/halftone-wordmark-footer";
 
 export default function Footer() {
   const currentYear = 2026;
@@ -19,7 +20,7 @@ export default function Footer() {
       links: [
         { label: t("footer.allDevs", "All Developments"), href: "/developments" },
         { label: "ROVERA (North Bengaluru)", href: "/developments/rovera" },
-        { label: "STTHIRA TERRA (Nandi)", href: "/developments/stthira-terra" },
+        { label: "STTHIRA TERRA (Nandi)", href: "/developments/terra" },
         { label: "AKSHARA (North Bengaluru)", href: "https://akshara-three.vercel.app/" },
         { label: t("footer.masterPlanMatrix", "Master Plan Matrix"), href: "/developments#matrix" },
         { label: t("footer.plotConfigs", "Plot Configurations"), href: "/developments#configurations" },
@@ -125,7 +126,7 @@ export default function Footer() {
             </span>
             <Link
               href="/contact"
-              className="px-5 py-2.5 bg-neutral-900 text-white text-xs uppercase tracking-wider font-medium hover:bg-black transition-colors shadow-xs rounded"
+              className="px-5 py-2.5 bg-neutral-900 text-white text-xs uppercase tracking-wider font-medium hover:bg-black transition-colors shadow-xs rounded cursor-pointer"
             >
               {t("footer.contactAdvisory", "Contact Advisory")}
             </Link>
@@ -278,6 +279,21 @@ export default function Footer() {
             <LanguageSwitcher dropUp={true} theme="light" />
           </div>
         </div>
+      </div>
+
+      {/* Monumental Interactive Halftone Wordmark Canvas (Restored & Ultra-Smooth) */}
+      <div className="w-full border-t border-neutral-200 bg-[#f6f8fa] overflow-hidden">
+        <HalftoneWordmarkFooter
+          wordmark="STTHIRA"
+          label="STTHIRA • MASTER PLOTTED DEVELOPMENTS"
+          meta="EST. 2026 • BENGALURU, INDIA • FORENSIC TITLE AUDIT"
+          preset="paper"
+          height="320px"
+          dotGap={6}
+          radius={90}
+          crop={0.1}
+          interactive={true}
+        />
       </div>
     </footer>
   );

@@ -16,38 +16,34 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { fullName, email, phone, interestedDevelopment, enquiryType, visitDate, preferredTime, message, privacyConsent } = body;
 
-    // Strict validation
-    if (!fullName || typeof fullName !== "string" || fullName.trim().length < 2) {
-      return NextResponse.json({ success: false, error: "Please enter your full name." }, { status: 400 });
+    // Streamlined, client-friendly validation
+    const trimmedName = (fullName || "").trim();
+    if (!trimmedName || trimmedName.length < 2) {
+      return NextResponse.json({ success: false, error: "Please enter your name." }, { status: 400 });
     }
 
-    if (!email || typeof email !== "string" || !email.includes("@")) {
-      return NextResponse.json({ success: false, error: "Please enter a valid email address." }, { status: 400 });
+    const trimmedPhone = (phone || "").trim();
+    if (!trimmedPhone || trimmedPhone.length < 8) {
+      return NextResponse.json({ success: false, error: "Please enter a valid contact number." }, { status: 400 });
     }
 
-    if (!phone || typeof phone !== "string" || phone.trim().length < 8) {
-      return NextResponse.json({ success: false, error: "Please enter a valid phone number." }, { status: 400 });
-    }
-
-    if (!privacyConsent) {
-      return NextResponse.json({ success: false, error: "You must accept the privacy policy to proceed." }, { status: 400 });
-    }
+    const trimmedEmail = (email || "").trim().toLowerCase();
 
     const saved = saveEnquiry({
-      fullName: fullName.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      interestedDevelopment: interestedDevelopment || "ROVERA",
-      enquiryType: enquiryType || "General Enquiry",
+      fullName: trimmedName,
+      email: trimmedEmail || `${trimmedPhone}@contact.stthira.com`,
+      phone: trimmedPhone,
+      interestedDevelopment: interestedDevelopment || "ROVERA (North Bengaluru)",
+      enquiryType: enquiryType || "Direct Consultation",
       visitDate: visitDate || undefined,
       preferredTime: preferredTime || undefined,
       message: message ? message.trim() : undefined,
-      privacyConsent: Boolean(privacyConsent),
+      privacyConsent: privacyConsent !== undefined ? Boolean(privacyConsent) : true,
     });
 
     return NextResponse.json({
       success: true,
-      message: "Thank you for reaching out to STTHIRA. A senior relationship advisor will contact you shortly.",
+      message: "Thank you for reaching out to STTHIRA. Our senior relationship manager will connect with you shortly.",
       enquiryId: saved.id,
     });
   } catch (error) {
@@ -55,4 +51,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: "An unexpected error occurred. Please try again." }, { status: 500 });
   }
 }
-

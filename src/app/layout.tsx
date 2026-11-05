@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import SmoothScroll from "@/components/SmoothScroll";
 import ArchitecturalPreloader from "@/components/ArchitecturalPreloader";
+import FloatingEnquiryTab from "@/components/FloatingEnquiryTab";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { COMPANY_INFO } from "@/lib/data";
 
@@ -136,6 +137,7 @@ export default function RootLayout({
           <ArchitecturalPreloader />
           <SmoothScroll>
             <Header />
+            <FloatingEnquiryTab />
             <main className="flex-1">{children}</main>
             <Footer />
             <CookieBanner />
