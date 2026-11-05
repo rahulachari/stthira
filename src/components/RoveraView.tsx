@@ -21,6 +21,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import ReelGallery from "@/components/ui/ReelGallery";
 import DotMatrixNumber from "@/components/ui/DotMatrixNumber";
+import RoveraIntroAnimation from "./RoveraIntroAnimation";
 
 export default function RoveraView() {
   const rovera = DEVELOPMENTS[0];
@@ -104,6 +105,9 @@ export default function RoveraView() {
 
   return (
     <div className="bg-white text-neutral-900 font-sans">
+      {/* 00. BESPOKE MINIMAL ROVERA OPENING ANIMATION (Smooth Leap Transition into Artwork Emblem) */}
+      <RoveraIntroAnimation />
+
       {/* 01. CINEMATIC LUXURY HERO SECTION */}
       <section id="hero" className="relative min-h-[92vh] lg:min-h-screen w-full flex items-center justify-center overflow-hidden bg-black text-white pt-24 pb-16">
         {/* Background Visual with Architectural Tone */}
@@ -208,13 +212,26 @@ export default function RoveraView() {
             <a href="#amenities" className="hover:text-white transition-colors">Amenities</a>
             <a href="#location" className="hover:text-white transition-colors">Connectivity</a>
           </div>
-          <button
-            onClick={() => openEnquiry()}
-            className="text-white font-semibold hover:text-neutral-200 transition-colors cursor-pointer flex items-center gap-1.5"
-          >
-            <span>Request Brochure</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => {
+                sessionStorage.removeItem("rovera_intro_completed");
+                window.location.reload();
+              }}
+              className="text-neutral-400 hover:text-white transition-colors cursor-pointer text-[11px] flex items-center gap-1.5"
+              title="Replay Opening Page Animation"
+            >
+              <span>Replay Intro</span>
+              <span className="text-amber-400 font-bold">↻</span>
+            </button>
+            <button
+              onClick={() => openEnquiry()}
+              className="text-white font-semibold hover:text-neutral-200 transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <span>Request Brochure</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </nav>
 
