@@ -143,24 +143,12 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Action Button & Mobile Menu Toggle */}
-          <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
-            <div className="hidden md:block shrink-0">
-              <LanguageSwitcher dropUp={false} theme="dark" />
-            </div>
-
-            {/* Enquire Now Button — Clean modal trigger */}
-            <button
-              onClick={() => setEnquiryModalOpen(true)}
-              className="inline-flex items-center justify-center border border-white/70 hover:border-white px-2.5 sm:px-5 py-1.5 sm:py-2 text-[10px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.2em] font-sans text-white hover:bg-white hover:text-black transition-all duration-300 cursor-pointer shadow-md shrink-0"
-            >
-              <span>{t("nav.enquire", "Enquire Now")}</span>
-            </button>
-
+          {/* Mobile Menu Toggle (only on mobile viewports) */}
+          <div className="flex items-center xl:hidden shrink-0">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="xl:hidden p-1.5 sm:p-2 text-white hover:text-neutral-300 transition-colors cursor-pointer shrink-0"
+              className="p-1.5 sm:p-2 text-white hover:text-neutral-300 transition-colors cursor-pointer shrink-0"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
