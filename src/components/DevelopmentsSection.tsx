@@ -9,15 +9,13 @@ import StthiraEmblem from "./StthiraEmblem";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function DevelopmentsSection() {
-  const [activePillar, setActivePillar] = useState<"ROVERA" | "STTHIRA" | "AKSHARA">("ROVERA");
+  const [activePillar, setActivePillar] = useState<"ROVERA" | "STTHIRA">("ROVERA");
   const { t } = useLanguage();
 
   const rovera = DEVELOPMENTS.find((d) => d.id === "rovera") || DEVELOPMENTS[0];
   const stthira = DEVELOPMENTS.find((d) => d.id === "terra") || DEVELOPMENTS[1];
-  const akshara = DEVELOPMENTS.find((d) => d.id === "akshara-meadows") || DEVELOPMENTS[2];
 
-  const activeProject: Development =
-    activePillar === "ROVERA" ? rovera : activePillar === "STTHIRA" ? stthira : akshara;
+  const activeProject: Development = activePillar === "ROVERA" ? rovera : stthira;
 
   return (
     <section className="py-24 sm:py-32 bg-neutral-950 text-white relative overflow-hidden border-b border-neutral-900">
@@ -41,13 +39,13 @@ export default function DevelopmentsSection() {
               Institutional Plotted Land
             </span>
             <span className="font-editorial text-xl sm:text-2xl text-white uppercase tracking-wider font-light">
-              ROVERA • STTHIRA • AKSHARA
+              ROVERA • STTHIRA
             </span>
           </div>
         </div>
 
-        {/* 3 Pillar Selectors (ROVERA, STTHIRA, AKSHARA) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+        {/* 2 Pillar Selectors (ROVERA, STTHIRA) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
           {/* Pillar 1: ROVERA */}
           <button
             type="button"
@@ -78,7 +76,7 @@ export default function DevelopmentsSection() {
               </h3>
             </div>
             <p className="text-xs font-sans text-neutral-400 mt-2 line-clamp-1">
-              Luxury Plotted Living in North Bengaluru
+              Boutique 3-Acre Plotted Sanctuary • Devanahalli–Doddaballapura Road
             </p>
           </button>
 
@@ -106,35 +104,6 @@ export default function DevelopmentsSection() {
             </div>
             <p className="text-xs font-sans text-neutral-400 mt-2 line-clamp-1">
               STTHIRA TERRA Eco-Luxury Sanctuaries
-            </p>
-          </button>
-
-          {/* Pillar 3: AKSHARA */}
-          <button
-            type="button"
-            onClick={() => setActivePillar("AKSHARA")}
-            className={`text-left p-6 border transition-all duration-300 relative cursor-pointer ${
-              activePillar === "AKSHARA"
-                ? "bg-neutral-900 border-white text-white shadow-xl"
-                : "bg-black/60 border-neutral-800 text-neutral-400 hover:border-neutral-600 hover:text-neutral-200"
-            }`}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-sans">
-                03 • Strategic Alliance
-              </span>
-              <span className={`w-2 h-2 rounded-full ${activePillar === "AKSHARA" ? "bg-white" : "bg-neutral-700"}`} />
-            </div>
-            <div className="relative h-7 w-32 my-1 select-none">
-              <Image
-                src="/images/akshara-horizontal-white.png"
-                alt="AKSHARA"
-                fill
-                className="object-contain object-left"
-              />
-            </div>
-            <p className="text-xs font-sans text-neutral-400 mt-2 line-clamp-1">
-              AKSHARA MEADOWS Strategic Plotted Enclave
             </p>
           </button>
         </div>
@@ -178,16 +147,6 @@ export default function DevelopmentsSection() {
                     <Image
                       src="/images/rovera-logo-white.png"
                       alt="ROVERA Official Logo"
-                      fill
-                      className="object-contain object-left"
-                    />
-                  </div>
-                )}
-                {activeProject.slug === "akshara-meadows" && (
-                  <div className="relative w-36 h-9">
-                    <Image
-                      src="/images/akshara-horizontal-white.png"
-                      alt="AKSHARA Official Logo"
                       fill
                       className="object-contain object-left"
                     />
@@ -248,16 +207,6 @@ export default function DevelopmentsSection() {
                   <span>{t("project.cta", "Explore ROVERA")}</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
-              ) : activeProject.slug === "akshara-meadows" ? (
-                <a
-                  href="https://akshara-three.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black px-6 py-3.5 text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-200 transition-colors"
-                >
-                  <span>Visit AKSHARA Website</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
               ) : (
                 <Link
                   href={`/developments/${activeProject.slug}`}

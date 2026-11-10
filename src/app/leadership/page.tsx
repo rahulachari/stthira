@@ -128,7 +128,7 @@ export default function LeadershipPage() {
         </div>
       </section>
 
-      {/* STRATEGIC ALLIANCE: STTHIRA | AKSHARA */}
+      {/* MASTER DEVELOPER & ROVERA SHOWCASE */}
       <PartnershipBanner />
 
       {/* Corporate Stewardship Principles */}

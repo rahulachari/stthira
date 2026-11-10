@@ -35,7 +35,7 @@ export default function HomePage() {
     {
       id: "rovera-1",
       q: "What is ROVERA by STTHIRA?",
-      a: "ROVERA is our flagship 42+ acre master-planned luxury plotted enclave in North Bengaluru, offering exclusive residential villa plots with monumental stone architecture, 100% underground utilities, and an international-standard clubhouse.",
+      a: "ROVERA is our flagship 3-acre boutique luxury plotted sanctuary located on Devanahalli–Doddaballapura Road in North Bengaluru, offering exclusive residential villa plots with monumental double-height entrance architecture, 100% underground utilities, and a private boutique clubhouse.",
     },
     {
       id: "stthira-1",
@@ -273,7 +273,7 @@ export default function HomePage() {
                 </div>
 
                 <p className="text-neutral-600 text-sm leading-relaxed font-light">
-                  A grand 42+ acre master-planned plotted enclave featuring 186 luxury villa plots, monumental entrance architecture, 100% underground utilities, and expansive tree-lined boulevards.
+                  An exclusive 3-acre boutique luxury plotted sanctuary featuring 24 bespoke residential parcels, monumental double-height entrance architecture, 100% underground utilities, and serene tree-lined boulevards on Devanahalli–Doddaballapura Road.
                 </p>
 
                 {/* 4 Quick Key Numbers in Dot Matrix Display */}
@@ -281,14 +281,14 @@ export default function HomePage() {
                   <div className="p-3 bg-neutral-50 rounded border border-neutral-200">
                     <span className="text-neutral-400 text-[10px] uppercase tracking-wider block mb-1">Total Acreage</span>
                     <div className="flex items-center gap-1.5">
-                      <DotMatrixNumber value="42+" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                      <DotMatrixNumber value="3" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
                       <span className="text-xs font-semibold text-neutral-800 font-sans">Acres</span>
                     </div>
                   </div>
                   <div className="p-3 bg-neutral-50 rounded border border-neutral-200">
                     <span className="text-neutral-400 text-[10px] uppercase tracking-wider block mb-1">Plot Count</span>
                     <div className="flex items-center gap-1.5">
-                      <DotMatrixNumber value="186" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
+                      <DotMatrixNumber value="24" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
                       <span className="text-xs font-semibold text-neutral-800 font-sans">Plots</span>
                     </div>
                   </div>
@@ -401,7 +401,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 05. STRATEGIC ALLIANCE (STTHIRA | ROVERA | AKSHARA) */}
+      {/* 05. MASTER DEVELOPER & FLAGSHIP SHOWCASE (STTHIRA & ROVERA) */}
       <PartnershipBanner />
 
       {/* 06. ARCHITECTURAL GALLERY (React Bits WebGL Refractive FlexCarousel) */}

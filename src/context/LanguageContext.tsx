@@ -79,12 +79,12 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     "rovera.readMore": "EXPLORE ROVERA MASTERPLAN",
 
     // Partnership
-    "partnership.badge": "Strategic Land Alliance",
-    "partnership.title": "STTHIRA | AKSHARA",
-    "partnership.subtitle": "A Master Collaboration in Luxury Plotted Living",
-    "partnership.desc": "Uniting STTHIRA's architectural mastery and institutional capital governance with AKSHARA's storied regional land stewardship to curate sovereign plotted landmarks across India.",
+    "partnership.badge": "Master Developer & Flagship Portfolio",
+    "partnership.title": "STTHIRA | ROVERA",
+    "partnership.subtitle": "A Sovereign Expression of Luxury Plotted Living",
+    "partnership.desc": "Uniting STTHIRA's architectural mastery and institutional capital governance with ROVERA's boutique 3-acre plotted sanctuary in North Bengaluru.",
     "partnership.stthiraBrand": "STTHIRA",
-    "partnership.aksharaBrand": "AKSHARA",
+    "partnership.roveraBrand": "ROVERA",
 
     // Leadership
     "leadership.badge": "Board Governance",
@@ -156,7 +156,7 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     "footer.p6": "06 Fiduciary Trust",
     "footer.aboutStthira": "About STTHIRA",
     "footer.leadership": "Leadership & Governance",
-    "footer.alliance": "STTHIRA | AKSHARA Alliance",
+    "footer.alliance": "STTHIRA & ROVERA",
     "footer.gallery": "Architectural Gallery",
     "footer.journal": "Journal & Insights",
     "footer.faqs": "Frequently Asked Questions",
@@ -172,8 +172,8 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     "footer.statement": "THOUGHTFULLY BUILT. TIMELESSLY ENVISIONED.",
     "footer.desc": "STTHIRA curates institutional-grade luxury plotted developments designed around architectural restraint, forensic legal purity, and long-term capital permanence.",
     "footer.rights": "© 2026 STTHIRA DEVELOPMENTS PRIVATE LIMITED. ALL RIGHTS RESERVED.",
-    "footer.hierarchyTitle": "Hierarchy & Alliance",
-    "footer.hierarchyText": "STTHIRA Developments Private Limited is the parent master developer (Est. 2026, Board of Directors: Lokesh Mudhaliar). ROVERA is an exclusive plotted living development under STTHIRA. In strategic land collaboration with AKSHARA.",
+    "footer.hierarchyTitle": "Hierarchy & Governance",
+    "footer.hierarchyText": "STTHIRA Developments Private Limited is the parent master developer (Est. 2026, Board of Directors: Lokesh Mudhaliar). ROVERA is an exclusive plotted living development under STTHIRA.",
     "footer.reraCompliance": "RERA & DPDP Compliant",
     "footer.contactAdvisory": "Contact Advisory",
     "footer.reraAudit": "RERA Audit",
@@ -244,7 +244,7 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     "partnership.subtitle": "లగ్జరీ ప్లాటెడ్ జీవనంలో మహోన్నత భాగస్వామ్యం",
     "partnership.desc": "స్థిర వాస్తు శిల్ప నైపుణ్యం మరియు అక్షర సంస్థ యొక్క ప్రాంతీయ భూమి యాజమాన్య అనుభవం కలిసి భారతదేశంలో అత్యున్నత ల్యాండ్‌మార్క్‌లను సృష్టిస్తున్నాయి.",
     "partnership.stthiraBrand": "స్థిర",
-    "partnership.aksharaBrand": "అక్షర",
+    "partnership.roveraBrand": "రోవెరా",
 
     // Leadership
     "leadership.badge": "బోర్డు పాలన",
@@ -404,7 +404,7 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     "partnership.subtitle": "சொகுசு மனை வாழ்க்கையில் உன்னத கூட்டாண்மை",
     "partnership.desc": "ஸ்திராவின் கட்டிடக்கலை திறனும், அக்ஷரா நிறுவனத்தின் நில நிர்வாக அனுபவமும் இணைந்து தலைமுறைக்கான அடையாளங்களை உருவாக்குகின்றன.",
     "partnership.stthiraBrand": "ஸ்திரா",
-    "partnership.aksharaBrand": "அக்ஷரா",
+    "partnership.roveraBrand": "ரோவேரா",
 
     // Leadership
     "leadership.badge": "நிர்வாகக் குழு",
@@ -564,7 +564,7 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     "partnership.subtitle": "लक्जरी प्लॉटेड लिविंग में एक ऐतिहासिक सहयोग",
     "partnership.desc": "स्थिरा की वास्तुशिल्प उत्कृष्टता और अक्षरा के क्षेत्रीय भूमि प्रबंधन का संगम भारत में पीढ़ीगत स्थलों का निर्माण करता है।",
     "partnership.stthiraBrand": "स्थिरा",
-    "partnership.aksharaBrand": "अक्षरा",
+    "partnership.roveraBrand": "रोवेरा",
 
     // Leadership
     "leadership.badge": "बोर्ड प्रशासन",
@@ -724,7 +724,7 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     "partnership.subtitle": "ಲಕ್ಸುರಿ ಪ್ಲಾಟೆಡ್ ಜೀವನದಲ್ಲಿ ಮಹೋನ್ನತ ಸಹಯೋಗ",
     "partnership.desc": "ಸ್ಥಿರ ಸಂಸ್ಥೆಯ ವಾಸ್ತುಶಿಲ್ಪ ಪ್ರಾವೀಣ್ಯತೆ ಮತ್ತು ಅಕ್ಷರ ಸಂಸ್ಥೆಯ ಪ್ರಾದೇಶಿಕ ಭೂ ಆಡಳಿತ ಅನುಭವ ಒಗ್ಗೂಡಿ ಭಾರತದಲ್ಲಿ ಐತಿಹಾಸಿಕ ತಾಣಗಳನ್ನು ನಿರ್ಮಿಸುತ್ತಿವೆ.",
     "partnership.stthiraBrand": "ಸ್ಥಿರ",
-    "partnership.aksharaBrand": "ಅಕ್ಷರ",
+    "partnership.roveraBrand": "ರೋವೆರಾ",
 
     // Leadership
     "leadership.badge": "ಮಂಡಳಿ ಆಡಳಿತ",

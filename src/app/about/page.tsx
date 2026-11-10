@@ -257,7 +257,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* STRATEGIC ALLIANCE: STTHIRA | AKSHARA */}
+      {/* STTHIRA & ROVERA SHOWCASE */}
       <div id="alliance">
         <PartnershipBanner />
       </div>
@@ -272,7 +272,7 @@ export default function AboutPage() {
             DISCOVER OUR PLOTTED DEVELOPMENTS
           </h2>
           <p className="text-neutral-400 text-sm sm:text-base font-sans font-light leading-relaxed max-w-xl mx-auto">
-            Experience ROVERA, our premier 42+ acre master-planned luxury plotted enclave in North Bengaluru.
+            Experience ROVERA, our premier 3-acre boutique luxury plotted sanctuary on Devanahalli–Doddaballapura Road in North Bengaluru.
           </p>
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

@@ -45,7 +45,6 @@ export default function Header() {
         { name: "All Developments", href: "/developments", badge: "Portfolio" },
         { name: "ROVERA", href: "/developments/rovera", badge: "Featured • Phase 1" },
         { name: "STTHIRA TERRA", href: "/developments/terra", badge: "Eco-Sanctuary" },
-        { name: "AKSHARA MEADOWS", href: "/developments/akshara-meadows", badge: "Strategic Alliance" },
       ],
     },
     { name: t("nav.philosophy", "Philosophy"), href: "/philosophy" },
@@ -195,13 +194,6 @@ export default function Header() {
                   >
                     <span>↳ STTHIRA TERRA</span>
                     <span className="text-[9px] uppercase tracking-wider text-neutral-500">Sanctuary</span>
-                  </Link>
-                  <Link
-                    href="/developments/akshara-meadows"
-                    className="font-editorial text-base text-neutral-300 hover:text-white block flex items-center justify-between"
-                  >
-                    <span>↳ AKSHARA MEADOWS</span>
-                    <span className="text-[9px] uppercase tracking-wider text-neutral-400">Alliance</span>
                   </Link>
                 </div>
                 <Link

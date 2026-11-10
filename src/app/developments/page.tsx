@@ -9,7 +9,7 @@ import { DEVELOPMENTS } from "@/lib/data";
 export default function DevelopmentsPage() {
   const [selectedPillar, setSelectedPillar] = useState<string>("All");
 
-  const pillars = ["All", "ROVERA", "STTHIRA", "AKSHARA"];
+  const pillars = ["All", "ROVERA", "STTHIRA"];
 
   const filtered = selectedPillar === "All"
     ? DEVELOPMENTS
@@ -49,7 +49,7 @@ export default function DevelopmentsPage() {
                     : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
                 }`}
               >
-                {pil === "All" ? "All Three Pillars" : pil}
+                {pil === "All" ? "All Developments" : pil}
                 {pil === "All" ? ` (${DEVELOPMENTS.length})` : ""}
               </button>
             ))}
@@ -144,31 +144,13 @@ export default function DevelopmentsPage() {
 
                 {/* Action Link strictly obeying arrow indication rule */}
                 <div className="pt-2">
-                  {dev.slug === "rovera" ? (
-                    <Link
-                      href={`/developments/${dev.slug}`}
-                      className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 font-sans text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-800 transition-colors"
-                    >
-                      <span>Explore ROVERA Showcase</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </Link>
-                  ) : dev.slug === "akshara-meadows" ? (
-                    <Link
-                      href={`/developments/${dev.slug}`}
-                      className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 font-sans text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-800 transition-colors"
-                    >
-                      <span>Explore AKSHARA MEADOWS</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </Link>
-                  ) : (
-                    <Link
-                      href={`/developments/${dev.slug}`}
-                      className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 font-sans text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-800 transition-colors"
-                    >
-                      <span>Explore STTHIRA TERRA</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </Link>
-                  )}
+                  <Link
+                    href={`/developments/${dev.slug}`}
+                    className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 font-sans text-xs uppercase tracking-[0.25em] font-medium hover:bg-neutral-800 transition-colors"
+                  >
+                    <span>Explore {dev.name} Showcase</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </div>
             </div>

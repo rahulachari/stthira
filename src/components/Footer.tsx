@@ -25,7 +25,6 @@ export default function Footer() {
         { label: t("footer.allDevs", "All Developments"), href: "/developments" },
         { label: "ROVERA (North Bengaluru)", href: "/developments/rovera" },
         { label: "STTHIRA TERRA (Nandi)", href: "/developments/terra" },
-        { label: "AKSHARA (North Bengaluru)", href: "https://akshara-three.vercel.app/" },
         { label: t("footer.masterPlanMatrix", "Master Plan Matrix"), href: "/developments#matrix" },
         { label: t("footer.plotConfigs", "Plot Configurations"), href: "/developments#configurations" },
       ],
@@ -46,7 +45,6 @@ export default function Footer() {
       links: [
         { label: t("footer.aboutStthira", "About STTHIRA"), href: "/about" },
         { label: t("footer.leadership", "Leadership & Governance"), href: "/leadership" },
-        { label: t("footer.alliance", "STTHIRA | AKSHARA Alliance"), href: "/about#alliance" },
         { label: t("footer.gallery", "Architectural Gallery"), href: "/gallery" },
         { label: t("footer.journal", "Journal & Insights"), href: "/journal" },
         { label: t("footer.faqs", "Frequently Asked Questions"), href: "/faq" },
@@ -80,7 +78,7 @@ export default function Footer() {
     <footer className="bg-white text-neutral-900 border-t border-neutral-200 font-sans">
       {/* Upper Footer: GitHub Clean Style on Light Canvas */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-4 sm:pb-6">
-        {/* Top Header Row with Co-Branding Indicator: STTHIRA | ROVERA | AKSHARA */}
+        {/* Top Header Row with Brand Indicators: STTHIRA & ROVERA */}
         <div className="flex flex-col xl:flex-row items-center justify-between pb-8 sm:pb-10 mb-8 sm:mb-12 border-b border-neutral-200 gap-6">
           <div className="flex flex-wrap items-center justify-center xl:justify-start gap-4 sm:gap-6 w-full xl:w-auto">
             {/* STTHIRA with architectural emblem */}
@@ -93,7 +91,7 @@ export default function Footer() {
 
             <span className="hidden sm:inline text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
 
-            {/* ROVERA with official logo — BIG and prominent to match STTHIRA and AKSHARA */}
+            {/* ROVERA with official logo — prominent brand mark */}
             <Link href="/developments/rovera" className="group flex items-center transition-opacity hover:opacity-80 shrink-0">
               <div className="relative h-11 sm:h-13 md:h-15 lg:h-17 aspect-[3.4/1] shrink-0 select-none">
                 <Image
@@ -106,27 +104,6 @@ export default function Footer() {
                 />
               </div>
             </Link>
-
-            <span className="hidden sm:inline text-neutral-300 font-light text-2xl sm:text-3xl">|</span>
-
-            {/* AKSHARA linked to official website with official logo */}
-            <a
-              href="https://akshara-three.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 transition-opacity hover:opacity-80 shrink-0"
-              title="AKSHARA (opens in a new tab)"
-            >
-              <div className="relative h-7 sm:h-9 md:h-10 aspect-[5.1/1] select-none shrink-0">
-                <Image
-                  src="/images/akshara-horizontal-dark.png"
-                  alt="AKSHARA — Strategic Alliance"
-                  fill
-                  className="object-contain object-left"
-                />
-              </div>
-              <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
-            </a>
           </div>
 
           <div className="flex items-center justify-center xl:justify-end w-full xl:w-auto gap-4 text-xs font-sans text-neutral-600 shrink-0">
@@ -198,7 +175,7 @@ export default function Footer() {
             <strong className="text-black uppercase tracking-wider font-semibold">{t("footer.hierarchyTitle", "Hierarchy & Alliance")}:</strong>{" "}
             {t(
               "footer.hierarchyText",
-              "STTHIRA Developments Private Limited is the parent master developer (Est. 2026, Board of Directors: Lokesh Mudhaliar). ROVERA is an exclusive plotted living development under STTHIRA. In strategic land collaboration with AKSHARA."
+              "STTHIRA Developments Private Limited is the parent master developer (Est. 2026, Board of Directors: Lokesh Mudhaliar). ROVERA is an exclusive plotted living development under STTHIRA."
             )}
           </p>
           <div className="flex items-center gap-2 text-neutral-800 shrink-0">
@@ -292,10 +269,10 @@ export default function Footer() {
 
       {/* Below-Footer Brand Wordmark Band */}
       {isRovera ? (
-        /* Exclusive ROVERA Leopard Fine-Art Sanctuary (Editorial Side-by-Side with Official ROVERA Logo) */
+        /* Exclusive ROVERA Fine-Art Sanctuary (Lagos Deep Black & Dark Green Aesthetic) */
         <section
           aria-label="ROVERA Fine-Art Sanctuary"
-          className="relative w-full overflow-hidden bg-white text-neutral-900 pt-10 pb-24 sm:pt-16 sm:pb-20 md:pt-20 select-none border-t border-neutral-200"
+          className="relative w-full overflow-hidden bg-[#030705] text-white pt-10 pb-24 sm:pt-16 sm:pb-20 md:pt-20 select-none border-t border-emerald-950"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
             <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
@@ -314,10 +291,10 @@ export default function Footer() {
 
               {/* On Desktop: Right Column (5 cols) / On Mobile: Leads first for immediate brand prestige (order-1 lg:order-2) */}
               <div className="order-1 lg:order-2 lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-2 sm:space-y-3.5 w-full">
-                {/* Official ROVERA Brand Logo */}
+                {/* Official ROVERA Brand Logo in Pure White */}
                 <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 xl:w-[400px] aspect-[3.4/1] select-none">
                   <Image
-                    src="/images/rovera-logo-dark.png"
+                    src="/images/rovera-logo-white.png"
                     alt="ROVERA"
                     fill
                     priority
@@ -327,11 +304,11 @@ export default function Footer() {
                   />
                 </div>
 
-                <p className="font-sans text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500 font-medium">
-                  North Bengaluru • By STTHIRA
+                <p className="font-sans text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.3em] text-emerald-400 font-medium">
+                  3 Acres Plotted Sanctuary • Devanahalli–Doddaballapura Road
                 </p>
 
-                <p className="font-editorial text-sm sm:text-base md:text-lg lg:text-xl italic font-light text-neutral-700 leading-relaxed max-w-md px-2 sm:px-0">
+                <p className="font-galric text-sm sm:text-base md:text-lg lg:text-xl italic font-light text-neutral-300 leading-relaxed max-w-md px-2 sm:px-0">
                   &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
                 </p>
               </div>
