@@ -1,5 +1,5 @@
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;500;600;700;800;900&family=Italiana&family=Cinzel:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Instrument+Serif:ital@0;1&family=Doto:wght@400;500;600;700;800;900&family=Italiana&family=Cinzel:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -9,6 +9,8 @@
   --color-muted-foreground: #737373;
   --color-border: #e5e5e5;
   --color-input: #e5e5e5;
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @layer base {
@@ -57,10 +59,37 @@
   }
 }
 
-/* Clash Display & Architectural Typographic Utilities */
+/* Componentry.dev Typography Style: Geist Sans with negative letter spacing */
+.font-componentry,
+.heading-componentry {
+  font-family: 'Geist', var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+.font-componentry-sub {
+  font-family: 'Geist', var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+.font-componentry-mono {
+  font-family: 'Geist Mono', var(--font-mono), ui-monospace, monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Clash Display & Architectural Typographic Utilities (PRESERVED STTHIRA NUMBER STYLE) */
 .font-clash,
-.font-editorial {
-  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+.font-editorial,
+.stthira-number,
+.font-number,
+.stat-number,
+.metric-num,
+.tabular-nums,
+[data-number] {
+  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
 }
 
