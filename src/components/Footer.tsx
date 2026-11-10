@@ -30,17 +30,6 @@ export default function Footer() {
       ],
     },
     {
-      title: t("footer.col2", "PHILOSOPHY"),
-      links: [
-        { label: t("footer.eightPillars", "Eight Core Pillars"), href: "/philosophy" },
-        { label: t("footer.p1", "01 Vision & Scale"), href: "/philosophy#vision" },
-        { label: t("footer.p2", "02 Precision Engineering"), href: "/philosophy#precision" },
-        { label: t("footer.p4", "04 Architectural Restraint"), href: "/philosophy#architecture" },
-        { label: t("footer.p5", "05 Native Ecology"), href: "/philosophy#nature" },
-        { label: t("footer.p6", "06 Fiduciary Trust"), href: "/philosophy#trust" },
-      ],
-    },
-    {
       title: t("footer.col3", "COMPANY"),
       links: [
         { label: t("footer.aboutStthira", "About STTHIRA"), href: "/about" },
@@ -269,10 +258,10 @@ export default function Footer() {
 
       {/* Below-Footer Brand Wordmark Band */}
       {isRovera ? (
-        /* Exclusive ROVERA Fine-Art Sanctuary (Lagos Deep Black & Dark Green Aesthetic) */
+        /* Exclusive ROVERA Fine-Art Sanctuary (Clean White Haute-Couture Architectural Aesthetic) */
         <section
           aria-label="ROVERA Fine-Art Sanctuary"
-          className="relative w-full overflow-hidden bg-[#030705] text-white pt-10 pb-24 sm:pt-16 sm:pb-20 md:pt-20 select-none border-t border-emerald-950"
+          className="relative w-full overflow-hidden bg-white text-neutral-900 pt-10 pb-24 sm:pt-16 sm:pb-20 md:pt-20 select-none border-t border-neutral-200"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
             <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
@@ -280,7 +269,7 @@ export default function Footer() {
               <div className="order-2 lg:order-1 lg:col-span-7 relative w-full max-w-lg lg:max-w-none aspect-[1.8/1] sm:aspect-[1.91/1] select-none transition-transform duration-700 hover:scale-[1.015]">
                 <Image
                   src="/images/rovera-cheetah-beside-retina.png"
-                  alt="ROVERA — Untamed Sanctuary Leopard Resting on Weathered Bough"
+                  alt="ROVERA — Untamed Sanctuary Cheetah Resting on Weathered Bough"
                   fill
                   priority
                   quality={95}
@@ -291,10 +280,10 @@ export default function Footer() {
 
               {/* On Desktop: Right Column (5 cols) / On Mobile: Leads first for immediate brand prestige (order-1 lg:order-2) */}
               <div className="order-1 lg:order-2 lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-2 sm:space-y-3.5 w-full">
-                {/* Official ROVERA Brand Logo in Pure White */}
+                {/* Official ROVERA Brand Logo in High-Contrast Obsidian */}
                 <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 xl:w-[400px] aspect-[3.4/1] select-none">
                   <Image
-                    src="/images/rovera-logo-white.png"
+                    src="/images/rovera-logo-dark.png"
                     alt="ROVERA"
                     fill
                     priority
@@ -304,11 +293,11 @@ export default function Footer() {
                   />
                 </div>
 
-                <p className="font-sans text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.3em] text-emerald-400 font-medium">
+                <p className="font-jakarta text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500 font-semibold">
                   3 Acres Plotted Sanctuary • Devanahalli–Doddaballapura Road
                 </p>
 
-                <p className="font-galric text-sm sm:text-base md:text-lg lg:text-xl italic font-light text-neutral-300 leading-relaxed max-w-md px-2 sm:px-0">
+                <p className="font-luxury text-sm sm:text-base md:text-lg lg:text-xl italic font-light text-neutral-700 leading-relaxed max-w-md px-2 sm:px-0">
                   &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
                 </p>
               </div>

@@ -69,10 +69,10 @@ export default function HomePage() {
       subtitle: "20,000 Sq.Ft Concrete & Flamed Basalt Architecture",
     },
     {
-      src: "/images/rovera-wellness.jpg",
-      alt: "Aura 25m Semi-Olympic Heated Lap Pool",
-      title: "Aura Lap Pool",
-      subtitle: "Flamed Black Granite Decking • Wellness Cabanas",
+      src: "/images/rovera-wellness-pavilion.jpg",
+      alt: "Aura Vitality Spa & Wellness Pavilion",
+      title: "Vitality Spa Pavilion",
+      subtitle: "Flamed Granite & Slatted Teak Zen Sanctuary",
     },
     {
       src: "/images/aerial-view.jpg",
@@ -332,76 +332,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 04. FOUR CORE PILLARS (Clean, Understandable, Zero Clutter) */}
-      <section className="py-20 sm:py-28 bg-white border-b border-neutral-200">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium block mb-2">
-              The STTHIRA Standards
-            </span>
-            <h2 className="font-editorial text-3xl sm:text-5xl uppercase tracking-tight text-black font-light">
-              BUILT FOR GENERATIONS
-            </h2>
-            <p className="text-neutral-600 text-sm mt-3 font-light leading-relaxed">
-              We eliminate the risks of conventional land buying with four uncompromised benchmarks.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Pillar 1 */}
-            <div className="p-7 bg-[#fbfbfb] border border-neutral-200 rounded-lg space-y-3 hover:border-black transition-colors">
-              <ShieldCheck className="w-8 h-8 text-black stroke-[1.5]" />
-              <div className="flex items-center gap-2">
-                <DotMatrixNumber value="100%" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
-                <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
-                  Clear Title
-                </h3>
-              </div>
-              <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed font-light">
-                Every parcel passes 30-year unencumbered legal vetting by tier-one advocates and full RERA compliance.
-              </p>
-            </div>
-
-            {/* Pillar 2 */}
-            <div className="p-7 bg-[#fbfbfb] border border-neutral-200 rounded-lg space-y-3 hover:border-black transition-colors">
-              <Building2 className="w-8 h-8 text-black stroke-[1.5]" />
-              <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
-                Underground Grid
-              </h3>
-              <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed font-light">
-                Zero overhead cables. Concealed high-voltage power, storm drains, dual plumbing, and fiber conduits.
-              </p>
-            </div>
-
-            {/* Pillar 3 */}
-            <div className="p-7 bg-[#fbfbfb] border border-neutral-200 rounded-lg space-y-3 hover:border-black transition-colors">
-              <Trees className="w-8 h-8 text-black stroke-[1.5]" />
-              <div className="flex items-center gap-2">
-                <DotMatrixNumber value="45%" size="xs" color="#111111" inactiveColor="rgba(0,0,0,0.08)" />
-                <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
-                  Green Canopy
-                </h3>
-              </div>
-              <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed font-light">
-                Nearly half of the acreage is dedicated to wide tree promenades, sensory gardens, and eco-parks.
-              </p>
-            </div>
-
-            {/* Pillar 4 */}
-            <div className="p-7 bg-[#fbfbfb] border border-neutral-200 rounded-lg space-y-3 hover:border-black transition-colors">
-              <Compass className="w-8 h-8 text-black stroke-[1.5]" />
-              <h3 className="font-editorial text-xl uppercase tracking-wide text-neutral-900 font-medium">
-                Prime Airport Hub
-              </h3>
-              <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed font-light">
-                Located in the high-velocity North Bengaluru growth corridor for unmatched capital appreciation.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 05. MASTER DEVELOPER & FLAGSHIP SHOWCASE (STTHIRA & ROVERA) */}
+      {/* 04. MASTER DEVELOPER & FLAGSHIP SHOWCASE (STTHIRA & ROVERA) */}
       <PartnershipBanner />
 
       {/* 06. ARCHITECTURAL GALLERY (React Bits WebGL Refractive FlexCarousel) */}

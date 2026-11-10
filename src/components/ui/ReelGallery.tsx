@@ -34,7 +34,7 @@ const DEFAULT_IMAGES = [
   "/images/rovera-clubhouse.jpg",
   "/images/aerial-view.jpg",
   "/images/modern-architecture.jpg",
-  "/images/rovera-wellness.jpg",
+  "/images/rovera-wellness-pavilion.jpg",
   "/images/landscape-nature.jpg",
   "/images/lifestyle-amenities.jpg",
   "/images/entrance-structure.jpg",

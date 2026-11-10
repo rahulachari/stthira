@@ -14,7 +14,7 @@ export default function CinematicHero() {
 
   return (
     <section id="hero" className="relative h-screen min-h-[700px] w-full flex items-center justify-center overflow-hidden bg-black text-white">
-      {/* Background Cinematic Luxury Video (Assetz Property Style) */}
+      {/* Background Cinematic Luxury Architectural Video — Pure, Unbranded, Timeless */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
           autoPlay
@@ -25,7 +25,7 @@ export default function CinematicHero() {
           poster="/images/hero-cinematic.jpg"
           className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-115 brightness-90 scale-105"
         >
-          <source src="/videos/hero-luxury.mp4" type="video/mp4" />
+          <source src="/videos/stthira-hero-clean.mp4" type="video/mp4" />
         </video>
 
         {/* Sophisticated Luxury Gradients for High Legibility */}

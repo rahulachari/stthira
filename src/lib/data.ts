@@ -100,7 +100,7 @@ export const DEVELOPMENTS: Development[] = [
       { url: "/images/rovera-internal-boulevard.jpg", title: "Internal Paved Avenues with Conserved Green Spines", category: "Infrastructure" },
       { url: "/images/entrance-structure.jpg", title: "Geometric Stone & Flamed Basalt Architecture", category: "Architecture" },
       { url: "/images/landscape-nature.jpg", title: "Internal Bioswales & Native Tree Canopies", category: "Nature" },
-      { url: "/images/rovera-wellness.jpg", title: "Heated Lap Pool & Wellness Sanctuary", category: "Amenities" },
+      { url: "/images/rovera-wellness-pavilion.jpg", title: "Aura Vitality Spa & Wellness Pavilion", category: "Amenities" },
       { url: "/images/modern-architecture.jpg", title: "Contemporary Villa Design Language", category: "Architecture" },
     ],
     highlights: [
@@ -130,7 +130,7 @@ export const DEVELOPMENTS: Development[] = [
     amenities: [
       { name: "Double-Height Monumental Gatehouse", category: "Security", description: "Architectural flamed basalt portal with dual-lane RFID boom barriers, CCTV surveillance, and private security reception." },
       { name: "The Lagos Pavilion & Club", category: "Clubhouse", description: "Boutique private resident club featuring lounge salon, executive reading library, and private concierge desk." },
-      { name: "Aura Reflection Lap Pool", category: "Wellness", description: "Black granite infinity-edge swimming pool with submerged lounger deck, cabanas, and outdoor rain showers." },
+      { name: "Aura Vitality Spa & Wellness Pavilion", category: "Wellness", description: "Indoor-outdoor hydrotherapy vitality spa pavilion featuring flamed granite walls, teak wood slatted ceilings, plush loungers, and serene bamboo zen garden views." },
       { name: "Botanical Canopy Walk", category: "Nature", description: "Lush native tree-lined promenade with natural basalt stone pathways and low-glare bronze garden illumination." },
       { name: "Private Fitness & Yoga Deck", category: "Wellness", description: "Open-air wooden wellness deck for yoga and morning meditation surrounded by deep green tropical foliage." },
       { name: "Private Executive Work Pods", category: "Business", description: "Acoustically isolated conference pods with high-speed fiber internet and wireless printing for remote executives." },

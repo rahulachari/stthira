@@ -47,7 +47,6 @@ export default function Header() {
         { name: "STTHIRA TERRA", href: "/developments/terra", badge: "Eco-Sanctuary" },
       ],
     },
-    { name: t("nav.philosophy", "Philosophy"), href: "/philosophy" },
     { name: t("nav.leadership", "Leadership"), href: "/leadership" },
     { name: t("nav.journal", "Journal"), href: "/journal" },
     { name: t("nav.gallery", "Gallery"), href: "/gallery" },
@@ -196,12 +195,6 @@ export default function Header() {
                     <span className="text-[9px] uppercase tracking-wider text-neutral-500">Sanctuary</span>
                   </Link>
                 </div>
-                <Link
-                  href="/philosophy"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
-                >
-                  {t("nav.philosophy", "Our Philosophy")}
-                </Link>
                 <Link
                   href="/leadership"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"

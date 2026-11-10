@@ -8,7 +8,7 @@ import './FlexCarousel.css';
 const DEFAULT_ITEMS = [
   { src: '/images/rovera-avenues.jpg', alt: 'Monumental 50-Ft Avenues', title: 'Grand Boulevards', subtitle: 'Phase 1 Arterial Matrix' },
   { src: '/images/rovera-clubhouse.jpg', alt: 'The Monolith Club', title: 'The Monolith Club', subtitle: '20,000 Sq.Ft Pavilion' },
-  { src: '/images/rovera-wellness.jpg', alt: 'Aura Semi-Olympic Lap Pool', title: 'Aura Lap Pool', subtitle: 'Granite Aquatics & Cabanas' },
+  { src: '/images/rovera-wellness-pavilion.jpg', alt: 'Aura Vitality Spa Pavilion', title: 'Vitality Spa Pavilion', subtitle: 'Flamed Granite & Teak Zen Sanctuary' },
   { src: '/images/aerial-view.jpg', alt: 'Master Layout Perspective', title: 'Master Plan Matrix', subtitle: '42+ Acre Gated Sanctuary' },
   { src: '/images/landscape-nature.jpg', alt: 'Conserved Native Canopy', title: 'The Forest Spine', subtitle: '3+ Acres Native Ecology' },
   { src: '/images/modern-architecture.jpg', alt: 'Architectural Restraint', title: 'Basalt Gateways', subtitle: 'Raw Natural Permanence' },
