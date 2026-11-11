@@ -277,46 +277,22 @@ export default function Footer() {
 
       {/* Below-Footer Brand Wordmark Band */}
       {isRovera ? (
-        /* Exclusive ROVERA Fine-Art Sanctuary (Clean White Haute-Couture Architectural Aesthetic) */
+        /* Exclusive ROVERA Animated Footer Showcase */
         <section
-          aria-label="ROVERA Fine-Art Sanctuary"
-          className="relative w-full overflow-hidden bg-[#fafaf8] text-neutral-900 pt-10 pb-20 sm:pt-14 sm:pb-16 select-none border-t border-neutral-200"
+          aria-label="ROVERA Footer"
+          className="relative w-full overflow-hidden bg-white text-neutral-900 py-10 sm:py-14 md:py-16 select-none border-t border-neutral-200 flex items-center justify-center"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
-              <div className="order-2 lg:order-1 lg:col-span-7 relative w-full max-w-lg lg:max-w-none aspect-[1.8/1] sm:aspect-[1.91/1] select-none transition-transform duration-700 hover:scale-[1.015]">
-                <Image
-                  src="/images/rovera-cheetah-beside-retina.png"
-                  alt="ROVERA Sanctuary Cheetah"
-                  fill
-                  priority
-                  quality={95}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 850px"
-                  className="object-contain object-center lg:object-left"
-                />
-              </div>
-
-              <div className="order-1 lg:order-2 lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-2 sm:space-y-3.5 w-full">
-                <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 aspect-[3.4/1] select-none">
-                  <Image
-                    src="/images/rovera-logo-dark.png"
-                    alt="ROVERA"
-                    fill
-                    priority
-                    quality={95}
-                    sizes="(max-width: 640px) 240px, 400px"
-                    className="object-contain object-center lg:object-left"
-                  />
-                </div>
-
-                <p className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.25em] text-[#0F2744] font-semibold">
-                  3 Acres Plotted Sanctuary • Devanahalli–Doddaballapura Road
-                </p>
-
-                <p className="font-editorial text-sm sm:text-base md:text-lg italic font-light text-neutral-700 leading-relaxed max-w-md">
-                  &ldquo;Where architectural permanence honors untamed native wilderness.&rdquo;
-                </p>
-              </div>
+          <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-center">
+            <div className="relative w-full max-w-[340px] sm:max-w-[460px] md:max-w-[560px] lg:max-w-[640px] aspect-[553/307]">
+              <Image
+                src="/images/rovera-footer.gif"
+                alt="ROVERA"
+                fill
+                priority
+                unoptimized
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 560px, 640px"
+                className="object-contain object-center"
+              />
             </div>
           </div>
         </section>
