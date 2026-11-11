@@ -37,7 +37,28 @@ export default function Header() {
     setDevelopmentsOpen(false);
   }, [pathname]);
 
-  const navLinks = [
+  // Curated, high-priority navigation links
+  // On ROVERA: Project-specific anchor links + Developments dropdown + Contact
+  // On Global: Essential corporate links (About, Developments, Gallery, Contact)
+  const roveraNavLinks = [
+    { name: "Amenities", href: "/developments/rovera#amenities" },
+    { name: "Plot Matrix", href: "/developments/rovera#planning" },
+    { name: "Master Plan", href: "/developments/rovera#master-plan" },
+    { name: "Location", href: "/developments/rovera#location" },
+    {
+      name: t("nav.developments", "Developments"),
+      href: "/developments",
+      hasDropdown: true,
+      subItems: [
+        { name: "All Developments", href: "/developments", badge: "Portfolio" },
+        { name: "ROVERA", href: "/developments/rovera", badge: "Featured • Phase 1" },
+        { name: "STTHIRA TERRA", href: "/developments/terra", badge: "Eco-Sanctuary" },
+      ],
+    },
+    { name: t("nav.contact", "Contact"), href: "/developments/rovera#reserve" },
+  ];
+
+  const globalNavLinks = [
     { name: t("nav.about", "About"), href: "/about" },
     {
       name: t("nav.developments", "Developments"),
@@ -49,12 +70,11 @@ export default function Header() {
         { name: "STTHIRA TERRA", href: "/developments/terra", badge: "Eco-Sanctuary" },
       ],
     },
-    { name: t("nav.leadership", "Leadership"), href: "/leadership" },
-    { name: t("nav.journal", "Journal"), href: "/journal" },
     { name: t("nav.gallery", "Gallery"), href: "/gallery" },
-    { name: t("nav.faq", "FAQ"), href: "/faq" },
     { name: t("nav.contact", "Contact"), href: "/contact" },
   ];
+
+  const navLinks = isRovera ? roveraNavLinks : globalNavLinks;
 
   return (
     <>
@@ -98,7 +118,7 @@ export default function Header() {
           )}
 
           {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center space-x-6 2xl:space-x-8 text-xs uppercase tracking-[0.16em] font-sans">
+          <nav className="hidden lg:flex items-center space-x-5 xl:space-x-7 2xl:space-x-8 text-xs uppercase tracking-[0.16em] font-sans">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || (link.hasDropdown && pathname.startsWith("/developments"));
               if (link.hasDropdown) {
@@ -202,7 +222,7 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="flex items-center xl:hidden shrink-0">
+          <div className="flex items-center lg:hidden shrink-0">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
@@ -215,7 +235,7 @@ export default function Header() {
 
         {/* Mobile Fullscreen Navigation Overlay */}
         {mobileMenuOpen && (
-          <div className="xl:hidden fixed inset-0 top-[58px] sm:top-[73px] bg-black/98 z-40 px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-between overflow-y-auto border-t border-neutral-900 h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full">
+          <div className="lg:hidden fixed inset-0 top-[58px] sm:top-[73px] bg-black/98 z-40 px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-between overflow-y-auto border-t border-neutral-900 h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full">
             <div className="space-y-6">
               <div className="text-[10px] tracking-[0.3em] uppercase text-neutral-500 mb-2">
                 Navigation

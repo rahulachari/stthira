@@ -286,24 +286,6 @@ export default function RoveraView() {
           </div>
         </div>
 
-        {/* Prisma Top Centered Tab Navbar (Scrollable on small mobile screens) */}
-        <div className="relative z-20 w-full pt-20 sm:pt-24 flex items-center justify-center px-4">
-          <div className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/90 text-[11px] sm:text-xs text-zinc-700 font-sans shadow-lg max-w-full overflow-x-auto scrollbar-none">
-            <a href="#snapshot" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Snapshot</a>
-            <a href="#amenities" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Amenities</a>
-            <a href="#planning" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Plot Matrix</a>
-            <a href="#master-plan" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Master Plan</a>
-            <a href="#location" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Location</a>
-            <button
-              type="button"
-              onClick={() => openEnquiry("Top Nav Inquiry")}
-              className="text-white font-medium px-3 py-1 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] transition-colors cursor-pointer shrink-0 shadow-2xs"
-            >
-              Inquiries
-            </button>
-          </div>
-        </div>
-
         {/* Prisma Bottom Split Content: Monumental Title on Left, Editorial + Pill CTA on Right */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-10 lg:px-12 pb-10 sm:pb-16 pt-12 sm:pt-20 flex-1 flex flex-col justify-end">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-14">
