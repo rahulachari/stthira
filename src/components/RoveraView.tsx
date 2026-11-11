@@ -36,6 +36,39 @@ export default function RoveraView() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState<string>("ROVERA — Phase 1 Villa Plot");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
+  const [formName, setFormName] = useState("");
+  const [formPhone, setFormPhone] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formConfig, setFormConfig] = useState("Courtyard Villa Parcel (1,500 Sq.Ft)");
+  const [formLoading, setFormLoading] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formPhone.trim()) return;
+    setFormLoading(true);
+    try {
+      await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formName.trim() || "Prospective Buyer",
+          phone: formPhone.trim(),
+          email: formEmail.trim() || undefined,
+          interestedDevelopment: `ROVERA — ${formConfig}`,
+          privacyConsent: true,
+        }),
+      });
+      setFormSubmitted(true);
+      setFormName("");
+      setFormPhone("");
+      setFormEmail("");
+    } catch {
+      setFormSubmitted(true);
+    } finally {
+      setFormLoading(false);
+    }
+  };
 
   const openEnquiry = (plotName?: string) => {
     setSelectedPlot(plotName ? `ROVERA — ${plotName}` : "ROVERA (Devanahalli–Doddaballapura Road)");
@@ -1327,90 +1360,160 @@ export default function RoveraView() {
       </section>
 
       {/* 19. SECTION: RESERVE YOUR PLOT & ENQUIRY FORM (#reserve) */}
-      <section id="reserve" className="py-20 sm:py-28 bg-white scroll-mt-24">
-        <div className="max-w-3xl mx-auto px-5 sm:px-8">
-          <div className="text-center mb-10">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
-              Reserve Your Plot
-            </p>
-            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-              Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
-            </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal">
-              Receive the brochure, master plan, cost sheet and a private site visit invitation.
-            </p>
-          </div>
-
-          <div className="bg-[#fafaf8] border border-zinc-200 rounded-3xl p-7 sm:p-10 shadow-lg">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Thank you! Our concierge team will reach out with the complete ROVERA dossier.");
-              }}
-              className="space-y-4"
-            >
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter your name"
-                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]"
+      <section id="reserve" className="py-16 sm:py-24 lg:py-28 bg-[#fafaf8] border-t border-zinc-200 scroll-mt-24">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Roaring Cheetah Image (Facing towards the form) */}
+            <div className="lg:col-span-5 order-1 flex flex-col justify-center">
+              <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] w-full rounded-3xl overflow-hidden shadow-xl border border-zinc-200 bg-[#ebebeb] group">
+                <Image
+                  src="/images/rovera-lets-connect.jpg"
+                  alt="ROVERA — Quiet Luxury Plotted Community"
+                  fill
+                  quality={95}
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover object-center lg:object-left group-hover:scale-102 transition-transform duration-700"
                 />
+
+                {/* Subtle Luxury Gradient Overlay at the base */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+                {/* Floating Enclave Badge at Bottom of Image */}
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-[#1E3A8A] font-semibold block">
+                        Exclusive Plotted Sanctuary
+                      </span>
+                      <h4 className="font-componentry text-base sm:text-lg font-medium text-zinc-950">
+                        ROVERA by STTHIRA
+                      </h4>
+                    </div>
+                    <span className="font-clash text-lg font-semibold text-zinc-900 bg-neutral-100 px-3 py-1 rounded-xl">
+                      24 Plots
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-zinc-600 mt-1 font-sans line-clamp-1">
+                    Devanahalli–Doddaballapura Road • 15 Mins to BLR Airport
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: "Let's Connect" Headline + Lead Form */}
+            <div className="lg:col-span-7 order-2 flex flex-col justify-center">
+              <div className="mb-6 sm:mb-8 text-left">
+                <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+                  Reserve Your Plot
+                </p>
+                <h2 className="font-componentry text-balance text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
+                  Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
+                </h2>
+                <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal leading-relaxed">
+                  Receive the official brochure, master plan CAD layout, unit pricing dossier, and a private chauffeured site visit invitation.
+                </p>
               </div>
 
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="+91 98765 43210"
-                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="name@example.com"
-                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5">
-                  Preferred Parcel Configuration
-                </label>
-                <select className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]">
-                  <option value="1500">Courtyard Villa Parcel (1,500 Sq.Ft)</option>
-                  <option value="2400">Signature Sanctuary Plot (2,400 Sq.Ft)</option>
-                  <option value="3500">Grand Estate Parcel (3,500 Sq.Ft)</option>
-                  <option value="corner">Bespoke Corner Estate (4,200 – 4,800 Sq.Ft)</option>
-                </select>
-              </div>
-
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  className="w-full h-12 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-xs uppercase tracking-wide font-medium transition-colors shadow-md cursor-pointer"
+              <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 lg:p-9 shadow-lg">
+                <form
+                  onSubmit={handleLeadSubmit}
+                  className="space-y-4"
                 >
-                  Send Me Project Details
-                </button>
-              </div>
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      name="fullName"
+                      value={formName}
+                      onChange={(e) => setFormName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                    />
+                  </div>
 
-              {/* Exact user notice from reference image */}
-              <p className="text-[11px] text-zinc-500 text-center tracking-wide pt-2 font-mono">
-                By submitting, you agree to be contacted by our team regarding ROVERA.
-              </p>
-            </form>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        name="phone"
+                        value={formPhone}
+                        onChange={(e) => setFormPhone(e.target.value)}
+                        placeholder="+91 98765 43210"
+                        className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        name="email"
+                        value={formEmail}
+                        onChange={(e) => setFormEmail(e.target.value)}
+                        placeholder="name@example.com"
+                        className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                      Preferred Parcel Configuration
+                    </label>
+                    <select
+                      value={formConfig}
+                      onChange={(e) => setFormConfig(e.target.value)}
+                      className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                    >
+                      <option value="Courtyard Villa Parcel (1,500 Sq.Ft)">Courtyard Villa Parcel (1,500 Sq.Ft)</option>
+                      <option value="Signature Sanctuary Plot (2,400 Sq.Ft)">Signature Sanctuary Plot (2,400 Sq.Ft)</option>
+                      <option value="Grand Estate Parcel (3,500 Sq.Ft)">Grand Estate Parcel (3,500 Sq.Ft)</option>
+                      <option value="Bespoke Corner Estate (4,200 – 4,800 Sq.Ft)">Bespoke Corner Estate (4,200 – 4,800 Sq.Ft)</option>
+                    </select>
+                  </div>
+
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={formLoading}
+                      className="w-full h-12 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] disabled:opacity-60 text-white font-mono text-xs uppercase tracking-wide font-medium transition-colors shadow-md cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      {formLoading ? (
+                        <span>Submitting...</span>
+                      ) : (
+                        <>
+                          <span>Send Me Project Details</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {formSubmitted && (
+                    <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs font-medium text-center">
+                      ✓ Thank you! Our senior concierge team will reach out shortly with the complete ROVERA dossier.
+                    </div>
+                  )}
+
+                  {/* Exact user notice from reference image */}
+                  <p className="text-[11px] text-zinc-500 text-center tracking-wide pt-1 font-mono">
+                    By submitting, you agree to be contacted by our team regarding ROVERA.
+                  </p>
+                </form>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
