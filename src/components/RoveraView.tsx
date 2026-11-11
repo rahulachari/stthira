@@ -247,38 +247,57 @@ export default function RoveraView() {
 
   return (
     <div className="bg-white text-zinc-950 font-sans selection:bg-[#0F2744] selection:text-white">
-      {/* 01. PRISMA-STYLE MONUMENTAL HERO SECTION */}
-      <section className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden bg-[#070505] text-white border-b border-zinc-200">
-        {/* Full-bleed Cinematic Background Image: Hero Cheetah */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <Image
-            src="/images/rovera-hero-cheetah.jpg"
-            alt="ROVERA — Quiet Luxury Plotted Living"
-            fill
-            priority
-            quality={95}
-            sizes="100vw"
-            className="w-full h-full object-cover object-right lg:object-[80%_center] filter brightness-95 contrast-105"
-          />
+      {/* 01. PRISMA-STYLE MONUMENTAL HERO SECTION (Adaptive Laptop & Mobile) */}
+      <section className="relative min-h-[92vh] sm:min-h-screen w-full flex flex-col justify-between overflow-hidden bg-white text-zinc-950 border-b border-zinc-200">
+        {/* Full-bleed Responsive Background Images */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {/* Laptop / Desktop Version (Horizontal) */}
+          <div className="hidden md:block absolute inset-0">
+            <Image
+              src="/images/rovera-hero-horizontal.png"
+              alt="ROVERA — Quiet Luxury Plotted Living"
+              fill
+              priority
+              quality={95}
+              sizes="100vw"
+              className="w-full h-full object-cover object-right lg:object-[86%_center]"
+            />
+            {/* Subtle left-side white gradient ensuring text has 100% crystal contrast */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 via-45% to-transparent w-full md:w-3/5 lg:w-1/2 pointer-events-none" />
+            {/* Subtle top shade so the fixed header links remain clear */}
+            <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/45 via-black/20 to-transparent pointer-events-none" />
+          </div>
 
-          {/* Prisma-style Subtle Cinematic Vignette Overlays (Soft bottom & left contrast without losing the glowing cheetah) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/60 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/35 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-[#0A0606]/25 mix-blend-multiply pointer-events-none" />
+          {/* Mobile Version (Vertical) */}
+          <div className="block md:hidden absolute inset-0">
+            <Image
+              src="/images/rovera-hero-vertical.png"
+              alt="ROVERA — Quiet Luxury Plotted Living"
+              fill
+              priority
+              quality={95}
+              sizes="100vw"
+              className="w-full h-full object-cover object-top sm:object-center"
+            />
+            {/* Bottom white gradient on mobile so typography and content remain completely legible */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/95 via-60% to-transparent pointer-events-none" />
+            {/* Subtle top shade for mobile header */}
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/45 via-black/20 to-transparent pointer-events-none" />
+          </div>
         </div>
 
-        {/* Prisma Top Centered Tab Navbar */}
+        {/* Prisma Top Centered Tab Navbar (Scrollable on small mobile screens) */}
         <div className="relative z-20 w-full pt-20 sm:pt-24 flex items-center justify-center px-4">
-          <div className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 rounded-full bg-black/60 backdrop-blur-xl border border-white/15 text-xs text-neutral-300 font-sans shadow-2xl">
-            <a href="#snapshot" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Snapshot</a>
-            <a href="#amenities" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Amenities</a>
-            <a href="#planning" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Plot Matrix</a>
-            <a href="#master-plan" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Master Plan</a>
-            <a href="#location" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Location</a>
+          <div className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/90 text-[11px] sm:text-xs text-zinc-700 font-sans shadow-lg max-w-full overflow-x-auto scrollbar-none">
+            <a href="#snapshot" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Snapshot</a>
+            <a href="#amenities" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Amenities</a>
+            <a href="#planning" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Plot Matrix</a>
+            <a href="#master-plan" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Master Plan</a>
+            <a href="#location" className="hover:text-zinc-950 px-2 sm:px-3 py-1 rounded-full hover:bg-zinc-100 transition-colors shrink-0">Location</a>
             <button
               type="button"
               onClick={() => openEnquiry("Top Nav Inquiry")}
-              className="text-white font-medium px-2.5 sm:px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 transition-colors cursor-pointer"
+              className="text-white font-medium px-3 py-1 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] transition-colors cursor-pointer shrink-0 shadow-2xs"
             >
               Inquiries
             </button>
@@ -286,53 +305,53 @@ export default function RoveraView() {
         </div>
 
         {/* Prisma Bottom Split Content: Monumental Title on Left, Editorial + Pill CTA on Right */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pb-12 sm:pb-16 pt-16 sm:pt-24 flex-1 flex flex-col justify-end">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 lg:gap-14">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-10 lg:px-12 pb-10 sm:pb-16 pt-12 sm:pt-20 flex-1 flex flex-col justify-end">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-14">
             {/* Left Column: Monumental Brand Title (Prisma style) */}
             <div className="flex-1 select-none">
               {/* Eyebrow */}
-              <div className="inline-flex items-center gap-2 mb-3 sm:mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                <span className="font-mono text-xs sm:text-sm uppercase tracking-[0.25em] text-amber-200/90 font-medium">
+              <div className="inline-flex items-center gap-2 mb-2 sm:mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A8A] animate-pulse" />
+                <span className="font-mono text-xs sm:text-sm uppercase tracking-[0.22em] text-[#1E3A8A] font-semibold">
                   Crafted for Quiet Luxury
                 </span>
               </div>
 
               {/* Monumental Rovera* Typography */}
-              <h1 className="font-componentry text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] 2xl:text-[13.5rem] font-semibold text-[#F5F2EB] tracking-[-0.04em] leading-[0.85]">
-                Rovera<span className="text-[#F5F2EB] font-light">*</span>
+              <h1 className="font-componentry text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] 2xl:text-[13.5rem] font-semibold text-zinc-950 tracking-[-0.04em] leading-[0.85]">
+                Rovera<span className="text-[#0F2744] font-light">*</span>
               </h1>
             </div>
 
             {/* Right Column: Editorial Overview + Enclave Metrics + Pill CTA Button */}
-            <div className="w-full lg:max-w-xl space-y-6 lg:pb-3">
+            <div className="w-full lg:max-w-xl space-y-5 sm:space-y-6 lg:pb-3">
               {/* Editorial ROVERA Content */}
-              <p className="text-sm sm:text-base md:text-lg text-neutral-200 font-light leading-relaxed tracking-[-0.01em]">
+              <p className="text-sm sm:text-base md:text-lg text-zinc-700 font-normal leading-relaxed tracking-[-0.01em]">
                 XL villa plots across an intimate 3-acre gated community on the Devanahalli–Doddaballapura Road in North Bangalore. Designed with monumental double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
               </p>
 
               {/* Curated Enclave Metrics */}
-              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 font-mono text-xs text-neutral-300">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
-                  <span className="font-clash font-semibold text-white">3.0</span> Acres Enclave
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-xs text-zinc-700">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200/80 shadow-2xs">
+                  <span className="font-clash font-semibold text-zinc-950">3.0</span> Acres Enclave
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
-                  <span className="font-clash font-semibold text-white">24</span> Villa Plots
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200/80 shadow-2xs">
+                  <span className="font-clash font-semibold text-zinc-950">24</span> Villa Plots
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
-                  <span className="font-clash font-semibold text-white">15</span> Mins to Airport
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200/80 shadow-2xs">
+                  <span className="font-clash font-semibold text-zinc-950">15</span> Mins to Airport
                 </span>
               </div>
 
-              {/* Signature Prisma White Pill CTA Button */}
-              <div className="pt-2">
+              {/* Signature Prisma Pill CTA Button */}
+              <div className="pt-1">
                 <button
                   type="button"
                   onClick={() => openEnquiry("Hero Walkthrough")}
-                  className="group inline-flex items-center gap-4 bg-[#F5F2EB] hover:bg-white text-zinc-950 pl-6 pr-2.5 py-2.5 rounded-full font-sans text-xs sm:text-sm font-medium transition-all shadow-2xl hover:scale-102 cursor-pointer"
+                  className="group inline-flex items-center gap-3.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white pl-6 pr-2.5 py-2.5 rounded-full font-sans text-xs sm:text-sm font-medium transition-all shadow-xl hover:scale-102 cursor-pointer"
                 >
                   <span>Schedule Private Walkthrough</span>
-                  <span className="w-8 h-8 rounded-full bg-zinc-950 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                  <span className="w-8 h-8 rounded-full bg-white text-[#0F2744] flex items-center justify-center transition-transform group-hover:translate-x-0.5 shadow-sm">
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 </button>
