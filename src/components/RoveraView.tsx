@@ -26,6 +26,11 @@ import {
   Dumbbell,
   Smile,
   Waves,
+  Navigation,
+  Cpu,
+  Plane,
+  GraduationCap,
+  HeartPulse,
 } from "lucide-react";
 import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
@@ -180,6 +185,75 @@ export default function RoveraView() {
     },
   ];
 
+  const snapshotHighlights = [
+    {
+      icon: Trees,
+      label: "3.0 Acres Boutique Enclave",
+    },
+    {
+      icon: Layers,
+      label: "XL Villa Plot Configurations",
+    },
+    {
+      icon: Sparkles,
+      label: "30+ Curated Amenities",
+    },
+    {
+      icon: ShieldCheck,
+      label: "100% Underground Utilities",
+    },
+    {
+      icon: Navigation,
+      label: "40-Ft Cobblestone Boulevards",
+    },
+    {
+      icon: CheckCircle2,
+      label: "RERA Approved & Clear Title",
+    },
+  ];
+
+  const connectivityHighlights = [
+    {
+      icon: Navigation,
+      label: "5 Mins to STRR Expressway",
+    },
+    {
+      icon: Cpu,
+      label: "12 Mins to Foxconn & ITIR",
+    },
+    {
+      icon: Building2,
+      label: "14 Mins to KIADB Aerospace",
+    },
+    {
+      icon: Plane,
+      label: "15 Mins to BLR Airport T2",
+    },
+    {
+      icon: GraduationCap,
+      label: "18 Mins to World Schools",
+    },
+    {
+      icon: HeartPulse,
+      label: "10 Mins to Manipal Hospital",
+    },
+  ];
+
+  const entranceHighlights = [
+    {
+      icon: Maximize2,
+      label: "8-Meter Monumental Height",
+    },
+    {
+      icon: ShieldCheck,
+      label: "Dual-Lane Access Control",
+    },
+    {
+      icon: Sparkles,
+      label: "Architectural Twilight Uplighting",
+    },
+  ];
+
   const faqs = [
     {
       question: "What is the statutory approval and RERA registration status of ROVERA?",
@@ -322,7 +396,28 @@ export default function RoveraView() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Mobile & Tablet Compact 2-Column Grid (< lg) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:hidden">
+            {snapshotHighlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="bg-[#fafaf8] border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                    <Icon className="w-5 h-5 stroke-[1.8]" />
+                  </div>
+                  <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
+                    {item.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop Detailed 3-Column Grid (>= lg) */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-5">
             <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
               <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Scale &amp; Setting</span>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
@@ -427,7 +522,28 @@ export default function RoveraView() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Mobile & Tablet Compact Grid (< lg) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:hidden">
+            {entranceHighlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[120px] sm:min-h-[145px]"
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                    <Icon className="w-5 h-5 stroke-[1.8]" />
+                  </div>
+                  <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
+                    {item.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop Detailed 3-Column Grid (>= lg) */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-6">
             <div className="p-7 bg-white border border-zinc-200 rounded-xl space-y-3 shadow-2xs">
               <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
                 <Maximize2 className="w-5 h-5" />
@@ -483,7 +599,28 @@ export default function RoveraView() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Mobile & Tablet Compact 2-Column Grid (< lg) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:hidden">
+            {connectivityHighlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="bg-[#fafaf8] border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                    <Icon className="w-5 h-5 stroke-[1.8]" />
+                  </div>
+                  <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
+                    {item.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop Detailed 3-Column Grid (>= lg) */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-5">
             <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
               <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">01 • INFRASTRUCTURE</span>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -854,7 +991,28 @@ export default function RoveraView() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+          {/* Mobile & Tablet Compact 2-Column Grid (< lg) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 lg:hidden">
+            {connectivityHighlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                    <Icon className="w-5 h-5 stroke-[1.8]" />
+                  </div>
+                  <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
+                    {item.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop Detailed 3-Column Grid (>= lg) */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-5 mb-10">
             {connectivityList.map((item) => (
               <div
                 key={item.destination}
