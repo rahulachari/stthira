@@ -523,31 +523,33 @@ export function AnimatedFooter({
       )}
 
       {/* Display headings along the bottom edge with character-by-character mask reveal */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-center gap-4 sm:gap-8 px-4 py-6 sm:p-8 z-10">
-        {headingLines.map((word, wi) => (
-          <h2
-            key={`${word}-${wi}`}
-            aria-label={word}
-            className="overflow-hidden font-componentry font-medium leading-none tracking-tight pb-[0.15em] -mb-[0.15em]"
-            style={{
-              fontSize: "clamp(2.5rem, 12cqw, 9.5rem)",
-              color: textColor || "inherit",
-              opacity: 0.85,
-            }}
-          >
-            {Array.from(word).map((ch, ci) => (
-              <span
-                key={ci}
-                data-af-char
-                aria-hidden="true"
-                className="inline-block"
-              >
-                {ch === " " ? "\u00A0" : ch}
-              </span>
-            ))}
-          </h2>
-        ))}
-      </div>
+      {headingLines && headingLines.length > 0 && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-center gap-4 sm:gap-8 px-4 py-6 sm:p-8 z-10">
+          {headingLines.map((word, wi) => (
+            <h2
+              key={`${word}-${wi}`}
+              aria-label={word}
+              className="overflow-hidden font-componentry font-medium leading-none tracking-tight pb-[0.15em] -mb-[0.15em]"
+              style={{
+                fontSize: "clamp(2.5rem, 12cqw, 9.5rem)",
+                color: textColor || "inherit",
+                opacity: 0.85,
+              }}
+            >
+              {Array.from(word).map((ch, ci) => (
+                <span
+                  key={ci}
+                  data-af-char
+                  aria-hidden="true"
+                  className="inline-block"
+                >
+                  {ch === " " ? "\u00A0" : ch}
+                </span>
+              ))}
+            </h2>
+          ))}
+        </div>
+      )}
     </footer>
   );
 }

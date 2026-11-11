@@ -42,7 +42,6 @@ export default function Header() {
   // On Global: Essential corporate links (About, Developments, Gallery, Contact)
   const roveraNavLinks = [
     { name: "Amenities", href: "/developments/rovera#amenities" },
-    { name: "Plot Matrix", href: "/developments/rovera#planning" },
     { name: "Master Plan", href: "/developments/rovera#master-plan" },
     { name: "Location", href: "/developments/rovera#location" },
     {

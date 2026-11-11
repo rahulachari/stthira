@@ -682,96 +682,6 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 10. SECTION: PLOT PLANNING & MATRIX (#planning / #plots) */}
-      <section id="planning" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-4">
-            <div>
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
-                Planning
-              </p>
-              <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-                Premium Plots with Purposeful Planning
-              </h2>
-            </div>
-            <button
-              type="button"
-              onClick={() => openEnquiry("Complete Plot Matrix & Pricing Dossier")}
-              className="inline-flex items-center gap-2 bg-[#0F2744] hover:bg-[#1E3A8A] text-white px-6 py-3 text-xs uppercase tracking-[0.16em] font-medium transition-colors self-start sm:self-auto cursor-pointer rounded-full shadow-2xs"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download Cost Sheet</span>
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {plotConfigurations.map((plot, idx) => (
-              <div
-                key={plot.id}
-                className="bg-white border border-zinc-200 hover:border-[#1E3A8A] rounded-2xl p-7 flex flex-col justify-between transition-all group shadow-2xs hover:shadow-lg"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4 border-b border-zinc-100 pb-3">
-                    <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold">
-                      {plot.badge}
-                    </span>
-                    <span className="font-clash text-2xl font-semibold text-zinc-400">
-                      0{idx + 1}
-                    </span>
-                  </div>
-
-                  <div className="flex items-baseline justify-between gap-2 mb-2">
-                    <h3 className="font-componentry text-2xl font-medium tracking-[-0.03em] text-zinc-950">
-                      {plot.name}
-                    </h3>
-                    <span className="font-mono text-xs font-semibold text-[#1E3A8A]">
-                      {plot.indicativePrice}
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 my-4 p-4 bg-[#fafaf8] border border-zinc-200 rounded-xl">
-                    <div>
-                      <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-500 block">
-                        Dimensions
-                      </span>
-                      <span className="font-clash text-xl font-semibold text-zinc-900">
-                        {plot.dimension}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-500 block">
-                        Parcel Area
-                      </span>
-                      <span className="font-clash text-xl font-semibold text-zinc-900">
-                        {plot.areaSqFt}
-                      </span>
-                    </div>
-                  </div>
-
-                  <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed mb-4">
-                    {plot.idealFor}
-                  </p>
-
-                  <div className="text-[11px] font-mono text-zinc-500 flex items-center gap-2 mb-6">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A8A]" />
-                    <span>{plot.coverage} • {plot.facing}</span>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => openEnquiry(plot.name)}
-                  className="w-full inline-flex items-center justify-center gap-2 border border-zinc-200 hover:border-[#1E3A8A] bg-white hover:bg-blue-50/50 text-zinc-900 py-3 px-4 text-xs uppercase tracking-[0.16em] font-medium transition-colors cursor-pointer rounded-full shadow-2xs font-mono"
-                >
-                  <span>Enquire for {plot.name}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 11. SECTION: MASTER PLAN (#master-plan) */}
       <section id="master-plan" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
@@ -1201,26 +1111,20 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 19. SECTION: RESERVE YOUR PLOT & ENQUIRY FORM (#reserve) */}
+      {/* 19. SECTION: ENQUIRY FORM (#reserve) */}
       <section id="reserve" className="scroll-mt-24">
         <AnimatedFooter
-          headingLines={["ROVERA"]}
+          headingLines={[]}
           background="#ffffff"
           textColor="#0f172a"
           charColor="#3B82F6"
           hoverColor="#1E3A8A"
           hoverCharColor="#ffffff"
-          className="pt-16 sm:pt-24 lg:pt-28 pb-32 sm:pb-44 lg:pb-52 border-t border-zinc-200 bg-white"
+          className="pt-16 sm:pt-24 lg:pt-28 pb-16 sm:pb-24 lg:pb-28 border-t border-zinc-200 bg-white"
         >
           <div className="max-w-5xl mx-auto px-5 sm:px-8">
-            {/* Header: "Reserve Your Plot" & "Let's Connect" */}
+            {/* Header: "Let's Connect" */}
             <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 mb-3.5 shadow-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A8A] animate-pulse" />
-                <p className="font-mono text-xs font-medium uppercase tracking-widest text-[#1E3A8A]">
-                  Reserve Your Plot
-                </p>
-              </div>
               <h2 className="font-componentry text-balance text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[-0.04em] text-zinc-950 leading-[1.06]">
                 Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
               </h2>
