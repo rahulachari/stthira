@@ -257,13 +257,13 @@ export default function RoveraView() {
           {/* Full-bleed Landscape Hero Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
-              src="/images/horizontal.png"
+              src="/images/horizontal-clean.png"
               alt="ROVERA — Quiet Luxury Plotted Living"
               fill
               priority
               quality={95}
               sizes="100vw"
-              className="w-full h-full object-cover object-right lg:object-[86%_center]"
+              className="w-full h-full object-cover object-[65%_center] lg:object-[72%_center]"
             />
             {/* Subtle left-side white gradient ensuring text has 100% crystal contrast */}
             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 via-45% to-transparent w-full md:w-3/5 lg:w-1/2 pointer-events-none" />
@@ -349,7 +349,7 @@ export default function RoveraView() {
           {/* Center: Roaring Cheetah Hero Showcase (Vertical Ratio 1086x1448, 100% visible, un-cropped) */}
           <div className="relative w-full aspect-[3/4] max-h-[44vh] my-auto py-1">
             <Image
-              src="/images/vertical.png"
+              src="/images/vertical-clean.png"
               alt="ROVERA — Quiet Luxury Plotted Living"
               fill
               priority
