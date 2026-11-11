@@ -247,148 +247,66 @@ export default function RoveraView() {
 
   return (
     <div className="bg-white text-zinc-950 font-sans selection:bg-[#0F2744] selection:text-white">
-      {/* 01. PRISMA-STYLE MONUMENTAL HERO SECTION (Adaptive Laptop & Mobile) */}
+      {/* 01. MONUMENTAL HERO SECTION (Adaptive Laptop & Mobile) */}
       <section className="relative w-full bg-white text-zinc-950 border-b border-zinc-200">
         
         {/* =========================================
             A. DESKTOP / LAPTOP / IPAD HERO (>= 768px)
             ========================================= */}
-        <div className="hidden md:flex relative min-h-[92vh] sm:min-h-screen w-full flex-col justify-end overflow-hidden">
+        <div className="hidden md:flex relative min-h-[92vh] sm:min-h-screen w-full flex-col justify-center items-center overflow-hidden bg-white">
           {/* Full-bleed Landscape Hero Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
               src="/images/horizontal-clean.png"
-              alt="ROVERA — Quiet Luxury Plotted Living"
+              alt="ROVERA — Where Legacy Finds Its Land"
               fill
               priority
               quality={95}
               sizes="100vw"
-              className="w-full h-full object-cover object-[65%_center] lg:object-[72%_center]"
+              className="w-full h-full object-cover object-center"
             />
-            {/* Subtle left-side white gradient ensuring text has 100% crystal contrast */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 via-45% to-transparent w-full md:w-3/5 lg:w-1/2 pointer-events-none" />
             {/* Subtle top shade so the fixed header links remain clear */}
-            <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/45 via-black/20 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/40 via-black/15 to-transparent pointer-events-none" />
           </div>
 
-          {/* Desktop Bottom Split Content: Monumental Title on Left, Editorial + Pill CTA on Right */}
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-12 sm:pb-16 pt-32">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-14">
-              {/* Left Column: Monumental Brand Title (Prisma style) */}
-              <div className="flex-1 select-none">
-                {/* Eyebrow */}
-                <div className="inline-flex items-center gap-2 mb-3 sm:mb-4">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A8A] animate-pulse" />
-                  <span className="font-mono text-xs sm:text-sm uppercase tracking-[0.22em] text-[#1E3A8A] font-semibold">
-                    Crafted for Quiet Luxury
-                  </span>
-                </div>
-
-                {/* Monumental Rovera* Typography */}
-                <h1 className="font-componentry text-7xl md:text-9xl lg:text-[10rem] xl:text-[12rem] 2xl:text-[13.5rem] font-semibold text-zinc-950 tracking-[-0.04em] leading-[0.85]">
-                  Rovera<span className="text-[#0F2744] font-light">*</span>
-                </h1>
-              </div>
-
-              {/* Right Column: Editorial Overview + Enclave Metrics + Pill CTA Button */}
-              <div className="w-full lg:max-w-xl space-y-6 lg:pb-3">
-                <p className="text-sm sm:text-base md:text-lg text-zinc-700 font-normal leading-relaxed tracking-[-0.01em]">
-                  XL villa plots across an intimate 3-acre gated community on the Devanahalli–Doddaballapura Road in North Bangalore. Designed with monumental double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
-                </p>
-
-                {/* Curated Enclave Metrics */}
-                <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-xs text-zinc-700">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200/80 shadow-2xs">
-                    <span className="font-clash font-semibold text-zinc-950">3.0</span> Acres Enclave
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200/80 shadow-2xs">
-                    <span className="font-clash font-semibold text-zinc-950">24</span> Villa Plots
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200/80 shadow-2xs">
-                    <span className="font-clash font-semibold text-zinc-950">15</span> Mins to Airport
-                  </span>
-                </div>
-
-                {/* Signature Prisma Pill CTA Button */}
-                <div className="pt-1">
-                  <button
-                    type="button"
-                    onClick={() => openEnquiry("Hero Walkthrough")}
-                    className="group inline-flex items-center gap-3.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white pl-6 pr-2.5 py-2.5 rounded-full font-sans text-xs sm:text-sm font-medium transition-all shadow-xl hover:scale-102 cursor-pointer"
-                  >
-                    <span>Schedule Private Walkthrough</span>
-                    <span className="w-8 h-8 rounded-full bg-white text-[#0F2744] flex items-center justify-center transition-transform group-hover:translate-x-0.5 shadow-sm">
-                      <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
+          {/* Centered Brand Name & Tagline */}
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 text-center select-none flex flex-col items-center justify-center pt-24 pb-12">
+            <h1 className="font-componentry text-7xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[13.5rem] 2xl:text-[15rem] font-semibold text-zinc-950 tracking-[-0.03em] leading-[0.88] uppercase">
+              ROVERA
+            </h1>
+            <p className="mt-4 sm:mt-6 md:mt-8 font-sans text-base sm:text-xl md:text-2xl lg:text-3xl text-zinc-800 font-medium tracking-[0.06em] sm:tracking-[0.1em]">
+              Where Legacy Finds Its Land
+            </p>
           </div>
         </div>
 
         {/* =========================================
             B. MOBILE DEDICATED HERO (< 768px)
-            Clean, un-cropped vertical ratio showcase (1086x1448)
             ========================================= */}
-        <div className="flex md:hidden min-h-[100dvh] w-full flex-col justify-between pt-20 pb-8 px-5 bg-white">
-          
-          {/* Top: Brand & Eyebrow */}
-          <div className="pt-2">
-            <div className="inline-flex items-center gap-2 mb-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A8A] animate-pulse" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#1E3A8A] font-semibold">
-                Crafted for Quiet Luxury
-              </span>
-            </div>
-            <h1 className="font-componentry text-5xl sm:text-6xl font-semibold text-zinc-950 tracking-[-0.04em] leading-[0.88]">
-              Rovera<span className="text-[#0F2744] font-light">*</span>
-            </h1>
-          </div>
-
-          {/* Center: Roaring Cheetah Hero Showcase (Vertical Ratio 1086x1448, 100% visible, un-cropped) */}
-          <div className="relative w-full aspect-[3/4] max-h-[44vh] my-auto py-1">
+        <div className="flex md:hidden relative min-h-[90dvh] sm:min-h-[100dvh] w-full flex-col justify-center items-center overflow-hidden px-6 text-center bg-white">
+          {/* Vertical Hero Background (Ratio 3:4 / 896x1200) */}
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
               src="/images/vertical-clean.png"
-              alt="ROVERA — Quiet Luxury Plotted Living"
+              alt="ROVERA — Where Legacy Finds Its Land"
               fill
               priority
               quality={95}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain object-center"
+              sizes="100vw"
+              className="w-full h-full object-cover object-center"
             />
+            {/* Subtle top shade so the fixed header links remain clear */}
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/40 via-black/15 to-transparent pointer-events-none" />
           </div>
 
-          {/* Bottom: Editorial Overview + Metrics + Full Touch Pill CTA */}
-          <div className="space-y-4">
-            <p className="text-xs sm:text-sm text-zinc-700 font-normal leading-relaxed">
-              XL villa plots across an intimate 3-acre gated community on Devanahalli–Doddaballapura Road in North Bangalore. Double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
+          {/* Centered Brand Name & Tagline */}
+          <div className="relative z-10 w-full flex flex-col items-center justify-center select-none pt-24 pb-12">
+            <h1 className="font-componentry text-6xl sm:text-7xl font-semibold text-zinc-950 tracking-[-0.03em] leading-[0.9] uppercase">
+              ROVERA
+            </h1>
+            <p className="mt-3 sm:mt-4 font-sans text-sm sm:text-base text-zinc-800 font-medium tracking-[0.06em] sm:tracking-[0.08em]">
+              Where Legacy Finds Its Land
             </p>
-
-            <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-zinc-700">
-              <span className="px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200/80">
-                <span className="font-clash font-semibold text-zinc-950">3.0</span> Acres Enclave
-              </span>
-              <span className="px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200/80">
-                <span className="font-clash font-semibold text-zinc-950">24</span> Villa Plots
-              </span>
-              <span className="px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200/80">
-                <span className="font-clash font-semibold text-zinc-950">15</span> Mins to Airport
-              </span>
-            </div>
-
-            <div className="pt-1">
-              <button
-                type="button"
-                onClick={() => openEnquiry("Mobile Hero Walkthrough")}
-                className="w-full group inline-flex items-center justify-between bg-[#0F2744] hover:bg-[#1E3A8A] text-white pl-5 pr-2 py-2 rounded-full font-sans text-xs font-medium transition-all shadow-xl cursor-pointer"
-              >
-                <span>Schedule Private Walkthrough</span>
-                <span className="w-8 h-8 rounded-full bg-white text-[#0F2744] flex items-center justify-center transition-transform group-hover:translate-x-0.5 shadow-sm">
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </button>
-            </div>
           </div>
         </div>
 
