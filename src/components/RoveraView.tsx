@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   MapPin,
@@ -33,6 +33,8 @@ import RoveraMasterPlan from "@/components/RoveraMasterPlan";
 import AnimatedFooter from "@/components/ui/animated-footer";
 
 export default function RoveraView() {
+  const [pageLoading, setPageLoading] = useState(true);
+  const [loadingFading, setLoadingFading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState<string>("ROVERA — Phase 1 Villa Plot");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
@@ -42,6 +44,19 @@ export default function RoveraView() {
   const [formConfig, setFormConfig] = useState("Courtyard Villa Parcel (1,500 Sq.Ft)");
   const [formLoading, setFormLoading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  useEffect(() => {
+    // 1.8s hold allows the 1.62s GIF cycle to complete seamlessly
+    const fadeTimer = setTimeout(() => {
+      setLoadingFading(true);
+      const doneTimer = setTimeout(() => {
+        setPageLoading(false);
+      }, 700);
+      return () => clearTimeout(doneTimer);
+    }, 1800);
+
+    return () => clearTimeout(fadeTimer);
+  }, []);
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,53 +89,6 @@ export default function RoveraView() {
     setSelectedPlot(plotName ? `ROVERA — ${plotName}` : "ROVERA (Devanahalli–Doddaballapura Road)");
     setModalOpen(true);
   };
-
-  const plotConfigurations = [
-    {
-      id: "exec",
-      name: "Courtyard Villa Parcel",
-      dimension: "30' × 50'",
-      areaSqFt: "1,500 Sq.Ft",
-      facing: "East & North Facing",
-      idealFor: "Contemporary 3–4 BHK courtyard residences with private light wells and plunge garden.",
-      badge: "6 Exclusive Parcels",
-      coverage: "Ground + 2 Floors Permitted",
-      indicativePrice: "₹85 Lakhs*",
-    },
-    {
-      id: "sign",
-      name: "Signature Sanctuary Plot",
-      dimension: "40' × 60'",
-      areaSqFt: "2,400 Sq.Ft",
-      facing: "Boulevard & Park Fronting",
-      idealFor: "Expansive 4–5 BHK luxury estates with double-height living salons, infinity plunge pools, and 2-car porticos.",
-      badge: "12 Premier Parcels",
-      coverage: "Ground + 2 Floors + Terrace Lounge",
-      indicativePrice: "₹1.35 Cr*",
-    },
-    {
-      id: "grand",
-      name: "Grand Estate Parcel",
-      dimension: "50' × 70'",
-      areaSqFt: "3,500 Sq.Ft",
-      facing: "Central Park Facing",
-      idealFor: "Grand architectural villas with landscaped setbacks, private swimming pavilion, and staff quarters.",
-      badge: "4 Limited Parcels",
-      coverage: "Sprawling Multi-Level Mansion",
-      indicativePrice: "₹1.98 Cr*",
-    },
-    {
-      id: "sov",
-      name: "Bespoke Corner Estate",
-      dimension: "Custom Dimension",
-      areaSqFt: "4,200 – 4,800 Sq.Ft",
-      facing: "Dual-Road Panoramic Frontage",
-      idealFor: "Flagship intergenerational trophy residences with uninterrupted private driveway and expansive lawn.",
-      badge: "2 Trophy Parcels",
-      coverage: "Signature Sovereign Villa",
-      indicativePrice: "Price on Request",
-    },
-  ];
 
   const amenities = [
     {
@@ -247,6 +215,33 @@ export default function RoveraView() {
 
   return (
     <div className="bg-white text-zinc-950 font-sans selection:bg-[#0F2744] selection:text-white">
+      {/* 00. ROVERA LOADING PAGE OVERLAY */}
+      {pageLoading && (
+        <div
+          role="status"
+          aria-label="Loading ROVERA"
+          onClick={() => {
+            setLoadingFading(true);
+            setTimeout(() => setPageLoading(false), 250);
+          }}
+          className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-white cursor-pointer select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            loadingFading
+              ? "opacity-0 pointer-events-none scale-105 filter blur-[2px]"
+              : "opacity-100 scale-100 filter blur-0"
+          }`}
+        >
+          <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] max-w-[85vw] aspect-[551/308]">
+            <Image
+              src="/images/rovera-loading.gif"
+              alt="ROVERA Loading"
+              fill
+              priority
+              unoptimized
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
       {/* 01. MONUMENTAL HERO SECTION (Adaptive Laptop & Mobile) */}
       <section className="relative w-full bg-white text-zinc-950 border-b border-zinc-200">
         
