@@ -237,57 +237,35 @@ export default function RoveraView() {
 
         {/* Hero Overlay Content — Monumental High-End Luxury Layout */}
         <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 text-center flex flex-col items-center justify-center">
-          {/* Deep Royal Navy Architectural Badge */}
-          <div className="inline-flex items-center gap-2.5 border border-blue-400/30 bg-[#0A1628]/85 backdrop-blur-md px-5 py-2 mb-6 sm:mb-8 rounded-full shadow-lg">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.22em] text-blue-200 font-medium">
-              3 Acres Boutique Sanctuary • North Bangalore
-            </span>
-          </div>
-
           {/* Official ROVERA Brand Wordmark (Razor-sharp in crisp white) */}
-          <div className="relative h-12 sm:h-16 md:h-20 aspect-[3.4/1] mb-6 sm:mb-7 select-none shrink-0 drop-shadow-md">
+          <div className="relative h-14 sm:h-20 md:h-24 aspect-[3.4/1] mb-6 sm:mb-8 select-none shrink-0 drop-shadow-md">
             <Image
               src="/images/rovera-logo-dark.png"
               alt="ROVERA"
               fill
               priority
-              sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 420px"
+              sizes="(max-width: 640px) 260px, (max-width: 768px) 360px, 460px"
               className="object-contain object-center brightness-0 invert"
             />
           </div>
 
           {/* Monumental Headline in Componentry Geist */}
-          <h1 className="font-componentry text-balance text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.98] tracking-[-0.05em] text-white max-w-4xl mb-4 sm:mb-6 uppercase">
+          <h1 className="font-componentry text-balance text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.98] tracking-[-0.05em] text-white max-w-4xl mb-12 sm:mb-16 uppercase">
             Crafted for Quiet Luxury
           </h1>
 
-          {/* High-End Sub-headline / Tagline */}
-          <p className="font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.24em] text-blue-200 font-medium mb-5 sm:mb-6">
-            XL Villa Plots on Devanahalli–Doddaballapura Road
-          </p>
-
-          {/* Editorial Description */}
-          <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-neutral-200 font-light leading-relaxed mb-10 sm:mb-14 px-2 tracking-[-0.01em]">
-            An intimate 3-acre gated enclave in North Bangalore designed for quiet luxury. Double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
-          </p>
-
-          {/* Architectural Minimalist Metrics Bar (Preserved Clash Display numbers) */}
-          <div className="w-full max-w-4xl border-t border-white/20 pt-8 sm:pt-10">
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/15 text-center">
-              <div className="py-3 sm:py-0 sm:px-4">
+          {/* Architectural Minimalist Metrics Bar (3 Curated Highlights) */}
+          <div className="w-full max-w-3xl border-t border-white/20 pt-8 sm:pt-10">
+            <div className="grid grid-cols-3 divide-x divide-white/15 text-center">
+              <div className="py-2 sm:py-0 px-2 sm:px-4">
                 <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">3.0</span>
                 <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Acres Enclave</span>
               </div>
-              <div className="py-3 sm:py-0 sm:px-4">
+              <div className="py-2 sm:py-0 px-2 sm:px-4">
                 <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">24</span>
                 <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Villa Plots</span>
               </div>
-              <div className="py-3 sm:py-0 sm:px-4">
-                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">8M</span>
-                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Double Height Gate</span>
-              </div>
-              <div className="py-3 sm:py-0 sm:px-4">
+              <div className="py-2 sm:py-0 px-2 sm:px-4">
                 <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">15</span>
                 <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Mins to BLR Airport</span>
               </div>
@@ -295,33 +273,6 @@ export default function RoveraView() {
           </div>
         </div>
       </section>
-
-      {/* 02. STICKY ENCLAVE NAVIGATION BAR */}
-      <nav aria-label="Rovera Navigation" className="sticky top-[58px] sm:top-[72px] z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 py-3 px-5 overflow-x-auto scrollbar-none shadow-2xs">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-6 text-[11px] uppercase tracking-[0.16em] text-zinc-600 whitespace-nowrap font-medium">
-          <div className="flex items-center gap-6 sm:gap-7">
-            <a href="#snapshot" className="hover:text-[#1E3A8A] transition-colors">Snapshot</a>
-            <a href="#difference" className="hover:text-[#1E3A8A] transition-colors">Difference</a>
-            <a href="#gates" className="hover:text-[#1E3A8A] transition-colors">Grand Gates</a>
-            <a href="#cheetah-totem" className="hover:text-[#1E3A8A] transition-colors">Cheetah Totem</a>
-            <a href="#why-rovera" className="hover:text-[#1E3A8A] transition-colors">Why North BLR</a>
-            <a href="#amenities" className="hover:text-[#1E3A8A] transition-colors">Amenities</a>
-            <a href="#planning" className="hover:text-[#1E3A8A] transition-colors">Plot Matrix</a>
-            <a href="#master-plan" className="hover:text-[#1E3A8A] transition-colors">Master Plan</a>
-            <a href="#location" className="hover:text-[#1E3A8A] transition-colors">Location</a>
-            <a href="#pricing" className="hover:text-[#1E3A8A] transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-[#1E3A8A] transition-colors">FAQ</a>
-          </div>
-          <button
-            type="button"
-            onClick={() => openEnquiry()}
-            className="text-[#0F2744] hover:text-[#1E3A8A] transition-colors flex items-center gap-1.5 shrink-0 font-semibold"
-          >
-            <span>Enquire</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </nav>
 
       {/* 03. SECTION: PROJECT SNAPSHOT (#snapshot) */}
       <section id="snapshot" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
