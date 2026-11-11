@@ -70,24 +70,35 @@ export default function RoveraView() {
     e.preventDefault();
     if (!formPhone.trim()) return;
     setFormLoading(true);
+
+    const clientName = formName.trim() || "Prospective Buyer";
+    const clientPhone = formPhone.trim();
+    const clientEmail = formEmail.trim();
+    const clientConfig = formConfig;
+
+    const whatsappMsg = `Hello STTHIRA, I am interested in ROVERA (North Bengaluru).\nName: ${clientName}\nPhone: ${clientPhone}${clientEmail ? `\nEmail: ${clientEmail}` : ""}\nConfiguration: ${clientConfig}`;
+    const whatsappUrl = `https://wa.me/917013485016?text=${encodeURIComponent(whatsappMsg)}`;
+
     try {
       await fetch("/api/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName: formName.trim() || "Prospective Buyer",
-          phone: formPhone.trim(),
-          email: formEmail.trim() || undefined,
-          interestedDevelopment: `ROVERA — ${formConfig}`,
+          fullName: clientName,
+          phone: clientPhone,
+          email: clientEmail || undefined,
+          interestedDevelopment: `ROVERA — ${clientConfig}`,
           privacyConsent: true,
         }),
       });
       setFormSubmitted(true);
+      window.open(whatsappUrl, "_blank");
       setFormName("");
       setFormPhone("");
       setFormEmail("");
     } catch {
       setFormSubmitted(true);
+      window.open(whatsappUrl, "_blank");
     } finally {
       setFormLoading(false);
     }
@@ -1448,15 +1459,6 @@ export default function RoveraView() {
               <p className="text-zinc-600 text-sm sm:text-base mt-3 font-normal leading-relaxed max-w-lg mx-auto">
                 Receive the official brochure, master plan layout, unit pricing dossier, and a private chauffeured site visit invitation.
               </p>
-              <div className="mt-4 flex items-center justify-center gap-3">
-                <a
-                  href="tel:+917013485016"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#fbf4f0] border border-[#f0ded4] text-[#9c4c2d] hover:bg-[#f6eae2] font-mono text-xs font-semibold uppercase tracking-wider transition-all shadow-xs"
-                >
-                  <Phone className="w-3.5 h-3.5" />
-                  <span>Direct Concierge: +91 70134 85016</span>
-                </a>
-              </div>
             </div>
 
             {/* Centered Luxury Enquiry Card with Translucent Glassmorphic Background */}
@@ -1492,7 +1494,7 @@ export default function RoveraView() {
                         name="phone"
                         value={formPhone}
                         onChange={(e) => setFormPhone(e.target.value)}
-                        placeholder="e.g. 7013485016"
+                        placeholder="Enter your phone number"
                         className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
                       />
                     </div>

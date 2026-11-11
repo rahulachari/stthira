@@ -24,6 +24,7 @@ export default function EnquiryModal({
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [whatsappUrl, setWhatsappUrl] = useState("");
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -78,6 +79,10 @@ export default function EnquiryModal({
       const data = await res.json();
       if (res.ok && data.success) {
         setStatus("success");
+        const msg = `Hello STTHIRA, I would like to enquire about ${activeProject}.\nName: ${name || "Prospective Buyer"}\nPhone: ${contactNo}${email ? `\nEmail: ${email}` : ""}`;
+        const waLink = `https://wa.me/917013485016?text=${encodeURIComponent(msg)}`;
+        setWhatsappUrl(waLink);
+        window.open(waLink, "_blank");
       } else {
         setStatus("error");
         setErrorMsg(data.error || "Submission could not be completed. Please try again.");
@@ -115,16 +120,26 @@ export default function EnquiryModal({
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h3 className="text-xl font-bold text-neutral-900">
-              Request Submitted
+              Redirecting to WhatsApp...
             </h3>
             <p className="text-sm text-neutral-600 leading-relaxed max-w-xs mx-auto">
-              Thank you for your interest in {activeProject}. Our senior relationship director will contact you shortly.
+              Thank you for your enquiry. We are opening WhatsApp to connect directly with our relationship desk.
             </p>
-            <div className="pt-2">
+            <div className="pt-3 space-y-2">
+              {whatsappUrl && (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-[#1E3A8A] text-white py-3 px-4 text-xs uppercase tracking-widest font-semibold hover:bg-[#0F2744] transition-colors rounded block text-center shadow-sm"
+                >
+                  Continue to WhatsApp &rarr;
+                </a>
+              )}
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full bg-black text-white py-3 text-xs uppercase tracking-widest font-semibold hover:bg-neutral-800 transition-colors rounded cursor-pointer"
+                className="w-full bg-neutral-100 text-neutral-700 py-2.5 text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-colors rounded cursor-pointer"
               >
                 Close
               </button>
@@ -133,23 +148,13 @@ export default function EnquiryModal({
         ) : (
           <div>
             {/* Header */}
-            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <div>
-                <h3 className="text-2xl font-semibold text-neutral-900 tracking-tight">
-                  Enquire Now
-                </h3>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Direct advisory for {activeProject}
-                </p>
-              </div>
-              <a
-                href="tel:+917013485016"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1E3A8A] text-xs font-mono font-medium hover:bg-blue-100 transition-colors self-start sm:self-auto"
-                title="Call Concierge Directly"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                <span>+91 70134 85016</span>
-              </a>
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold text-neutral-900 tracking-tight">
+                Enquire Now
+              </h3>
+              <p className="text-xs text-neutral-500 mt-1">
+                Direct advisory for {activeProject}
+              </p>
             </div>
 
             {errorMsg && (

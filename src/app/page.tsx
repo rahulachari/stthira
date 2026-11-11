@@ -50,7 +50,7 @@ export default function HomePage() {
     {
       id: "buying-1",
       q: "How can I schedule a private site walkthrough?",
-      a: "You can click 'Enquire Now' or call our direct concierge at +91 70134 85016. Our relationship directors arrange private, chauffeured site visits and one-on-one legal title walkthroughs.",
+      a: "You can click 'Enquire Now' or connect directly on WhatsApp with our concierge desk. Our relationship directors arrange private, chauffeured site visits and one-on-one legal title walkthroughs.",
     },
   ];
 
@@ -501,10 +501,12 @@ export default function HomePage() {
                   Direct Concierge
                 </span>
                 <a
-                  href="tel:+917013485016"
-                  className="text-base font-semibold text-black hover:underline"
+                  href="https://wa.me/917013485016"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base font-semibold text-black hover:underline inline-flex items-center gap-1.5"
                 >
-                  +91 70134 85016
+                  Connect on WhatsApp &rarr;
                 </a>
               </div>
             </div>

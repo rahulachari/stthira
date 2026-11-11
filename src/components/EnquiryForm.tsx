@@ -59,6 +59,9 @@ export default function EnquiryForm({
       const data = await res.json();
       if (res.ok && data.success) {
         setStatus("success");
+        const msg = `Hello STTHIRA, I would like to enquire about ${defaultDevelopment || "STTHIRA Developments"}.\nName: ${name || "Prospective Buyer"}\nPhone: ${phone.trim()}${email.trim() ? `\nEmail: ${email.trim()}` : ""}`;
+        const waLink = `https://wa.me/917013485016?text=${encodeURIComponent(msg)}`;
+        window.open(waLink, "_blank");
         if (onSuccess) onSuccess();
       } else {
         setStatus("error");
