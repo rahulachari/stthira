@@ -1459,15 +1459,15 @@ export default function RoveraView() {
               </div>
             </div>
 
-            {/* Centered Luxury Enquiry Card */}
+            {/* Centered Luxury Enquiry Card with Translucent Glassmorphic Background */}
             <div className="max-w-xl mx-auto">
-              <div className="bg-white border border-zinc-200/90 rounded-3xl p-6 sm:p-9 shadow-xl">
+              <div className="bg-white/45 sm:bg-white/35 backdrop-blur-md border border-white/80 shadow-2xl rounded-3xl p-6 sm:p-9 ring-1 ring-black/5">
                 <form
                   onSubmit={handleLeadSubmit}
                   className="space-y-4"
                 >
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                    <label className="block text-xs font-mono uppercase tracking-wide text-zinc-800 mb-1.5 font-semibold">
                       Full Name *
                     </label>
                     <input
@@ -1477,13 +1477,13 @@ export default function RoveraView() {
                       value={formName}
                       onChange={(e) => setFormName(e.target.value)}
                       placeholder="Enter your name"
-                      className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                      className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                      <label className="block text-xs font-mono uppercase tracking-wide text-zinc-800 mb-1.5 font-semibold">
                         Phone Number *
                       </label>
                       <input
@@ -1493,12 +1493,12 @@ export default function RoveraView() {
                         value={formPhone}
                         onChange={(e) => setFormPhone(e.target.value)}
                         placeholder="e.g. 7013485016"
-                        className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                        className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                      <label className="block text-xs font-mono uppercase tracking-wide text-zinc-800 mb-1.5 font-semibold">
                         Email Address *
                       </label>
                       <input
@@ -1508,19 +1508,19 @@ export default function RoveraView() {
                         value={formEmail}
                         onChange={(e) => setFormEmail(e.target.value)}
                         placeholder="name@example.com"
-                        className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                        className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5 font-medium">
+                    <label className="block text-xs font-mono uppercase tracking-wide text-zinc-800 mb-1.5 font-semibold">
                       Preferred Parcel Configuration
                     </label>
                     <select
                       value={formConfig}
                       onChange={(e) => setFormConfig(e.target.value)}
-                      className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
+                      className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
                     >
                       <option value="Courtyard Villa Parcel (1,500 Sq.Ft)">Courtyard Villa Parcel (1,500 Sq.Ft)</option>
                       <option value="Signature Sanctuary Plot (2,400 Sq.Ft)">Signature Sanctuary Plot (2,400 Sq.Ft)</option>
@@ -1553,7 +1553,7 @@ export default function RoveraView() {
                   )}
 
                   {/* Exact user notice from reference image */}
-                  <p className="text-[11px] text-zinc-500 text-center tracking-wide pt-1 font-mono">
+                  <p className="text-[11px] text-zinc-600 text-center tracking-wide pt-1 font-mono">
                     By submitting, you agree to be contacted by our team regarding ROVERA.
                   </p>
                 </form>

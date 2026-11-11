@@ -363,16 +363,31 @@ export function AnimatedFooter({
       }
     };
 
-    const onPointerMove = (event: MouseEvent | PointerEvent) => {
+    const onPointerMove = (event: MouseEvent | PointerEvent | TouchEvent) => {
+      let clientX = 0;
+      let clientY = 0;
+      if ("touches" in event && (event as TouchEvent).touches && (event as TouchEvent).touches.length > 0) {
+        clientX = (event as TouchEvent).touches[0].clientX;
+        clientY = (event as TouchEvent).touches[0].clientY;
+      } else if ("clientX" in event) {
+        clientX = (event as MouseEvent).clientX;
+        clientY = (event as MouseEvent).clientY;
+      } else {
+        return;
+      }
+
       const strength = liveRef.current.parallaxStrength;
       const rect = root.getBoundingClientRect();
       const w = rect.width || 1;
       const h = rect.height || 1;
-      pointer.x = ((event.clientX - rect.left) / w - 0.5) * strength * 2;
-      pointer.y = ((event.clientY - rect.top) / h - 0.5) * strength * 2;
-      for (const hand of hands) hoverHand(hand, event.clientX, event.clientY);
+      pointer.x = ((clientX - rect.left) / w - 0.5) * strength * 2;
+      pointer.y = ((clientY - rect.top) / h - 0.5) * strength * 2;
+      for (const hand of hands) hoverHand(hand, clientX, clientY);
     };
-    window.addEventListener("pointermove", onPointerMove as EventListener);
+
+    window.addEventListener("pointermove", onPointerMove as EventListener, { passive: true });
+    window.addEventListener("touchmove", onPointerMove as EventListener, { passive: true });
+    window.addEventListener("touchstart", onPointerMove as EventListener, { passive: true });
 
     // ── Unified render loop: ASCII + parallax + reveal curtain ───────────
     let rafId = 0;
@@ -467,6 +482,8 @@ export function AnimatedFooter({
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("pointermove", onPointerMove as EventListener);
+      window.removeEventListener("touchmove", onPointerMove as EventListener);
+      window.removeEventListener("touchstart", onPointerMove as EventListener);
       observer?.disconnect();
       gsap.killTweensOf([curtain, ...chars]);
     };
@@ -498,17 +515,17 @@ export function AnimatedFooter({
       }}
     >
       {/* ASCII hands - live interactive canvas framing left & right */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-between overflow-hidden opacity-40 sm:opacity-75 lg:opacity-90">
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-between overflow-hidden opacity-60 sm:opacity-85 lg:opacity-95">
         <div
           ref={leftWrapRef}
-          className="relative w-2/5 max-w-[420px] min-w-[160px] will-change-transform"
+          className="relative w-1/2 sm:w-[48%] max-w-[580px] min-w-[200px] will-change-transform"
           style={{ transform: `translateX(-${offEdge}%)` }}
         >
           <canvas ref={leftCanvasRef} className="block h-auto w-full" />
         </div>
         <div
           ref={rightWrapRef}
-          className="relative w-2/5 max-w-[420px] min-w-[160px] will-change-transform"
+          className="relative w-1/2 sm:w-[48%] max-w-[580px] min-w-[200px] will-change-transform"
           style={{ transform: `translateX(${offEdge}%)` }}
         >
           <canvas ref={rightCanvasRef} className="block h-auto w-full" />
