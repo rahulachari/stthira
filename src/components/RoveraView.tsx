@@ -31,6 +31,7 @@ import {
 import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import RoveraMasterPlan from "@/components/RoveraMasterPlan";
+import AnimatedFooter from "@/components/ui/animated-footer";
 
 export default function RoveraView() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -1412,62 +1413,36 @@ export default function RoveraView() {
       </section>
 
       {/* 19. SECTION: RESERVE YOUR PLOT & ENQUIRY FORM (#reserve) */}
-      <section id="reserve" className="py-16 sm:py-24 lg:py-28 bg-[#fafaf8] border-t border-zinc-200 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left Column: Roaring Cheetah Image (Facing towards the form) */}
-            <div className="lg:col-span-5 order-1 flex flex-col justify-center">
-              <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] w-full rounded-3xl overflow-hidden shadow-xl border border-zinc-200 bg-[#ebebeb] group">
-                <Image
-                  src="/images/rovera-lets-connect.jpg"
-                  alt="ROVERA — Quiet Luxury Plotted Community"
-                  fill
-                  quality={95}
-                  sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center lg:object-left group-hover:scale-102 transition-transform duration-700"
-                />
-
-                {/* Subtle Luxury Gradient Overlay at the base */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-
-                {/* Floating Enclave Badge at Bottom of Image */}
-                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-lg">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-[#1E3A8A] font-semibold block">
-                        Exclusive Plotted Sanctuary
-                      </span>
-                      <h4 className="font-componentry text-base sm:text-lg font-medium text-zinc-950">
-                        ROVERA by STTHIRA
-                      </h4>
-                    </div>
-                    <span className="font-clash text-lg font-semibold text-zinc-900 bg-neutral-100 px-3 py-1 rounded-xl">
-                      24 Plots
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-zinc-600 mt-1 font-sans line-clamp-1">
-                    Devanahalli–Doddaballapura Road • 15 Mins to BLR Airport
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: "Let's Connect" Headline + Lead Form */}
-            <div className="lg:col-span-7 order-2 flex flex-col justify-center">
-              <div className="mb-6 sm:mb-8 text-left">
-                <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+      <section id="reserve" className="scroll-mt-24">
+        <AnimatedFooter
+          headingLines={["ROVERA"]}
+          background="#070D18"
+          textColor="#ffffff"
+          charColor="#1E3A8A"
+          hoverColor="#2563EB"
+          hoverCharColor="#ffffff"
+          className="pt-16 sm:pt-24 lg:pt-28 pb-32 sm:pb-44 lg:pb-52 border-t border-blue-950/40"
+        >
+          <div className="max-w-5xl mx-auto px-5 sm:px-8">
+            {/* Header: "Reserve Your Plot" & "Let's Connect" */}
+            <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                <p className="font-mono text-xs font-medium uppercase tracking-widest text-blue-300">
                   Reserve Your Plot
                 </p>
-                <h2 className="font-componentry text-balance text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-                  Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
-                </h2>
-                <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal leading-relaxed">
-                  Receive the official brochure, master plan CAD layout, unit pricing dossier, and a private chauffeured site visit invitation.
-                </p>
               </div>
+              <h2 className="font-componentry text-balance text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[-0.04em] text-white leading-[1.06]">
+                Let&apos;s <span className="text-blue-400">Connect</span>
+              </h2>
+              <p className="text-zinc-400 text-sm sm:text-base mt-3 font-normal leading-relaxed max-w-lg mx-auto">
+                Receive the official brochure, master plan CAD layout, unit pricing dossier, and a private chauffeured site visit invitation.
+              </p>
+            </div>
 
-              <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 lg:p-9 shadow-lg">
+            {/* Centered Luxury Enquiry Card */}
+            <div className="max-w-xl mx-auto">
+              <div className="bg-white/95 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-9 shadow-2xl">
                 <form
                   onSubmit={handleLeadSubmit}
                   className="space-y-4"
@@ -1565,9 +1540,8 @@ export default function RoveraView() {
                 </form>
               </div>
             </div>
-
           </div>
-        </div>
+        </AnimatedFooter>
       </section>
 
       {/* Global Quick Enquiry Modal */}
