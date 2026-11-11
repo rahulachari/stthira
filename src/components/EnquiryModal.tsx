@@ -206,7 +206,7 @@ export default function EnquiryModal({
                   htmlFor="modalConsent"
                   className="text-[11px] leading-snug text-neutral-500 cursor-pointer select-none"
                 >
-                  I agree to be contacted through SMS, RCS, Email, WhatsApp and other mediums for knowing further details.
+                  I agree to be contacted through SMS, RCS, Email, Phone and other communication channels for knowing further details.
                 </label>
               </div>
 

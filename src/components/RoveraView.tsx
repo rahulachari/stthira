@@ -29,12 +29,12 @@ import {
 } from "lucide-react";
 import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
+import RoveraMasterPlan from "@/components/RoveraMasterPlan";
 
 export default function RoveraView() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState<string>("ROVERA — Phase 1 Villa Plot");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [masterPlanZoom, setMasterPlanZoom] = useState(false);
 
   const openEnquiry = (plotName?: string) => {
     setSelectedPlot(plotName ? `ROVERA — ${plotName}` : "ROVERA (Devanahalli–Doddaballapura Road)");
@@ -238,15 +238,15 @@ export default function RoveraView() {
         {/* Hero Overlay Content — Monumental High-End Luxury Layout */}
         <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 text-center flex flex-col items-center justify-center">
           {/* Deep Royal Navy Architectural Badge */}
-          <div className="inline-flex items-center gap-2.5 border border-blue-400/30 bg-[#0A1628]/80 backdrop-blur-md px-4 sm:px-5 py-1.5 mb-7 rounded-full shadow-lg">
+          <div className="inline-flex items-center gap-2.5 border border-blue-400/30 bg-[#0A1628]/85 backdrop-blur-md px-5 py-2 mb-6 sm:mb-8 rounded-full shadow-lg">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-blue-200 font-medium">
+            <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.22em] text-blue-200 font-medium">
               3 Acres Boutique Sanctuary • North Bangalore
             </span>
           </div>
 
           {/* Official ROVERA Brand Wordmark (Razor-sharp in crisp white) */}
-          <div className="relative h-12 sm:h-16 md:h-22 aspect-[3.4/1] mb-5 select-none shrink-0 drop-shadow-md">
+          <div className="relative h-12 sm:h-16 md:h-20 aspect-[3.4/1] mb-6 sm:mb-7 select-none shrink-0 drop-shadow-md">
             <Image
               src="/images/rovera-logo-dark.png"
               alt="ROVERA"
@@ -258,52 +258,38 @@ export default function RoveraView() {
           </div>
 
           {/* Monumental Headline in Componentry Geist */}
-          <h1 className="font-componentry text-balance text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.98] tracking-[-0.05em] text-white max-w-4xl mb-5 uppercase">
+          <h1 className="font-componentry text-balance text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.98] tracking-[-0.05em] text-white max-w-4xl mb-4 sm:mb-6 uppercase">
             Crafted for Quiet Luxury
           </h1>
 
-          {/* High-End Editorial Subtitle */}
-          <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-neutral-200 font-light leading-relaxed mb-8 px-2 tracking-[-0.01em]">
-            XL villa plots across an intimate 3-acre gated community on the Devanahalli–Doddaballapura Road in North Bangalore. Designed with monumental double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
+          {/* High-End Sub-headline / Tagline */}
+          <p className="font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.24em] text-blue-200 font-medium mb-5 sm:mb-6">
+            XL Villa Plots on Devanahalli–Doddaballapura Road
           </p>
 
-          {/* Action Buttons with Dark Blue Hierarchy */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto mb-10">
-            <button
-              type="button"
-              onClick={() => openEnquiry()}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white border border-blue-400/40 px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-all shadow-xl rounded-full cursor-pointer hover:scale-102"
-            >
-              <span>Schedule Private Walkthrough</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-            <a
-              href="#snapshot"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white bg-white/10 hover:bg-white/20 text-white px-7 py-3.5 text-xs uppercase tracking-[0.2em] font-medium backdrop-blur-md transition-all rounded-full shadow-sm"
-            >
-              <span>Explore Enclave</span>
-              <ChevronDown className="w-4 h-4 text-neutral-300" />
-            </a>
-          </div>
+          {/* Editorial Description */}
+          <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-neutral-200 font-light leading-relaxed mb-10 sm:mb-14 px-2 tracking-[-0.01em]">
+            An intimate 3-acre gated enclave in North Bangalore designed for quiet luxury. Double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
+          </p>
 
-          {/* Architectural Minimalist Metrics Bar (No cheap boxy cards) */}
-          <div className="w-full max-w-4xl border-t border-white/20 pt-6 mt-4">
+          {/* Architectural Minimalist Metrics Bar (Preserved Clash Display numbers) */}
+          <div className="w-full max-w-4xl border-t border-white/20 pt-8 sm:pt-10">
             <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/15 text-center">
-              <div className="py-2.5 sm:py-0 sm:px-4">
-                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">3.0</span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Acres Enclave</span>
+              <div className="py-3 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">3.0</span>
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Acres Enclave</span>
               </div>
-              <div className="py-2.5 sm:py-0 sm:px-4">
-                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">24</span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Villa Plots</span>
+              <div className="py-3 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">24</span>
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Villa Plots</span>
               </div>
-              <div className="py-2.5 sm:py-0 sm:px-4">
-                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">8M</span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Double Height Gate</span>
+              <div className="py-3 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">8M</span>
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Double Height Gate</span>
               </div>
-              <div className="py-2.5 sm:py-0 sm:px-4">
-                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">15</span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Mins to BLR Airport</span>
+              <div className="py-3 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">15</span>
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Mins to BLR Airport</span>
               </div>
             </div>
           </div>
@@ -926,48 +912,21 @@ export default function RoveraView() {
       </section>
 
       {/* 11. SECTION: MASTER PLAN (#master-plan) */}
-      <section id="master-plan" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
+      <section id="master-plan" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-            <div>
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
-                Master Plan
-              </p>
-              <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-                A layout that breathes.
-              </h2>
-              <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal">
-                Hover to explore. Tap fullscreen for the complete view.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setMasterPlanZoom(true)}
-              className="inline-flex items-center gap-2 border border-zinc-300 hover:border-[#1E3A8A] px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-wide text-zinc-900 hover:bg-blue-50/40 transition-colors cursor-pointer self-start sm:self-auto"
-            >
-              <Maximize2 className="w-3.5 h-3.5" />
-              <span>Fullscreen Master Plan</span>
-            </button>
+          <div className="max-w-3xl mb-12">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+              Master Plan &amp; Cadastral Blueprint
+            </p>
+            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
+              A layout that breathes.
+            </h2>
+            <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal">
+              Demarcated across 3 pristine acres in North Bangalore. Select any of the 24 curated parcels below to inspect dimensions, orientation, and architectural specifications.
+            </p>
           </div>
 
-          <div
-            onClick={() => setMasterPlanZoom(true)}
-            className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-zinc-200 shadow-xl bg-zinc-900 cursor-zoom-in group"
-          >
-            <Image
-              src="/images/rovera-master-plan.jpg"
-              alt="ROVERA Master Plan"
-              fill
-              priority
-              quality={95}
-              className="object-cover object-center group-hover:scale-102 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors pointer-events-none" />
-            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-mono text-zinc-900 shadow flex items-center gap-2">
-              <Eye className="w-3.5 h-3.5" />
-              <span>Click to Enlarge</span>
-            </div>
-          </div>
+          <RoveraMasterPlan onSelectPlot={openEnquiry} />
         </div>
       </section>
 
@@ -1469,31 +1428,6 @@ export default function RoveraView() {
           </div>
         </div>
       </section>
-
-      {/* Master Plan Fullscreen Modal */}
-      {masterPlanZoom && (
-        <div
-          onClick={() => setMasterPlanZoom(false)}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
-        >
-          <div className="relative max-w-6xl w-full max-h-[90vh] aspect-[16/10]">
-            <Image
-              src="/images/rovera-master-plan.jpg"
-              alt="Master Plan Fullscreen"
-              fill
-              quality={100}
-              className="object-contain"
-            />
-          </div>
-          <button
-            type="button"
-            onClick={() => setMasterPlanZoom(false)}
-            className="absolute top-6 right-6 text-white text-xs font-mono uppercase tracking-widest bg-white/20 hover:bg-white/40 px-4 py-2 rounded-full transition-colors cursor-pointer"
-          >
-            Close ✕
-          </button>
-        </div>
-      )}
 
       {/* Global Quick Enquiry Modal */}
       <EnquiryModal

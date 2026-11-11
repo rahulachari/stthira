@@ -53,7 +53,7 @@ export default function PrivacyPolicyPage() {
           </h2>
           <p>When you interact with STTHIRA—whether by submitting an electronic enquiry, requesting an architectural brochure, scheduling a chauffeured site visit to ROVERA, or engaging with our relationship directors—we may collect:</p>
           <ul className="list-disc pl-6 space-y-2 text-neutral-700">
-            <li><strong>Identity &amp; Contact Data:</strong> Full legal name, residential address, telephone/WhatsApp contact details, and electronic mail addresses.</li>
+            <li><strong>Identity &amp; Contact Data:</strong> Full legal name, residential address, telephone contact details, and electronic mail addresses.</li>
             <li><strong>Real Estate Interest Preferences:</strong> Intended development parcel category, preferred plot dimensions (e.g., Executive, Signature, or Master Estate), investment horizon, and scheduling requirements.</li>
             <li><strong>Technical Telemetry:</strong> Anonymized Internet Protocol (IP) addresses, browser type, device specifications, and page navigation patterns collected through essential performance cookies.</li>
             <li><strong>Statutory Verification Records:</strong> Permanent Account Number (PAN), Aadhaar, or passport documentation where required strictly for KYC compliance prior to statutory property agreements.</li>

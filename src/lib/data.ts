@@ -66,7 +66,6 @@ export const COMPANY_INFO = {
   salesPhone: "+91 98450 77123",
   email: "enquiry@stthira.com",
   corporateEmail: "corporate@stthira.com",
-  whatsappNumber: "+919845077123",
   operatingHours: "Monday to Saturday: 09:30 AM – 06:30 PM IST",
   socials: {
     linkedin: "https://linkedin.com/company/stthira",

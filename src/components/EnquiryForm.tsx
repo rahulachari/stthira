@@ -182,7 +182,7 @@ export default function EnquiryForm({
           >
             {t(
               "form.consent",
-              "I agree to be contacted through SMS, RCS, Email, WhatsApp and other mediums for knowing further details."
+              "I agree to be contacted through SMS, RCS, Email, Phone and other communication channels for knowing further details."
             )}
           </label>
         </div>

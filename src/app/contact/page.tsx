@@ -102,26 +102,6 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <MessageSquare className="w-5 h-5 text-black shrink-0 mt-0.5" />
-                <div>
-                  <strong className="block text-black font-medium text-xs uppercase tracking-wider mb-1">
-                    Instant WhatsApp Concierge
-                  </strong>
-                  <p className="text-neutral-600 font-light">
-                    Direct executive messaging:{" "}
-                    <a
-                      href={`https://wa.me/${COMPANY_INFO.whatsappNumber.replace("+", "")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline text-black font-medium"
-                    >
-                      Connect on WhatsApp
-                    </a>
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
                 <Clock className="w-5 h-5 text-black shrink-0 mt-0.5" />
                 <div>
                   <strong className="block text-black font-medium text-xs uppercase tracking-wider mb-1">
