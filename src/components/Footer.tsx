@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, ShieldCheck, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { COMPANY_INFO } from "@/lib/data";
 import { useLanguage } from "@/context/LanguageContext";
@@ -190,39 +190,6 @@ export default function Footer() {
             </div>
           ))}
         </div>
-
-        {/* Content to add for ROVERA (Keep simple as it) */}
-        {isRovera && (
-          <div className="py-6 px-5 sm:px-7 mb-8 bg-[#fafaf8] border border-neutral-200 rounded-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6 text-xs text-neutral-600">
-            <div className="flex items-start gap-3 max-w-xl">
-              <MapPin className="w-4 h-4 text-[#1E3A8A] shrink-0 mt-0.5" />
-              <div>
-                <strong className="text-black uppercase tracking-wider block mb-0.5">ROVERA Site Address:</strong>
-                <span>Devanahalli, Doddaballapura Main Rd, Kasaba Hobli, Shivapura, Doddaballapur, Karnataka 562163</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-6 text-xs shrink-0">
-              <div className="space-y-0.5">
-                <span className="text-[10px] uppercase tracking-wider text-neutral-500 block">RERA Registration</span>
-                <span className="font-mono font-medium text-black">PRM/KA/RERA/1250/301/PR/200224/006646</span>
-              </div>
-
-              <div className="flex items-center gap-2 border-l border-neutral-200 pl-6">
-                <span className="text-[10px] text-neutral-400 uppercase">Partner</span>
-                <div className="relative w-24 h-8">
-                  <Image
-                    src="/images/credai-bengaluru-logo.png"
-                    alt="CREDAI Bengaluru"
-                    fill
-                    sizes="96px"
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Corporate Hierarchy & Alliance Statement */}
         <div className="py-6 border-y border-neutral-200 text-xs text-neutral-600 font-sans leading-relaxed flex flex-col md:flex-row md:items-center justify-between gap-4">
