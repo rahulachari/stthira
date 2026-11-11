@@ -9,6 +9,7 @@ import {
   Building2,
   Phone,
   ArrowUpRight,
+  ArrowRight,
   Sparkles,
   Layers,
   Compass,
@@ -213,61 +214,95 @@ export default function RoveraView() {
 
   return (
     <div className="bg-white text-zinc-950 font-sans selection:bg-[#0F2744] selection:text-white">
-      {/* 01. GRAND CINEMATIC HERO SECTION (High-Luxury Architectural Sanctuary Video & Deep Dark Blue Grading) */}
-      <section className="relative min-h-[92vh] sm:min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#0A111F] text-white pt-24 pb-14 sm:py-28 border-b border-zinc-200">
-        {/* Background Architectural Video: Pure Plotted Sanctuary (Villa courtyards, stone water pavilions, and aerial tree canopies) */}
+      {/* 01. PRISMA-STYLE MONUMENTAL HERO SECTION */}
+      <section className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden bg-[#070505] text-white border-b border-zinc-200">
+        {/* Full-bleed Cinematic Background Image: Hero Cheetah */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            poster="/images/rovera-aerial-3acres.jpg"
-            className="w-full h-full object-cover object-center scale-105 filter brightness-85 contrast-110"
-          >
-            <source src="/videos/rovera-sanctuary-hero.mp4" type="video/mp4" />
-            <source src="/videos/stthira-hero-clean.mp4" type="video/mp4" />
-          </video>
+          <Image
+            src="/images/rovera-hero-cheetah.jpg"
+            alt="ROVERA — Quiet Luxury Plotted Living"
+            fill
+            priority
+            quality={95}
+            sizes="100vw"
+            className="w-full h-full object-cover object-right lg:object-[80%_center] filter brightness-95 contrast-105"
+          />
 
-          {/* Deep Architectural Royal Navy & Obsidian Vignette Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070e1b] via-[#070e1b]/45 to-[#070e1b]/75 pointer-events-none" />
-          <div className="absolute inset-0 bg-[#0F2744]/25 mix-blend-multiply pointer-events-none" />
+          {/* Prisma-style Subtle Cinematic Vignette Overlays (Soft bottom & left contrast without losing the glowing cheetah) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/60 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/35 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-[#0A0606]/25 mix-blend-multiply pointer-events-none" />
         </div>
 
-        {/* Hero Overlay Content — Monumental High-End Luxury Layout */}
-        <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 text-center flex flex-col items-center justify-center">
-          {/* Official ROVERA Brand Wordmark (Razor-sharp in crisp white) */}
-          <div className="relative h-14 sm:h-20 md:h-24 aspect-[3.4/1] mb-6 sm:mb-8 select-none shrink-0 drop-shadow-md">
-            <Image
-              src="/images/rovera-logo-dark.png"
-              alt="ROVERA"
-              fill
-              priority
-              sizes="(max-width: 640px) 260px, (max-width: 768px) 360px, 460px"
-              className="object-contain object-center brightness-0 invert"
-            />
+        {/* Prisma Top Centered Tab Navbar */}
+        <div className="relative z-20 w-full pt-20 sm:pt-24 flex items-center justify-center px-4">
+          <div className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 rounded-full bg-black/60 backdrop-blur-xl border border-white/15 text-xs text-neutral-300 font-sans shadow-2xl">
+            <a href="#snapshot" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Snapshot</a>
+            <a href="#amenities" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Amenities</a>
+            <a href="#planning" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Plot Matrix</a>
+            <a href="#master-plan" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Master Plan</a>
+            <a href="#location" className="hover:text-white px-2.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-colors">Location</a>
+            <button
+              type="button"
+              onClick={() => openEnquiry("Top Nav Inquiry")}
+              className="text-white font-medium px-2.5 sm:px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 transition-colors cursor-pointer"
+            >
+              Inquiries
+            </button>
           </div>
+        </div>
 
-          {/* Monumental Headline in Componentry Geist */}
-          <h1 className="font-componentry text-balance text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.98] tracking-[-0.05em] text-white max-w-4xl mb-12 sm:mb-16 uppercase">
-            Crafted for Quiet Luxury
-          </h1>
+        {/* Prisma Bottom Split Content: Monumental Title on Left, Editorial + Pill CTA on Right */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pb-12 sm:pb-16 pt-16 sm:pt-24 flex-1 flex flex-col justify-end">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 lg:gap-14">
+            {/* Left Column: Monumental Brand Title (Prisma style) */}
+            <div className="flex-1 select-none">
+              {/* Eyebrow */}
+              <div className="inline-flex items-center gap-2 mb-3 sm:mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                <span className="font-mono text-xs sm:text-sm uppercase tracking-[0.25em] text-amber-200/90 font-medium">
+                  Crafted for Quiet Luxury
+                </span>
+              </div>
 
-          {/* Architectural Minimalist Metrics Bar (3 Curated Highlights) */}
-          <div className="w-full max-w-3xl border-t border-white/20 pt-8 sm:pt-10">
-            <div className="grid grid-cols-3 divide-x divide-white/15 text-center">
-              <div className="py-2 sm:py-0 px-2 sm:px-4">
-                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">3.0</span>
-                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Acres Enclave</span>
+              {/* Monumental Rovera* Typography */}
+              <h1 className="font-componentry text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] 2xl:text-[13.5rem] font-semibold text-[#F5F2EB] tracking-[-0.04em] leading-[0.85]">
+                Rovera<span className="text-[#F5F2EB] font-light">*</span>
+              </h1>
+            </div>
+
+            {/* Right Column: Editorial Overview + Enclave Metrics + Pill CTA Button */}
+            <div className="w-full lg:max-w-xl space-y-6 lg:pb-3">
+              {/* Editorial ROVERA Content */}
+              <p className="text-sm sm:text-base md:text-lg text-neutral-200 font-light leading-relaxed tracking-[-0.01em]">
+                XL villa plots across an intimate 3-acre gated community on the Devanahalli–Doddaballapura Road in North Bangalore. Designed with monumental double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
+              </p>
+
+              {/* Curated Enclave Metrics */}
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 font-mono text-xs text-neutral-300">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
+                  <span className="font-clash font-semibold text-white">3.0</span> Acres Enclave
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
+                  <span className="font-clash font-semibold text-white">24</span> Villa Plots
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
+                  <span className="font-clash font-semibold text-white">15</span> Mins to Airport
+                </span>
               </div>
-              <div className="py-2 sm:py-0 px-2 sm:px-4">
-                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">24</span>
-                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Villa Plots</span>
-              </div>
-              <div className="py-2 sm:py-0 px-2 sm:px-4">
-                <span className="font-clash text-2xl sm:text-4xl font-semibold text-white block tracking-tight">15</span>
-                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200 mt-1 block">Mins to BLR Airport</span>
+
+              {/* Signature Prisma White Pill CTA Button */}
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => openEnquiry("Hero Walkthrough")}
+                  className="group inline-flex items-center gap-4 bg-[#F5F2EB] hover:bg-white text-zinc-950 pl-6 pr-2.5 py-2.5 rounded-full font-sans text-xs sm:text-sm font-medium transition-all shadow-2xl hover:scale-102 cursor-pointer"
+                >
+                  <span>Schedule Private Walkthrough</span>
+                  <span className="w-8 h-8 rounded-full bg-zinc-950 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
+                </button>
               </div>
             </div>
           </div>
