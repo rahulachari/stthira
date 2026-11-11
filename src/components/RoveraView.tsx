@@ -31,6 +31,7 @@ import {
   Plane,
   GraduationCap,
   HeartPulse,
+  X,
 } from "lucide-react";
 import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
@@ -43,6 +44,8 @@ export default function RoveraView() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState<string>("ROVERA — Phase 1 Villa Plot");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
+  const [galleryCategory, setGalleryCategory] = useState<"clubhouse" | "landscape">("clubhouse");
+  const [selectedLightboxImage, setSelectedLightboxImage] = useState<string | null>(null);
   const [formName, setFormName] = useState("");
   const [formPhone, setFormPhone] = useState("");
   const [formEmail, setFormEmail] = useState("");
@@ -101,42 +104,93 @@ export default function RoveraView() {
       category: "Private Social Club",
       spec: "10,000 Sq.Ft Resident Clubhouse",
       description: "Monolithic flamed stone & glass pavilion featuring a resident library salon, private dining lounge, and executive concierge desk.",
-      image: "/images/rovera-boutique-clubhouse.jpg",
+      image: "/images/rovera-clubhouse-exterior.jpg",
     },
     {
-      title: "Aura Vitality Spa & Wellness Pavilion",
+      title: "Azure Lap Pool & Sunken Deck",
       category: "Aquatics & Wellness",
-      spec: "Hydrotherapy Vitality Pool",
-      description: "Indoor-outdoor hydrotherapy vitality spa pavilion featuring flamed granite walls, teak wood slatted ceilings, plush loungers, and serene bamboo zen garden views.",
+      spec: "25m Lap Pool & Hydrotherapy",
+      description: "Sunken timber sundeck, heated hydrotherapy vitality pools, and private poolside cabanas with bamboo zen garden views.",
+      image: "/images/rovera-pool-deck.jpg",
+    },
+    {
+      title: "Private Library Salon & Dining Lounge",
+      category: "Social Sanctuary",
+      spec: "Double-Height Resident Salon",
+      description: "Curated architectural library, private meeting suites, and fireplace lounge with bespoke Italian furnishings.",
+      image: "/images/rovera-clubhouse-lounge.jpg",
+    },
+    {
+      title: "Sunken Courtyard & Fire Lounge",
+      category: "Outdoor Living",
+      spec: "Intimate Evening Sanctuary",
+      description: "Polished terrazzo patio with modern oatmeal linen loungers, corten steel fire bowl, and sculpted boxwood borders.",
+      image: "/images/rovera-courtyard-lounge.jpg",
+    },
+    {
+      title: "Architectural Pergola Walkway",
+      category: "Landscape Architecture",
+      spec: "Geometric Shade Trellis",
+      description: "Slender steel shaded colonnade with flowering wisteria vines, flamed limestone pavers, and linear architectural shadow play.",
+      image: "/images/rovera-pergola-walkway.jpg",
+    },
+    {
+      title: "Sensory Zen Meditation Garden",
+      category: "Wellness & Nature",
+      spec: "Aromatic Botanical Haven",
+      description: "Stepping stone pathways through moss mounds, black pines, raked white gravel river, and calming granite water fountain.",
+      image: "/images/rovera-zen-garden.jpg",
+    },
+  ];
+
+  const galleryItems = [
+    {
+      title: "The Resident Club Pavilion",
+      category: "clubhouse",
+      categoryLabel: "Clubhouse",
+      image: "/images/rovera-clubhouse-exterior.jpg",
+    },
+    {
+      title: "Azure Lap Pool & Sunken Deck",
+      category: "clubhouse",
+      categoryLabel: "Clubhouse",
+      image: "/images/rovera-pool-deck.jpg",
+    },
+    {
+      title: "Private Library Salon & Dining Lounge",
+      category: "clubhouse",
+      categoryLabel: "Clubhouse",
+      image: "/images/rovera-clubhouse-lounge.jpg",
+    },
+    {
+      title: "Aura Vitality Spa & Wellness",
+      category: "clubhouse",
+      categoryLabel: "Clubhouse",
       image: "/images/rovera-wellness-pavilion.jpg",
     },
     {
-      title: "Verdant Paved Boulevards",
-      category: "Infrastructure",
-      spec: "40-Ft & 30-Ft Tree Canopies",
-      description: "Cobblestone paved arterial lanes with 100% underground high-voltage utility ducts, dual-line water conduits, and concealed storm aquifers.",
+      title: "Sunken Courtyard & Fire Lounge",
+      category: "landscape",
+      categoryLabel: "Landscape",
+      image: "/images/rovera-courtyard-lounge.jpg",
+    },
+    {
+      title: "Architectural Pergola Walkway",
+      category: "landscape",
+      categoryLabel: "Landscape",
+      image: "/images/rovera-pergola-walkway.jpg",
+    },
+    {
+      title: "Sensory Zen Meditation Garden",
+      category: "landscape",
+      categoryLabel: "Landscape",
+      image: "/images/rovera-zen-garden.jpg",
+    },
+    {
+      title: "40-Ft Cobblestone Tree-Lined Boulevards",
+      category: "landscape",
+      categoryLabel: "Landscape",
       image: "/images/rovera-internal-boulevard.jpg",
-    },
-    {
-      title: "Monumental Double-Height Gatehouse",
-      category: "Architecture & Security",
-      spec: "8-Meter Cantilevered Portal",
-      description: "Imposing flamed black basalt portal with automated RFID boom barriers, biometric visitor logging, and 24/7 concierge security cabin.",
-      image: "/images/rovera-grand-double-height-gate.jpg",
-    },
-    {
-      title: "Active Sports Arena",
-      category: "Recreation & Athletics",
-      spec: "Pickleball, Tennis & Half-Court",
-      description: "All-weather multi-sport acrylic court with professional tournament lighting, dedicated player benches, and equipment storage.",
-      image: "/images/lagos-renders/lagos-amenities-clubhouse-exterior.webp",
-    },
-    {
-      title: "Children's Nature Play Zone & Senior Lawn",
-      category: "Community & Play",
-      spec: "Sensory Herb & Picnic Lawn",
-      description: "Natural timber play structures, soft rubberized safety turf, shaded seating pergolas, and an aromatic senior reflexology garden.",
-      image: "/images/lagos-renders/lagos-amenities-picnic-lawn.webp",
     },
   ];
 
@@ -687,8 +741,8 @@ export default function RoveraView() {
       {/* 08. SECTION: CURATED AMENITIES (#amenities) */}
       <section id="amenities" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+          <div className="max-w-3xl mb-10 sm:mb-14">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
               Amenities
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -699,13 +753,51 @@ export default function RoveraView() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Mobile & Tablet Compact 2-Column Grid (< lg) */}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
+            {amenities.map((item) => (
+              <div
+                key={item.title}
+                onClick={() => setSelectedLightboxImage(item.image)}
+                className="bg-white border border-zinc-200/90 rounded-2xl overflow-hidden shadow-2xs hover:border-[#1E3A8A]/50 transition-colors flex flex-col cursor-pointer group"
+              >
+                <div className="relative aspect-[4/3] w-full bg-zinc-100 overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    quality={92}
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[9px] text-white/90 font-mono tracking-tight pointer-events-none">
+                    Artist&apos;s Impression
+                  </div>
+                </div>
+                <div className="p-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span className="font-mono text-[9px] uppercase tracking-wide text-[#1E3A8A] font-semibold block truncate mb-0.5">
+                      {item.category}
+                    </span>
+                    <h3 className="font-componentry text-xs sm:text-sm font-semibold tracking-tight text-zinc-950 line-clamp-2 leading-snug">
+                      {item.title}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Detailed 3-Column Grid (>= lg) */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-6">
             {amenities.map((item) => (
               <div
                 key={item.title}
                 className="bg-white border border-zinc-200 hover:border-[#1E3A8A] rounded-2xl overflow-hidden flex flex-col justify-between transition-all group shadow-2xs hover:shadow-lg"
               >
-                <div className="relative aspect-[16/10] w-full bg-zinc-100 overflow-hidden">
+                <div
+                  className="relative aspect-[16/10] w-full bg-zinc-100 overflow-hidden cursor-pointer"
+                  onClick={() => setSelectedLightboxImage(item.image)}
+                >
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -715,6 +807,9 @@ export default function RoveraView() {
                   />
                   <div className="absolute top-3 left-3 bg-[#0F2744] text-white text-[10px] font-mono uppercase tracking-wide px-3 py-1 rounded-full shadow-2xs">
                     {item.category}
+                  </div>
+                  <div className="absolute bottom-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] text-white/90 font-mono tracking-tight">
+                    Artist&apos;s Impression
                   </div>
                 </div>
 
@@ -817,19 +912,93 @@ export default function RoveraView() {
       {/* 11. SECTION: MASTER PLAN (#master-plan) */}
       <section id="master-plan" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+          <div className="max-w-3xl mb-10 sm:mb-12">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
               Master Plan &amp; Cadastral Blueprint
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-              A layout that breathes.
+              3 Pristine Acres. 24 Sovereign Parcels.
             </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal">
-              Demarcated across 3 pristine acres in North Bangalore. Select any of the 24 curated parcels below to inspect dimensions, orientation, and architectural specifications.
+            <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal leading-relaxed">
+              Demarcated across 3 intimate acres on Devanahalli–Doddaballapura Road. Designed with 40-ft central cobblestone avenues, 100% underground high-voltage and storm utilities, a central sensory park, and an exclusive resident clubhouse.
             </p>
           </div>
 
-          <RoveraMasterPlan onSelectPlot={openEnquiry} />
+          {/* Master Plan Showcase Card */}
+          <div className="bg-white border border-zinc-200/90 rounded-3xl p-3 sm:p-6 shadow-xl overflow-hidden group relative">
+            <div
+              className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden bg-zinc-950 cursor-pointer"
+              onClick={() => setSelectedLightboxImage("/images/rovera-master-plan-3acres.jpg")}
+            >
+              <Image
+                src="/images/rovera-master-plan-3acres.jpg"
+                alt="ROVERA 3-Acre Master Plan Cadastral Layout"
+                fill
+                priority
+                quality={95}
+                className="object-contain sm:object-cover group-hover:scale-[1.02] transition-transform duration-700"
+              />
+              <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 pointer-events-none">
+                <span className="bg-[#0F2744] text-white text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+                  3.00 Acres Enclave
+                </span>
+                <span className="bg-black/70 backdrop-blur-xs text-white text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+                  24 Villa Plots
+                </span>
+              </div>
+              <div className="absolute bottom-4 right-4 bg-black/75 hover:bg-black text-white text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full shadow-lg flex items-center gap-2 pointer-events-auto transition-colors">
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span>Tap to Expand Fullscreen</span>
+              </div>
+            </div>
+
+            {/* Plot Configuration Highlights Bar */}
+            <div className="mt-6 pt-6 border-t border-zinc-100 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+              <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
+                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Courtyard Plot</span>
+                <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">1,500 Sq.Ft</span>
+                <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">30&apos; × 50&apos; • 6 Plots</span>
+              </div>
+              <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
+                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Signature Plot</span>
+                <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">2,400 Sq.Ft</span>
+                <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">40&apos; × 60&apos; • 12 Plots</span>
+              </div>
+              <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
+                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Grand Estate</span>
+                <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">3,500 Sq.Ft</span>
+                <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">50&apos; × 70&apos; • 4 Plots</span>
+              </div>
+              <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
+                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Bespoke Corner</span>
+                <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">4,800 Sq.Ft</span>
+                <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">Dual-Road • 2 Plots</span>
+              </div>
+            </div>
+
+            {/* Action Bar */}
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs font-mono text-zinc-500">
+                Karnataka RERA Approved: PRM/KA/RERA/1250/301/PR/200224/006646
+              </span>
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => openEnquiry("Master Plan CAD & Plot Selection")}
+                  className="flex-1 sm:flex-initial px-6 py-3 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow-sm"
+                >
+                  Reserve Your Plot
+                </button>
+                <a
+                  href="/images/rovera-master-plan-3acres.jpg"
+                  download="ROVERA-Master-Plan-3Acres.jpg"
+                  className="flex-1 sm:flex-initial px-5 py-3 bg-white border border-zinc-300 hover:border-zinc-500 text-zinc-800 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-colors text-center"
+                >
+                  Download Master Plan
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -837,7 +1006,7 @@ export default function RoveraView() {
       <section id="walkthrough" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
               Project Walkthrough
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -879,8 +1048,8 @@ export default function RoveraView() {
       {/* 13. SECTION: ARCHITECTURAL GALLERY (#gallery) */}
       <section id="gallery" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+          <div className="max-w-3xl mb-8 sm:mb-12">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
               Gallery
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -888,90 +1057,85 @@ export default function RoveraView() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 shadow-2xs group">
-              <Image
-                src="/images/rovera-grand-double-height-gate.jpg"
-                alt="Double Height Gates"
-                fill
-                quality={92}
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-componentry font-medium">
-                Double-Height Entrance Gates
-              </div>
-            </div>
+          {/* Filter Pills matching reference image */}
+          <div className="flex items-center gap-2.5 mb-8">
+            <button
+              type="button"
+              onClick={() => setGalleryCategory("clubhouse")}
+              className={`px-6 py-2 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
+                galleryCategory === "clubhouse"
+                  ? "bg-[#0F2744] text-white shadow-sm"
+                  : "bg-white text-zinc-700 border border-zinc-300 hover:border-zinc-500"
+              }`}
+            >
+              Clubhouse
+            </button>
+            <button
+              type="button"
+              onClick={() => setGalleryCategory("landscape")}
+              className={`px-6 py-2 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
+                galleryCategory === "landscape"
+                  ? "bg-[#0F2744] text-white shadow-sm"
+                  : "bg-white text-zinc-700 border border-zinc-300 hover:border-zinc-500"
+              }`}
+            >
+              Landscape
+            </button>
+          </div>
 
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 shadow-2xs group">
-              <Image
-                src="/images/rovera-boutique-clubhouse.jpg"
-                alt="Boutique Clubhouse"
-                fill
-                quality={92}
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-componentry font-medium">
-                The Resident Club Pavilion
-              </div>
-            </div>
+          {/* Mobile & Tablet 2-Column Grid (< lg) */}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
+            {galleryItems
+              .filter((item) => item.category === galleryCategory)
+              .map((item) => (
+                <div
+                  key={item.title}
+                  onClick={() => setSelectedLightboxImage(item.image)}
+                  className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200/90 shadow-2xs group cursor-pointer bg-zinc-100"
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    quality={92}
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[9px] sm:text-[10px] text-white/90 font-mono tracking-tight pointer-events-none">
+                    Artist&apos;s Impression
+                  </div>
+                </div>
+              ))}
+          </div>
 
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 shadow-2xs group">
-              <Image
-                src="/images/rovera-wellness-pavilion.jpg"
-                alt="Wellness Pavilion"
-                fill
-                quality={92}
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-componentry font-medium">
-                Aura Vitality Spa &amp; Pool
-              </div>
-            </div>
-
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 shadow-2xs group">
-              <Image
-                src="/images/rovera-internal-boulevard.jpg"
-                alt="Internal Boulevard"
-                fill
-                quality={92}
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-componentry font-medium">
-                40-Ft Paved Boulevards
-              </div>
-            </div>
-
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 shadow-2xs group">
-              <Image
-                src="/images/rovera-aerial-3acres.jpg"
-                alt="Aerial 3-Acre Masterplan"
-                fill
-                quality={92}
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-componentry font-medium">
-                3-Acre Masterplan Cadastral
-              </div>
-            </div>
-
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 shadow-2xs group">
-              <Image
-                src="/images/lagos-renders/lagos-landscape1.webp"
-                alt="Landscaped Green Parks"
-                fill
-                quality={92}
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-componentry font-medium">
-                Landscaped Botanical Green
-              </div>
-            </div>
+          {/* Desktop 2-Column Grid (>= lg) */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-6">
+            {galleryItems
+              .filter((item) => item.category === galleryCategory)
+              .map((item) => (
+                <div
+                  key={item.title}
+                  onClick={() => setSelectedLightboxImage(item.image)}
+                  className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-zinc-200/90 shadow-2xs group cursor-pointer bg-zinc-100"
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    quality={92}
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
+                    <span className="text-base font-componentry font-medium tracking-tight">
+                      {item.title}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] text-white/90 font-mono tracking-tight">
+                      Artist&apos;s Impression
+                    </span>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </section>
@@ -1282,8 +1446,17 @@ export default function RoveraView() {
                 Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
               </h2>
               <p className="text-zinc-600 text-sm sm:text-base mt-3 font-normal leading-relaxed max-w-lg mx-auto">
-                Receive the official brochure, master plan CAD layout, unit pricing dossier, and a private chauffeured site visit invitation.
+                Receive the official brochure, master plan layout, unit pricing dossier, and a private chauffeured site visit invitation.
               </p>
+              <div className="mt-4 flex items-center justify-center gap-3">
+                <a
+                  href="tel:+917013485016"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#fbf4f0] border border-[#f0ded4] text-[#9c4c2d] hover:bg-[#f6eae2] font-mono text-xs font-semibold uppercase tracking-wider transition-all shadow-xs"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Direct Concierge: +91 70134 85016</span>
+                </a>
+              </div>
             </div>
 
             {/* Centered Luxury Enquiry Card */}
@@ -1319,7 +1492,7 @@ export default function RoveraView() {
                         name="phone"
                         value={formPhone}
                         onChange={(e) => setFormPhone(e.target.value)}
-                        placeholder="+91 98765 43210"
+                        placeholder="e.g. 7013485016"
                         className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-[#fafaf8] text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-colors"
                       />
                     </div>
@@ -1389,6 +1562,35 @@ export default function RoveraView() {
           </div>
         </AnimatedFooter>
       </section>
+
+      {/* Lightbox Modal for Fullscreen Image Viewing */}
+      {selectedLightboxImage && (
+        <div
+          className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-fade-in"
+          onClick={() => setSelectedLightboxImage(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setSelectedLightboxImage(null)}
+            className="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10 cursor-pointer"
+            aria-label="Close Fullscreen"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div
+            className="relative max-w-5xl max-h-[85vh] w-full h-full rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={selectedLightboxImage}
+              alt="Architectural Render Fullscreen View"
+              fill
+              quality={98}
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Global Quick Enquiry Modal */}
       <EnquiryModal

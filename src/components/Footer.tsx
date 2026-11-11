@@ -53,7 +53,7 @@ export default function Footer() {
       title: t("footer.col5", "CONNECT"),
       links: [
         { label: t("footer.office", "Corporate Office"), href: "/contact#office" },
-        { label: t("footer.concierge", "Direct Concierge"), href: "tel:+918049208800" },
+        { label: t("footer.concierge", "Direct Concierge"), href: "tel:+917013485016" },
         { label: "LinkedIn", href: COMPANY_INFO.socials.linkedin },
         { label: "Instagram", href: COMPANY_INFO.socials.instagram },
         { label: "YouTube", href: COMPANY_INFO.socials.youtube },

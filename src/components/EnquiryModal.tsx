@@ -133,13 +133,23 @@ export default function EnquiryModal({
         ) : (
           <div>
             {/* Header */}
-            <div className="mb-6">
-              <h3 className="text-2xl font-semibold text-neutral-900 tracking-tight">
-                Enquire Now
-              </h3>
-              <p className="text-xs text-neutral-500 mt-1">
-                Direct advisory for {activeProject}
-              </p>
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <h3 className="text-2xl font-semibold text-neutral-900 tracking-tight">
+                  Enquire Now
+                </h3>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Direct advisory for {activeProject}
+                </p>
+              </div>
+              <a
+                href="tel:+917013485016"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1E3A8A] text-xs font-mono font-medium hover:bg-blue-100 transition-colors self-start sm:self-auto"
+                title="Call Concierge Directly"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span>+91 70134 85016</span>
+              </a>
             </div>
 
             {errorMsg && (

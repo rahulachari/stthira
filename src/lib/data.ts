@@ -62,8 +62,8 @@ export const COMPANY_INFO = {
   brandStatement: "THOUGHTFULLY BUILT. TIMELESSLY ENVISIONED.",
   subHeadline: "Thoughtful development. Timeless spaces. A vision for better living.",
   address: "STTHIRA Corporate Office, Level 14, Prestige Trade Tower, Palace Road, High Grounds, Bengaluru 560001, Karnataka, India",
-  phone: "+91 80 4920 8800",
-  salesPhone: "+91 98450 77123",
+  phone: "+91 70134 85016",
+  salesPhone: "+91 70134 85016",
   email: "enquiry@stthira.com",
   corporateEmail: "corporate@stthira.com",
   operatingHours: "Monday to Saturday: 09:30 AM – 06:30 PM IST",
@@ -414,7 +414,7 @@ export const FAQS: FAQItem[] = [
     id: "buying-1",
     category: "Buying Process",
     question: "How can I enquire or register my interest in ROVERA?",
-    answer: "You can submit an enquiry directly through our official website contact form, request a private callback from our relationship advisory desk, or contact our sales concierge at +91 98450 77123 / enquiry@stthira.com.",
+    answer: "You can submit an enquiry directly through our official website contact form, request a private callback from our relationship advisory desk, or contact our sales concierge at +91 70134 85016 / enquiry@stthira.com.",
   },
   {
     id: "buying-2",
@@ -450,7 +450,7 @@ export const FAQS: FAQItem[] = [
     id: "support-1",
     category: "Support & Site Visits",
     question: "How can I contact the STTHIRA corporate and sales team?",
-    answer: "Our corporate headquarters is located at Level 14, Prestige Trade Tower, Palace Road, Bengaluru. You can reach our central office at +91 80 4920 8800 or via email at enquiry@stthira.com. Our relationship team operates Monday through Saturday, 9:30 AM to 6:30 PM IST.",
+    answer: "Our corporate headquarters is located at Level 14, Prestige Trade Tower, Palace Road, Bengaluru. You can reach our central office at +91 70134 85016 or via email at enquiry@stthira.com. Our relationship team operates Monday through Saturday, 9:30 AM to 6:30 PM IST.",
   },
 ];
 

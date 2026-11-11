@@ -50,7 +50,7 @@ export default function HomePage() {
     {
       id: "buying-1",
       q: "How can I schedule a private site walkthrough?",
-      a: "You can click 'Enquire Now' or call our direct concierge at +91 80 4567 8900. Our relationship directors arrange private, chauffeured site visits and one-on-one legal title walkthroughs.",
+      a: "You can click 'Enquire Now' or call our direct concierge at +91 70134 85016. Our relationship directors arrange private, chauffeured site visits and one-on-one legal title walkthroughs.",
     },
   ];
 
@@ -501,10 +501,10 @@ export default function HomePage() {
                   Direct Concierge
                 </span>
                 <a
-                  href="tel:+918045678900"
+                  href="tel:+917013485016"
                   className="text-base font-semibold text-black hover:underline"
                 >
-                  +91 80 4567 8900
+                  +91 70134 85016
                 </a>
               </div>
             </div>

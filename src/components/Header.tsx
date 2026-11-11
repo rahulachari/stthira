@@ -184,7 +184,7 @@ export default function Header() {
           <div className="hidden sm:flex items-center gap-4">
             {isRovera && (
               <a
-                href="tel:+918049208800"
+                href="tel:+917013485016"
                 className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-neutral-300 hover:text-white transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-blue-400" />
