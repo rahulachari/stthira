@@ -77,7 +77,7 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
       case "grand":
         return isActive ? "bg-indigo-600 text-white border-indigo-400" : "bg-indigo-950/40 text-indigo-200 border-indigo-800/60 hover:bg-indigo-900/50";
       case "corner":
-        return isActive ? "bg-amber-600 text-white border-amber-400" : "bg-amber-950/40 text-amber-200 border-amber-800/60 hover:bg-amber-900/50";
+        return isActive ? "bg-sky-500 text-white border-sky-300" : "bg-sky-950/40 text-sky-200 border-sky-800/60 hover:bg-sky-900/50";
     }
   };
 
@@ -353,7 +353,7 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
             <span className="text-[11px]">Grand Estate (4)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-xs bg-amber-600" />
+            <span className="w-3 h-3 rounded-xs bg-sky-500" />
             <span className="text-[11px]">Bespoke Corner (2)</span>
           </div>
         </div>

@@ -470,7 +470,7 @@ export default function RoveraView() {
                   key={item.label}
                   className="bg-[#fafaf8] border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
                     <Icon className="w-5 h-5 stroke-[1.8]" />
                   </div>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
@@ -596,7 +596,7 @@ export default function RoveraView() {
                   key={item.label}
                   className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[120px] sm:min-h-[145px]"
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
                     <Icon className="w-5 h-5 stroke-[1.8]" />
                   </div>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
@@ -673,7 +673,7 @@ export default function RoveraView() {
                   key={item.label}
                   className="bg-[#fafaf8] border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
                     <Icon className="w-5 h-5 stroke-[1.8]" />
                   </div>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
@@ -753,7 +753,7 @@ export default function RoveraView() {
       <section id="amenities" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-10 sm:mb-14">
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
               Amenities
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -924,7 +924,7 @@ export default function RoveraView() {
       <section id="master-plan" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-10 sm:mb-12">
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
               Master Plan &amp; Cadastral Blueprint
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1017,7 +1017,7 @@ export default function RoveraView() {
       <section id="walkthrough" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
               Project Walkthrough
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1060,7 +1060,7 @@ export default function RoveraView() {
       <section id="gallery" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-8 sm:mb-12">
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9c4c2d] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
               Gallery
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1175,7 +1175,7 @@ export default function RoveraView() {
                   key={item.label}
                   className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#fbf4f0] border border-[#f0ded4] flex items-center justify-center mb-3 text-[#9c4c2d] shadow-2xs shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
                     <Icon className="w-5 h-5 stroke-[1.8]" />
                   </div>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
