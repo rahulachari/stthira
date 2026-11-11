@@ -60,21 +60,20 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <Phone className="w-5 h-5 text-black shrink-0 mt-0.5" />
+                <MessageSquare className="w-5 h-5 text-black shrink-0 mt-0.5" />
                 <div>
                   <strong className="block text-black font-medium text-xs uppercase tracking-wider mb-1">
-                    Direct Telephone
+                    Direct Concierge
                   </strong>
                   <p className="text-neutral-600 font-light">
-                    Central Exchange:{" "}
-                    <a href={`tel:${COMPANY_INFO.phone}`} className="hover:underline text-black">
-                      {COMPANY_INFO.phone}
-                    </a>
-                  </p>
-                  <p className="text-neutral-600 font-light mt-0.5">
-                    Sales Concierge:{" "}
-                    <a href={`tel:${COMPANY_INFO.salesPhone}`} className="hover:underline text-black font-medium">
-                      {COMPANY_INFO.salesPhone}
+                    Instant Advisory:{" "}
+                    <a
+                      href="https://wa.me/917013485016"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline text-black font-medium"
+                    >
+                      Connect on WhatsApp &rarr;
                     </a>
                   </p>
                 </div>

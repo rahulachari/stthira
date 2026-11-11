@@ -1486,7 +1486,7 @@ export default function RoveraView() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-mono uppercase tracking-wide text-zinc-800 mb-1.5 font-semibold">
-                        Phone Number *
+                        Contact / WhatsApp *
                       </label>
                       <input
                         type="tel"
@@ -1494,7 +1494,7 @@ export default function RoveraView() {
                         name="phone"
                         value={formPhone}
                         onChange={(e) => setFormPhone(e.target.value)}
-                        placeholder="Enter your phone number"
+                        placeholder="Your contact number"
                         className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
                       />
                     </div>
