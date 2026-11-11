@@ -212,115 +212,98 @@ export default function RoveraView() {
   ];
 
   return (
-    <div className="bg-white text-zinc-950 font-sans selection:bg-zinc-900 selection:text-white">
-      {/* 01. CHEETAH CINEMATIC HERO SECTION (Clean White / Parchment Backdrop) */}
-      <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#fafaf8] pt-28 pb-16 border-b border-zinc-200">
-        {/* Background Video: ROVERA 3D Cheetah Motion Video */}
-        <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center">
+    <div className="bg-white text-zinc-950 font-sans selection:bg-[#0F2744] selection:text-white">
+      {/* 01. GRAND CINEMATIC HERO SECTION (High-Luxury Architectural Sanctuary Video & Deep Dark Blue Grading) */}
+      <section className="relative min-h-[92vh] sm:min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#0A111F] text-white pt-24 pb-14 sm:py-28 border-b border-zinc-200">
+        {/* Background Architectural Video: Pure Plotted Sanctuary (Villa courtyards, stone water pavilions, and aerial tree canopies) */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <video
             autoPlay
             loop
             muted
             playsInline
             preload="auto"
-            poster="/images/cheetah_frame_50.jpg"
-            className="w-full h-full object-cover object-center scale-100 opacity-90 transition-opacity duration-1000"
+            poster="/images/rovera-aerial-3acres.jpg"
+            className="w-full h-full object-cover object-center scale-105 filter brightness-85 contrast-110"
           >
-            <source src="/videos/rovera-cheetah-hero.mp4" type="video/mp4" />
-            <source src="/videos/rovera-cheetah-loop.mp4" type="video/mp4" />
+            <source src="/videos/rovera-sanctuary-hero.mp4" type="video/mp4" />
+            <source src="/videos/stthira-hero-clean.mp4" type="video/mp4" />
           </video>
-          {/* Subtle Clean Vignette Gradients for Crisp Legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-white/80 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-transparent to-white/95 pointer-events-none" />
+
+          {/* Deep Architectural Royal Navy & Obsidian Vignette Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070e1b] via-[#070e1b]/45 to-[#070e1b]/75 pointer-events-none" />
+          <div className="absolute inset-0 bg-[#0F2744]/25 mix-blend-multiply pointer-events-none" />
         </div>
 
-        {/* Hero Overlay Content */}
+        {/* Hero Overlay Content — Monumental High-End Luxury Layout */}
         <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 text-center flex flex-col items-center justify-center">
-          {/* Componentry Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 border border-zinc-200 bg-white/90 backdrop-blur-md px-4 py-1.5 mb-7 rounded-full shadow-2xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-zinc-900 animate-pulse" />
-            <span className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-700">
+          {/* Deep Royal Navy Architectural Badge */}
+          <div className="inline-flex items-center gap-2.5 border border-blue-400/30 bg-[#0A1628]/80 backdrop-blur-md px-4 sm:px-5 py-1.5 mb-7 rounded-full shadow-lg">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-blue-200 font-medium">
               3 Acres Boutique Sanctuary • North Bangalore
             </span>
           </div>
 
-          {/* Official ROVERA Brand Wordmark */}
-          <div className="relative h-14 sm:h-20 md:h-28 aspect-[3.4/1] mb-6 select-none shrink-0 drop-shadow-xs">
+          {/* Official ROVERA Brand Wordmark (Razor-sharp in crisp white) */}
+          <div className="relative h-12 sm:h-16 md:h-22 aspect-[3.4/1] mb-5 select-none shrink-0 drop-shadow-md">
             <Image
               src="/images/rovera-logo-dark.png"
               alt="ROVERA"
               fill
               priority
               sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 420px"
-              className="object-contain object-center"
+              className="object-contain object-center brightness-0 invert"
             />
           </div>
 
-          {/* Componentry-Style Modern Heading */}
-          <h1 className="font-componentry text-balance text-4xl sm:text-6xl md:text-7xl font-medium leading-[0.98] tracking-[-0.05em] text-zinc-950 max-w-4xl mb-6 uppercase">
+          {/* Monumental Headline in Componentry Geist */}
+          <h1 className="font-componentry text-balance text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.98] tracking-[-0.05em] text-white max-w-4xl mb-5 uppercase">
             Crafted for Quiet Luxury
           </h1>
 
-          {/* Clean Editorial Lead */}
-          <p className="max-w-2xl mx-auto text-sm sm:text-base text-zinc-600 font-normal leading-relaxed mb-9 px-4 tracking-[-0.01em]">
-            XL villa plots across an intimate 3-acre gated community on the Devanahalli–Doddaballapura Road in North Bangalore. Grounded in the poised grace of the cheetah, featuring monumental double-height flamed basalt gates, 100% underground infrastructure, and 30+ curated lifestyle amenities.
+          {/* High-End Editorial Subtitle */}
+          <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-neutral-200 font-light leading-relaxed mb-8 px-2 tracking-[-0.01em]">
+            XL villa plots across an intimate 3-acre gated community on the Devanahalli–Doddaballapura Road in North Bangalore. Designed with monumental double-height flamed basalt gates, 100% underground infrastructure, and an exclusive resident clubhouse.
           </p>
 
-          {/* Primary Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
+          {/* Action Buttons with Dark Blue Hierarchy */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto mb-10">
             <button
               type="button"
               onClick={() => openEnquiry()}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-zinc-950 text-white px-8 py-3.5 text-xs uppercase tracking-[0.18em] font-medium hover:bg-zinc-800 transition-all shadow-md rounded-full cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white border border-blue-400/40 px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-all shadow-xl rounded-full cursor-pointer hover:scale-102"
             >
               <span>Schedule Private Walkthrough</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
             <a
               href="#snapshot"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-zinc-200 hover:border-zinc-950 bg-white/90 text-zinc-900 px-7 py-3.5 text-xs uppercase tracking-[0.18em] font-medium hover:bg-zinc-50 transition-all rounded-full shadow-2xs"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white bg-white/10 hover:bg-white/20 text-white px-7 py-3.5 text-xs uppercase tracking-[0.2em] font-medium backdrop-blur-md transition-all rounded-full shadow-sm"
             >
               <span>Explore Enclave</span>
-              <ChevronDown className="w-4 h-4 text-zinc-500" />
+              <ChevronDown className="w-4 h-4 text-neutral-300" />
             </a>
           </div>
 
-          {/* 4 Essential Numbers in Minimalist Clean Grid */}
-          <div className="pt-12 grid grid-cols-2 sm:grid-cols-4 gap-3.5 w-full max-w-4xl border-t border-zinc-200/80 mt-12 text-left">
-            <div className="p-4 bg-white/85 border border-zinc-200 rounded-xl shadow-2xs">
-              <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-500 block mb-1">
-                Total Enclave Scale
-              </span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-clash text-3xl font-semibold text-zinc-950">3.0</span>
-                <span className="text-xs uppercase tracking-wider text-zinc-600">Acres</span>
+          {/* Architectural Minimalist Metrics Bar (No cheap boxy cards) */}
+          <div className="w-full max-w-4xl border-t border-white/20 pt-6 mt-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/15 text-center">
+              <div className="py-2.5 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">3.0</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Acres Enclave</span>
               </div>
-            </div>
-            <div className="p-4 bg-white/85 border border-zinc-200 rounded-xl shadow-2xs">
-              <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-500 block mb-1">
-                Boutique Parcels
-              </span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-clash text-3xl font-semibold text-zinc-950">24</span>
-                <span className="text-xs uppercase tracking-wider text-zinc-600">Villa Plots</span>
+              <div className="py-2.5 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">24</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Villa Plots</span>
               </div>
-            </div>
-            <div className="p-4 bg-white/85 border border-zinc-200 rounded-xl shadow-2xs">
-              <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-500 block mb-1">
-                Double-Height Gate
-              </span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-clash text-3xl font-semibold text-zinc-950">8M</span>
-                <span className="text-xs uppercase tracking-wider text-zinc-600">Basalt Portal</span>
+              <div className="py-2.5 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">8M</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Double Height Gate</span>
               </div>
-            </div>
-            <div className="p-4 bg-white/85 border border-zinc-200 rounded-xl shadow-2xs">
-              <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-500 block mb-1">
-                Airport Access
-              </span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-clash text-3xl font-semibold text-zinc-950">15</span>
-                <span className="text-xs uppercase tracking-wider text-zinc-600">Mins to BLR</span>
+              <div className="py-2.5 sm:py-0 sm:px-4">
+                <span className="font-clash text-2xl sm:text-3xl font-semibold text-white block">15</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-200">Mins to BLR Airport</span>
               </div>
             </div>
           </div>
@@ -331,21 +314,22 @@ export default function RoveraView() {
       <nav aria-label="Rovera Navigation" className="sticky top-[58px] sm:top-[72px] z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 py-3 px-5 overflow-x-auto scrollbar-none shadow-2xs">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-6 text-[11px] uppercase tracking-[0.16em] text-zinc-600 whitespace-nowrap font-medium">
           <div className="flex items-center gap-6 sm:gap-7">
-            <a href="#snapshot" className="hover:text-black transition-colors">Snapshot</a>
-            <a href="#difference" className="hover:text-black transition-colors">Difference</a>
-            <a href="#gates" className="hover:text-black transition-colors">Grand Gates</a>
-            <a href="#why-rovera" className="hover:text-black transition-colors">Why North BLR</a>
-            <a href="#amenities" className="hover:text-black transition-colors">Amenities</a>
-            <a href="#planning" className="hover:text-black transition-colors">Plot Matrix</a>
-            <a href="#master-plan" className="hover:text-black transition-colors">Master Plan</a>
-            <a href="#location" className="hover:text-black transition-colors">Location</a>
-            <a href="#pricing" className="hover:text-black transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-black transition-colors">FAQ</a>
+            <a href="#snapshot" className="hover:text-[#1E3A8A] transition-colors">Snapshot</a>
+            <a href="#difference" className="hover:text-[#1E3A8A] transition-colors">Difference</a>
+            <a href="#gates" className="hover:text-[#1E3A8A] transition-colors">Grand Gates</a>
+            <a href="#cheetah-totem" className="hover:text-[#1E3A8A] transition-colors">Cheetah Totem</a>
+            <a href="#why-rovera" className="hover:text-[#1E3A8A] transition-colors">Why North BLR</a>
+            <a href="#amenities" className="hover:text-[#1E3A8A] transition-colors">Amenities</a>
+            <a href="#planning" className="hover:text-[#1E3A8A] transition-colors">Plot Matrix</a>
+            <a href="#master-plan" className="hover:text-[#1E3A8A] transition-colors">Master Plan</a>
+            <a href="#location" className="hover:text-[#1E3A8A] transition-colors">Location</a>
+            <a href="#pricing" className="hover:text-[#1E3A8A] transition-colors">Pricing</a>
+            <a href="#faq" className="hover:text-[#1E3A8A] transition-colors">FAQ</a>
           </div>
           <button
             type="button"
             onClick={() => openEnquiry()}
-            className="text-zinc-950 hover:text-zinc-600 transition-colors flex items-center gap-1.5 shrink-0 font-semibold"
+            className="text-[#0F2744] hover:text-[#1E3A8A] transition-colors flex items-center gap-1.5 shrink-0 font-semibold"
           >
             <span>Enquire</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -357,7 +341,7 @@ export default function RoveraView() {
       <section id="snapshot" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Project Snapshot
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -369,8 +353,8 @@ export default function RoveraView() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-500 block">Scale &amp; Setting</span>
+            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Scale &amp; Setting</span>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
                 3.0 Acres Boutique Enclave
               </h3>
@@ -379,8 +363,8 @@ export default function RoveraView() {
               </p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-500 block">Parcel Planning</span>
+            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Parcel Planning</span>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
                 XL Villa Plot Configurations
               </h3>
@@ -389,8 +373,8 @@ export default function RoveraView() {
               </p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-500 block">Lifestyle &amp; Health</span>
+            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Lifestyle &amp; Health</span>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
                 30+ Curated Amenities
               </h3>
@@ -399,8 +383,8 @@ export default function RoveraView() {
               </p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-500 block">Civil Engineering</span>
+            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Civil Engineering</span>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
                 100% Underground Utilities
               </h3>
@@ -409,8 +393,8 @@ export default function RoveraView() {
               </p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-500 block">Circulation</span>
+            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Circulation</span>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
                 40-Ft Cobblestone Boulevards
               </h3>
@@ -419,8 +403,8 @@ export default function RoveraView() {
               </p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-500 block">Title &amp; Approvals</span>
+            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Title &amp; Approvals</span>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
                 RERA Approved &amp; Bank Certified
               </h3>
@@ -436,7 +420,7 @@ export default function RoveraView() {
       <section id="difference" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               The Difference
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -449,7 +433,7 @@ export default function RoveraView() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-900">
+              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
                 <Compass className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
@@ -458,13 +442,13 @@ export default function RoveraView() {
               <p className="text-zinc-600 text-sm font-normal leading-relaxed">
                 Own the earth beneath your feet and the sky above your roof. Zero shared walls, zero shared ceilings, zero upstairs footsteps, and complete architectural freedom to express your personal lifestyle.
               </p>
-              <div className="pt-2 text-xs font-mono text-zinc-500">
+              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
                 Freehold Land Ownership • 100% Independence
               </div>
             </div>
 
             <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-900">
+              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
@@ -473,13 +457,13 @@ export default function RoveraView() {
               <p className="text-zinc-600 text-sm font-normal leading-relaxed">
                 Only 24 families sharing 3 acres of lush landscaping. Unlike 500-unit high-rise complexes where clubhouse amenities and elevators are perennially congested, ROVERA ensures private, uncrowded enjoyment.
               </p>
-              <div className="pt-2 text-xs font-mono text-zinc-500">
+              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
                 8 Families Per Acre • Unmatched Exclusivity
               </div>
             </div>
 
             <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-900">
+              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
                 <Layers className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
@@ -488,13 +472,13 @@ export default function RoveraView() {
               <p className="text-zinc-600 text-sm font-normal leading-relaxed">
                 Buildings depreciate over time; land in prime growth corridors compounds exponentially. Plotted land on the Devanahalli–Doddaballapura corridor has historically yielded superior returns compared to vertical apartments.
               </p>
-              <div className="pt-2 text-xs font-mono text-zinc-500">
+              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
                 Trophy Real Estate Asset • Infinite Legacy
               </div>
             </div>
 
             <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-900">
+              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
                 <Trees className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
@@ -503,7 +487,7 @@ export default function RoveraView() {
               <p className="text-zinc-600 text-sm font-normal leading-relaxed">
                 Nestled near the breezes of Nandi Hills with preserved native tree canopies, deep groundwater aquifers, and natural bioswales — creating a temperature microclimate 2–3°C cooler than downtown Bangalore.
               </p>
-              <div className="pt-2 text-xs font-mono text-zinc-500">
+              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
                 40% Green Perimeters • Natural Quietude
               </div>
             </div>
@@ -511,11 +495,11 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 05. SECTION: ARCHITECTURAL STATEMENT & DOUBLE-HEIGHT GATES (#gates / #luxury) */}
+      {/* 05. SECTION: ARCHITECTURAL STATEMENT & DOUBLE-HEIGHT GATES (#gates) */}
       <section id="gates" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Architectural Statement
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -526,7 +510,6 @@ export default function RoveraView() {
             </p>
           </div>
 
-          {/* Hero Gate Render Plate */}
           <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-zinc-200 shadow-xl mb-12 bg-zinc-950">
             <Image
               src="/images/rovera-grand-double-height-gate.jpg"
@@ -539,14 +522,14 @@ export default function RoveraView() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
             <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-white">
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-300 block mb-1">
+                <span className="font-mono text-[10px] uppercase tracking-wide text-blue-200 block mb-1">
                   8-Meter Monumental Portal
                 </span>
                 <p className="font-componentry text-2xl sm:text-3xl font-medium tracking-[-0.04em] text-white">
                   Cantilevered Flamed Basalt &amp; Ribbed Concrete Portal
                 </p>
               </div>
-              <span className="bg-white text-zinc-950 px-4 py-2 text-xs uppercase tracking-wider font-mono font-medium self-start sm:self-auto rounded-full shadow">
+              <span className="bg-[#0F2744] border border-blue-400/40 text-white px-4 py-2 text-xs uppercase tracking-wider font-mono font-medium self-start sm:self-auto rounded-full shadow">
                 24/7 RFID &amp; Biometric Protocol
               </span>
             </div>
@@ -554,7 +537,7 @@ export default function RoveraView() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-3">
-              <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-900 mb-2">
+              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
                 <Maximize2 className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -566,7 +549,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-3">
-              <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-900 mb-2">
+              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -578,7 +561,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-3">
-              <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-900 mb-2">
+              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
                 <Sparkles className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -605,13 +588,13 @@ export default function RoveraView() {
                 quality={95}
                 className="object-contain object-center p-4 hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute top-4 left-4 bg-zinc-950 text-white px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wide">
+              <div className="absolute top-4 left-4 bg-[#0F2744] text-white px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wide">
                 The ROVERA Totem
               </div>
             </div>
 
             <div className="lg:col-span-6 space-y-5">
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500">
+              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A]">
                 The Sovereign Spirit
               </p>
               <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -647,7 +630,7 @@ export default function RoveraView() {
       <section id="why-rovera" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Why ROVERA
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -660,7 +643,7 @@ export default function RoveraView() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#c86a4b] font-medium tracking-wider">01 • INFRASTRUCTURE</span>
+              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">01 • INFRASTRUCTURE</span>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
                 Satellite Town Ring Road (STRR)
               </h3>
@@ -670,7 +653,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#c86a4b] font-medium tracking-wider">02 • EMPLOYMENT SEZ</span>
+              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">02 • EMPLOYMENT SEZ</span>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
                 Foxconn Mega Tech Campus
               </h3>
@@ -680,7 +663,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#c86a4b] font-medium tracking-wider">03 • AEROSPACE HUB</span>
+              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">03 • AEROSPACE HUB</span>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
                 KIADB Aerospace &amp; Defense Park
               </h3>
@@ -690,7 +673,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#c86a4b] font-medium tracking-wider">04 • GLOBAL TRANSIT</span>
+              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">04 • GLOBAL TRANSIT</span>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
                 Kempegowda International Airport
               </h3>
@@ -700,7 +683,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#c86a4b] font-medium tracking-wider">05 • WORLD-CLASS EDUCATION</span>
+              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">05 • WORLD-CLASS EDUCATION</span>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
                 International School Belt
               </h3>
@@ -710,7 +693,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#c86a4b] font-medium tracking-wider">06 • HEALTHCARE</span>
+              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">06 • HEALTHCARE</span>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
                 Tertiary Care Centers
               </h3>
@@ -726,7 +709,7 @@ export default function RoveraView() {
       <section id="amenities" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Amenities
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -741,7 +724,7 @@ export default function RoveraView() {
             {amenities.map((item) => (
               <div
                 key={item.title}
-                className="bg-white border border-zinc-200 hover:border-zinc-950 rounded-2xl overflow-hidden flex flex-col justify-between transition-all group shadow-2xs hover:shadow-lg"
+                className="bg-white border border-zinc-200 hover:border-[#1E3A8A] rounded-2xl overflow-hidden flex flex-col justify-between transition-all group shadow-2xs hover:shadow-lg"
               >
                 <div className="relative aspect-[16/10] w-full bg-zinc-100 overflow-hidden">
                   <Image
@@ -751,14 +734,14 @@ export default function RoveraView() {
                     quality={92}
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-zinc-900 text-[10px] font-mono uppercase tracking-wide px-3 py-1 rounded-full shadow-2xs">
+                  <div className="absolute top-3 left-3 bg-[#0F2744] text-white text-[10px] font-mono uppercase tracking-wide px-3 py-1 rounded-full shadow-2xs">
                     {item.category}
                   </div>
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-3">
                   <div>
-                    <span className="font-mono text-[10px] uppercase tracking-wide text-[#c86a4b] block mb-1">
+                    <span className="font-mono text-[10px] uppercase tracking-wide text-[#1E3A8A] font-semibold block mb-1">
                       {item.spec}
                     </span>
                     <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -780,7 +763,7 @@ export default function RoveraView() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-5 space-y-5">
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500">
+              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A]">
                 Wellbeing
               </p>
               <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -792,7 +775,7 @@ export default function RoveraView() {
 
               <div className="space-y-4 pt-2">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-zinc-900 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-[#1E3A8A] shrink-0 mt-0.5" />
                   <div>
                     <h4 className="font-componentry text-lg font-medium tracking-[-0.02em] text-zinc-950">
                       Hydrotherapy &amp; Vitality Spa
@@ -804,7 +787,7 @@ export default function RoveraView() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-zinc-900 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-[#1E3A8A] shrink-0 mt-0.5" />
                   <div>
                     <h4 className="font-componentry text-lg font-medium tracking-[-0.02em] text-zinc-950">
                       Sensory Botanical Aromatherapy
@@ -816,7 +799,7 @@ export default function RoveraView() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-zinc-900 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-[#1E3A8A] shrink-0 mt-0.5" />
                   <div>
                     <h4 className="font-componentry text-lg font-medium tracking-[-0.02em] text-zinc-950">
                       Zero Noise &amp; Decibel Insulation
@@ -843,7 +826,7 @@ export default function RoveraView() {
                 <span className="font-componentry text-xl font-medium tracking-[-0.03em]">
                   Aura Vitality Spa &amp; Zen Garden
                 </span>
-                <span className="bg-white text-zinc-950 px-3 py-1 rounded-full font-mono text-[10px] font-medium uppercase">
+                <span className="bg-[#0F2744] text-white px-3 py-1 rounded-full font-mono text-[10px] font-medium uppercase">
                   Residents Only
                 </span>
               </div>
@@ -857,7 +840,7 @@ export default function RoveraView() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-4">
             <div>
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
                 Planning
               </p>
               <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -867,7 +850,7 @@ export default function RoveraView() {
             <button
               type="button"
               onClick={() => openEnquiry("Complete Plot Matrix & Pricing Dossier")}
-              className="inline-flex items-center gap-2 bg-zinc-950 text-white px-6 py-3 text-xs uppercase tracking-[0.16em] font-medium hover:bg-zinc-800 transition-colors self-start sm:self-auto cursor-pointer rounded-full shadow-2xs"
+              className="inline-flex items-center gap-2 bg-[#0F2744] hover:bg-[#1E3A8A] text-white px-6 py-3 text-xs uppercase tracking-[0.16em] font-medium transition-colors self-start sm:self-auto cursor-pointer rounded-full shadow-2xs"
             >
               <Download className="w-4 h-4" />
               <span>Download Cost Sheet</span>
@@ -878,11 +861,11 @@ export default function RoveraView() {
             {plotConfigurations.map((plot, idx) => (
               <div
                 key={plot.id}
-                className="bg-white border border-zinc-200 hover:border-zinc-950 rounded-2xl p-7 flex flex-col justify-between transition-all group shadow-2xs hover:shadow-lg"
+                className="bg-white border border-zinc-200 hover:border-[#1E3A8A] rounded-2xl p-7 flex flex-col justify-between transition-all group shadow-2xs hover:shadow-lg"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4 border-b border-zinc-100 pb-3">
-                    <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-600 font-medium">
+                    <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold">
                       {plot.badge}
                     </span>
                     <span className="font-clash text-2xl font-semibold text-zinc-400">
@@ -894,7 +877,7 @@ export default function RoveraView() {
                     <h3 className="font-componentry text-2xl font-medium tracking-[-0.03em] text-zinc-950">
                       {plot.name}
                     </h3>
-                    <span className="font-mono text-xs font-semibold text-[#c86a4b]">
+                    <span className="font-mono text-xs font-semibold text-[#1E3A8A]">
                       {plot.indicativePrice}
                     </span>
                   </div>
@@ -923,7 +906,7 @@ export default function RoveraView() {
                   </p>
 
                   <div className="text-[11px] font-mono text-zinc-500 flex items-center gap-2 mb-6">
-                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A8A]" />
                     <span>{plot.coverage} • {plot.facing}</span>
                   </div>
                 </div>
@@ -931,7 +914,7 @@ export default function RoveraView() {
                 <button
                   type="button"
                   onClick={() => openEnquiry(plot.name)}
-                  className="w-full inline-flex items-center justify-center gap-2 border border-zinc-200 hover:border-zinc-950 bg-white hover:bg-zinc-50 text-zinc-900 py-3 px-4 text-xs uppercase tracking-[0.16em] font-medium transition-colors cursor-pointer rounded-full shadow-2xs font-mono"
+                  className="w-full inline-flex items-center justify-center gap-2 border border-zinc-200 hover:border-[#1E3A8A] bg-white hover:bg-blue-50/50 text-zinc-900 py-3 px-4 text-xs uppercase tracking-[0.16em] font-medium transition-colors cursor-pointer rounded-full shadow-2xs font-mono"
                 >
                   <span>Enquire for {plot.name}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -947,7 +930,7 @@ export default function RoveraView() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
             <div>
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
                 Master Plan
               </p>
               <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -960,7 +943,7 @@ export default function RoveraView() {
             <button
               type="button"
               onClick={() => setMasterPlanZoom(true)}
-              className="inline-flex items-center gap-2 border border-zinc-300 hover:border-zinc-950 px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-wide text-zinc-900 hover:bg-zinc-50 transition-colors cursor-pointer self-start sm:self-auto"
+              className="inline-flex items-center gap-2 border border-zinc-300 hover:border-[#1E3A8A] px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-wide text-zinc-900 hover:bg-blue-50/40 transition-colors cursor-pointer self-start sm:self-auto"
             >
               <Maximize2 className="w-3.5 h-3.5" />
               <span>Fullscreen Master Plan</span>
@@ -992,7 +975,7 @@ export default function RoveraView() {
       <section id="walkthrough" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Project Walkthrough
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1013,7 +996,7 @@ export default function RoveraView() {
               poster="/images/rovera-aerial-3acres.jpg"
               className="w-full h-full object-cover object-center"
             >
-              <source src="/videos/stthira-hero-clean.mp4" type="video/mp4" />
+              <source src="/videos/rovera-sanctuary-hero.mp4" type="video/mp4" />
             </video>
             <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white text-xs">
               <span className="font-mono uppercase tracking-wide">
@@ -1022,7 +1005,7 @@ export default function RoveraView() {
               <button
                 type="button"
                 onClick={() => openEnquiry("Schedule Chauffeured Site Visit")}
-                className="bg-white text-zinc-950 px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-wider font-medium hover:bg-zinc-100 transition-colors shadow"
+                className="bg-[#0F2744] hover:bg-[#1E3A8A] text-white px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-wider font-medium transition-colors shadow"
               >
                 Book Chauffeured Visit
               </button>
@@ -1035,7 +1018,7 @@ export default function RoveraView() {
       <section id="gallery" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Gallery
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1135,7 +1118,7 @@ export default function RoveraView() {
       <section id="location" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Location
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1150,7 +1133,7 @@ export default function RoveraView() {
             {connectivityList.map((item) => (
               <div
                 key={item.destination}
-                className="bg-white border border-zinc-200 p-6 rounded-2xl space-y-3 hover:border-zinc-950 transition-colors shadow-2xs"
+                className="bg-white border border-zinc-200 p-6 rounded-2xl space-y-3 hover:border-[#1E3A8A] transition-colors shadow-2xs"
               >
                 <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
                   <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-400 font-medium">
@@ -1164,7 +1147,7 @@ export default function RoveraView() {
                   <h4 className="font-componentry text-lg font-medium tracking-[-0.03em] text-zinc-950">
                     {item.destination}
                   </h4>
-                  <span className="font-mono text-[10px] uppercase tracking-wide text-zinc-500 block mt-0.5">
+                  <span className="font-mono text-[10px] uppercase tracking-wide text-[#1E3A8A] block mt-0.5">
                     {item.category}
                   </span>
                 </div>
@@ -1175,16 +1158,16 @@ export default function RoveraView() {
             ))}
           </div>
 
-          {/* Exact Address & Map Banner as shown in Lagos reference */}
-          <div className="p-8 bg-zinc-950 text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl">
+          {/* Exact Address & Map Banner with Dark Blue Accents */}
+          <div className="p-8 bg-[#0F2744] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl border border-blue-900/50">
             <div className="space-y-1.5">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-[#c86a4b]">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-blue-200">
                 GPS Site Address
               </span>
               <h3 className="font-componentry text-xl sm:text-2xl font-medium tracking-[-0.03em] text-white">
                 Devanahalli, Doddaballapura Main Rd, Kasaba Hobli, Shivapura, Doddaballapur, Karnataka 562163
               </h3>
-              <p className="text-zinc-400 text-xs sm:text-sm font-light">
+              <p className="text-blue-100 text-xs sm:text-sm font-light">
                 Direct State Highway 9 frontage, adjacent to STRR interchange and KIADB Aerospace corridor.
               </p>
             </div>
@@ -1192,7 +1175,7 @@ export default function RoveraView() {
               href="https://maps.app.goo.gl/Pnt9SjxeLpJLzs179"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-zinc-950 px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wide font-medium hover:bg-zinc-100 transition-colors shrink-0 self-start sm:self-auto shadow"
+              className="inline-flex items-center gap-2 bg-white text-[#0F2744] px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wide font-semibold hover:bg-blue-50 transition-colors shrink-0 self-start sm:self-auto shadow"
             >
               <span>Open in Google Maps</span>
               <ExternalLink className="w-4 h-4" />
@@ -1205,7 +1188,7 @@ export default function RoveraView() {
       <section id="testimonials" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Testimonials
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1223,7 +1206,7 @@ export default function RoveraView() {
                   <h5 className="font-componentry text-base font-medium text-zinc-950">Vikramaditya Rao</h5>
                   <span className="font-mono text-[11px] text-zinc-500">Tech Entrepreneur &amp; Early Patron</span>
                 </div>
-                <span className="font-clash text-sm text-[#c86a4b] font-semibold">2,400 Sq.Ft Plot</span>
+                <span className="font-clash text-sm text-[#1E3A8A] font-semibold">2,400 Sq.Ft Plot</span>
               </div>
             </div>
 
@@ -1247,7 +1230,7 @@ export default function RoveraView() {
       <section id="pricing" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Pricing
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1271,14 +1254,14 @@ export default function RoveraView() {
               <button
                 type="button"
                 onClick={() => openEnquiry("1,500 Sq.Ft Cost Sheet")}
-                className="w-full mt-2 py-2.5 bg-zinc-950 text-white rounded-full text-xs font-mono uppercase tracking-wide hover:bg-zinc-800 transition-colors"
+                className="w-full mt-2 py-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full text-xs font-mono uppercase tracking-wide transition-colors"
               >
                 Request Cost Sheet
               </button>
             </div>
 
-            <div className="p-7 bg-white border-2 border-zinc-950 rounded-2xl space-y-4 shadow-md relative">
-              <div className="absolute -top-3 left-6 bg-[#c86a4b] text-white px-3 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider">
+            <div className="p-7 bg-white border-2 border-[#1E3A8A] rounded-2xl space-y-4 shadow-md relative">
+              <div className="absolute -top-3 left-6 bg-[#0F2744] text-white px-3 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider">
                 Most Popular
               </div>
               <span className="font-mono text-xs text-zinc-500 uppercase tracking-wide">Signature Plot</span>
@@ -1292,7 +1275,7 @@ export default function RoveraView() {
               <button
                 type="button"
                 onClick={() => openEnquiry("2,400 Sq.Ft Cost Sheet")}
-                className="w-full mt-2 py-2.5 bg-zinc-950 text-white rounded-full text-xs font-mono uppercase tracking-wide hover:bg-zinc-800 transition-colors"
+                className="w-full mt-2 py-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full text-xs font-mono uppercase tracking-wide transition-colors"
               >
                 Request Cost Sheet
               </button>
@@ -1310,7 +1293,7 @@ export default function RoveraView() {
               <button
                 type="button"
                 onClick={() => openEnquiry("Grand Estate Cost Sheet")}
-                className="w-full mt-2 py-2.5 bg-zinc-950 text-white rounded-full text-xs font-mono uppercase tracking-wide hover:bg-zinc-800 transition-colors"
+                className="w-full mt-2 py-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full text-xs font-mono uppercase tracking-wide transition-colors"
               >
                 Request Cost Sheet
               </button>
@@ -1321,7 +1304,7 @@ export default function RoveraView() {
             <div>
               <strong className="text-zinc-950 uppercase">Milestone Payment Schedule:</strong> 10% on Booking • 20% on Agreement • 50% Linked to Civil Infrastructure Milestones • 20% on Final Registration.
             </div>
-            <div className="text-zinc-500 shrink-0">
+            <div className="text-[#1E3A8A] font-semibold shrink-0">
               Approved by SBI, HDFC, ICICI &amp; Axis Bank
             </div>
           </div>
@@ -1332,7 +1315,7 @@ export default function RoveraView() {
       <section id="faq" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               FAQ
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1359,7 +1342,7 @@ export default function RoveraView() {
                     <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950 tracking-[-0.02em]">
                       {faq.question}
                     </span>
-                    <span className="w-7 h-7 rounded-full bg-white border border-zinc-200 flex items-center justify-center shrink-0 text-zinc-600">
+                    <span className="w-7 h-7 rounded-full bg-white border border-zinc-200 flex items-center justify-center shrink-0 text-[#1E3A8A]">
                       {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </span>
                   </button>
@@ -1381,7 +1364,7 @@ export default function RoveraView() {
           <div className="flex justify-center">
             <StthiraEmblem className="text-zinc-950 w-10 h-12" />
           </div>
-          <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A]">
             About the Master Developer
           </p>
           <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1402,11 +1385,11 @@ export default function RoveraView() {
       <section id="reserve" className="py-20 sm:py-28 bg-white scroll-mt-24">
         <div className="max-w-3xl mx-auto px-5 sm:px-8">
           <div className="text-center mb-10">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-zinc-500 mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
               Reserve Your Plot
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-              Let&apos;s <span className="text-[#c86a4b]">Connect</span>
+              Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
             </h2>
             <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal">
               Receive the brochure, master plan, cost sheet and a private site visit invitation.
@@ -1429,7 +1412,7 @@ export default function RoveraView() {
                   type="text"
                   required
                   placeholder="Enter your name"
-                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-zinc-950"
+                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]"
                 />
               </div>
 
@@ -1441,7 +1424,7 @@ export default function RoveraView() {
                   type="tel"
                   required
                   placeholder="+91 98765 43210"
-                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-zinc-950"
+                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]"
                 />
               </div>
 
@@ -1453,7 +1436,7 @@ export default function RoveraView() {
                   type="email"
                   required
                   placeholder="name@example.com"
-                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-zinc-950"
+                  className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]"
                 />
               </div>
 
@@ -1461,7 +1444,7 @@ export default function RoveraView() {
                 <label className="block text-xs font-mono uppercase tracking-wide text-zinc-700 mb-1.5">
                   Preferred Parcel Configuration
                 </label>
-                <select className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-zinc-950">
+                <select className="w-full h-12 px-4 rounded-xl border border-zinc-200 bg-white text-zinc-900 text-sm focus:outline-hidden focus:border-[#1E3A8A]">
                   <option value="1500">Courtyard Villa Parcel (1,500 Sq.Ft)</option>
                   <option value="2400">Signature Sanctuary Plot (2,400 Sq.Ft)</option>
                   <option value="3500">Grand Estate Parcel (3,500 Sq.Ft)</option>
@@ -1472,7 +1455,7 @@ export default function RoveraView() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full h-12 rounded-full bg-[#c86a4b] hover:bg-zinc-950 text-white font-mono text-xs uppercase tracking-wide font-medium transition-colors shadow-md cursor-pointer"
+                  className="w-full h-12 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-xs uppercase tracking-wide font-medium transition-colors shadow-md cursor-pointer"
                 >
                   Send Me Project Details
                 </button>

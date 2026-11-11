@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowUpRight, ChevronDown, Phone } from "lucide-react";
 import EnquiryModal from "./EnquiryModal";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/context/LanguageContext";
@@ -16,6 +17,7 @@ export default function Header() {
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const pathname = usePathname();
   const { t } = useLanguage();
+  const isRovera = pathname?.includes("/developments/rovera");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,22 +62,40 @@ export default function Header() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-black/95 backdrop-blur-md border-b border-neutral-800 py-3.5 sm:py-4 text-white"
-            : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4 sm:py-6 text-white"
+            : "bg-gradient-to-b from-black/85 via-black/45 to-transparent py-4 sm:py-6 text-white"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
-          {/* Logo & Corporate Hierarchy — Protected with shrink-0 and responsive sizing */}
-          <Link href="/" className="group flex items-center gap-2 sm:gap-3 shrink-0 mr-2 sm:mr-6 xl:mr-10">
-            <StthiraEmblem className="text-white w-5 h-6 sm:w-6 sm:h-7 transition-transform group-hover:scale-105 duration-300 shrink-0" />
-            <div className="flex flex-col">
-              <span className="font-editorial text-xl sm:text-3xl tracking-[0.2em] sm:tracking-[0.25em] font-medium uppercase text-white transition-opacity duration-300 group-hover:opacity-80">
-                STTHIRA
-              </span>
-              <span className="text-[8px] sm:text-[9px] tracking-[0.25em] sm:tracking-[0.35em] text-neutral-400 uppercase -mt-0.5 sm:-mt-1 font-sans">
-                Est. <span className="font-doto">2026</span> • India
-              </span>
-            </div>
-          </Link>
+          {/* LEFT SIDE BRANDING: On ROVERA page, show ROVERA branding on the left! Otherwise STTHIRA */}
+          {isRovera ? (
+            <Link
+              href="/developments/rovera"
+              className="group flex items-center gap-3 shrink-0 mr-2 sm:mr-6 xl:mr-10 transition-opacity hover:opacity-90"
+            >
+              <div className="relative h-7 sm:h-9 w-28 sm:w-36 select-none shrink-0">
+                <Image
+                  src="/images/rovera-logo-dark.png"
+                  alt="ROVERA"
+                  fill
+                  priority
+                  sizes="144px"
+                  className="object-contain object-left brightness-0 invert"
+                />
+              </div>
+            </Link>
+          ) : (
+            <Link href="/" className="group flex items-center gap-2 sm:gap-3 shrink-0 mr-2 sm:mr-6 xl:mr-10">
+              <StthiraEmblem className="text-white w-5 h-6 sm:w-6 sm:h-7 transition-transform group-hover:scale-105 duration-300 shrink-0" />
+              <div className="flex flex-col">
+                <span className="font-editorial text-xl sm:text-3xl tracking-[0.2em] sm:tracking-[0.25em] font-medium uppercase text-white transition-opacity duration-300 group-hover:opacity-80">
+                  STTHIRA
+                </span>
+                <span className="text-[8px] sm:text-[9px] tracking-[0.25em] sm:tracking-[0.35em] text-neutral-400 uppercase -mt-0.5 sm:-mt-1 font-sans">
+                  Est. <span className="font-doto">2026</span> • India
+                </span>
+              </div>
+            </Link>
+          )}
 
           {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center space-x-6 2xl:space-x-8 text-xs uppercase tracking-[0.16em] font-sans">
@@ -141,7 +161,47 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Mobile Menu Toggle (only on mobile viewports) */}
+          {/* RIGHT SIDE ACTIONS: On ROVERA page, show Call Us, Enquiry, and STTHIRA branding on the right! */}
+          <div className="hidden sm:flex items-center gap-4">
+            {isRovera && (
+              <a
+                href="tel:+918049208800"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-neutral-300 hover:text-white transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-blue-400" />
+                <span>Call Us</span>
+              </a>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setEnquiryModalOpen(true)}
+              className="px-4 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] border border-[#1E3A8A]/60 text-white text-xs uppercase tracking-wider font-medium transition-all shadow-sm cursor-pointer"
+            >
+              Enquiry
+            </button>
+
+            {/* ON ROVERA: STTHIRA Branding placed on the RIGHT side as requested */}
+            {isRovera && (
+              <Link
+                href="/"
+                className="group flex items-center gap-2 shrink-0 border-l border-neutral-800 pl-4 ml-1 transition-opacity hover:opacity-85"
+                title="STTHIRA Developments (Parent Master Developer)"
+              >
+                <StthiraEmblem className="text-white w-4 h-5 transition-transform group-hover:scale-105 shrink-0" />
+                <div className="flex flex-col text-left">
+                  <span className="font-editorial text-xs tracking-[0.18em] font-medium uppercase text-white">
+                    STTHIRA
+                  </span>
+                  <span className="text-[7px] tracking-[0.25em] text-neutral-400 uppercase -mt-0.5">
+                    DEVELOPMENTS
+                  </span>
+                </div>
+              </Link>
+            )}
+          </div>
+
+          {/* Mobile Menu Toggle */}
           <div className="flex items-center xl:hidden shrink-0">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -184,8 +244,8 @@ export default function Header() {
                     href="/developments/rovera"
                     className="font-editorial text-base text-white font-medium block flex items-center justify-between"
                   >
-                    <span>↳ ROVERA</span>
-                    <span className="text-[9px] uppercase tracking-wider text-neutral-400">Featured</span>
+                    <span>↳ ROVERA (Devanahalli)</span>
+                    <span className="text-[9px] uppercase tracking-wider text-blue-400">Featured</span>
                   </Link>
                   <Link
                     href="/developments/terra"
@@ -202,16 +262,10 @@ export default function Header() {
                   {t("nav.leadership", "Leadership")}
                 </Link>
                 <Link
-                  href="/journal"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
-                >
-                  {t("nav.journal", "Journal & Insights")}
-                </Link>
-                <Link
                   href="/gallery"
                   className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
                 >
-                  {t("nav.gallery", "Architectural Gallery")}
+                  {t("nav.gallery", "Gallery")}
                 </Link>
                 <Link
                   href="/faq"
@@ -228,35 +282,31 @@ export default function Header() {
               </div>
             </div>
 
-            <div className="pt-8 border-t border-neutral-900 space-y-4">
-              <div className="flex items-center justify-between py-2 border-b border-neutral-900">
-                <span className="text-xs uppercase tracking-widest text-neutral-400">Select Language / భాష</span>
-                <LanguageSwitcher dropUp={false} />
-              </div>
+            <div className="pt-6 border-t border-neutral-800 space-y-4">
               <button
+                type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setEnquiryModalOpen(true);
                 }}
-                className="w-full py-3.5 bg-white text-black font-sans text-xs uppercase tracking-[0.25em] font-medium text-center hover:bg-neutral-200 transition-colors"
+                className="w-full py-3.5 bg-[#0F2744] text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#1E3A8A] transition-colors text-center rounded-full"
               >
-                Schedule Private Consultation
+                Schedule Private Walkthrough
               </button>
-              <div className="text-center text-[10px] text-neutral-500 tracking-widest uppercase">
-                STTHIRA Developments • Est. 2026
+              <div className="flex items-center justify-between text-xs text-neutral-500">
+                <span>© 2026 STTHIRA DEVELOPMENTS</span>
+                <LanguageSwitcher dropUp={true} theme="dark" />
               </div>
             </div>
           </div>
         )}
       </header>
 
-      {/* Instant Enquiry Modal */}
       <EnquiryModal
         isOpen={enquiryModalOpen}
         onClose={() => setEnquiryModalOpen(false)}
-        initialDevelopment="ROVERA"
+        projectName={isRovera ? "ROVERA (Devanahalli–Doddaballapura Road)" : "STTHIRA Luxury Real Estate"}
       />
     </>
   );
 }
-
