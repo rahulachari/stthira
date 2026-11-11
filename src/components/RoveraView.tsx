@@ -12,7 +12,6 @@ import {
   ArrowRight,
   Sparkles,
   Layers,
-  Compass,
   CheckCircle2,
   ChevronDown,
   Maximize2,
@@ -474,87 +473,9 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 04. SECTION: THE ROVERA DIFFERENCE (#difference) */}
-      <section id="difference" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
-              The Difference
-            </p>
-            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-              The ROVERA Distinction vs Conventional Living
-            </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-3 font-normal leading-relaxed tracking-[-0.01em]">
-              Why discerning families choose low-density freehold land over high-density vertical apartments.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
-                <Compass className="w-5 h-5" />
-              </div>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                Spatial Sovereignty &amp; Total Privacy
-              </h3>
-              <p className="text-zinc-600 text-sm font-normal leading-relaxed">
-                Own the earth beneath your feet and the sky above your roof. Zero shared walls, zero shared ceilings, zero upstairs footsteps, and complete architectural freedom to express your personal lifestyle.
-              </p>
-              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
-                Freehold Land Ownership • 100% Independence
-              </div>
-            </div>
-
-            <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                Boutique Low-Density Community
-              </h3>
-              <p className="text-zinc-600 text-sm font-normal leading-relaxed">
-                Only 24 families sharing 3 acres of lush landscaping. Unlike 500-unit high-rise complexes where clubhouse amenities and elevators are perennially congested, ROVERA ensures private, uncrowded enjoyment.
-              </p>
-              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
-                8 Families Per Acre • Unmatched Exclusivity
-              </div>
-            </div>
-
-            <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
-                <Layers className="w-5 h-5" />
-              </div>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                Generational Capital Appreciation
-              </h3>
-              <p className="text-zinc-600 text-sm font-normal leading-relaxed">
-                Buildings depreciate over time; land in prime growth corridors compounds exponentially. Plotted land on the Devanahalli–Doddaballapura corridor has historically yielded superior returns compared to vertical apartments.
-              </p>
-              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
-                Trophy Real Estate Asset • Infinite Legacy
-              </div>
-            </div>
-
-            <div className="p-8 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
-                <Trees className="w-5 h-5" />
-              </div>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                Native Biodiversity &amp; Microclimate
-              </h3>
-              <p className="text-zinc-600 text-sm font-normal leading-relaxed">
-                Nestled near the breezes of Nandi Hills with preserved native tree canopies, deep groundwater aquifers, and natural bioswales — creating a temperature microclimate 2–3°C cooler than downtown Bangalore.
-              </p>
-              <div className="pt-2 text-xs font-mono text-[#1E3A8A] font-medium">
-                40% Green Perimeters • Natural Quietude
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 05. SECTION: ARCHITECTURAL STATEMENT & DOUBLE-HEIGHT GATES (#gates) */}
-      <section id="gates" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
+      <section id="gates" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -594,7 +515,7 @@ export default function RoveraView() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-3">
+            <div className="p-7 bg-white border border-zinc-200 rounded-xl space-y-3 shadow-2xs">
               <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
                 <Maximize2 className="w-5 h-5" />
               </div>
@@ -606,7 +527,7 @@ export default function RoveraView() {
               </p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-3">
+            <div className="p-7 bg-white border border-zinc-200 rounded-xl space-y-3 shadow-2xs">
               <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
                 <ShieldCheck className="w-5 h-5" />
               </div>
@@ -618,7 +539,7 @@ export default function RoveraView() {
               </p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-3">
+            <div className="p-7 bg-white border border-zinc-200 rounded-xl space-y-3 shadow-2xs">
               <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
                 <Sparkles className="w-5 h-5" />
               </div>
@@ -633,56 +554,6 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 06. SECTION: CHEETAH TOTEM BRAND HIGHLIGHT */}
-      <section id="cheetah-totem" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-6 relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-zinc-200 flex items-center justify-center p-6 shadow-sm">
-              <Image
-                src="/images/rovera-cheetah-beside-retina.png"
-                alt="ROVERA Cheetah Spirit"
-                fill
-                priority
-                quality={95}
-                className="object-contain object-center p-4 hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute top-4 left-4 bg-[#0F2744] text-white px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wide">
-                The ROVERA Totem
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 space-y-5">
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A]">
-                The Sovereign Spirit
-              </p>
-              <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-                The Cheetah: Poised Agility &amp; Untamed Grace
-              </h2>
-              <p className="text-zinc-600 text-sm sm:text-base font-normal leading-relaxed tracking-[-0.01em]">
-                ROVERA adopts the cheetah as its brand totem — a living metaphor for effortless architectural balance, quiet focus, and natural sovereignty. In nature, the cheetah moves with supreme precision, claiming its territory through dignified poise rather than loud aggression.
-              </p>
-              <div className="grid grid-cols-2 gap-5 pt-4 border-t border-zinc-200">
-                <div>
-                  <h4 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950 mb-1">
-                    Solitary Territory
-                  </h4>
-                  <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                    Just 24 secluded villa parcels nestled within an intimate 3-acre gated perimeter for unmatched residential privacy.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950 mb-1">
-                    Poised Permanence
-                  </h4>
-                  <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                    Flamed basalt architecture, solid masonry boundaries, and concealed infrastructure built to endure across generations.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 07. SECTION: WHY ROVERA / GROWTH CORRIDOR (#why-rovera) */}
       <section id="why-rovera" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
