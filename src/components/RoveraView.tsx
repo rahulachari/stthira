@@ -251,13 +251,13 @@ export default function RoveraView() {
       <section className="relative w-full bg-white text-zinc-950 border-b border-zinc-200">
         
         {/* =========================================
-            A. DESKTOP / LAPTOP HERO (>= 768px)
+            A. DESKTOP / LAPTOP / IPAD HERO (>= 768px)
             ========================================= */}
         <div className="hidden md:flex relative min-h-[92vh] sm:min-h-screen w-full flex-col justify-end overflow-hidden">
           {/* Full-bleed Landscape Hero Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
-              src="/images/rovera-hero-horizontal.png"
+              src="/images/horizontal.png"
               alt="ROVERA — Quiet Luxury Plotted Living"
               fill
               priority
@@ -329,7 +329,7 @@ export default function RoveraView() {
 
         {/* =========================================
             B. MOBILE DEDICATED HERO (< 768px)
-            Clean, un-cropped cheetah showcase with balanced typography
+            Clean, un-cropped vertical ratio showcase (1086x1448)
             ========================================= */}
         <div className="flex md:hidden min-h-[100dvh] w-full flex-col justify-between pt-20 pb-8 px-5 bg-white">
           
@@ -346,15 +346,15 @@ export default function RoveraView() {
             </h1>
           </div>
 
-          {/* Center: Roaring Cheetah Hero Showcase (100% visible, crystal clear, un-cropped) */}
-          <div className="relative w-full aspect-[4/3] max-h-[36vh] my-auto py-2">
+          {/* Center: Roaring Cheetah Hero Showcase (Vertical Ratio 1086x1448, 100% visible, un-cropped) */}
+          <div className="relative w-full aspect-[3/4] max-h-[44vh] my-auto py-1">
             <Image
-              src="/images/rovera-hero-vertical.png"
+              src="/images/vertical.png"
               alt="ROVERA — Quiet Luxury Plotted Living"
               fill
               priority
               quality={95}
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-contain object-center"
             />
           </div>
