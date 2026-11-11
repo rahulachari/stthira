@@ -80,7 +80,7 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
+          scrolled || isRovera
             ? "bg-black/95 backdrop-blur-md border-b border-neutral-800 py-3.5 sm:py-4 text-white"
             : "bg-gradient-to-b from-black/85 via-black/45 to-transparent py-4 sm:py-6 text-white"
         }`}
