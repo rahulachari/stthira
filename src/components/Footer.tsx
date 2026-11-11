@@ -283,7 +283,7 @@ export default function Footer() {
           className="relative w-full overflow-hidden bg-white text-neutral-900 py-10 sm:py-14 md:py-16 select-none border-t border-neutral-200 flex items-center justify-center"
         >
           <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-center">
-            <div className="relative w-full max-w-[340px] sm:max-w-[460px] md:max-w-[560px] lg:max-w-[640px] aspect-[553/307]">
+            <div className="relative w-full max-w-[340px] sm:max-w-[460px] md:max-w-[560px] lg:max-w-[640px] aspect-[553/307] [mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)]">
               <Image
                 src="/images/rovera-footer.gif"
                 alt="ROVERA"
@@ -291,7 +291,7 @@ export default function Footer() {
                 priority
                 unoptimized
                 sizes="(max-width: 640px) 90vw, (max-width: 1024px) 560px, 640px"
-                className="object-contain object-center"
+                className="object-contain object-center mix-blend-multiply"
               />
             </div>
           </div>

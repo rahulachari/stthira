@@ -230,14 +230,14 @@ export default function RoveraView() {
               : "opacity-100 scale-100 filter blur-0"
           }`}
         >
-          <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] max-w-[85vw] aspect-[551/308]">
+          <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] max-w-[85vw] aspect-[551/308] [mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)]">
             <Image
               src="/images/rovera-loading.gif"
               alt="ROVERA Loading"
               fill
               priority
               unoptimized
-              className="object-contain"
+              className="object-contain mix-blend-multiply"
             />
           </div>
         </div>
