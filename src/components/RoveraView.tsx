@@ -1416,33 +1416,33 @@ export default function RoveraView() {
       <section id="reserve" className="scroll-mt-24">
         <AnimatedFooter
           headingLines={["ROVERA"]}
-          background="#070D18"
-          textColor="#ffffff"
-          charColor="#1E3A8A"
-          hoverColor="#2563EB"
+          background="#ffffff"
+          textColor="#0f172a"
+          charColor="#3B82F6"
+          hoverColor="#1E3A8A"
           hoverCharColor="#ffffff"
-          className="pt-16 sm:pt-24 lg:pt-28 pb-32 sm:pb-44 lg:pb-52 border-t border-blue-950/40"
+          className="pt-16 sm:pt-24 lg:pt-28 pb-32 sm:pb-44 lg:pb-52 border-t border-zinc-200 bg-white"
         >
           <div className="max-w-5xl mx-auto px-5 sm:px-8">
             {/* Header: "Reserve Your Plot" & "Let's Connect" */}
             <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                <p className="font-mono text-xs font-medium uppercase tracking-widest text-blue-300">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 mb-3.5 shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1E3A8A] animate-pulse" />
+                <p className="font-mono text-xs font-medium uppercase tracking-widest text-[#1E3A8A]">
                   Reserve Your Plot
                 </p>
               </div>
-              <h2 className="font-componentry text-balance text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[-0.04em] text-white leading-[1.06]">
-                Let&apos;s <span className="text-blue-400">Connect</span>
+              <h2 className="font-componentry text-balance text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[-0.04em] text-zinc-950 leading-[1.06]">
+                Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
               </h2>
-              <p className="text-zinc-400 text-sm sm:text-base mt-3 font-normal leading-relaxed max-w-lg mx-auto">
+              <p className="text-zinc-600 text-sm sm:text-base mt-3 font-normal leading-relaxed max-w-lg mx-auto">
                 Receive the official brochure, master plan CAD layout, unit pricing dossier, and a private chauffeured site visit invitation.
               </p>
             </div>
 
             {/* Centered Luxury Enquiry Card */}
             <div className="max-w-xl mx-auto">
-              <div className="bg-white/95 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-9 shadow-2xl">
+              <div className="bg-white border border-zinc-200/90 rounded-3xl p-6 sm:p-9 shadow-xl">
                 <form
                   onSubmit={handleLeadSubmit}
                   className="space-y-4"

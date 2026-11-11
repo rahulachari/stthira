@@ -192,10 +192,10 @@ export function AnimatedFooter({
   headingLines = ["ROVERA"],
   leftImage = "/animated-footer/hand-left.jpg",
   rightImage = "/animated-footer/hand-right.jpg",
-  background = "#070D18",
-  textColor = "#ffffff",
-  charColor = "#1E3A8A",
-  hoverColor = "#2563EB",
+  background = "#ffffff",
+  textColor = "#0f172a",
+  charColor = "#3B82F6",
+  hoverColor = "#1E3A8A",
   hoverCharColor = "#ffffff",
   asciiChars = DEFAULT_ASCII_CHARS,
   columns = 80,
@@ -220,8 +220,8 @@ export function AnimatedFooter({
   const animateOutRef = useRef<() => void>(() => {});
 
   // Elite Blue palette defaults
-  const cc = charColor ?? "#1E3A8A";
-  const hc = hoverColor ?? "#2563EB";
+  const cc = charColor ?? "#3B82F6";
+  const hc = hoverColor ?? "#1E3A8A";
   const hcc = hoverCharColor ?? "#ffffff";
 
   // Live-tunable values read inside the animation loop, so tweaking a color or
@@ -528,8 +528,12 @@ export function AnimatedFooter({
           <h2
             key={`${word}-${wi}`}
             aria-label={word}
-            className="overflow-hidden font-componentry font-medium leading-none tracking-tight pb-[0.15em] -mb-[0.15em] text-white/80"
-            style={{ fontSize: "clamp(2.5rem, 12cqw, 9.5rem)" }}
+            className="overflow-hidden font-componentry font-medium leading-none tracking-tight pb-[0.15em] -mb-[0.15em]"
+            style={{
+              fontSize: "clamp(2.5rem, 12cqw, 9.5rem)",
+              color: textColor || "inherit",
+              opacity: 0.85,
+            }}
           >
             {Array.from(word).map((ch, ci) => (
               <span
@@ -549,3 +553,4 @@ export function AnimatedFooter({
 }
 
 export default AnimatedFooter;
+
