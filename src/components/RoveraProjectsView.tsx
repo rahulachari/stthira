@@ -596,7 +596,14 @@ export default function RoveraProjectsView() {
   const [selectedLightboxImage, setSelectedLightboxImage] = useState<string | null>(null);
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [immersiveFiltersOpen, setImmersiveFiltersOpen] = useState(false);
-  const [locationDropdownOpen, setLocationDropdownOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // 2D Infinite Toroidal Pan Coordinates
   const [pan, setPan] = useState({ x: -400, y: -200 });
@@ -619,9 +626,9 @@ export default function RoveraProjectsView() {
   const startInertia = () => {
     stopInertia();
     const step = () => {
-      velocityRef.current.x *= 0.92;
-      velocityRef.current.y *= 0.92;
-      if (Math.abs(velocityRef.current.x) > 0.15 || Math.abs(velocityRef.current.y) > 0.15) {
+      velocityRef.current.x *= 0.94;
+      velocityRef.current.y *= 0.94;
+      if (Math.abs(velocityRef.current.x) > 0.1 || Math.abs(velocityRef.current.y) > 0.1) {
         setPan((prev) => ({
           x: prev.x + velocityRef.current.x,
           y: prev.y + velocityRef.current.y,
@@ -795,9 +802,16 @@ export default function RoveraProjectsView() {
     setSelectedProject(project);
   };
 
+  // Dynamic dimensions: On mobile, columns are smaller (180px) and scaled smoothly
+  const colWidth = isMobile ? 180 : 340;
+  const colGap = isMobile ? 12 : 20;
+  const heightScale = isMobile ? 0.55 : 1.0;
+  const blockWidth = 10 * (colWidth + colGap);
+  const blockHeight = Math.round(1750 * heightScale) + (5 * colGap);
+
   // Mathematical Toroidal Modulo Wrap for seamless infinite 2D glide
-  const normX = ((pan.x % BLOCK_WIDTH) + BLOCK_WIDTH) % BLOCK_WIDTH;
-  const normY = ((pan.y % BLOCK_HEIGHT) + BLOCK_HEIGHT) % BLOCK_HEIGHT;
+  const normX = ((pan.x % blockWidth) + blockWidth) % blockWidth;
+  const normY = ((pan.y % blockHeight) + blockHeight) % blockHeight;
 
   // 3 horizontal blocks x 3 vertical blocks guarantee 100% full screen coverage
   const blockIndices = [-1, 0, 1];
@@ -1279,7 +1293,7 @@ export default function RoveraProjectsView() {
             {/* 3x3 Block Grid: Toroidally wraps with modulo arithmetic */}
             <div
               style={{
-                transform: `translate3d(${normX - BLOCK_WIDTH}px, ${normY - BLOCK_HEIGHT}px, 0)`,
+                transform: `translate3d(${normX - blockWidth}px, ${normY - blockHeight}px, 0)`,
                 transition: "none",
               }}
               className="absolute top-0 left-0 will-change-transform"
@@ -1290,13 +1304,17 @@ export default function RoveraProjectsView() {
                     <div
                       key={bx}
                       style={{
-                        width: `${BLOCK_WIDTH}px`,
-                        height: `${BLOCK_HEIGHT}px`,
+                        width: `${blockWidth}px`,
+                        height: `${blockHeight}px`,
                       }}
-                      className="flex gap-5 shrink-0 pr-5 pb-5"
+                      className={`flex shrink-0 ${isMobile ? "gap-3 pr-3 pb-3" : "gap-5 pr-5 pb-5"}`}
                     >
                       {IMMERSIVE_COLUMNS.map((col, colIdx) => (
-                        <div key={colIdx} className="flex flex-col gap-5 w-[340px] shrink-0">
+                        <div
+                          key={colIdx}
+                          style={{ width: `${colWidth}px` }}
+                          className={`flex flex-col shrink-0 ${isMobile ? "gap-3" : "gap-5"}`}
+                        >
                           {col.map((item, itemIdx) => {
                             // Match filter if active
                             const isMatch =
@@ -1305,11 +1323,13 @@ export default function RoveraProjectsView() {
                               (activeFilter === "completed" && item.project.statusCategory === "completed") ||
                               (activeFilter === "in-progress" && item.project.statusCategory === "in-progress");
 
+                            const itemHeight = Math.round(item.height * heightScale);
+
                             return (
                               <div
                                 key={itemIdx}
                                 onClick={() => handleImageClick(item.project)}
-                                style={{ height: `${item.height}px` }}
+                                style={{ height: `${itemHeight}px` }}
                                 className={`group relative rounded-xl sm:rounded-2xl overflow-hidden bg-zinc-200 border border-zinc-200/90 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer w-full shrink-0 ${
                                   isMatch ? "opacity-100" : "opacity-35 grayscale"
                                 }`}
@@ -1320,15 +1340,15 @@ export default function RoveraProjectsView() {
                                   fill
                                   draggable={false}
                                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none"
-                                  sizes="360px"
+                                  sizes={isMobile ? "200px" : "360px"}
                                 />
 
                                 {/* Hover overlay: details upon the image itself (Exact Yodezeen Replica) */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center text-center p-6 text-white pointer-events-none">
-                                  <h4 className="font-componentry text-base sm:text-lg lg:text-xl text-white font-bold uppercase tracking-tight leading-tight">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center text-center p-3 sm:p-6 text-white pointer-events-none">
+                                  <h4 className="font-componentry text-xs sm:text-base lg:text-xl text-white font-bold uppercase tracking-tight leading-tight">
                                     {item.title}
                                   </h4>
-                                  <p className="mt-1 text-[11px] sm:text-xs font-mono text-zinc-300 tracking-[0.2em] uppercase font-medium">
+                                  <p className="mt-0.5 sm:mt-1 text-[9px] sm:text-xs font-mono text-zinc-300 tracking-[0.16em] sm:tracking-[0.2em] uppercase font-medium">
                                     {item.project.locationTag || "DEVANAHALLI, BENGALURU"}
                                   </p>
                                 </div>
@@ -1478,32 +1498,6 @@ export default function RoveraProjectsView() {
                 >
                   INFRASTRUCTURE
                 </button>
-
-                {/* Location Dropdown */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setLocationDropdownOpen(!locationDropdownOpen)}
-                    className="inline-flex items-center gap-1 text-xs uppercase tracking-[0.16em] text-zinc-400 hover:text-zinc-900 font-medium whitespace-nowrap transition-colors cursor-pointer"
-                  >
-                    <span>LOCATION</span>
-                    <ChevronDown className="w-3 h-3" />
-                  </button>
-
-                  {locationDropdownOpen && (
-                    <div className="absolute left-0 top-full mt-3 w-60 bg-white border border-zinc-200 rounded-xl shadow-xl p-3 z-50 animate-fade-in text-left">
-                      <div className="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-mono">
-                        Geographic Corridor
-                      </div>
-                      <div className="text-xs font-semibold text-zinc-900">
-                        Devanahalli, North Bengaluru
-                      </div>
-                      <div className="text-[11px] text-zinc-500 mt-1">
-                        STRR Expressway Frontage • State Highway 9
-                      </div>
-                    </div>
-                  )}
-                </div>
               </div>
 
               {/* Right Side: IMMERSIVE Switch + 2 / 4 Layout Toggle */}

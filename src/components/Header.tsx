@@ -83,12 +83,8 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isRovera
-            ? "bg-white/85 backdrop-blur-md border-b border-zinc-200/80 py-3.5 sm:py-4 text-zinc-950 shadow-2xs"
-            : scrolled
-            ? "bg-black/95 backdrop-blur-md border-b border-neutral-800 py-3.5 sm:py-4 text-white"
-            : "bg-gradient-to-b from-black/85 via-black/45 to-transparent py-4 sm:py-6 text-white"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-3 sm:py-4 ${
+          isRovera ? "text-zinc-950" : "text-white"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">

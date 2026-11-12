@@ -466,7 +466,7 @@ export default function RoveraView() {
           <div className="relative z-10 w-full px-2 flex flex-col items-center justify-center select-none pt-20 pb-10">
             <PixelFlowField
               text="ROVERA"
-              className="w-full h-[32vh] sm:h-[38vh] flex flex-col items-center justify-center"
+              className="w-full h-[32vh] sm:h-[38vh] flex flex-col items-center justify-center filter drop-shadow-[0_3px_14px_rgba(0,0,0,0.7)]"
               shape="square"
               cellSize={5.5}
               gap={2}
@@ -476,11 +476,11 @@ export default function RoveraView() {
               textWidthRatio={0.94}
               textHeightRatio={0.76}
               weight={900}
-              colors={["rgba(30, 58, 138, 0.05)", "#1E3A8A", "#090D16"]}
+              colors={["rgba(255, 255, 255, 0.25)", "#60A5FA", "#FFFFFF"]}
             >
               <h1 className="sr-only">ROVERA</h1>
             </PixelFlowField>
-            <p className="mt-3 font-sans text-sm sm:text-base text-zinc-900 font-medium tracking-[0.06em] sm:tracking-[0.08em]">
+            <p className="mt-3 font-sans text-xs sm:text-base text-white font-semibold tracking-[0.08em] px-3.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 shadow-md">
               Where Legacy Finds Its Land
             </p>
           </div>
@@ -614,16 +614,16 @@ export default function RoveraView() {
               className="object-cover object-center filter contrast-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-white">
+            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 text-white">
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-wide text-blue-200 block mb-1">
+                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wide text-blue-200 block mb-0.5">
                   8-Meter Monumental Portal
                 </span>
-                <p className="font-componentry text-2xl sm:text-3xl font-medium tracking-[-0.04em] text-white">
+                <p className="font-componentry text-base sm:text-2xl lg:text-3xl font-medium tracking-[-0.04em] text-white leading-tight">
                   Cantilevered Flamed Basalt &amp; Ribbed Concrete Portal
                 </p>
               </div>
-              <span className="bg-[#0F2744] border border-blue-400/40 text-white px-4 py-2 text-xs uppercase tracking-wider font-mono font-medium self-start sm:self-auto rounded-full shadow">
+              <span className="self-start sm:self-auto bg-black/60 backdrop-blur-md border border-white/20 text-white px-2.5 py-1 sm:px-4 sm:py-2 text-[10px] sm:text-xs uppercase tracking-wider font-mono font-medium rounded-full shrink-0 shadow">
                 24/7 RFID &amp; Biometric Protocol
               </span>
             </div>
@@ -858,11 +858,11 @@ export default function RoveraView() {
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white text-xs">
-                <span className="font-componentry text-xl font-medium tracking-[-0.03em]">
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-4 text-white">
+                <span className="font-componentry text-base sm:text-xl font-medium tracking-[-0.03em] leading-tight">
                   Aura Vitality Spa &amp; Zen Garden
                 </span>
-                <span className="bg-[#0F2744] text-white px-3 py-1 rounded-full font-mono text-[10px] font-medium uppercase">
+                <span className="self-start sm:self-auto bg-black/60 backdrop-blur-md border border-white/20 text-white px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full font-mono text-[9px] sm:text-[10px] font-medium uppercase tracking-wider shrink-0">
                   Residents Only
                 </span>
               </div>
@@ -991,14 +991,14 @@ export default function RoveraView() {
             >
               <source src="/videos/rovera-sanctuary-hero.mp4" type="video/mp4" />
             </video>
-            <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white text-xs">
-              <span className="font-mono uppercase tracking-wide">
+            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-white text-xs">
+              <span className="font-mono uppercase tracking-wide text-[10px] sm:text-xs text-white/90">
                 Drone Aerial &amp; Architectural Video Tour
               </span>
               <button
                 type="button"
                 onClick={() => openEnquiry("Schedule Chauffeured Site Visit")}
-                className="bg-[#0F2744] hover:bg-[#1E3A8A] text-white px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-wider font-medium transition-colors shadow"
+                className="self-start sm:self-auto bg-black/70 hover:bg-[#0F2744] border border-white/20 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-mono text-[10px] sm:text-[11px] uppercase tracking-wider font-medium transition-all shadow-md backdrop-blur-md whitespace-nowrap active:scale-95 cursor-pointer"
               >
                 Book Chauffeured Visit
               </button>
