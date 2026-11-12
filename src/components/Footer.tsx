@@ -23,6 +23,7 @@ export default function Footer() {
       links: [
         { label: t("footer.allDevs", "All Developments"), href: "/developments" },
         { label: "ROVERA (North Bengaluru)", href: "/developments/rovera" },
+        { label: "ROVERA Architectural Dossier", href: "/developments/rovera/projects" },
         { label: "STTHIRA TERRA (Nandi)", href: "/developments/terra" },
         { label: t("footer.masterPlanMatrix", "Master Plan Matrix"), href: "/developments#matrix" },
         { label: t("footer.plotConfigs", "Plot Configurations"), href: "/developments#configurations" },

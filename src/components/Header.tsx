@@ -41,7 +41,8 @@ export default function Header() {
   // On ROVERA: Project-specific anchor links + Developments dropdown + Contact
   // On Global: Essential corporate links (About, Developments, Gallery, Contact)
   const roveraNavLinks = [
-    { name: "Amenities", href: "/developments/rovera#amenities" },
+    { name: "We Do", href: "/developments/rovera#we-do" },
+    { name: "Projects", href: "/developments/rovera/projects" },
     { name: "Master Plan", href: "/developments/rovera#master-plan" },
     { name: "Location", href: "/developments/rovera#location" },
     {
