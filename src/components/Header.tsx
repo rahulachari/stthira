@@ -79,7 +79,9 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled || isRovera
+          isRovera
+            ? "bg-white/85 backdrop-blur-md border-b border-zinc-200/80 py-3.5 sm:py-4 text-zinc-950 shadow-2xs"
+            : scrolled
             ? "bg-black/95 backdrop-blur-md border-b border-neutral-800 py-3.5 sm:py-4 text-white"
             : "bg-gradient-to-b from-black/85 via-black/45 to-transparent py-4 sm:py-6 text-white"
         }`}
@@ -98,7 +100,7 @@ export default function Header() {
                   fill
                   priority
                   sizes="144px"
-                  className="object-contain object-left brightness-0 invert"
+                  className="object-contain object-left"
                 />
               </div>
             </Link>
@@ -131,7 +133,13 @@ export default function Header() {
                     <Link
                       href={link.href}
                       className={`flex items-center gap-1 transition-colors py-2 ${
-                        isActive ? "text-white font-medium" : "text-neutral-300 hover:text-white"
+                        isRovera
+                          ? isActive
+                            ? "text-black font-semibold border-b border-black pb-0.5"
+                            : "text-zinc-600 hover:text-black font-medium"
+                          : isActive
+                          ? "text-white font-medium"
+                          : "text-neutral-300 hover:text-white"
                       }`}
                     >
                       <span>{link.name}</span>
@@ -140,21 +148,39 @@ export default function Header() {
 
                     {/* Dropdown Menu */}
                     <div className="absolute top-full -left-4 w-72 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
-                      <div className="bg-black/95 border border-neutral-800 p-3 shadow-2xl backdrop-blur-xl">
-                        <div className="text-[10px] uppercase tracking-widest text-neutral-500 px-3 py-1 border-b border-neutral-800/80 mb-2">
+                      <div
+                        className={`p-3 shadow-2xl backdrop-blur-xl rounded-xl ${
+                          isRovera
+                            ? "bg-white/95 border border-zinc-200 text-zinc-900"
+                            : "bg-black/95 border border-neutral-800 text-white"
+                        }`}
+                      >
+                        <div
+                          className={`text-[10px] uppercase tracking-widest px-3 py-1 mb-2 font-mono ${
+                            isRovera
+                              ? "text-zinc-400 border-b border-zinc-100"
+                              : "text-neutral-500 border-b border-neutral-800/80"
+                          }`}
+                        >
                           Development Portfolio
                         </div>
                         {link.subItems?.map((sub) => (
                           <Link
                             key={sub.name}
                             href={sub.href}
-                            className="block px-3 py-2.5 hover:bg-neutral-900 transition-colors group/item"
+                            className={`block px-3 py-2.5 transition-colors group/item rounded-lg ${
+                              isRovera ? "hover:bg-zinc-100 text-zinc-900" : "hover:bg-neutral-900 text-white"
+                            }`}
                           >
                             <div className="flex items-center justify-between">
-                              <span className="text-white font-editorial text-sm tracking-widest font-medium">
+                              <span className="font-editorial text-sm tracking-widest font-medium">
                                 {sub.name}
                               </span>
-                              <span className="text-[9px] text-neutral-400 tracking-wider">
+                              <span
+                                className={`text-[9px] tracking-wider ${
+                                  isRovera ? "text-zinc-500" : "text-neutral-400"
+                                }`}
+                              >
                                 {sub.badge}
                               </span>
                             </div>
@@ -170,8 +196,14 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`hover-editorial-line transition-colors ${
-                    isActive ? "text-white font-medium" : "text-neutral-300 hover:text-white"
+                  className={`transition-colors ${
+                    isRovera
+                      ? isActive
+                        ? "text-black font-semibold border-b border-black pb-0.5"
+                        : "text-zinc-600 hover:text-black font-medium"
+                      : isActive
+                      ? "text-white font-medium"
+                      : "text-neutral-300 hover:text-white hover-editorial-line"
                   }`}
                 >
                   {link.name}
@@ -180,14 +212,14 @@ export default function Header() {
             })}
           </nav>
 
-          {/* RIGHT SIDE ACTIONS: On ROVERA page, show Call Us, Enquiry, and STTHIRA branding on the right! */}
+          {/* RIGHT SIDE ACTIONS */}
           <div className="hidden sm:flex items-center gap-4">
             {isRovera && (
               <a
                 href="https://wa.me/917013485016"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-neutral-300 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-600 hover:text-black font-medium transition-colors"
               >
                 <span>WhatsApp</span>
               </a>
@@ -196,24 +228,24 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setEnquiryModalOpen(true)}
-              className="px-4 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] border border-[#1E3A8A]/60 text-white text-xs uppercase tracking-wider font-medium transition-all shadow-sm cursor-pointer"
+              className="px-5 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white text-xs uppercase tracking-wider font-semibold font-mono transition-all shadow-sm cursor-pointer"
             >
               Enquiry
             </button>
 
-            {/* ON ROVERA: STTHIRA Branding placed on the RIGHT side as requested */}
+            {/* ON ROVERA: STTHIRA Branding placed on the RIGHT side */}
             {isRovera && (
               <Link
                 href="/"
-                className="group flex items-center gap-2 shrink-0 border-l border-neutral-800 pl-4 ml-1 transition-opacity hover:opacity-85"
+                className="group flex items-center gap-2 shrink-0 border-l border-zinc-200 pl-4 ml-1 transition-opacity hover:opacity-85"
                 title="STTHIRA Developments (Parent Master Developer)"
               >
-                <StthiraEmblem className="text-white w-4 h-5 transition-transform group-hover:scale-105 shrink-0" />
+                <StthiraEmblem className="text-zinc-950 w-4 h-5 transition-transform group-hover:scale-105 shrink-0" />
                 <div className="flex flex-col text-left">
-                  <span className="font-editorial text-xs tracking-[0.18em] font-medium uppercase text-white">
+                  <span className="font-editorial text-xs tracking-[0.18em] font-medium uppercase text-zinc-950">
                     STTHIRA
                   </span>
-                  <span className="text-[7px] tracking-[0.25em] text-neutral-400 uppercase -mt-0.5">
+                  <span className="text-[7px] tracking-[0.25em] text-zinc-500 uppercase -mt-0.5">
                     DEVELOPMENTS
                   </span>
                 </div>
@@ -226,7 +258,9 @@ export default function Header() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="p-1.5 sm:p-2 text-white hover:text-neutral-300 transition-colors cursor-pointer shrink-0"
+              className={`p-1.5 sm:p-2 transition-colors cursor-pointer shrink-0 ${
+                isRovera ? "text-zinc-950 hover:text-black" : "text-white hover:text-neutral-300"
+              }`}
             >
               {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
@@ -235,74 +269,110 @@ export default function Header() {
 
         {/* Mobile Fullscreen Navigation Overlay */}
         {mobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[58px] sm:top-[73px] bg-black/98 z-40 px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-between overflow-y-auto border-t border-neutral-900 h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full">
+          <div
+            className={`lg:hidden fixed inset-0 top-[58px] sm:top-[73px] z-40 px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-between overflow-y-auto border-t h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full backdrop-blur-xl ${
+              isRovera
+                ? "bg-[#FAFAFA]/98 text-zinc-950 border-zinc-200"
+                : "bg-black/98 text-white border-neutral-900"
+            }`}
+          >
             <div className="space-y-6">
-              <div className="text-[10px] tracking-[0.3em] uppercase text-neutral-500 mb-2">
+              <div
+                className={`text-[10px] tracking-[0.3em] uppercase mb-2 ${
+                  isRovera ? "text-zinc-400" : "text-neutral-500"
+                }`}
+              >
                 Navigation
               </div>
               <div className="flex flex-col space-y-4">
                 <Link
                   href="/"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
+                  className={`font-editorial text-2xl transition-colors ${
+                    isRovera ? "text-zinc-950 hover:text-[#1E3A8A]" : "text-white hover:text-neutral-400"
+                  }`}
                 >
                   {t("nav.home", "Home")}
                 </Link>
                 <Link
                   href="/about"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
+                  className={`font-editorial text-2xl transition-colors ${
+                    isRovera ? "text-zinc-950 hover:text-[#1E3A8A]" : "text-white hover:text-neutral-400"
+                  }`}
                 >
                   {t("nav.about", "About STTHIRA")}
                 </Link>
-                <div className="border-l border-neutral-800 pl-4 py-1 space-y-2">
+                <div
+                  className={`border-l pl-4 py-1 space-y-2 ${
+                    isRovera ? "border-zinc-200" : "border-neutral-800"
+                  }`}
+                >
                   <Link
                     href="/developments"
-                    className="font-editorial text-xl text-neutral-300 hover:text-white block"
+                    className={`font-editorial text-xl block ${
+                      isRovera ? "text-zinc-700 hover:text-black" : "text-neutral-300 hover:text-white"
+                    }`}
                   >
                     {t("nav.developments", "Our Developments")}
                   </Link>
                   <Link
                     href="/developments/rovera"
-                    className="font-editorial text-base text-white font-medium block flex items-center justify-between"
+                    className={`font-editorial text-base font-medium flex items-center justify-between ${
+                      isRovera ? "text-black" : "text-white"
+                    }`}
                   >
                     <span>↳ ROVERA (Devanahalli)</span>
-                    <span className="text-[9px] uppercase tracking-wider text-blue-400">Featured</span>
+                    <span className="text-[9px] uppercase tracking-wider text-blue-600 font-semibold">Featured</span>
                   </Link>
                   <Link
                     href="/developments/terra"
-                    className="font-editorial text-base text-neutral-300 hover:text-white block flex items-center justify-between"
+                    className={`font-editorial text-base flex items-center justify-between ${
+                      isRovera ? "text-zinc-600 hover:text-black" : "text-neutral-300 hover:text-white"
+                    }`}
                   >
                     <span>↳ STTHIRA TERRA</span>
-                    <span className="text-[9px] uppercase tracking-wider text-neutral-500">Sanctuary</span>
+                    <span className="text-[9px] uppercase tracking-wider text-neutral-400">Sanctuary</span>
                   </Link>
                 </div>
                 <Link
                   href="/leadership"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
+                  className={`font-editorial text-2xl transition-colors ${
+                    isRovera ? "text-zinc-950 hover:text-[#1E3A8A]" : "text-white hover:text-neutral-400"
+                  }`}
                 >
                   {t("nav.leadership", "Leadership")}
                 </Link>
                 <Link
                   href="/gallery"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
+                  className={`font-editorial text-2xl transition-colors ${
+                    isRovera ? "text-zinc-950 hover:text-[#1E3A8A]" : "text-white hover:text-neutral-400"
+                  }`}
                 >
                   {t("nav.gallery", "Gallery")}
                 </Link>
                 <Link
                   href="/faq"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
+                  className={`font-editorial text-2xl transition-colors ${
+                    isRovera ? "text-zinc-950 hover:text-[#1E3A8A]" : "text-white hover:text-neutral-400"
+                  }`}
                 >
                   {t("nav.faq", "FAQ")}
                 </Link>
                 <Link
                   href="/contact"
-                  className="font-editorial text-2xl text-white hover:text-neutral-400 transition-colors"
+                  className={`font-editorial text-2xl transition-colors ${
+                    isRovera ? "text-zinc-950 hover:text-[#1E3A8A]" : "text-white hover:text-neutral-400"
+                  }`}
                 >
                   {t("nav.contact", "Contact")}
                 </Link>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-neutral-800 space-y-4">
+            <div
+              className={`pt-6 border-t space-y-4 ${
+                isRovera ? "border-zinc-200" : "border-neutral-800"
+              }`}
+            >
               <button
                 type="button"
                 onClick={() => {
@@ -313,9 +383,13 @@ export default function Header() {
               >
                 Schedule Private Walkthrough
               </button>
-              <div className="flex items-center justify-between text-xs text-neutral-500">
+              <div
+                className={`flex items-center justify-between text-xs ${
+                  isRovera ? "text-zinc-500" : "text-neutral-500"
+                }`}
+              >
                 <span>© 2026 STTHIRA DEVELOPMENTS</span>
-                <LanguageSwitcher dropUp={true} theme="dark" />
+                <LanguageSwitcher dropUp={true} theme={isRovera ? "light" : "dark"} />
               </div>
             </div>
           </div>

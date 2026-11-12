@@ -225,6 +225,56 @@ export const PROJECTS_DATA: ProjectDetail[] = [
   },
 ];
 
+// Architectural images for the 6 columns
+const IMMERSIVE_COLUMNS = [
+  // Column 1
+  [
+    { url: "/images/rovera-clubhouse-lounge.jpg", title: "Double-Height Resident Salon", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fire Lounge", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
+    { url: "/images/rovera-grand-double-height-gate.jpg", title: "8m Cantilever Basalt Portal", project: PROJECTS_DATA[1], aspect: "aspect-[4/3]" },
+    { url: "/images/modern-architecture.jpg", title: "Contemporary Villa Typology", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+  ],
+  // Column 2
+  [
+    { url: "/images/rovera-wellness-pavilion.jpg", title: "Aura Vitality Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
+    { url: "/images/rovera-master-plan-3acres.jpg", title: "3-Acre Cadastral Blueprint", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
+    { url: "/images/entrance-structure.jpg", title: "Basalt Ribbed Elevation", project: PROJECTS_DATA[1], aspect: "aspect-[16/11]" },
+    { url: "/images/rovera-zen-garden.jpg", title: "Japanese Zen Meditation Court", project: PROJECTS_DATA[4], aspect: "aspect-[3/4]" },
+  ],
+  // Column 3
+  [
+    { url: "/images/lifestyle-amenities.jpg", title: "Hydrotherapy Vitality Pool", project: PROJECTS_DATA[3], aspect: "aspect-[16/10]" },
+    { url: "/images/rovera-internal-boulevard.jpg", title: "12m Internal Paved Boulevard", project: PROJECTS_DATA[2], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-pool-deck.jpg", title: "Azure Lap Pool & Cabanas", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
+    { url: "/images/masterplan-visual.jpg", title: "Sovereign Parcel Zoning", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
+  ],
+  // Column 4
+  [
+    { url: "/images/rovera-clubhouse-exterior.jpg", title: "Private Resident Club Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
+    { url: "/images/aerial-view.jpg", title: "3.00 Acres Aerial Sanctuary", project: PROJECTS_DATA[0], aspect: "aspect-[3/4]" },
+    { url: "/images/rovera-pergola-walkway.jpg", title: "Timber Pergola Walkway", project: PROJECTS_DATA[4], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-boutique-clubhouse.jpg", title: "Resident Library & Social Lounge", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
+  ],
+  // Column 5
+  [
+    { url: "/images/landscape-nature.jpg", title: "40% Ecological Green Canopy", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
+    { url: "/images/hero-cinematic.jpg", title: "Where Legacy Finds Its Land", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+    { url: "/images/rovera-aerial-3acres.jpg", title: "Devanahalli Strategic Corridor", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-avenues.jpg", title: "Cobblestone Tree-Lined Drive", project: PROJECTS_DATA[0], aspect: "aspect-[16/11]" },
+  ],
+  // Column 6
+  [
+    { url: "/images/brand-story.jpg", title: "Generational Architectural Legacy", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+    { url: "/images/rovera-clubhouse.jpg", title: "Evening Twilight Lighting", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
+    { url: "/images/vertical-clean.png", title: "ROVERA Signature Crest", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+    { url: "/images/horizontal-clean.png", title: "North Bangalore Panorama", project: PROJECTS_DATA[0], aspect: "aspect-[16/10]" },
+  ],
+];
+
+// Single block cycle dimensions in pixels
+const BLOCK_WIDTH = 6 * (360 + 28); // 2328px
+const BLOCK_HEIGHT = 4 * (360 + 28); // 1552px
+
 export default function RoveraProjectsView() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [columns, setColumns] = useState<2 | 4>(2);
@@ -232,10 +282,11 @@ export default function RoveraProjectsView() {
   const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
   const [selectedLightboxImage, setSelectedLightboxImage] = useState<string | null>(null);
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
+  const [immersiveFiltersOpen, setImmersiveFiltersOpen] = useState(false);
   const [locationDropdownOpen, setLocationDropdownOpen] = useState(false);
 
-  // 2D Pan and Drag State for the Immersive Canvas
-  const [pan, setPan] = useState({ x: 0, y: 0 });
+  // 2D Infinite Toroidal Pan Coordinates
+  const [pan, setPan] = useState({ x: -400, y: -200 });
   const [isDragging, setIsDragging] = useState(false);
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
@@ -279,7 +330,7 @@ export default function RoveraProjectsView() {
     }
   };
 
-  // 2D Draggable Pannable Canvas Interaction Listeners
+  // 2D Infinite Pan Event Listeners (Drag and Scroll in all 4 directions)
   useEffect(() => {
     if (!isImmersive) return;
 
@@ -320,10 +371,10 @@ export default function RoveraProjectsView() {
     };
 
     const handleWheel = (e: WheelEvent) => {
-      // Allow trackpad or wheel panning in 2D
+      // Free 2D trackpad & mousewheel scroll
       setPan((prev) => ({
-        x: prev.x - e.deltaX * 1.1,
-        y: prev.y - e.deltaY * 1.1,
+        x: prev.x - e.deltaX * 1.15,
+        y: prev.y - e.deltaY * 1.15,
       }));
     };
 
@@ -364,50 +415,21 @@ export default function RoveraProjectsView() {
     setSelectedProject(project);
   };
 
-  // Rich staggered columns for the boundless 2D immersive wall
-  const immersiveColumns = [
-    // Column 1
-    [
-      { url: "/images/rovera-clubhouse-lounge.jpg", title: "Double-Height Resident Salon", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
-      { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fire Lounge", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
-      { url: "/images/rovera-grand-double-height-gate.jpg", title: "8m Cantilever Basalt Portal", project: PROJECTS_DATA[1], aspect: "aspect-[4/3]" },
-      { url: "/images/modern-architecture.jpg", title: "Contemporary Villa Typology", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-    ],
-    // Column 2
-    [
-      { url: "/images/rovera-wellness-pavilion.jpg", title: "Aura Vitality Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
-      { url: "/images/rovera-master-plan-3acres.jpg", title: "3-Acre Cadastral Blueprint", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
-      { url: "/images/entrance-structure.jpg", title: "Basalt Ribbed Elevation", project: PROJECTS_DATA[1], aspect: "aspect-[16/11]" },
-      { url: "/images/rovera-zen-garden.jpg", title: "Japanese Zen Meditation Court", project: PROJECTS_DATA[4], aspect: "aspect-[3/4]" },
-    ],
-    // Column 3
-    [
-      { url: "/images/lifestyle-amenities.jpg", title: "Hydrotherapy Vitality Pool", project: PROJECTS_DATA[3], aspect: "aspect-[16/10]" },
-      { url: "/images/rovera-internal-boulevard.jpg", title: "12m Internal Paved Boulevard", project: PROJECTS_DATA[2], aspect: "aspect-[4/3]" },
-      { url: "/images/rovera-pool-deck.jpg", title: "Azure Lap Pool & Cabanas", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
-      { url: "/images/masterplan-visual.jpg", title: "Sovereign Parcel Zoning", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
-    ],
-    // Column 4
-    [
-      { url: "/images/rovera-clubhouse-exterior.jpg", title: "Private Resident Club Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
-      { url: "/images/aerial-view.jpg", title: "3.00 Acres Aerial Sanctuary", project: PROJECTS_DATA[0], aspect: "aspect-[3/4]" },
-      { url: "/images/rovera-pergola-walkway.jpg", title: "Timber Pergola Walkway", project: PROJECTS_DATA[4], aspect: "aspect-[4/3]" },
-      { url: "/images/rovera-boutique-clubhouse.jpg", title: "Resident Library & Social Lounge", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
-    ],
-    // Column 5
-    [
-      { url: "/images/landscape-nature.jpg", title: "40% Ecological Green Canopy", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
-      { url: "/images/hero-cinematic.jpg", title: "Where Legacy Finds Its Land", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-      { url: "/images/rovera-aerial-3acres.jpg", title: "Devanahalli Strategic Corridor", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
-      { url: "/images/rovera-avenues.jpg", title: "Cobblestone Tree-Lined Drive", project: PROJECTS_DATA[0], aspect: "aspect-[16/11]" },
-    ],
-    // Column 6
-    [
-      { url: "/images/brand-story.jpg", title: "Generational Architectural Legacy", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-      { url: "/images/rovera-clubhouse.jpg", title: "Evening Twilight Lighting", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
-      { url: "/images/vertical-clean.png", title: "ROVERA Signature Crest", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-      { url: "/images/horizontal-clean.png", title: "North Bangalore Panorama", project: PROJECTS_DATA[0], aspect: "aspect-[16/10]" },
-    ],
+  // Mathematical Toroidal Modulo Wrap for seamless infinite 2D glide
+  const normX = ((pan.x % BLOCK_WIDTH) + BLOCK_WIDTH) % BLOCK_WIDTH;
+  const normY = ((pan.y % BLOCK_HEIGHT) + BLOCK_HEIGHT) % BLOCK_HEIGHT;
+
+  // 3 horizontal blocks x 3 vertical blocks guarantee 100% full screen coverage
+  const blockIndices = [-1, 0, 1];
+
+  // Filter disciplines for the popover matching screenshot
+  const filterList = [
+    { id: "all", label: "ALL" },
+    { id: "residences", label: "PLOTTED SANCTUARY" },
+    { id: "gatehouse", label: "ARCHITECTURE" },
+    { id: "landscape", label: "ECOLOGICAL LANDSCAPE" },
+    { id: "clubhouse", label: "WELLNESS & LEISURE" },
+    { id: "infrastructure", label: "INFRASTRUCTURE" },
   ];
 
   return (
@@ -467,7 +489,7 @@ export default function RoveraProjectsView() {
             <button
               type="button"
               onClick={() => setEnquiryModalOpen(true)}
-              className="px-5 py-2 rounded-full bg-[#1E3A8A] hover:bg-[#0F2744] text-white font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer"
+              className="px-5 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer"
             >
               Schedule Visit
             </button>
@@ -737,26 +759,27 @@ export default function RoveraProjectsView() {
         </section>
       ) : isImmersive ? (
         /* =========================================================================
-            VIEW B: IMMERSIVE 2D DRAGGABLE CANVAS (Exact Replica of Uploaded Screenshot)
-            - Entire section is pannable / draggable in all directions (drag from anywhere)
+            VIEW B: IMMERSIVE 2D INFINITE LOOPING CANVAS (Screenshot Signature Feature)
+            - Completely seamless 2D infinite loop (UP, DOWN, LEFT, RIGHT)
+            - NO footer, NO bottom pill: PURE images across the entire screen!
             - Top frosted blur glass overlay with smooth blur gradient
-            - Rounded pill buttons: < BACK (left), ROVERA (center), FILTERS = (right)
+            - Frosted FILTERS card with large stacked typography (Red circle replica)
             ========================================================================= */
         <section className="fixed inset-0 z-40 bg-[#FAFAFA] text-zinc-950 overflow-hidden select-none animate-fade-in">
           
           {/* =====================================================================
-              1. TOP FROSTED BLUR GRADIENT OVERLAY (Screenshot Signature Feature)
+              1. TOP FROSTED BLUR GRADIENT OVERLAY (Exact Screenshot Replica)
               Blurs whatever images slide or drag underneath it!
               ===================================================================== */}
-          <div className="fixed top-0 left-0 right-0 z-50 h-32 sm:h-40 pointer-events-none">
+          <div className="fixed top-0 left-0 right-0 z-50 h-32 sm:h-44 pointer-events-none">
             {/* The multi-stage blur mask */}
             <div
-              className="absolute inset-0 backdrop-blur-2xl bg-gradient-to-b from-[#FAFAFA]/95 via-[#FAFAFA]/80 to-transparent pointer-events-none"
+              className="absolute inset-0 backdrop-blur-2xl bg-gradient-to-b from-[#FAFAFA]/95 via-[#FAFAFA]/75 to-transparent pointer-events-none"
               style={{
                 maskImage:
-                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.5) 75%, transparent 100%)",
+                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.45) 75%, transparent 100%)",
                 WebkitMaskImage:
-                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.5) 75%, transparent 100%)",
+                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.45) 75%, transparent 100%)",
               }}
             />
 
@@ -778,45 +801,61 @@ export default function RoveraProjectsView() {
                 ROVERA
               </h2>
 
-              {/* FILTERS = Pill Button with Dropdown */}
+              {/* FILTERS = Pill Button (Toggles the Red Circle Card) */}
               <div className="relative">
                 <button
                   type="button"
-                  onClick={() => setLocationDropdownOpen(!locationDropdownOpen)}
+                  onClick={() => setImmersiveFiltersOpen(!immersiveFiltersOpen)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-200/80 hover:bg-zinc-300 text-zinc-900 font-mono text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-zinc-300/60 cursor-pointer shadow-xs"
                 >
                   <span>FILTERS</span>
                   <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-600" />
                 </button>
 
-                {locationDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-3 w-60 bg-white border border-zinc-200 rounded-2xl shadow-2xl p-2 z-50 animate-fade-in text-left">
-                    <div className="text-[10px] uppercase tracking-widest text-zinc-400 px-3 py-1.5 border-b border-zinc-100 font-mono">
-                      Filter Disciplines
-                    </div>
-                    {[
-                      { id: "all", label: "All Disciplines" },
-                      { id: "completed", label: "Completed" },
-                      { id: "in-progress", label: "In Progress" },
-                      { id: "residences", label: "Residences" },
-                      { id: "clubhouse", label: "Clubhouse" },
-                      { id: "landscape", label: "Landscape" },
-                      { id: "infrastructure", label: "Infrastructure" },
-                    ].map((cat) => (
+                {/* =================================================================
+                    FROSTED EXPANDED FILTERS CARD (Exact Replica of Red Circle)
+                    Header: 24 PROJECTS • FILTERS ✕
+                    Body: Large bold stacked typography (ALL, PLOTTED, ARCHITECTURE...)
+                    ================================================================= */}
+                {immersiveFiltersOpen && (
+                  <div className="fixed top-4 right-4 sm:top-6 sm:right-10 w-[290px] sm:w-[360px] bg-zinc-900/85 backdrop-blur-2xl text-white border border-white/20 p-6 sm:p-8 rounded-[28px] shadow-2xl z-[100] animate-fade-in text-left">
+                    <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
+                      <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-400 font-semibold">
+                        24 PROJECTS
+                      </span>
                       <button
-                        key={cat.id}
                         type="button"
-                        onClick={() => {
-                          setActiveFilter(cat.id);
-                          setLocationDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2 text-xs uppercase font-mono tracking-wider rounded-xl transition-colors cursor-pointer ${
-                          activeFilter === cat.id ? "bg-[#1E3A8A] text-white font-semibold" : "hover:bg-zinc-100 text-zinc-700"
-                        }`}
+                        onClick={() => setImmersiveFiltersOpen(false)}
+                        className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-zinc-300 hover:text-white transition-colors cursor-pointer"
                       >
-                        {cat.label}
+                        <span>FILTERS</span>
+                        <X className="w-4 h-4 text-zinc-400 hover:text-white" />
                       </button>
-                    ))}
+                    </div>
+
+                    {/* Massive Bold Stacked Discipline Typography */}
+                    <div className="space-y-3">
+                      {filterList.map((f) => {
+                        const isCurrent = activeFilter === f.id;
+                        return (
+                          <button
+                            key={f.id}
+                            type="button"
+                            onClick={() => {
+                              setActiveFilter(f.id);
+                              setImmersiveFiltersOpen(false);
+                            }}
+                            className={`block w-full text-left font-componentry text-2xl sm:text-3xl font-bold uppercase tracking-tight transition-colors cursor-pointer leading-[1.08] ${
+                              isCurrent
+                                ? "text-white"
+                                : "text-zinc-400 hover:text-white"
+                            }`}
+                          >
+                            {f.label}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </div>
@@ -825,8 +864,9 @@ export default function RoveraProjectsView() {
           </div>
 
           {/* =====================================================================
-              2. 2D DRAGGABLE & PANNABLE IMAGE MATRIX CANVAS
-              Drag anywhere in 2D (drag up, down, left, right) to explore images!
+              2. 2D INFINITE TOROIDAL PANNABLE CANVAS
+              Scrolls & drags seamlessly in all 4 directions (UP, DOWN, LEFT, RIGHT)!
+              NO footer, NO bottom guide pill: PURE images across the entire canvas!
               ===================================================================== */}
           <div
             onMouseDown={handleMouseDown}
@@ -835,43 +875,70 @@ export default function RoveraProjectsView() {
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
           >
+            {/* 3x3 Block Grid: Toroidally wraps with modulo arithmetic */}
             <div
               style={{
-                transform: `translate3d(${pan.x}px, ${pan.y}px, 0)`,
-                transition: isDragging ? "none" : "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
+                transform: `translate3d(${normX - BLOCK_WIDTH}px, ${normY - BLOCK_HEIGHT}px, 0)`,
+                transition: isDragging ? "none" : "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-              className="absolute top-20 left-6 sm:left-12 flex gap-7 will-change-transform pb-32 pr-32"
+              className="absolute top-0 left-0 will-change-transform"
             >
-              {immersiveColumns.map((col, colIdx) => (
-                <div key={colIdx} className="flex flex-col gap-7 w-[290px] sm:w-[350px] md:w-[380px] shrink-0">
-                  {col.map((item, itemIdx) => (
+              {blockIndices.map((by) => (
+                <div key={by} className="flex">
+                  {blockIndices.map((bx) => (
                     <div
-                      key={itemIdx}
-                      onClick={() => handleImageClick(item.project)}
-                      className={`group relative rounded-2xl overflow-hidden bg-zinc-200 border border-zinc-200/90 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer ${item.aspect}`}
+                      key={bx}
+                      style={{
+                        width: `${BLOCK_WIDTH}px`,
+                        height: `${BLOCK_HEIGHT}px`,
+                      }}
+                      className="flex gap-7 shrink-0 pr-7 pb-7"
                     >
-                      <Image
-                        src={item.url}
-                        alt={item.title}
-                        fill
-                        draggable={false}
-                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none"
-                        sizes="400px"
-                      />
+                      {IMMERSIVE_COLUMNS.map((col, colIdx) => (
+                        <div key={colIdx} className="flex flex-col gap-7 w-[360px] shrink-0">
+                          {col.map((item, itemIdx) => {
+                            // Match filter if active
+                            const isMatch =
+                              activeFilter === "all" ||
+                              item.project.category === activeFilter ||
+                              (activeFilter === "completed" && item.project.statusCategory === "completed") ||
+                              (activeFilter === "in-progress" && item.project.statusCategory === "in-progress");
 
-                      {/* Subtle hover vignette with project metadata */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white pointer-events-none">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-blue-300 font-semibold mb-1">
-                          {item.project.number} • {item.project.categoryLabel}
-                        </span>
-                        <h4 className="font-componentry text-base sm:text-lg text-white font-medium leading-tight">
-                          {item.title}
-                        </h4>
-                        <span className="mt-3 inline-flex items-center gap-2 text-[10px] font-mono text-zinc-200 uppercase tracking-wider">
-                          <span>View Architectural Dossier</span>
-                          <ArrowRight className="w-3 h-3" />
-                        </span>
-                      </div>
+                            return (
+                              <div
+                                key={itemIdx}
+                                onClick={() => handleImageClick(item.project)}
+                                className={`group relative rounded-2xl overflow-hidden bg-zinc-200 border border-zinc-200/90 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer ${
+                                  item.aspect
+                                } ${isMatch ? "opacity-100" : "opacity-35 grayscale"}`}
+                              >
+                                <Image
+                                  src={item.url}
+                                  alt={item.title}
+                                  fill
+                                  draggable={false}
+                                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none"
+                                  sizes="380px"
+                                />
+
+                                {/* Subtle hover vignette with project metadata */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white pointer-events-none">
+                                  <span className="font-mono text-[10px] uppercase tracking-widest text-blue-300 font-semibold mb-1">
+                                    {item.project.number} • {item.project.categoryLabel}
+                                  </span>
+                                  <h4 className="font-componentry text-base sm:text-lg text-white font-medium leading-tight">
+                                    {item.title}
+                                  </h4>
+                                  <span className="mt-3 inline-flex items-center gap-2 text-[10px] font-mono text-zinc-200 uppercase tracking-wider">
+                                    <span>View Architectural Dossier</span>
+                                    <ArrowRight className="w-3 h-3" />
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ))}
                     </div>
                   ))}
                 </div>
@@ -879,14 +946,6 @@ export default function RoveraProjectsView() {
             </div>
           </div>
 
-          {/* Bottom subtle drag guide */}
-          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
-            <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md text-white font-mono text-[11px] uppercase tracking-widest flex items-center gap-2 shadow-lg">
-              <span>Drag anywhere to explore canvas</span>
-              <span className="text-zinc-400">•</span>
-              <span>Click to view project</span>
-            </div>
-          </div>
         </section>
       ) : (
         /* =========================================================================
@@ -1035,7 +1094,7 @@ export default function RoveraProjectsView() {
 
                   {locationDropdownOpen && (
                     <div className="absolute left-0 top-full mt-3 w-60 bg-white border border-zinc-200 rounded-xl shadow-xl p-3 z-50 animate-fade-in text-left">
-                      <div className="text-[10px] uppercase tracking-widest text-zinc-400 mb-2">
+                      <div className="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-mono">
                         Geographic Corridor
                       </div>
                       <div className="text-xs font-semibold text-zinc-900">
