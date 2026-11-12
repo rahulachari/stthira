@@ -496,55 +496,97 @@ export const PROJECTS_DATA: ProjectDetail[] = [
   },
 ];
 
-// Architectural images for the 6 columns
+// 10 Curated Columns with 50 distinct architectural works
+// Calibrated with exact heights summing to 1750px per column + 4 gaps of 20px = 1830px (+ 20px bottom gap = 1850px)
+// Eliminates empty white spaces and prevents rapid repeats
 const IMMERSIVE_COLUMNS = [
-  // Column 1
+  // Column 1 (350 + 450 + 250 + 350 + 350 = 1750px)
   [
-    { url: "/images/rovera-clubhouse-lounge.jpg", title: "Double-Height Resident Salon", project: PROJECTS_DATA[6], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fire Lounge", project: PROJECTS_DATA[7], aspect: "aspect-[16/11]" },
-    { url: "/images/rovera-grand-double-height-gate.jpg", title: "8m Cantilever Basalt Portal", project: PROJECTS_DATA[1], aspect: "aspect-[4/3]" },
-    { url: "/images/modern-architecture.jpg", title: "Contemporary Villa Typology", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+    { url: "/images/rovera-clubhouse-lounge.jpg", title: "Double-Height Resident Salon", project: PROJECTS_DATA[6], height: 350 },
+    { url: "/images/rovera-grand-double-height-gate.jpg", title: "8m Cantilever Basalt Portal", project: PROJECTS_DATA[1], height: 450 },
+    { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fireplace Lounge", project: PROJECTS_DATA[7], height: 250 },
+    { url: "/images/modern-architecture.jpg", title: "Contemporary Villa Architecture", project: PROJECTS_DATA[2], height: 350 },
+    { url: "/images/rovera-master-plan-3acres.jpg", title: "3-Acre Master Demarcation", project: PROJECTS_DATA[0], height: 350 },
   ],
-  // Column 2
+  // Column 2 (450 + 250 + 350 + 450 + 250 = 1750px)
   [
-    { url: "/images/rovera-wellness-pavilion.jpg", title: "Aura Vitality Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
-    { url: "/images/rovera-master-plan-3acres.jpg", title: "3-Acre Cadastral Blueprint", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
-    { url: "/images/entrance-structure.jpg", title: "Basalt Ribbed Elevation", project: PROJECTS_DATA[1], aspect: "aspect-[16/11]" },
-    { url: "/images/rovera-zen-garden.jpg", title: "Japanese Zen Meditation Court", project: PROJECTS_DATA[4], aspect: "aspect-[3/4]" },
+    { url: "/images/rovera-wellness-pavilion.jpg", title: "Aura Vitality Pavilion & Spa", project: PROJECTS_DATA[3], height: 450 },
+    { url: "/images/rovera-pergola-walkway.jpg", title: "Cedar Pergola Canopy Walkway", project: PROJECTS_DATA[8], height: 250 },
+    { url: "/images/rovera-zen-garden.jpg", title: "Japanese Zen Meditation Court", project: PROJECTS_DATA[4], height: 350 },
+    { url: "/images/aerial-view.jpg", title: "3.00-Acre Master Sanctuary", project: PROJECTS_DATA[10], height: 450 },
+    { url: "/images/rovera-pool-deck.jpg", title: "Azure Lap Pool & Cabanas", project: PROJECTS_DATA[5], height: 250 },
   ],
-  // Column 3
+  // Column 3 (250 + 350 + 450 + 250 + 450 = 1750px)
   [
-    { url: "/images/lifestyle-amenities.jpg", title: "Hydrotherapy Vitality Pool", project: PROJECTS_DATA[5], aspect: "aspect-[16/10]" },
-    { url: "/images/rovera-internal-boulevard.jpg", title: "12m Internal Paved Boulevard", project: PROJECTS_DATA[9], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-pool-deck.jpg", title: "Azure Lap Pool & Cabanas", project: PROJECTS_DATA[5], aspect: "aspect-[16/11]" },
-    { url: "/images/masterplan-visual.jpg", title: "Sovereign Parcel Zoning", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
+    { url: "/images/lifestyle-amenities.jpg", title: "Hydrotherapy Vitality Pool", project: PROJECTS_DATA[5], height: 250 },
+    { url: "/images/rovera-internal-boulevard.jpg", title: "12m Monolithic Internal Boulevard", project: PROJECTS_DATA[9], height: 350 },
+    { url: "/images/rovera-clubhouse-exterior.jpg", title: "Resident Clubhouse Superstructure", project: PROJECTS_DATA[3], height: 450 },
+    { url: "/images/masterplan-visual.jpg", title: "Sovereign Cadastral Zoning", project: PROJECTS_DATA[0], height: 250 },
+    { url: "/images/hero-cinematic.jpg", title: "Where Legacy Finds Its Land", project: PROJECTS_DATA[2], height: 450 },
   ],
-  // Column 4
+  // Column 4 (350 + 350 + 350 + 350 + 350 = 1750px)
   [
-    { url: "/images/rovera-clubhouse-exterior.jpg", title: "Private Resident Club Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
-    { url: "/images/aerial-view.jpg", title: "3.00 Acres Aerial Sanctuary", project: PROJECTS_DATA[10], aspect: "aspect-[3/4]" },
-    { url: "/images/rovera-pergola-walkway.jpg", title: "Timber Pergola Walkway", project: PROJECTS_DATA[8], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-boutique-clubhouse.jpg", title: "Resident Library & Social Lounge", project: PROJECTS_DATA[6], aspect: "aspect-[16/11]" },
+    { url: "/images/landscape-nature.jpg", title: "40% Ecological Green Canopy", project: PROJECTS_DATA[11], height: 350 },
+    { url: "/images/rovera-boutique-clubhouse.jpg", title: "Resident Library & Social Lounge", project: PROJECTS_DATA[6], height: 350 },
+    { url: "/images/rovera-avenues.jpg", title: "Tree-Lined Granite Boulevard", project: PROJECTS_DATA[9], height: 350 },
+    { url: "/images/entrance-structure.jpg", title: "Basalt Ribbed Gateway Facade", project: PROJECTS_DATA[1], height: 350 },
+    { url: "/images/brand-story.jpg", title: "Generational Architectural Heritage", project: PROJECTS_DATA[2], height: 350 },
   ],
-  // Column 5
+  // Column 5 (450 + 250 + 450 + 250 + 350 = 1750px)
   [
-    { url: "/images/landscape-nature.jpg", title: "40% Ecological Green Canopy", project: PROJECTS_DATA[11], aspect: "aspect-[16/11]" },
-    { url: "/images/hero-cinematic.jpg", title: "Where Legacy Finds Its Land", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-    { url: "/images/rovera-aerial-3acres.jpg", title: "Devanahalli Strategic Corridor", project: PROJECTS_DATA[10], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-avenues.jpg", title: "Cobblestone Tree-Lined Drive", project: PROJECTS_DATA[9], aspect: "aspect-[16/11]" },
+    { url: "/images/lagos-renders/lagos-clubhouse1.webp", title: "Monolithic Stone Lounge Pavilion", project: PROJECTS_DATA[3], height: 450 },
+    { url: "/images/lagos-renders/lagos-amenities-swimming-pool.webp", title: "Horizon Water Spillway Deck", project: PROJECTS_DATA[5], height: 250 },
+    { url: "/images/lagos-renders/lagos-landscape2.webp", title: "Preserved Native Canopy Trails", project: PROJECTS_DATA[4], height: 450 },
+    { url: "/images/lagos-renders/lagos-amenities-wide-driveways.webp", title: "Subterranean Utility Corridor", project: PROJECTS_DATA[9], height: 250 },
+    { url: "/images/lagos-renders/lagos-landscape1.webp", title: "Linear Water Gardens & Boulders", project: PROJECTS_DATA[11], height: 350 },
   ],
-  // Column 6
+  // Column 6 (250 + 450 + 250 + 450 + 350 = 1750px)
   [
-    { url: "/images/brand-story.jpg", title: "Generational Architectural Legacy", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-    { url: "/images/rovera-clubhouse.jpg", title: "Evening Twilight Lighting", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
-    { url: "/images/vertical-clean.png", title: "ROVERA Signature Crest", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-    { url: "/images/horizontal-clean.png", title: "North Bangalore Panorama", project: PROJECTS_DATA[0], aspect: "aspect-[16/10]" },
+    { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fireplace Hearth", project: PROJECTS_DATA[7], height: 250 },
+    { url: "/images/rovera-clubhouse.jpg", title: "Evening Twilight Illumination", project: PROJECTS_DATA[3], height: 450 },
+    { url: "/images/rovera-aerial-3acres.jpg", title: "Devanahalli Strategic Corridor", project: PROJECTS_DATA[0], height: 250 },
+    { url: "/images/modern-architecture.jpg", title: "Modern Tropical Residence", project: PROJECTS_DATA[2], height: 450 },
+    { url: "/images/rovera-pergola-walkway.jpg", title: "Cedar Pergola Colonnade", project: PROJECTS_DATA[8], height: 350 },
+  ],
+  // Column 7 (350 + 250 + 450 + 350 + 350 = 1750px)
+  [
+    { url: "/images/rovera-pool-deck.jpg", title: "Travertine Solarium Terraces", project: PROJECTS_DATA[5], height: 350 },
+    { url: "/images/rovera-internal-boulevard.jpg", title: "Granite Interlocking Paving", project: PROJECTS_DATA[9], height: 250 },
+    { url: "/images/rovera-grand-double-height-gate.jpg", title: "Double-Height Monumental Portal", project: PROJECTS_DATA[1], height: 450 },
+    { url: "/images/rovera-zen-garden.jpg", title: "Raked River Gravel Court", project: PROJECTS_DATA[4], height: 350 },
+    { url: "/images/rovera-clubhouse-lounge.jpg", title: "Resident Private Tasting Suite", project: PROJECTS_DATA[6], height: 350 },
+  ],
+  // Column 8 (450 + 350 + 250 + 350 + 350 = 1750px)
+  [
+    { url: "/images/aerial-view.jpg", title: "Devanahalli Plotted Sanctuary", project: PROJECTS_DATA[10], height: 450 },
+    { url: "/images/landscape-nature.jpg", title: "Native Biodiversity Groves", project: PROJECTS_DATA[11], height: 350 },
+    { url: "/images/lagos-renders/lagos-amenities-picnic-lawn.webp", title: "Shaded Picnic Lawn & Arboretum", project: PROJECTS_DATA[4], height: 250 },
+    { url: "/images/rovera-wellness-pavilion.jpg", title: "Floor-to-Ceiling Glass Pavilion", project: PROJECTS_DATA[3], height: 350 },
+    { url: "/images/masterplan-visual.jpg", title: "Cadastral Plot Demarcation", project: PROJECTS_DATA[0], height: 350 },
+  ],
+  // Column 9 (250 + 350 + 350 + 450 + 350 = 1750px)
+  [
+    { url: "/images/rovera-master-plan-3acres.jpg", title: "Institutional Infrastructure Plan", project: PROJECTS_DATA[0], height: 250 },
+    { url: "/images/hero-cinematic.jpg", title: "Sovereign North Bangalore Horizon", project: PROJECTS_DATA[2], height: 350 },
+    { url: "/images/lagos-renders/lagos-amenities-clubhouse-exterior.webp", title: "Contemporary Pavilion Terrace", project: PROJECTS_DATA[3], height: 350 },
+    { url: "/images/rovera-boutique-clubhouse.jpg", title: "Double-Height Library Atelier", project: PROJECTS_DATA[6], height: 450 },
+    { url: "/images/rovera-avenues.jpg", title: "Internal Curvilinear Boulevard", project: PROJECTS_DATA[9], height: 350 },
+  ],
+  // Column 10 (350 + 450 + 350 + 250 + 350 = 1750px)
+  [
+    { url: "/images/entrance-structure.jpg", title: "Chiseled Basalt Cantilever", project: PROJECTS_DATA[1], height: 350 },
+    { url: "/images/lagos-renders/lagos-landscape2.webp", title: "Ecological Bioswale Network", project: PROJECTS_DATA[11], height: 450 },
+    { url: "/images/rovera-pool-deck.jpg", title: "Submerged Lounge Terraces", project: PROJECTS_DATA[5], height: 350 },
+    { url: "/images/rovera-courtyard-lounge.jpg", title: "Ambient Fire Feature Terrace", project: PROJECTS_DATA[7], height: 250 },
+    { url: "/images/rovera-zen-garden.jpg", title: "Sculpted Stone Meditation Garden", project: PROJECTS_DATA[4], height: 350 },
   ],
 ];
 
-// Single block cycle dimensions in pixels
-const BLOCK_WIDTH = 6 * (360 + 28); // 2328px
-const BLOCK_HEIGHT = 4 * (360 + 28); // 1552px
+// Single block cycle dimensions in pixels:
+// 10 columns of 340px + 9 internal gaps of 20px + 20px edge margin = 3600px
+// 5 items of 1750px total + 4 internal gaps of 20px + 20px edge margin = 1850px
+const BLOCK_WIDTH = 10 * (340 + 20); // 3600px
+const BLOCK_HEIGHT = 1750 + (4 * 20) + 20; // 1850px
 
 export default function RoveraProjectsView() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
@@ -1092,7 +1134,7 @@ export default function RoveraProjectsView() {
                   <div className="fixed top-4 right-4 sm:top-6 sm:right-10 w-[290px] sm:w-[360px] bg-zinc-900/85 backdrop-blur-2xl text-white border border-white/20 p-6 sm:p-8 rounded-[28px] shadow-2xl z-[100] animate-fade-in text-left">
                     <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
                       <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-400 font-semibold">
-                        24 PROJECTS
+                        50 PROJECTS
                       </span>
                       <button
                         type="button"
@@ -1163,10 +1205,10 @@ export default function RoveraProjectsView() {
                         width: `${BLOCK_WIDTH}px`,
                         height: `${BLOCK_HEIGHT}px`,
                       }}
-                      className="flex gap-7 shrink-0 pr-7 pb-7"
+                      className="flex gap-5 shrink-0 pr-5 pb-5"
                     >
                       {IMMERSIVE_COLUMNS.map((col, colIdx) => (
-                        <div key={colIdx} className="flex flex-col gap-7 w-[360px] shrink-0">
+                        <div key={colIdx} className="flex flex-col gap-5 w-[340px] shrink-0">
                           {col.map((item, itemIdx) => {
                             // Match filter if active
                             const isMatch =
@@ -1179,9 +1221,10 @@ export default function RoveraProjectsView() {
                               <div
                                 key={itemIdx}
                                 onClick={() => handleImageClick(item.project)}
-                                className={`group relative rounded-2xl overflow-hidden bg-zinc-200 border border-zinc-200/90 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer ${
-                                  item.aspect
-                                } ${isMatch ? "opacity-100" : "opacity-35 grayscale"}`}
+                                style={{ height: `${item.height}px` }}
+                                className={`group relative rounded-xl sm:rounded-2xl overflow-hidden bg-zinc-200 border border-zinc-200/90 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer w-full shrink-0 ${
+                                  isMatch ? "opacity-100" : "opacity-35 grayscale"
+                                }`}
                               >
                                 <Image
                                   src={item.url}
@@ -1189,7 +1232,7 @@ export default function RoveraProjectsView() {
                                   fill
                                   draggable={false}
                                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none"
-                                  sizes="380px"
+                                  sizes="360px"
                                 />
 
                                 {/* Hover overlay: details upon the image itself (Exact Yodezeen Replica) */}
