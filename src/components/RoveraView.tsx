@@ -994,29 +994,6 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 13. SECTION: ARCHITECTURAL DOSSIER (#dossier / #gallery) */}
-      <section id="gallery" className="py-20 sm:py-28 bg-[#090D16] text-white border-b border-white/10 scroll-mt-28 select-none">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-blue-400 font-semibold">
-            <span>FULL SPECIFICATIONS &amp; BLUEPRINTS</span>
-          </div>
-          <h2 className="font-componentry text-3xl sm:text-5xl lg:text-6xl font-light tracking-[-0.03em] text-white max-w-3xl mx-auto leading-tight">
-            Every creation at ROVERA is an exercise in sovereign luxury.
-          </h2>
-          <p className="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto font-normal leading-relaxed">
-            Detailed technical drawings, sub-grade utility cross-sections, flamed basalt gatehouse elevations, and full-resolution visual plates are documented in our dedicated architectural dossier.
-          </p>
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/developments/rovera/projects"
-              className="px-8 py-4 rounded-full bg-white text-black hover:bg-zinc-200 font-mono text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-xl inline-flex items-center gap-3 cursor-pointer"
-            >
-              <span>Explore The Full Dossier</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* 14. SECTION: LOCATION & CONNECTIVITY (#location / #connected) */}
       <section id="location" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">

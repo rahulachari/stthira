@@ -99,7 +99,7 @@ export default function RoveraWeDoSection() {
     <section
       id="we-do"
       ref={sectionRef}
-      className="relative w-full h-screen bg-[#FAFAFA] text-zinc-950 overflow-hidden select-none flex items-center justify-center border-b border-zinc-200"
+      className="relative w-full h-screen bg-[#FAFAFA] text-zinc-950 overflow-hidden select-none flex items-center justify-center border-b border-zinc-200 scroll-mt-20"
     >
       {/* Background Architectural Subtle Vignette */}
       <YodezeenCursor />
