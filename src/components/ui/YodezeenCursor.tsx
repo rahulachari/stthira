@@ -60,16 +60,12 @@ export default function YodezeenCursor() {
       }}
     >
       <div
-        className={`rounded-full border border-zinc-900/80 dark:border-white/80 transition-all duration-300 ease-out flex items-center justify-center ${
+        className={`rounded-full border border-white/90 mix-blend-difference transition-all duration-200 ease-out flex items-center justify-center ${
           isHovered
-            ? "w-14 h-14 bg-blue-600/10 border-blue-500 scale-110"
-            : "w-8 h-8 bg-transparent scale-100"
+            ? "w-12 h-12 scale-110"
+            : "w-8 h-8 scale-100"
         }`}
-      >
-        {isHovered && (
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-        )}
-      </div>
+      />
     </div>
   );
 }

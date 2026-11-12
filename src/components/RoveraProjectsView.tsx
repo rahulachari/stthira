@@ -23,6 +23,7 @@ export interface ProjectDetail {
   number: string;
   title: string;
   subtitle: string;
+  locationTag?: string;
   category: "infrastructure" | "gatehouse" | "residences" | "clubhouse" | "landscape";
   statusCategory: "in-progress" | "completed";
   categoryLabel: string;
@@ -41,6 +42,7 @@ export interface ProjectDetail {
   };
   highlights: string[];
   primaryImage: string;
+  aspect?: string;
   galleryImages: { url: string; caption: string }[];
 }
 
@@ -50,6 +52,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
     number: "01",
     title: "Master Planning & Sub-Grade Infrastructure",
     subtitle: "3.0 Acres • 24 Sovereign Parcels • STRR Corridor",
+    locationTag: "DEVANAHALLI, NORTH BENGALURU",
     category: "infrastructure",
     statusCategory: "completed",
     categoryLabel: "INFRASTRUCTURE",
@@ -75,6 +78,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       "Millimeter-accurate DGPS cadastral demarcation with monolithic granite boundary markers",
     ],
     primaryImage: "/images/rovera-master-plan-3acres.jpg",
+    aspect: "aspect-[16/11]",
     galleryImages: [
       { url: "/images/rovera-internal-boulevard.jpg", caption: "Wide 12m Internal Boulevard with Concealed Utility Ducts" },
       { url: "/images/rovera-aerial-3acres.jpg", caption: "3-Acre Master Plan Axonometric Sanctuary" },
@@ -86,6 +90,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
     number: "02",
     title: "Monumental Gatehouse & Security Protocol",
     subtitle: "8-Meter Cantilever • Flamed Basalt • Biometric Portal",
+    locationTag: "STRR CORRIDOR, BENGALURU",
     category: "gatehouse",
     statusCategory: "in-progress",
     categoryLabel: "GATEHOUSE & SECURITY",
@@ -111,6 +116,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       "Dedicated air-conditioned security desk with 24/7 intercom to all parcels",
     ],
     primaryImage: "/images/rovera-grand-double-height-gate.jpg",
+    aspect: "aspect-[4/3]",
     galleryImages: [
       { url: "/images/rovera-grand-double-height-gate.jpg", caption: "Monumental Basalt Gatehouse Perspective" },
       { url: "/images/rovera-internal-boulevard.jpg", caption: "Gatehouse Inbound Boulevard Transition" },
@@ -121,6 +127,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
     number: "03",
     title: "Bespoke Villa Parcels & Typologies",
     subtitle: "Ground + 2 Floors • Sovereign Title • 4 Configurations",
+    locationTag: "DEVANAHALLI, BENGALURU",
     category: "residences",
     statusCategory: "in-progress",
     categoryLabel: "RESIDENCES",
@@ -145,7 +152,8 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       "Grand Estate Parcel: 3,500 Sq.Ft (Private pool, home theatre & garden suites)",
       "Bespoke Corner Estate: 4,200 – 4,800 Sq.Ft (Dual-road frontage with private driveway)",
     ],
-    primaryImage: "/images/rovera-internal-boulevard.jpg",
+    primaryImage: "/images/modern-architecture.jpg",
+    aspect: "aspect-[3/4]",
     galleryImages: [
       { url: "/images/rovera-master-plan-3acres.jpg", caption: "Master Parcel Zoning & Cadastral Matrix" },
       { url: "/images/rovera-internal-boulevard.jpg", caption: "Boulevard Facing Villa Parcels with Concealed Taps" },
@@ -156,6 +164,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
     number: "04",
     title: "Private Wellness Pavilion & Club",
     subtitle: "Heated Lap Pool • Sunken Lounge • Resident Social Sanctuary",
+    locationTag: "NORTH BENGALURU, KARNATAKA",
     category: "clubhouse",
     statusCategory: "in-progress",
     categoryLabel: "CLUBHOUSE & SPA",
@@ -181,6 +190,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       "Private dining terrace for hosting intimate private resident gatherings",
     ],
     primaryImage: "/images/rovera-clubhouse-exterior.jpg",
+    aspect: "aspect-[3/4]",
     galleryImages: [
       { url: "/images/rovera-pool-deck.jpg", caption: "Sunken Lap Pool Deck with Travertine Terraces" },
       { url: "/images/rovera-clubhouse-lounge.jpg", caption: "Double-Height Resident Social Lounge & Library" },
@@ -192,6 +202,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
     number: "05",
     title: "Landscape Architecture & Zen Courtyards",
     subtitle: "40% Green Spine • Pergola Walkways • Native Afforestation",
+    locationTag: "DEVANAHALLI SANCTUARY",
     category: "landscape",
     statusCategory: "in-progress",
     categoryLabel: "LANDSCAPE & GARDENS",
@@ -217,10 +228,270 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       "Subsurface bioswales capturing 100% of rainwater runoff for groundwater recharge",
     ],
     primaryImage: "/images/rovera-zen-garden.jpg",
+    aspect: "aspect-[3/4]",
     galleryImages: [
       { url: "/images/rovera-pergola-walkway.jpg", caption: "Timber Pergola Walkway Shaded by Native Tree Canopies" },
       { url: "/images/rovera-courtyard-lounge.jpg", caption: "Courtyard Garden Lounge with Ambient Fire Feature" },
       { url: "/images/rovera-zen-garden.jpg", caption: "Japanese Zen Meditation Garden & Raked Gravel Terrace" },
+    ],
+  },
+  {
+    id: "azure-lap-pool-deck",
+    number: "06",
+    title: "Sunken Azure Lap Pool & Solarium",
+    subtitle: "25-Meter Heated Lap Pool • Submerged Loungers • Travertine Deck",
+    locationTag: "WELLNESS SANCTUARY, BENGALURU",
+    category: "clubhouse",
+    statusCategory: "in-progress",
+    categoryLabel: "CLUBHOUSE & SPA",
+    designStyle: "SUBMERGED WATER TERRACE & TRAVERTINE",
+    statusText: "IN PROGRESS • HYDRAULIC FITOUT",
+    extent: "25M LENGTH • ZERO-EDGE HORIZON",
+    leadNarrative:
+      "The ROVERA sunken azure pool is engineered with zero-edge horizon spillways that reflect the sky and canopy. Submerged sun loungers and perimeter travertine terraces provide a resort-level retreat exclusively for residents.",
+    philosophy:
+      "Water serves as both aesthetic mirror and therapeutic restorative. Integrated silent circulation pumps and non-chemical ionization ensure crystal-clear water with zero chlorine harshness.",
+    specs: {
+      extent: "25m x 8m Lap Pool with Submerged Lounger Bays",
+      typology: "Zero-Edge Heated Swimming Sanctuary",
+      materials: "Honed Roman Travertine, Aquamarine Mosaic Glass",
+      access: "Direct promenade link to Wellness Pavilion",
+      zoning: "Private Resident Wellness Complex",
+      utilities: "Solar-thermal heating, automatic pH balancing, underwater optic lighting",
+    },
+    highlights: [
+      "Semi-submerged in-water tanning loungers for year-round sunning",
+      "Perimeter acoustic water spillways for ambient acoustic tranquility",
+      "Dedicated children's shallow splash zone discreetly buffered by planters",
+      "Outdoor private rain showers crafted from carved monolithic granite",
+    ],
+    primaryImage: "/images/rovera-pool-deck.jpg",
+    aspect: "aspect-[16/11]",
+    galleryImages: [
+      { url: "/images/rovera-pool-deck.jpg", caption: "Sunken Lap Pool Deck with Travertine Terraces" },
+      { url: "/images/rovera-wellness-pavilion.jpg", caption: "Wellness Pavilion Evening Architectural Perspective" },
+    ],
+  },
+  {
+    id: "resident-social-salon",
+    number: "07",
+    title: "Double-Height Resident Library Salon",
+    subtitle: "Curated Reading Atelier • Linear Fireplace • Private Tasting Room",
+    locationTag: "CLUBHOUSE INTERIORS, BENGALURU",
+    category: "clubhouse",
+    statusCategory: "completed",
+    categoryLabel: "CLUBHOUSE & SPA",
+    designStyle: "WARM MINIMALISM & FLITCHED OAK",
+    statusText: "COMPLETED DESIGN DOSSIER",
+    extent: "DOUBLE-HEIGHT 6.5M VOLUMES",
+    leadNarrative:
+      "Crafted as an intimate intellectual salon, this double-height sanctuary features bespoke floor-to-ceiling flitched oak bookshelves, an ambient recessed gas fireplace, and plush custom upholstery designed for quiet contemplation and private meetings.",
+    philosophy:
+      "Architecture must nourish the mind as well as the body. The salon is calibrated acoustically with concealed micro-perforated acoustic timber panels, creating an atmosphere of deep silence.",
+    specs: {
+      extent: "1,800 Sq.Ft Double-Height Social Atelier",
+      typology: "Private Resident Library & Fireplace Salon",
+      materials: "Flitched White Oak, Honed Statuario Marble, Brushed Bronze",
+      access: "Main entrance of ROVERA Wellness Clubhouse",
+      zoning: "Resident Quiet Amenity Zone",
+      utilities: "Climate-controlled HEPA air filtration, dimmable architectural warm lighting",
+    },
+    highlights: [
+      "Over 1,200 curated architectural, botanical, and philosophy monographs",
+      "Hand-finished linear vapor fireplace set within honed black granite",
+      "Private sommelier tasting table for resident reservation",
+      "Floor-to-ceiling triple-glazed acoustic curtain wall overlooking the zen court",
+    ],
+    primaryImage: "/images/rovera-clubhouse-lounge.jpg",
+    aspect: "aspect-[4/3]",
+    galleryImages: [
+      { url: "/images/rovera-clubhouse-lounge.jpg", caption: "Double-Height Resident Social Lounge & Library" },
+      { url: "/images/rovera-clubhouse-exterior.jpg", caption: "Clubhouse Exterior Glazing" },
+    ],
+  },
+  {
+    id: "sunken-fire-terrace",
+    number: "08",
+    title: "Sunken Fireplace Courtyard Lounge",
+    subtitle: "Outdoor Atmospheric Fire Hearth • Teak Daybeds • River Cobblestone",
+    locationTag: "BOTANICAL RETREAT, BENGALURU",
+    category: "landscape",
+    statusCategory: "in-progress",
+    categoryLabel: "LANDSCAPE & GARDENS",
+    designStyle: "ORGANIC SUB-GRADE AMBIENCE",
+    statusText: "IN PROGRESS • STONE INTEGRATION",
+    extent: "SEATING FOR 20 GUESTS",
+    leadNarrative:
+      "Set one meter below ground level to create an intimate sheltered micro-environment, the sunken fire terrace pairs monolithic river stone benches with a central linear flame feature, framed by swaying native grasses.",
+    philosophy:
+      "Gathering around fire is an ancestral human archetype. By submerging the seating into the landscape, residents enjoy complete wind shielding and panoramic views across the native tree crowns.",
+    specs: {
+      extent: "800 Sq.Ft Submerged Open-Air Fire Lounge",
+      typology: "Sunken Outdoor Conversational Hearth",
+      materials: "Thermal Treated Teak, Chiseled Gray Granite, River Cobble",
+      access: "Central botanical spine walking trail",
+      zoning: "Outdoor Social Zone",
+      utilities: "Underground LPG fire manifold with safety auto-shutoff",
+    },
+    highlights: [
+      "Smokeless automated linear flame feature with ceramic refractory stones",
+      "Integrated sub-bench low-voltage amber LED perimeter illumination",
+      "Natural stone drainage gravel bed preventing any pooling during monsoons",
+      "Surrounding aromatic herbal borders of rosemary and lavender",
+    ],
+    primaryImage: "/images/rovera-courtyard-lounge.jpg",
+    aspect: "aspect-[16/11]",
+    galleryImages: [
+      { url: "/images/rovera-courtyard-lounge.jpg", caption: "Courtyard Garden Lounge with Ambient Fire Feature" },
+      { url: "/images/rovera-zen-garden.jpg", caption: "Japanese Zen Meditation Court" },
+    ],
+  },
+  {
+    id: "timber-pergola-walkway",
+    number: "09",
+    title: "Cedar Pergola Canopy Walkways",
+    subtitle: "Fragrant Frangipani Shaded Pedestrian Trails • Interlocking Granite",
+    locationTag: "ECOLOGICAL SPINE, BENGALURU",
+    category: "landscape",
+    statusCategory: "completed",
+    categoryLabel: "LANDSCAPE & GARDENS",
+    designStyle: "BIOPHILIC SHADING & JAPANESE JOINERY",
+    statusText: "SANCTIONED & DEMARCATED",
+    extent: "500M PEDESTRIAN CIRCUIT",
+    leadNarrative:
+      "A continuous rhythmic colonnade of seasoned cedar timber pergolas ribbons through the central parklands of ROVERA. Planted with blooming wisteria and jasmine vines, it provides cool, dappled morning and evening walking trails.",
+    philosophy:
+      "True luxury encourages daily movement. The pedestrian pergola spine is entirely decoupled from vehicular roadways, allowing children and elders to stroll freely in total safety.",
+    specs: {
+      extent: "500-Meter Connected Pedestrian Trail",
+      typology: "Timber Pergola Colonnade & Shaded Promenades",
+      materials: "FSC-Certified Seasoned Cedar, Flamed Granite Curbs",
+      access: "All 24 residential parcel gates within 60 seconds",
+      zoning: "Perpetual Pedestrian Sanctuary",
+      utilities: "Low-glare bollard lighting with dusk-to-dawn astronomical sensors",
+    },
+    highlights: [
+      "Traditional Japanese timber tenon joinery requiring zero visible metal bolts",
+      "Natural timber treated with plant-based oils for lifetime weather protection",
+      "Permeable crushed granite aggregate walking surface easy on joints",
+      "Discreet hydration and rest pavilions placed every 100 meters",
+    ],
+    primaryImage: "/images/rovera-pergola-walkway.jpg",
+    aspect: "aspect-[4/3]",
+    galleryImages: [
+      { url: "/images/rovera-pergola-walkway.jpg", caption: "Timber Pergola Walkway Shaded by Native Tree Canopies" },
+      { url: "/images/rovera-zen-garden.jpg", caption: "Zen Meditation Court Transition" },
+    ],
+  },
+  {
+    id: "internal-monolithic-avenues",
+    number: "10",
+    title: "12-Meter Monolithic Internal Boulevards",
+    subtitle: "Granite Interlocking Paving • Zero Overhead Cables • Curvilinear Geometry",
+    locationTag: "INFRASTRUCTURE ARTERY, BENGALURU",
+    category: "infrastructure",
+    statusCategory: "completed",
+    categoryLabel: "INFRASTRUCTURE",
+    designStyle: "CIVIL MONOLITHIC PAVING",
+    statusText: "COMPLETED & CURB-SEALED",
+    extent: "12M PRIMARY & 9M BOULEVARDS",
+    leadNarrative:
+      "Wide, tree-canopied primary avenues paved with heavy-duty interlocking granite pavers replace drab asphalt. Engineered to handle emergency and construction logistics without surface settling, the avenues feature deep root-barrier tree pits.",
+    philosophy:
+      "Streetscapes define the visual dignity of an address. By concealing every municipal pipe, transformer, and cable beneath reinforced precast concrete utility ducts, the street vistas remain entirely unmarred.",
+    specs: {
+      extent: "12m Primary Avenue & 9m Secondary Arteries",
+      typology: "Heavy-Duty Paved Residential Boulevards",
+      materials: "Interlocking Gray Granite Cobblestones, Cast Iron Drain Grates",
+      access: "Direct access to each of the 24 sovereign plot frontages",
+      zoning: "Master Traffic & Utility Demarcation Corridor",
+      utilities: "Dual-sided subterranean utility raceways, LED post-top lamps",
+    },
+    highlights: [
+      "Interlocking pavers facilitate natural groundwater seepage and reduce heat island effect",
+      "Deep-set underground transformer vaults hidden behind ornamental bamboo hedging",
+      "Calibrated turning radiuses engineered for luxury touring coaches and sports cars",
+      "Curvilinear sightlines ensuring high visual variety and natural speed calming",
+    ],
+    primaryImage: "/images/rovera-internal-boulevard.jpg",
+    aspect: "aspect-[4/3]",
+    galleryImages: [
+      { url: "/images/rovera-internal-boulevard.jpg", caption: "Wide 12m Internal Boulevard with Concealed Utility Ducts" },
+      { url: "/images/rovera-grand-double-height-gate.jpg", caption: "Gatehouse Inbound Boulevard Transition" },
+    ],
+  },
+  {
+    id: "sovereign-aerial-sanctuary",
+    number: "11",
+    title: "3.00-Acre Master Demarcation Sanctuary",
+    subtitle: "24 Exclusive Plots • Monolithic Boundary Coordinates • STRR Frontage",
+    locationTag: "STRR CORRIDOR, BENGALURU",
+    category: "infrastructure",
+    statusCategory: "completed",
+    categoryLabel: "INFRASTRUCTURE",
+    designStyle: "CADASTRAL PRECISION",
+    statusText: "100% STATUTORY APPROVALS",
+    extent: "3.00 ACRES • DEVANAHALLI",
+    leadNarrative:
+      "A rare 3-acre island of sovereignty in North Bangalore’s most prized capital-growth vector. Protected by 10-foot perimeter boundary walls and biometric gates, ROVERA guarantees perpetual peace of mind.",
+    philosophy:
+      "In an era of hyper-dense apartment clusters, unencumbered land with clear title ownership is the ultimate store of intergenerational wealth.",
+    specs: {
+      extent: "3.00 Total Contiguous Acres (130,680 Sq.Ft)",
+      typology: "Freehold Boutique Plotted Community",
+      materials: "Reinforced Boundary Masonry, DGPS Survey Pillars",
+      access: "5 minutes to Satellite Town Ring Road (STRR Expressway)",
+      zoning: "Clear LPA residential converted zoning & BIAAPA approval",
+      utilities: "Central water storage, STP, dual water supply lines to all plots",
+    },
+    highlights: [
+      "Surrounded by prestigious aerospace and IT investment corridors",
+      "Only 15 minutes from Kempegowda International Airport Terminal 2",
+      "Pristine air quality with zero industrial manufacturing zones upwind",
+      "Full cadastral DGPS markers fixed at all parcel vertices",
+    ],
+    primaryImage: "/images/aerial-view.jpg",
+    aspect: "aspect-[3/4]",
+    galleryImages: [
+      { url: "/images/aerial-view.jpg", caption: "3.00 Acres Aerial Sanctuary" },
+      { url: "/images/rovera-master-plan-3acres.jpg", caption: "Master Parcel Zoning & Cadastral Matrix" },
+    ],
+  },
+  {
+    id: "ecological-green-footprint",
+    number: "12",
+    title: "40% Ecological Canopy & Native Flora",
+    subtitle: "Microclimate Modulation • Subsurface Bioswales • Bird Habitat",
+    locationTag: "DEVANAHALLI SANCTUARY",
+    category: "landscape",
+    statusCategory: "completed",
+    categoryLabel: "LANDSCAPE & GARDENS",
+    designStyle: "INDIGENOUS AFFORESTATION",
+    statusText: "PERPETUAL GREEN COVENANT",
+    extent: "OVER 52,000 SQ.FT CANOPY",
+    leadNarrative:
+      "Over 40% of the entire acreage is preserved for native trees, oxygen groves, and sensory gardens. Hundreds of mature peepal, neem, mahogany, and gulmohar trees create a cool, microclimatic lung for the enclave.",
+    philosophy:
+      "Ecology is not an afterthought; it is our primary luxury. Native species thrive without chemical pesticides and support indigenous birds and butterflies.",
+    specs: {
+      extent: "Over 52,000 Sq.Ft Continuous Botanical Greenery",
+      typology: "Native Afforestation & Biodiversity Sanctuary",
+      materials: "Topsoil Preservation, Natural Humus, Recycled Mulch",
+      access: "Integrates with all internal pedestrian walkways",
+      zoning: "Protected Community Green Reserve",
+      utilities: "100% Treated STP water micro-drip networks",
+    },
+    highlights: [
+      "More than 350 mature native canopy trees planted and preserved",
+      "Attracts over 24 resident species of native songbirds and butterflies",
+      "Subsurface rainwater recharge wells capturing 100% of monsoonal precipitation",
+      "Aromatic night-blooming gardens positioned to scent evening breezes",
+    ],
+    primaryImage: "/images/landscape-nature.jpg",
+    aspect: "aspect-[16/11]",
+    galleryImages: [
+      { url: "/images/landscape-nature.jpg", caption: "40% Ecological Green Canopy" },
+      { url: "/images/rovera-zen-garden.jpg", caption: "Japanese Zen Meditation Court" },
     ],
   },
 ];
@@ -229,8 +500,8 @@ export const PROJECTS_DATA: ProjectDetail[] = [
 const IMMERSIVE_COLUMNS = [
   // Column 1
   [
-    { url: "/images/rovera-clubhouse-lounge.jpg", title: "Double-Height Resident Salon", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fire Lounge", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
+    { url: "/images/rovera-clubhouse-lounge.jpg", title: "Double-Height Resident Salon", project: PROJECTS_DATA[6], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fire Lounge", project: PROJECTS_DATA[7], aspect: "aspect-[16/11]" },
     { url: "/images/rovera-grand-double-height-gate.jpg", title: "8m Cantilever Basalt Portal", project: PROJECTS_DATA[1], aspect: "aspect-[4/3]" },
     { url: "/images/modern-architecture.jpg", title: "Contemporary Villa Typology", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
   ],
@@ -243,24 +514,24 @@ const IMMERSIVE_COLUMNS = [
   ],
   // Column 3
   [
-    { url: "/images/lifestyle-amenities.jpg", title: "Hydrotherapy Vitality Pool", project: PROJECTS_DATA[3], aspect: "aspect-[16/10]" },
-    { url: "/images/rovera-internal-boulevard.jpg", title: "12m Internal Paved Boulevard", project: PROJECTS_DATA[2], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-pool-deck.jpg", title: "Azure Lap Pool & Cabanas", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
+    { url: "/images/lifestyle-amenities.jpg", title: "Hydrotherapy Vitality Pool", project: PROJECTS_DATA[5], aspect: "aspect-[16/10]" },
+    { url: "/images/rovera-internal-boulevard.jpg", title: "12m Internal Paved Boulevard", project: PROJECTS_DATA[9], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-pool-deck.jpg", title: "Azure Lap Pool & Cabanas", project: PROJECTS_DATA[5], aspect: "aspect-[16/11]" },
     { url: "/images/masterplan-visual.jpg", title: "Sovereign Parcel Zoning", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
   ],
   // Column 4
   [
     { url: "/images/rovera-clubhouse-exterior.jpg", title: "Private Resident Club Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
-    { url: "/images/aerial-view.jpg", title: "3.00 Acres Aerial Sanctuary", project: PROJECTS_DATA[0], aspect: "aspect-[3/4]" },
-    { url: "/images/rovera-pergola-walkway.jpg", title: "Timber Pergola Walkway", project: PROJECTS_DATA[4], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-boutique-clubhouse.jpg", title: "Resident Library & Social Lounge", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
+    { url: "/images/aerial-view.jpg", title: "3.00 Acres Aerial Sanctuary", project: PROJECTS_DATA[10], aspect: "aspect-[3/4]" },
+    { url: "/images/rovera-pergola-walkway.jpg", title: "Timber Pergola Walkway", project: PROJECTS_DATA[8], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-boutique-clubhouse.jpg", title: "Resident Library & Social Lounge", project: PROJECTS_DATA[6], aspect: "aspect-[16/11]" },
   ],
   // Column 5
   [
-    { url: "/images/landscape-nature.jpg", title: "40% Ecological Green Canopy", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
+    { url: "/images/landscape-nature.jpg", title: "40% Ecological Green Canopy", project: PROJECTS_DATA[11], aspect: "aspect-[16/11]" },
     { url: "/images/hero-cinematic.jpg", title: "Where Legacy Finds Its Land", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
-    { url: "/images/rovera-aerial-3acres.jpg", title: "Devanahalli Strategic Corridor", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
-    { url: "/images/rovera-avenues.jpg", title: "Cobblestone Tree-Lined Drive", project: PROJECTS_DATA[0], aspect: "aspect-[16/11]" },
+    { url: "/images/rovera-aerial-3acres.jpg", title: "Devanahalli Strategic Corridor", project: PROJECTS_DATA[10], aspect: "aspect-[4/3]" },
+    { url: "/images/rovera-avenues.jpg", title: "Cobblestone Tree-Lined Drive", project: PROJECTS_DATA[9], aspect: "aspect-[16/11]" },
   ],
   // Column 6
   [
@@ -921,18 +1192,14 @@ export default function RoveraProjectsView() {
                                   sizes="380px"
                                 />
 
-                                {/* Subtle hover vignette with project metadata */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white pointer-events-none">
-                                  <span className="font-mono text-[10px] uppercase tracking-widest text-blue-300 font-semibold mb-1">
-                                    {item.project.number} • {item.project.categoryLabel}
-                                  </span>
-                                  <h4 className="font-componentry text-base sm:text-lg text-white font-medium leading-tight">
+                                {/* Hover overlay: details upon the image itself (Exact Yodezeen Replica) */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center text-center p-6 text-white pointer-events-none">
+                                  <h4 className="font-componentry text-base sm:text-lg lg:text-xl text-white font-bold uppercase tracking-tight leading-tight">
                                     {item.title}
                                   </h4>
-                                  <span className="mt-3 inline-flex items-center gap-2 text-[10px] font-mono text-zinc-200 uppercase tracking-wider">
-                                    <span>View Architectural Dossier</span>
-                                    <ArrowRight className="w-3 h-3" />
-                                  </span>
+                                  <p className="mt-1 text-[11px] sm:text-xs font-mono text-zinc-300 tracking-[0.2em] uppercase font-medium">
+                                    {item.project.locationTag || "DEVANAHALLI, BENGALURU"}
+                                  </p>
                                 </div>
                               </div>
                             );
@@ -1158,13 +1425,13 @@ export default function RoveraProjectsView() {
             </div>
           </div>
 
-          {/* Project Grid matching Image 1 */}
-          <main className="max-w-7xl mx-auto px-6 sm:px-12 pt-10 sm:pt-14">
+          {/* Project Grid matching Image 1 - Pure Plain Images with Hover Details Upon Image */}
+          <main className="max-w-7xl mx-auto px-6 sm:px-12 pt-8 sm:pt-12">
             <div
-              className={`grid gap-8 sm:gap-10 lg:gap-12 ${
+              className={`w-full ${
                 columns === 2
-                  ? "grid-cols-1 md:grid-cols-2"
-                  : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6"
+                  ? "columns-1 md:columns-2 gap-5 sm:gap-7"
+                  : "columns-1 sm:columns-2 lg:columns-4 gap-4 sm:gap-5"
               }`}
             >
               {filteredProjects.map((project) => (
@@ -1174,44 +1441,27 @@ export default function RoveraProjectsView() {
                     setSelectedProject(project);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
-                  className="group relative flex flex-col cursor-pointer"
+                  className="group relative break-inside-avoid mb-4 sm:mb-5 rounded-xl sm:rounded-2xl overflow-hidden bg-zinc-100 cursor-pointer shadow-xs hover:shadow-2xl transition-all duration-500 border border-zinc-200/70"
                 >
-                  {/* Clean Image Card */}
-                  <div className="relative aspect-[16/11] w-full rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200/90 shadow-sm group-hover:shadow-xl transition-all duration-500 mb-4">
+                  {/* Clean Plain Image Container - Zero Text By Default */}
+                  <div className={`relative w-full ${project.aspect || "aspect-[16/11]"} overflow-hidden`}>
                     <Image
                       src={project.primaryImage}
                       alt={project.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none"
                       sizes={columns === 2 ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 25vw"}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                    
-                    <div className="absolute top-4 left-4">
-                      <span className="font-mono text-xs text-white bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/20">
-                        {project.number}
-                      </span>
-                    </div>
 
-                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="p-2 rounded-full bg-white text-black flex items-center justify-center shadow-lg">
-                        <ArrowRight className="w-4 h-4" />
-                      </span>
+                    {/* Hover Overlay: Details upon the image itself (Exact Yodezeen Replica) */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center text-center p-6 sm:p-8 pointer-events-none">
+                      <h3 className="font-componentry text-xl sm:text-2xl lg:text-3xl font-bold text-white uppercase tracking-tight leading-tight">
+                        {project.title}
+                      </h3>
+                      <p className="mt-1.5 text-xs sm:text-sm font-mono tracking-[0.2em] text-zinc-300 uppercase font-medium">
+                        {project.locationTag || project.subtitle}
+                      </p>
                     </div>
-                  </div>
-
-                  {/* Caption & Metadata */}
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between text-xs font-mono text-zinc-500">
-                      <span className="uppercase text-[#1E3A8A] font-semibold">{project.categoryLabel}</span>
-                      <span>{project.extent}</span>
-                    </div>
-                    <h2 className="font-componentry text-xl sm:text-2xl font-medium text-zinc-950 group-hover:text-[#1E3A8A] transition-colors leading-snug">
-                      {project.title}
-                    </h2>
-                    <p className="text-xs text-zinc-600 font-sans line-clamp-2 leading-relaxed">
-                      {project.leadNarrative}
-                    </p>
                   </div>
                 </article>
               ))}
