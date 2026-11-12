@@ -372,9 +372,9 @@ export default function RoveraView() {
               : "opacity-100 scale-100 filter blur-0"
           }`}
         >
-          <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] max-w-[85vw] aspect-[551/308] [mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)]">
+          <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] max-w-[85vw] aspect-[551/308] [mask-image:radial-gradient(ellipse_85%_80%_at_50%_50%,black_50%,transparent_98%)] [-webkit-mask-image:radial-gradient(ellipse_85%_80%_at_50%_50%,black_50%,transparent_98%)]">
             <Image
-              src="/images/rovera-loading.gif"
+              src="/images/rovera-loading.webp"
               alt="ROVERA Loading"
               fill
               priority
@@ -476,7 +476,7 @@ export default function RoveraView() {
       </section>
 
       {/* 03. SECTION: PROJECT SNAPSHOT (#snapshot) */}
-      <section id="snapshot" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
+      <section id="snapshot" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -577,7 +577,7 @@ export default function RoveraView() {
 
 
       {/* 05. SECTION: ARCHITECTURAL STATEMENT & DOUBLE-HEIGHT GATES (#gates) */}
-      <section id="gates" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
+      <section id="gates" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -679,7 +679,7 @@ export default function RoveraView() {
 
 
       {/* 07. SECTION: WHY ROVERA / GROWTH CORRIDOR (#why-rovera) */}
-      <section id="why-rovera" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
+      <section id="why-rovera" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -782,7 +782,7 @@ export default function RoveraView() {
       <RoveraWeDoSection />
 
       {/* 09. SECTION: WELL-BEING SANCTUARY (#wellbeing) */}
-      <section id="wellbeing" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
+      <section id="wellbeing" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-5 space-y-5">
@@ -859,7 +859,7 @@ export default function RoveraView() {
       </section>
 
       {/* 11. SECTION: MASTER PLAN (#master-plan) */}
-      <section id="master-plan" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
+      <section id="master-plan" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-10 sm:mb-12">
             <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
@@ -952,7 +952,7 @@ export default function RoveraView() {
       </section>
 
       {/* 12. SECTION: PROJECT WALKTHROUGH VIDEO (#walkthrough) */}
-      <section id="walkthrough" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
+      <section id="walkthrough" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
             <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
@@ -995,7 +995,7 @@ export default function RoveraView() {
       </section>
 
       {/* 13. SECTION: ARCHITECTURAL DOSSIER (#dossier / #gallery) */}
-      <section id="gallery" className="py-20 sm:py-28 bg-[#090D16] text-white border-b border-white/10 scroll-mt-24 select-none">
+      <section id="gallery" className="py-20 sm:py-28 bg-[#090D16] text-white border-b border-white/10 scroll-mt-28 select-none">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-blue-400 font-semibold">
             <span>FULL SPECIFICATIONS &amp; BLUEPRINTS</span>
@@ -1019,7 +1019,7 @@ export default function RoveraView() {
       </section>
 
       {/* 14. SECTION: LOCATION & CONNECTIVITY (#location / #connected) */}
-      <section id="location" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
+      <section id="location" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -1110,7 +1110,7 @@ export default function RoveraView() {
       </section>
 
       {/* 15. SECTION: TESTIMONIALS & LEADERSHIP (#testimonials) */}
-      <section id="testimonials" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
+      <section id="testimonials" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -1152,7 +1152,7 @@ export default function RoveraView() {
       </section>
 
       {/* 16. SECTION: PRICING & PAYMENT STRUCTURE (#pricing) */}
-      <section id="pricing" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
+      <section id="pricing" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -1237,7 +1237,7 @@ export default function RoveraView() {
       </section>
 
       {/* 17. SECTION: FAQ ACCORDION (#faq) */}
-      <section id="faq" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-24">
+      <section id="faq" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
             <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
@@ -1284,7 +1284,7 @@ export default function RoveraView() {
       </section>
 
       {/* 18. SECTION: ABOUT THE DEVELOPER (#about-stthira) */}
-      <section id="about-stthira" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-24">
+      <section id="about-stthira" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <div className="flex justify-center">
             <StthiraEmblem className="text-zinc-950 w-10 h-12" />
@@ -1307,7 +1307,7 @@ export default function RoveraView() {
       </section>
 
       {/* 19. SECTION: ENQUIRY FORM (#reserve) */}
-      <section id="reserve" className="scroll-mt-24">
+      <section id="reserve" className="scroll-mt-28">
         <AnimatedFooter
           headingLines={[]}
           background="#ffffff"
