@@ -57,29 +57,20 @@ export default function RoveraView() {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
-    // If returning with a hash (e.g. #we-do from projects page) or already viewed, skip loader immediately
-    if (typeof window !== "undefined") {
-      const hash = window.location.hash;
-      const alreadyLoaded = sessionStorage.getItem("rovera_loaded");
-
-      if (hash || alreadyLoaded) {
-        setPageLoading(false);
-        setLoadingFading(true);
-        if (hash) {
-          setTimeout(() => {
-            const el = document.querySelector(hash);
-            if (el) {
-              el.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-          }, 150);
+    // If navigating back with a section hash (e.g. #we-do from /projects), skip loader to go straight to section
+    if (typeof window !== "undefined" && window.location.hash) {
+      setPageLoading(false);
+      setLoadingFading(true);
+      setTimeout(() => {
+        const el = document.querySelector(window.location.hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-        return;
-      }
-
-      sessionStorage.setItem("rovera_loaded", "true");
+      }, 150);
+      return;
     }
 
-    // First visit: 1.8s hold allows the logo cycle to complete seamlessly
+    // Play loading page GIF for full cycle (1.8s) before smooth theatrical cross-dissolve
     const fadeTimer = setTimeout(() => {
       setLoadingFading(true);
       const doneTimer = setTimeout(() => {
@@ -394,13 +385,14 @@ export default function RoveraView() {
               : "opacity-100 scale-100 filter blur-0"
           }`}
         >
-          <div className="relative w-48 sm:w-64 md:w-80 max-w-[75vw] aspect-[3/1]">
+          <div className="relative w-64 sm:w-80 md:w-96 max-w-[85vw] aspect-[551/308]">
             <Image
-              src="/images/rovera-logo-dark.png"
-              alt="ROVERA"
+              src="/images/loading-page.gif"
+              alt="Loading"
               fill
+              unoptimized
               priority
-              className="object-contain animate-pulse"
+              className="object-contain"
             />
           </div>
         </div>

@@ -38,20 +38,22 @@ export default function RoveraWeDoSection() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=150%",
+          end: "+=220%",
           pin: true,
           scrub: 0.8,
           anticipatePin: 1,
         },
       });
 
+      // --- PHASE 1: OPEN (0.0s -> 1.0s) ---
       // Split WE and DO outward while fading to ghost watermark
       tl.to(
         weText,
         {
           x: "-38vw",
           opacity: 0.12,
-          ease: "power2.out",
+          ease: "power2.inOut",
+          duration: 1,
         },
         0
       );
@@ -61,7 +63,8 @@ export default function RoveraWeDoSection() {
         {
           x: "38vw",
           opacity: 0.12,
-          ease: "power2.out",
+          ease: "power2.inOut",
+          duration: 1,
         },
         0
       );
@@ -72,15 +75,62 @@ export default function RoveraWeDoSection() {
         {
           opacity: 0,
           scale: 0.88,
-          y: 20,
+          y: 24,
+          pointerEvents: "none",
         },
         {
           opacity: 1,
           scale: 1,
           y: 0,
+          pointerEvents: "auto",
           ease: "power2.out",
+          duration: 0.9,
         },
         0.1
+      );
+
+      // --- PHASE 2: HOLD (1.0s -> 2.0s) ---
+      // Gives the user ample scroll distance to read disciplines and click VIEW ALL PROJECTS
+      tl.to({}, { duration: 1 });
+
+      // --- PHASE 3: CLOSE (2.0s -> 3.0s) ---
+      // "it should close like this" (Exact replica of attached screenshot)
+      // Central disciplines fade out cleanly
+      tl.to(
+        centerContent,
+        {
+          opacity: 0,
+          scale: 0.9,
+          y: -20,
+          pointerEvents: "none",
+          ease: "power2.in",
+          duration: 0.8,
+        },
+        2
+      );
+
+      // WE moves back to center (0), returns to full dark opacity (1)
+      tl.to(
+        weText,
+        {
+          x: "0vw",
+          opacity: 1,
+          ease: "power2.inOut",
+          duration: 1,
+        },
+        2
+      );
+
+      // DO moves back to center (0), returns to full dark opacity (1)
+      tl.to(
+        doText,
+        {
+          x: "0vw",
+          opacity: 1,
+          ease: "power2.inOut",
+          duration: 1,
+        },
+        2
       );
     }, section);
 
@@ -109,9 +159,9 @@ export default function RoveraWeDoSection() {
         ref={containerRef}
         className="relative w-full h-full max-w-7xl mx-auto px-6 flex items-center justify-center"
       >
-        {/* Monolithic "WE DO" Split Display (Screenshot 1 & 2) */}
+        {/* Monolithic "WE DO" Display (Screenshot Replica) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-          <div className="flex items-center gap-12 sm:gap-20 md:gap-28 lg:gap-36">
+          <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
             <h2
               ref={weTextRef}
               className="font-componentry text-[22vw] sm:text-[20vw] md:text-[18vw] font-bold text-zinc-900 tracking-[-0.04em] leading-none will-change-transform select-none"
