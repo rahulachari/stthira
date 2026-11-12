@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -234,6 +234,14 @@ export default function RoveraProjectsView() {
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [locationDropdownOpen, setLocationDropdownOpen] = useState(false);
 
+  // 2D Pan and Drag State for the Immersive Canvas
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const isDraggingRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+  const panStartRef = useRef({ x: 0, y: 0 });
+  const hasDraggedRef = useRef(false);
+
   // Filter projects by category or status matching Yodezeen Screenshot 1
   const filteredProjects = PROJECTS_DATA.filter((p) => {
     if (activeFilter === "all") return true;
@@ -245,12 +253,6 @@ export default function RoveraProjectsView() {
     if (activeFilter === "infrastructure") return p.category === "infrastructure";
     return true;
   });
-
-  // Flatten all gallery visual plates for the immersive masonry view
-  const allVisualPlates = PROJECTS_DATA.flatMap((p) => [
-    { url: p.primaryImage, project: p, caption: `${p.number} • ${p.title}` },
-    ...p.galleryImages.map((g) => ({ url: g.url, project: p, caption: g.caption })),
-  ]);
 
   // Handle next / previous project in detail view
   const currentProjectIndex = selectedProject
@@ -276,6 +278,137 @@ export default function RoveraProjectsView() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  // 2D Draggable Pannable Canvas Interaction Listeners
+  useEffect(() => {
+    if (!isImmersive) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current) return;
+      const dx = e.clientX - dragStartRef.current.x;
+      const dy = e.clientY - dragStartRef.current.y;
+      if (Math.hypot(dx, dy) > 6) {
+        hasDraggedRef.current = true;
+      }
+      setPan({
+        x: panStartRef.current.x + dx,
+        y: panStartRef.current.y + dy,
+      });
+    };
+
+    const handleMouseUp = () => {
+      isDraggingRef.current = false;
+      setIsDragging(false);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDraggingRef.current || !e.touches[0]) return;
+      const dx = e.touches[0].clientX - dragStartRef.current.x;
+      const dy = e.touches[0].clientY - dragStartRef.current.y;
+      if (Math.hypot(dx, dy) > 6) {
+        hasDraggedRef.current = true;
+      }
+      setPan({
+        x: panStartRef.current.x + dx,
+        y: panStartRef.current.y + dy,
+      });
+    };
+
+    const handleTouchEnd = () => {
+      isDraggingRef.current = false;
+      setIsDragging(false);
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      // Allow trackpad or wheel panning in 2D
+      setPan((prev) => ({
+        x: prev.x - e.deltaX * 1.1,
+        y: prev.y - e.deltaY * 1.1,
+      }));
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("wheel", handleWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [isImmersive]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDraggingRef.current = true;
+    setIsDragging(true);
+    hasDraggedRef.current = false;
+    dragStartRef.current = { x: e.clientX, y: e.clientY };
+    panStartRef.current = { ...pan };
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!e.touches[0]) return;
+    isDraggingRef.current = true;
+    setIsDragging(true);
+    hasDraggedRef.current = false;
+    dragStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    panStartRef.current = { ...pan };
+  };
+
+  const handleImageClick = (project: ProjectDetail) => {
+    if (hasDraggedRef.current) return;
+    setSelectedProject(project);
+  };
+
+  // Rich staggered columns for the boundless 2D immersive wall
+  const immersiveColumns = [
+    // Column 1
+    [
+      { url: "/images/rovera-clubhouse-lounge.jpg", title: "Double-Height Resident Salon", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
+      { url: "/images/rovera-courtyard-lounge.jpg", title: "Sunken Fire Lounge", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
+      { url: "/images/rovera-grand-double-height-gate.jpg", title: "8m Cantilever Basalt Portal", project: PROJECTS_DATA[1], aspect: "aspect-[4/3]" },
+      { url: "/images/modern-architecture.jpg", title: "Contemporary Villa Typology", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+    ],
+    // Column 2
+    [
+      { url: "/images/rovera-wellness-pavilion.jpg", title: "Aura Vitality Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
+      { url: "/images/rovera-master-plan-3acres.jpg", title: "3-Acre Cadastral Blueprint", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
+      { url: "/images/entrance-structure.jpg", title: "Basalt Ribbed Elevation", project: PROJECTS_DATA[1], aspect: "aspect-[16/11]" },
+      { url: "/images/rovera-zen-garden.jpg", title: "Japanese Zen Meditation Court", project: PROJECTS_DATA[4], aspect: "aspect-[3/4]" },
+    ],
+    // Column 3
+    [
+      { url: "/images/lifestyle-amenities.jpg", title: "Hydrotherapy Vitality Pool", project: PROJECTS_DATA[3], aspect: "aspect-[16/10]" },
+      { url: "/images/rovera-internal-boulevard.jpg", title: "12m Internal Paved Boulevard", project: PROJECTS_DATA[2], aspect: "aspect-[4/3]" },
+      { url: "/images/rovera-pool-deck.jpg", title: "Azure Lap Pool & Cabanas", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
+      { url: "/images/masterplan-visual.jpg", title: "Sovereign Parcel Zoning", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
+    ],
+    // Column 4
+    [
+      { url: "/images/rovera-clubhouse-exterior.jpg", title: "Private Resident Club Pavilion", project: PROJECTS_DATA[3], aspect: "aspect-[3/4]" },
+      { url: "/images/aerial-view.jpg", title: "3.00 Acres Aerial Sanctuary", project: PROJECTS_DATA[0], aspect: "aspect-[3/4]" },
+      { url: "/images/rovera-pergola-walkway.jpg", title: "Timber Pergola Walkway", project: PROJECTS_DATA[4], aspect: "aspect-[4/3]" },
+      { url: "/images/rovera-boutique-clubhouse.jpg", title: "Resident Library & Social Lounge", project: PROJECTS_DATA[3], aspect: "aspect-[16/11]" },
+    ],
+    // Column 5
+    [
+      { url: "/images/landscape-nature.jpg", title: "40% Ecological Green Canopy", project: PROJECTS_DATA[4], aspect: "aspect-[16/11]" },
+      { url: "/images/hero-cinematic.jpg", title: "Where Legacy Finds Its Land", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+      { url: "/images/rovera-aerial-3acres.jpg", title: "Devanahalli Strategic Corridor", project: PROJECTS_DATA[0], aspect: "aspect-[4/3]" },
+      { url: "/images/rovera-avenues.jpg", title: "Cobblestone Tree-Lined Drive", project: PROJECTS_DATA[0], aspect: "aspect-[16/11]" },
+    ],
+    // Column 6
+    [
+      { url: "/images/brand-story.jpg", title: "Generational Architectural Legacy", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+      { url: "/images/rovera-clubhouse.jpg", title: "Evening Twilight Lighting", project: PROJECTS_DATA[3], aspect: "aspect-[4/3]" },
+      { url: "/images/vertical-clean.png", title: "ROVERA Signature Crest", project: PROJECTS_DATA[2], aspect: "aspect-[3/4]" },
+      { url: "/images/horizontal-clean.png", title: "North Bangalore Panorama", project: PROJECTS_DATA[0], aspect: "aspect-[16/10]" },
+    ],
+  ];
 
   return (
     <div className="relative w-full bg-[#FAFAFA] text-zinc-950 min-h-screen selection:bg-blue-600 selection:text-white font-sans antialiased">
@@ -604,97 +737,154 @@ export default function RoveraProjectsView() {
         </section>
       ) : isImmersive ? (
         /* =========================================================================
-            VIEW B: IMMERSIVE FEATURE (Screenshot 5 Replica with Matching Light Theme)
-            Activated when the "IMMERSIVE" toggle is ON
+            VIEW B: IMMERSIVE 2D DRAGGABLE CANVAS (Exact Replica of Uploaded Screenshot)
+            - Entire section is pannable / draggable in all directions (drag from anywhere)
+            - Top frosted blur glass overlay with smooth blur gradient
+            - Rounded pill buttons: < BACK (left), ROVERA (center), FILTERS = (right)
             ========================================================================= */
-        <section className="relative w-full min-h-screen bg-[#F5F5F7] text-zinc-950 animate-fade-in select-none">
-          {/* Top Bar matching Screenshot 5 (< BACK, ROVERA, FILTERS =) */}
-          <header className="sticky top-0 z-40 w-full bg-[#F5F5F7]/95 backdrop-blur-md border-b border-zinc-200/80 py-4 px-6 sm:px-12 flex items-center justify-between">
-            <button
-              type="button"
-              onClick={() => setIsImmersive(false)}
-              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-zinc-700 hover:text-black transition-colors cursor-pointer"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back</span>
-            </button>
+        <section className="fixed inset-0 z-40 bg-[#FAFAFA] text-zinc-950 overflow-hidden select-none animate-fade-in">
+          
+          {/* =====================================================================
+              1. TOP FROSTED BLUR GRADIENT OVERLAY (Screenshot Signature Feature)
+              Blurs whatever images slide or drag underneath it!
+              ===================================================================== */}
+          <div className="fixed top-0 left-0 right-0 z-50 h-32 sm:h-40 pointer-events-none">
+            {/* The multi-stage blur mask */}
+            <div
+              className="absolute inset-0 backdrop-blur-2xl bg-gradient-to-b from-[#FAFAFA]/95 via-[#FAFAFA]/80 to-transparent pointer-events-none"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.5) 75%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.5) 75%, transparent 100%)",
+              }}
+            />
 
-            <span className="font-editorial text-xl tracking-[0.3em] uppercase text-zinc-950 font-medium">
-              ROVERA
-            </span>
-
-            <div className="relative">
+            {/* Interactive Header Controls Bar */}
+            <div className="relative z-50 w-full px-6 sm:px-12 py-5 sm:py-7 flex items-center justify-between pointer-events-auto">
+              
+              {/* < BACK Pill Button */}
               <button
                 type="button"
-                onClick={() => setLocationDropdownOpen(!locationDropdownOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-zinc-200 text-xs font-mono uppercase tracking-widest text-zinc-800 hover:border-black transition-colors cursor-pointer"
+                onClick={() => setIsImmersive(false)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-200/80 hover:bg-zinc-300 text-zinc-900 font-mono text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-zinc-300/60 cursor-pointer shadow-xs"
               >
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#1E3A8A]" />
-                <span>FILTERS =</span>
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>BACK</span>
               </button>
 
-              {locationDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-56 bg-white border border-zinc-200 rounded-xl shadow-2xl p-2 z-50 animate-fade-in">
-                  <div className="text-[10px] uppercase tracking-widest text-zinc-400 px-3 py-1 border-b border-zinc-100">
-                    Filter Disciplines
+              {/* Center Logo */}
+              <h2 className="font-editorial text-2xl sm:text-3xl tracking-[0.25em] uppercase text-zinc-950 font-bold select-none">
+                ROVERA
+              </h2>
+
+              {/* FILTERS = Pill Button with Dropdown */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setLocationDropdownOpen(!locationDropdownOpen)}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-200/80 hover:bg-zinc-300 text-zinc-900 font-mono text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-zinc-300/60 cursor-pointer shadow-xs"
+                >
+                  <span>FILTERS</span>
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-600" />
+                </button>
+
+                {locationDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-3 w-60 bg-white border border-zinc-200 rounded-2xl shadow-2xl p-2 z-50 animate-fade-in text-left">
+                    <div className="text-[10px] uppercase tracking-widest text-zinc-400 px-3 py-1.5 border-b border-zinc-100 font-mono">
+                      Filter Disciplines
+                    </div>
+                    {[
+                      { id: "all", label: "All Disciplines" },
+                      { id: "completed", label: "Completed" },
+                      { id: "in-progress", label: "In Progress" },
+                      { id: "residences", label: "Residences" },
+                      { id: "clubhouse", label: "Clubhouse" },
+                      { id: "landscape", label: "Landscape" },
+                      { id: "infrastructure", label: "Infrastructure" },
+                    ].map((cat) => (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => {
+                          setActiveFilter(cat.id);
+                          setLocationDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-xs uppercase font-mono tracking-wider rounded-xl transition-colors cursor-pointer ${
+                          activeFilter === cat.id ? "bg-[#1E3A8A] text-white font-semibold" : "hover:bg-zinc-100 text-zinc-700"
+                        }`}
+                      >
+                        {cat.label}
+                      </button>
+                    ))}
                   </div>
-                  {["all", "completed", "in-progress", "residences", "clubhouse", "landscape", "infrastructure"].map((cat) => (
-                    <button
-                      key={cat}
-                      type="button"
-                      onClick={() => {
-                        setActiveFilter(cat);
-                        setLocationDropdownOpen(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 text-xs uppercase font-mono tracking-wider rounded-lg transition-colors cursor-pointer ${
-                        activeFilter === cat ? "bg-[#1E3A8A] text-white" : "hover:bg-zinc-100 text-zinc-700"
-                      }`}
+                )}
+              </div>
+
+            </div>
+          </div>
+
+          {/* =====================================================================
+              2. 2D DRAGGABLE & PANNABLE IMAGE MATRIX CANVAS
+              Drag anywhere in 2D (drag up, down, left, right) to explore images!
+              ===================================================================== */}
+          <div
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
+            className={`w-full h-full overflow-hidden ${
+              isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
+          >
+            <div
+              style={{
+                transform: `translate3d(${pan.x}px, ${pan.y}px, 0)`,
+                transition: isDragging ? "none" : "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+              className="absolute top-20 left-6 sm:left-12 flex gap-7 will-change-transform pb-32 pr-32"
+            >
+              {immersiveColumns.map((col, colIdx) => (
+                <div key={colIdx} className="flex flex-col gap-7 w-[290px] sm:w-[350px] md:w-[380px] shrink-0">
+                  {col.map((item, itemIdx) => (
+                    <div
+                      key={itemIdx}
+                      onClick={() => handleImageClick(item.project)}
+                      className={`group relative rounded-2xl overflow-hidden bg-zinc-200 border border-zinc-200/90 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer ${item.aspect}`}
                     >
-                      {cat}
-                    </button>
+                      <Image
+                        src={item.url}
+                        alt={item.title}
+                        fill
+                        draggable={false}
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none"
+                        sizes="400px"
+                      />
+
+                      {/* Subtle hover vignette with project metadata */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white pointer-events-none">
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-blue-300 font-semibold mb-1">
+                          {item.project.number} • {item.project.categoryLabel}
+                        </span>
+                        <h4 className="font-componentry text-base sm:text-lg text-white font-medium leading-tight">
+                          {item.title}
+                        </h4>
+                        <span className="mt-3 inline-flex items-center gap-2 text-[10px] font-mono text-zinc-200 uppercase tracking-wider">
+                          <span>View Architectural Dossier</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </div>
                   ))}
                 </div>
-              )}
-            </div>
-          </header>
-
-          {/* Top Vertical Blur-Fade Gradient Mask matching Screenshot 5 */}
-          <div className="sticky top-[57px] z-30 w-full h-14 bg-gradient-to-b from-[#F5F5F7] via-[#F5F5F7]/80 to-transparent pointer-events-none" />
-
-          {/* Immersive Staggered Image Wall */}
-          <div className="max-w-[96vw] mx-auto px-4 sm:px-6 pb-24 -mt-8">
-            <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-              {allVisualPlates.map((plate, index) => (
-                <div
-                  key={index}
-                  onClick={() => setSelectedProject(plate.project)}
-                  className="group relative rounded-2xl overflow-hidden bg-white border border-zinc-200/90 shadow-md hover:shadow-2xl cursor-pointer break-inside-avoid transform hover:-translate-y-1 transition-all duration-500"
-                >
-                  <div className="relative w-full aspect-[4/3] sm:aspect-auto">
-                    <Image
-                      src={plate.url}
-                      alt={plate.caption}
-                      width={800}
-                      height={600}
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                  </div>
-
-                  {/* Hover vignette with project metadata */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-blue-300 font-semibold mb-1">
-                      {plate.project.number} • {plate.project.categoryLabel}
-                    </span>
-                    <h4 className="font-componentry text-base sm:text-lg text-white font-medium leading-tight">
-                      {plate.caption}
-                    </h4>
-                    <span className="mt-3 inline-flex items-center gap-2 text-[10px] font-mono text-zinc-200 uppercase tracking-wider">
-                      <span>View Architectural Dossier</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </div>
               ))}
+            </div>
+          </div>
+
+          {/* Bottom subtle drag guide */}
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
+            <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md text-white font-mono text-[11px] uppercase tracking-widest flex items-center gap-2 shadow-lg">
+              <span>Drag anywhere to explore canvas</span>
+              <span className="text-zinc-400">•</span>
+              <span>Click to view project</span>
             </div>
           </div>
         </section>
