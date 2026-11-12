@@ -37,6 +37,7 @@ import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import RoveraMasterPlan from "@/components/RoveraMasterPlan";
 import AnimatedFooter from "@/components/ui/animated-footer";
+import PixelFlowField from "@/components/ui/pixel-flow-field";
 
 export default function RoveraView() {
   const [pageLoading, setPageLoading] = useState(true);
@@ -403,12 +404,25 @@ export default function RoveraView() {
             <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/40 via-black/15 to-transparent pointer-events-none" />
           </div>
 
-          {/* Centered Brand Name & Tagline */}
-          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 text-center select-none flex flex-col items-center justify-center pt-24 pb-12">
-            <h1 className="font-componentry text-7xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[13.5rem] 2xl:text-[15rem] font-semibold text-zinc-950 tracking-[-0.03em] leading-[0.88] uppercase">
-              ROVERA
-            </h1>
-            <p className="mt-4 sm:mt-6 md:mt-8 font-sans text-base sm:text-xl md:text-2xl lg:text-3xl text-zinc-800 font-medium tracking-[0.06em] sm:tracking-[0.1em]">
+          {/* Centered Brand Name & Tagline with Interactive Pixel Flow Field */}
+          <div className="relative z-10 w-full max-w-[96vw] 2xl:max-w-screen mx-auto px-4 sm:px-6 lg:px-8 text-center select-none flex flex-col items-center justify-center pt-20 sm:pt-24 pb-8 sm:pb-12">
+            <PixelFlowField
+              text="ROVERA"
+              className="w-full h-[46vh] sm:h-[54vh] md:h-[60vh] lg:h-[66vh] xl:h-[72vh] flex flex-col items-center justify-center"
+              shape="square"
+              cellSize={7}
+              gap={3}
+              speed={1.1}
+              pointerRadius={150}
+              pointerStrength={1}
+              textWidthRatio={0.96}
+              textHeightRatio={0.84}
+              weight={900}
+              colors={["rgba(30, 58, 138, 0.05)", "#1E3A8A", "#090D16"]}
+            >
+              <h1 className="sr-only">ROVERA</h1>
+            </PixelFlowField>
+            <p className="mt-2 sm:mt-4 md:mt-5 font-sans text-base sm:text-xl md:text-2xl lg:text-3xl text-zinc-900 font-medium tracking-[0.06em] sm:tracking-[0.1em]">
               Where Legacy Finds Its Land
             </p>
           </div>
@@ -417,7 +431,7 @@ export default function RoveraView() {
         {/* =========================================
             B. MOBILE DEDICATED HERO (< 768px)
             ========================================= */}
-        <div className="flex md:hidden relative min-h-[90dvh] sm:min-h-[100dvh] w-full flex-col justify-center items-center overflow-hidden px-6 text-center bg-white">
+        <div className="flex md:hidden relative min-h-[90dvh] sm:min-h-[100dvh] w-full flex-col justify-center items-center overflow-hidden px-4 text-center bg-white">
           {/* Vertical Hero Background (Ratio 3:4 / 896x1200) */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
@@ -433,12 +447,25 @@ export default function RoveraView() {
             <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/40 via-black/15 to-transparent pointer-events-none" />
           </div>
 
-          {/* Centered Brand Name & Tagline */}
-          <div className="relative z-10 w-full flex flex-col items-center justify-center select-none pt-24 pb-12">
-            <h1 className="font-componentry text-6xl sm:text-7xl font-semibold text-zinc-950 tracking-[-0.03em] leading-[0.9] uppercase">
-              ROVERA
-            </h1>
-            <p className="mt-3 sm:mt-4 font-sans text-sm sm:text-base text-zinc-800 font-medium tracking-[0.06em] sm:tracking-[0.08em]">
+          {/* Centered Brand Name & Tagline with Interactive Pixel Flow Field */}
+          <div className="relative z-10 w-full px-2 flex flex-col items-center justify-center select-none pt-20 pb-10">
+            <PixelFlowField
+              text="ROVERA"
+              className="w-full h-[32vh] sm:h-[38vh] flex flex-col items-center justify-center"
+              shape="square"
+              cellSize={5.5}
+              gap={2}
+              speed={1.0}
+              pointerRadius={90}
+              pointerStrength={1}
+              textWidthRatio={0.94}
+              textHeightRatio={0.76}
+              weight={900}
+              colors={["rgba(30, 58, 138, 0.05)", "#1E3A8A", "#090D16"]}
+            >
+              <h1 className="sr-only">ROVERA</h1>
+            </PixelFlowField>
+            <p className="mt-3 font-sans text-sm sm:text-base text-zinc-900 font-medium tracking-[0.06em] sm:tracking-[0.08em]">
               Where Legacy Finds Its Land
             </p>
           </div>
