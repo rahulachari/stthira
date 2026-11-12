@@ -31,7 +31,7 @@ export default function Rovera3DLogo({
       <div className={`relative ${sizeClasses}`}>
         <Image
           src={logoSrc}
-          alt="ROVERA — Official Cheetah Emblem"
+          alt="ROVERA — Official Architectural Emblem"
           fill
           priority
           quality={100}

@@ -605,6 +605,34 @@ export default function RoveraProjectsView() {
   const dragStartRef = useRef({ x: 0, y: 0 });
   const panStartRef = useRef({ x: 0, y: 0 });
   const hasDraggedRef = useRef(false);
+  const lastTouchRef = useRef({ x: 0, y: 0, time: 0 });
+  const velocityRef = useRef({ x: 0, y: 0 });
+  const inertiaFrameRef = useRef<number | null>(null);
+
+  const stopInertia = () => {
+    if (inertiaFrameRef.current !== null) {
+      cancelAnimationFrame(inertiaFrameRef.current);
+      inertiaFrameRef.current = null;
+    }
+  };
+
+  const startInertia = () => {
+    stopInertia();
+    const step = () => {
+      velocityRef.current.x *= 0.92;
+      velocityRef.current.y *= 0.92;
+      if (Math.abs(velocityRef.current.x) > 0.15 || Math.abs(velocityRef.current.y) > 0.15) {
+        setPan((prev) => ({
+          x: prev.x + velocityRef.current.x,
+          y: prev.y + velocityRef.current.y,
+        }));
+        inertiaFrameRef.current = requestAnimationFrame(step);
+      } else {
+        stopInertia();
+      }
+    };
+    inertiaFrameRef.current = requestAnimationFrame(step);
+  };
 
   // Filter projects by category or status matching Yodezeen Screenshot 1
   const filteredProjects = PROJECTS_DATA.filter((p) => {
@@ -649,9 +677,18 @@ export default function RoveraProjectsView() {
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDraggingRef.current) return;
+      const now = performance.now();
+      const dt = Math.max(1, now - lastTouchRef.current.time);
       const dx = e.clientX - dragStartRef.current.x;
       const dy = e.clientY - dragStartRef.current.y;
-      if (Math.hypot(dx, dy) > 6) {
+
+      velocityRef.current = {
+        x: ((e.clientX - lastTouchRef.current.x) / dt) * 16,
+        y: ((e.clientY - lastTouchRef.current.y) / dt) * 16,
+      };
+      lastTouchRef.current = { x: e.clientX, y: e.clientY, time: now };
+
+      if (Math.hypot(dx, dy) > 5) {
         hasDraggedRef.current = true;
       }
       setPan({
@@ -661,15 +698,32 @@ export default function RoveraProjectsView() {
     };
 
     const handleMouseUp = () => {
+      if (!isDraggingRef.current) return;
       isDraggingRef.current = false;
       setIsDragging(false);
+      if (hasDraggedRef.current && Math.hypot(velocityRef.current.x, velocityRef.current.y) > 1.5) {
+        startInertia();
+      }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!isDraggingRef.current || !e.touches[0]) return;
-      const dx = e.touches[0].clientX - dragStartRef.current.x;
-      const dy = e.touches[0].clientY - dragStartRef.current.y;
-      if (Math.hypot(dx, dy) > 6) {
+      // Prevent browser horizontal back/forward navigation and pull-to-refresh
+      if (e.cancelable) e.preventDefault();
+
+      const touch = e.touches[0];
+      const now = performance.now();
+      const dt = Math.max(1, now - lastTouchRef.current.time);
+      const dx = touch.clientX - dragStartRef.current.x;
+      const dy = touch.clientY - dragStartRef.current.y;
+
+      velocityRef.current = {
+        x: ((touch.clientX - lastTouchRef.current.x) / dt) * 16,
+        y: ((touch.clientY - lastTouchRef.current.y) / dt) * 16,
+      };
+      lastTouchRef.current = { x: touch.clientX, y: touch.clientY, time: now };
+
+      if (Math.hypot(dx, dy) > 5) {
         hasDraggedRef.current = true;
       }
       setPan({
@@ -679,25 +733,32 @@ export default function RoveraProjectsView() {
     };
 
     const handleTouchEnd = () => {
+      if (!isDraggingRef.current) return;
       isDraggingRef.current = false;
       setIsDragging(false);
+      if (hasDraggedRef.current && Math.hypot(velocityRef.current.x, velocityRef.current.y) > 1.5) {
+        startInertia();
+      }
     };
 
     const handleWheel = (e: WheelEvent) => {
-      // Free 2D trackpad & mousewheel scroll
+      // Prevent horizontal trackpad swipe from triggering browser history back/forward
+      if (e.cancelable) e.preventDefault();
+      stopInertia();
       setPan((prev) => ({
-        x: prev.x - e.deltaX * 1.15,
-        y: prev.y - e.deltaY * 1.15,
+        x: prev.x - e.deltaX * 1.05,
+        y: prev.y - e.deltaY * 1.05,
       }));
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
     window.addEventListener("touchend", handleTouchEnd);
-    window.addEventListener("wheel", handleWheel, { passive: true });
+    window.addEventListener("wheel", handleWheel, { passive: false });
 
     return () => {
+      stopInertia();
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("touchmove", handleTouchMove);
@@ -707,20 +768,26 @@ export default function RoveraProjectsView() {
   }, [isImmersive]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    stopInertia();
     isDraggingRef.current = true;
     setIsDragging(true);
     hasDraggedRef.current = false;
     dragStartRef.current = { x: e.clientX, y: e.clientY };
     panStartRef.current = { ...pan };
+    lastTouchRef.current = { x: e.clientX, y: e.clientY, time: performance.now() };
+    velocityRef.current = { x: 0, y: 0 };
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!e.touches[0]) return;
+    stopInertia();
     isDraggingRef.current = true;
     setIsDragging(true);
     hasDraggedRef.current = false;
     dragStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     panStartRef.current = { ...pan };
+    lastTouchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, time: performance.now() };
+    velocityRef.current = { x: 0, y: 0 };
   };
 
   const handleImageClick = (project: ProjectDetail) => {
@@ -785,26 +852,28 @@ export default function RoveraProjectsView() {
       {selectedProject ? (
         <section className="relative w-full min-h-screen pb-24 bg-[#FAFAFA] text-zinc-950 animate-fade-in">
           {/* Top Sticky Nav */}
-          <div className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-md border-b border-zinc-200 py-4 px-6 sm:px-12 flex items-center justify-between shadow-2xs">
+          <div className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-md border-b border-zinc-200 py-3 sm:py-4 px-4 sm:px-12 flex items-center justify-between shadow-2xs">
             <button
               type="button"
               onClick={() => setSelectedProject(null)}
-              className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.2em] text-zinc-600 hover:text-black transition-colors cursor-pointer group"
+              className="inline-flex items-center gap-1.5 sm:gap-3 text-xs font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] text-zinc-600 hover:text-black transition-colors cursor-pointer group"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>Back to All Projects</span>
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
+              <span className="hidden sm:inline">Back to All Projects</span>
+              <span className="sm:hidden">Back</span>
             </button>
 
-            <span className="font-componentry text-sm tracking-[0.2em] uppercase text-zinc-900 font-semibold">
+            <span className="font-componentry text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase text-zinc-900 font-semibold">
               ROVERA • {selectedProject.number}
             </span>
 
             <button
               type="button"
               onClick={() => setEnquiryModalOpen(true)}
-              className="px-5 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer active:scale-95"
             >
-              Schedule Visit
+              <span className="hidden sm:inline">Schedule Visit</span>
+              <span className="sm:hidden">Enquire</span>
             </button>
           </div>
 
@@ -1097,20 +1166,22 @@ export default function RoveraProjectsView() {
             />
 
             {/* Interactive Header Controls Bar */}
-            <div className="relative z-50 w-full px-6 sm:px-12 py-5 sm:py-7 flex items-center justify-between pointer-events-auto">
+            <div className="relative z-50 w-full px-3 sm:px-12 py-3 sm:py-6 flex items-center justify-between pointer-events-auto">
               
-              {/* < BACK Pill Button */}
+              {/* < BACK Pill Button (Exact Yodezeen Replica) */}
               <button
                 type="button"
                 onClick={() => setIsImmersive(false)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-200/80 hover:bg-zinc-300 text-zinc-900 font-mono text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-zinc-300/60 cursor-pointer shadow-xs"
+                className="group inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-400/60 hover:bg-zinc-500/70 text-white font-mono text-[10px] sm:text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-white/20 cursor-pointer shadow-xs active:scale-95"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/25 group-hover:bg-white/40 flex items-center justify-center transition-colors">
+                  <ArrowLeft className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+                </span>
                 <span>BACK</span>
               </button>
 
               {/* Center Logo */}
-              <h2 className="font-editorial text-2xl sm:text-3xl tracking-[0.25em] uppercase text-zinc-950 font-bold select-none">
+              <h2 className="font-editorial text-lg sm:text-2xl md:text-3xl tracking-[0.25em] uppercase text-zinc-950 font-bold select-none">
                 ROVERA
               </h2>
 
@@ -1119,21 +1190,23 @@ export default function RoveraProjectsView() {
                 <button
                   type="button"
                   onClick={() => setImmersiveFiltersOpen(!immersiveFiltersOpen)}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-200/80 hover:bg-zinc-300 text-zinc-900 font-mono text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-zinc-300/60 cursor-pointer shadow-xs"
+                  className="group inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-400/60 hover:bg-zinc-500/70 text-white font-mono text-[10px] sm:text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-white/20 cursor-pointer shadow-xs active:scale-95"
                 >
                   <span>FILTERS</span>
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-600" />
+                  <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/25 group-hover:bg-white/40 flex items-center justify-center transition-colors">
+                    <SlidersHorizontal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+                  </span>
                 </button>
 
                 {/* =================================================================
                     FROSTED EXPANDED FILTERS CARD (Exact Replica of Red Circle)
-                    Header: 24 PROJECTS • FILTERS ✕
+                    Header: 50 PROJECTS • FILTERS ✕
                     Body: Large bold stacked typography (ALL, PLOTTED, ARCHITECTURE...)
                     ================================================================= */}
                 {immersiveFiltersOpen && (
-                  <div className="fixed top-4 right-4 sm:top-6 sm:right-10 w-[290px] sm:w-[360px] bg-zinc-900/85 backdrop-blur-2xl text-white border border-white/20 p-6 sm:p-8 rounded-[28px] shadow-2xl z-[100] animate-fade-in text-left">
-                    <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
-                      <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-400 font-semibold">
+                  <div className="fixed top-14 right-2 sm:top-6 sm:right-10 w-[calc(100vw-16px)] sm:w-[360px] max-w-[360px] bg-zinc-900/90 backdrop-blur-2xl text-white border border-white/20 p-5 sm:p-8 rounded-[24px] sm:rounded-[28px] shadow-2xl z-[100] animate-fade-in text-left">
+                    <div className="flex items-center justify-between border-b border-white/15 pb-3 sm:pb-4 mb-4 sm:mb-5">
+                      <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-zinc-400 font-semibold">
                         50 PROJECTS
                       </span>
                       <button
@@ -1147,7 +1220,7 @@ export default function RoveraProjectsView() {
                     </div>
 
                     {/* Massive Bold Stacked Discipline Typography */}
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                       {filterList.map((f) => {
                         const isCurrent = activeFilter === f.id;
                         return (
@@ -1158,7 +1231,7 @@ export default function RoveraProjectsView() {
                               setActiveFilter(f.id);
                               setImmersiveFiltersOpen(false);
                             }}
-                            className={`block w-full text-left font-componentry text-2xl sm:text-3xl font-bold uppercase tracking-tight transition-colors cursor-pointer leading-[1.08] ${
+                            className={`block w-full text-left font-componentry text-lg sm:text-2xl md:text-3xl font-bold uppercase tracking-tight transition-colors cursor-pointer leading-[1.1] ${
                               isCurrent
                                 ? "text-white"
                                 : "text-zinc-400 hover:text-white"
@@ -1184,7 +1257,13 @@ export default function RoveraProjectsView() {
           <div
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
-            className={`w-full h-full overflow-hidden ${
+            style={{
+              touchAction: "none",
+              overscrollBehavior: "none",
+              userSelect: "none",
+              WebkitUserSelect: "none",
+            }}
+            className={`w-full h-full overflow-hidden select-none overscroll-none touch-none ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
           >
@@ -1192,7 +1271,7 @@ export default function RoveraProjectsView() {
             <div
               style={{
                 transform: `translate3d(${normX - BLOCK_WIDTH}px, ${normY - BLOCK_HEIGHT}px, 0)`,
-                transition: isDragging ? "none" : "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                transition: "none",
               }}
               className="absolute top-0 left-0 will-change-transform"
             >
@@ -1265,34 +1344,34 @@ export default function RoveraProjectsView() {
         <section className="relative w-full min-h-screen bg-[#FAFAFA] text-zinc-950 pb-24">
           
           {/* Top Architectural Navigation Bar */}
-          <header className="w-full bg-[#FAFAFA] border-b border-zinc-200/80 py-4 px-6 sm:px-12 flex items-center justify-between">
+          <header className="w-full bg-[#FAFAFA] border-b border-zinc-200/80 py-3.5 sm:py-4 px-4 sm:px-12 flex items-center justify-between">
             <Link
               href="/developments/rovera#we-do"
-              className="group inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.2em] text-zinc-600 hover:text-black transition-colors"
+              className="group inline-flex items-center gap-2 sm:gap-3 text-xs font-mono uppercase tracking-[0.14em] sm:tracking-[0.2em] text-zinc-600 hover:text-black transition-colors"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
               <span>Back to ROVERA</span>
             </Link>
 
-            <span className="font-editorial text-sm tracking-[0.25em] uppercase text-zinc-700 font-medium">
+            <span className="hidden md:inline-block font-editorial text-sm tracking-[0.25em] uppercase text-zinc-700 font-medium">
               STTHIRA ARCHITECTURAL PORTFOLIO
             </span>
 
             <button
               type="button"
               onClick={() => setEnquiryModalOpen(true)}
-              className="px-5 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer active:scale-95"
             >
               Schedule Visit
             </button>
           </header>
 
           {/* Centered Monumental Title matching Yodezeen Image 1 */}
-          <div className="max-w-7xl mx-auto px-6 sm:px-12 pt-16 sm:pt-24 pb-12 sm:pb-16 text-center">
-            <h1 className="font-componentry text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-zinc-950 uppercase leading-none">
+          <div className="max-w-7xl mx-auto px-4 sm:px-12 pt-10 sm:pt-20 pb-8 sm:pb-14 text-center">
+            <h1 className="font-componentry text-3xl sm:text-6xl md:text-7xl font-bold tracking-tight text-zinc-950 uppercase leading-none">
               ALL PROJECTS
             </h1>
-            <p className="mt-3 font-componentry text-lg sm:text-2xl md:text-3xl font-bold tracking-[0.18em] sm:tracking-[0.24em] text-zinc-300 uppercase select-none">
+            <p className="mt-2 sm:mt-3 font-componentry text-xs sm:text-xl md:text-2xl font-bold tracking-[0.12em] sm:tracking-[0.24em] text-zinc-300 uppercase select-none">
               PLOTTED SANCTUARY / ARCHITECTURE / BOTANICAL LANDSCAPE
             </p>
           </div>
@@ -1303,10 +1382,10 @@ export default function RoveraProjectsView() {
               Right: IMMERSIVE [switch]   2   4
               ===================================================================== */}
           <div className="w-full border-y border-zinc-200 bg-white/70 backdrop-blur-md sticky top-0 z-30">
-            <div className="max-w-7xl mx-auto px-6 sm:px-12 py-3 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-12 py-2.5 sm:py-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
               
               {/* Left Side: Sleek Unbordered Text Tabs matching Image 1 */}
-              <div className="flex items-center gap-5 sm:gap-7 overflow-x-auto no-scrollbar py-1">
+              <div className="flex items-center gap-4 sm:gap-7 overflow-x-auto no-scrollbar py-1">
                 <button
                   type="button"
                   onClick={() => setActiveFilter("all")}
@@ -1497,11 +1576,11 @@ export default function RoveraProjectsView() {
                     />
 
                     {/* Hover Overlay: Details upon the image itself (Exact Yodezeen Replica) */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center text-center p-6 sm:p-8 pointer-events-none">
-                      <h3 className="font-componentry text-xl sm:text-2xl lg:text-3xl font-bold text-white uppercase tracking-tight leading-tight">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center text-center p-4 sm:p-8 pointer-events-none">
+                      <h3 className="font-componentry text-base sm:text-2xl lg:text-3xl font-bold text-white uppercase tracking-tight leading-tight">
                         {project.title}
                       </h3>
-                      <p className="mt-1.5 text-xs sm:text-sm font-mono tracking-[0.2em] text-zinc-300 uppercase font-medium">
+                      <p className="mt-1 sm:mt-1.5 text-[10px] sm:text-sm font-mono tracking-[0.2em] text-zinc-300 uppercase font-medium">
                         {project.locationTag || project.subtitle}
                       </p>
                     </div>

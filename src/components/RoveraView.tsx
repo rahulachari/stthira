@@ -372,14 +372,13 @@ export default function RoveraView() {
               : "opacity-100 scale-100 filter blur-0"
           }`}
         >
-          <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] max-w-[85vw] aspect-[551/308] [mask-image:radial-gradient(ellipse_85%_80%_at_50%_50%,black_50%,transparent_98%)] [-webkit-mask-image:radial-gradient(ellipse_85%_80%_at_50%_50%,black_50%,transparent_98%)]">
+          <div className="relative w-48 sm:w-64 md:w-80 max-w-[75vw] aspect-[3/1]">
             <Image
-              src="/images/rovera-loading.webp"
-              alt="ROVERA Loading"
+              src="/images/rovera-logo-dark.png"
+              alt="ROVERA"
               fill
               priority
-              unoptimized
-              className="object-contain mix-blend-multiply"
+              className="object-contain animate-pulse"
             />
           </div>
         </div>
@@ -391,19 +390,21 @@ export default function RoveraView() {
             A. DESKTOP / LAPTOP / IPAD HERO (>= 768px)
             ========================================= */}
         <div className="hidden md:flex relative min-h-[92vh] sm:min-h-screen w-full flex-col justify-center items-center overflow-hidden bg-white">
-          {/* Full-bleed Landscape Hero Background */}
+          {/* Full-bleed Architectural Project Hero Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
-              src="/images/horizontal-clean.png"
-              alt="ROVERA — Where Legacy Finds Its Land"
+              src="/images/rovera-grand-double-height-gate.jpg"
+              alt="ROVERA — Sovereign Plotted Sanctuary"
               fill
               priority
               quality={95}
               sizes="100vw"
               className="w-full h-full object-cover object-center"
             />
+            {/* Subtle architectural wash for high contrast text readability */}
+            <div className="absolute inset-0 bg-white/75 backdrop-blur-[1px] pointer-events-none" />
             {/* Subtle top shade so the fixed header links remain clear */}
-            <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/40 via-black/15 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/25 via-black/10 to-transparent pointer-events-none" />
           </div>
 
           {/* Centered Brand Name & Tagline with Interactive Pixel Flow Field */}
@@ -434,19 +435,21 @@ export default function RoveraView() {
             B. MOBILE DEDICATED HERO (< 768px)
             ========================================= */}
         <div className="flex md:hidden relative min-h-[90dvh] sm:min-h-[100dvh] w-full flex-col justify-center items-center overflow-hidden px-4 text-center bg-white">
-          {/* Vertical Hero Background (Ratio 3:4 / 896x1200) */}
+          {/* Vertical Architectural Project Hero Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
-              src="/images/vertical-clean.png"
-              alt="ROVERA — Where Legacy Finds Its Land"
+              src="/images/rovera-wellness-pavilion.jpg"
+              alt="ROVERA — Sovereign Plotted Sanctuary"
               fill
               priority
               quality={95}
               sizes="100vw"
               className="w-full h-full object-cover object-center"
             />
+            {/* Subtle architectural wash for high contrast text readability */}
+            <div className="absolute inset-0 bg-white/75 backdrop-blur-[1px] pointer-events-none" />
             {/* Subtle top shade so the fixed header links remain clear */}
-            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/40 via-black/15 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/25 via-black/10 to-transparent pointer-events-none" />
           </div>
 
           {/* Centered Brand Name & Tagline with Interactive Pixel Flow Field */}

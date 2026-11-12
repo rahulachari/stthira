@@ -87,7 +87,7 @@ export default function RoveraIntroAnimation() {
         >
           <div className="relative w-72 sm:w-96 md:w-[480px] aspect-[3.26/1] drop-shadow-sm">
             <Image
-              src="/images/rovera-art-transparent.png"
+              src="/images/rovera-logo-dark.png"
               alt="ROVERA"
               fill
               priority

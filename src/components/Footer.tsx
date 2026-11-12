@@ -278,25 +278,27 @@ export default function Footer() {
 
       {/* Below-Footer Brand Wordmark Band */}
       {isRovera ? (
-        /* Exclusive ROVERA Animated Footer Showcase */
-        <section
-          aria-label="ROVERA Footer"
-          className="relative w-full overflow-hidden bg-white text-neutral-900 py-10 sm:py-14 md:py-16 select-none border-t border-neutral-200 flex items-center justify-center"
-        >
-          <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-center">
-            <div className="relative w-full max-w-[340px] sm:max-w-[460px] md:max-w-[560px] lg:max-w-[640px] aspect-[553/307] [mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_95%_90%_at_50%_50%,black_65%,transparent_100%)]">
-              <Image
-                src="/images/rovera-footer.gif"
-                alt="ROVERA"
-                fill
-                priority
-                unoptimized
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 560px, 640px"
-                className="object-contain object-center mix-blend-multiply"
-              />
-            </div>
-          </div>
-        </section>
+        /* Monumental Interactive Halftone Wordmark for ROVERA (Dark Blue Warm Tone) */
+        <div className="w-full border-t border-neutral-200 bg-white overflow-hidden">
+          <HalftoneWordmarkFooter
+            wordmark="rovera"
+            label=""
+            meta=""
+            columns={[]}
+            backToTop={false}
+            preset="paper"
+            palette={{
+              background: "#ffffff",
+              ink: "#0f172a",
+              warm: "#1e3a8a",
+            }}
+            height="clamp(72px, 20vw, 300px)"
+            dotGap={6}
+            radius={85}
+            crop={0.12}
+            interactive={true}
+          />
+        </div>
       ) : (
         /* Monumental Interactive Halftone Wordmark for STTHIRA (Dark Blue Warm Tone) */
         <div className="w-full border-t border-neutral-200 bg-white overflow-hidden">
