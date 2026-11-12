@@ -37,6 +37,11 @@ export default function Header() {
     setDevelopmentsOpen(false);
   }, [pathname]);
 
+  // Suppress global navbar on ROVERA projects/immersive view — uses dedicated Yodezeen back button & controls
+  if (pathname === "/developments/rovera/projects" || pathname?.startsWith("/developments/rovera/projects/")) {
+    return null;
+  }
+
   // Curated, high-priority navigation links
   // On ROVERA: Project-specific anchor links + Developments dropdown + Contact
   // On Global: Essential corporate links (About, Developments, Gallery, Contact)

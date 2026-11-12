@@ -1171,7 +1171,13 @@ export default function RoveraProjectsView() {
               {/* < BACK Pill Button (Exact Yodezeen Replica) */}
               <button
                 type="button"
-                onClick={() => setIsImmersive(false)}
+                onClick={() => {
+                  if (typeof window !== "undefined" && window.location.search.includes("immersive=true")) {
+                    window.location.href = "/developments/rovera#we-do";
+                  } else {
+                    setIsImmersive(false);
+                  }
+                }}
                 className="group inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-zinc-400/60 hover:bg-zinc-500/70 text-white font-mono text-[10px] sm:text-xs uppercase tracking-widest font-semibold transition-all backdrop-blur-md border border-white/20 cursor-pointer shadow-xs active:scale-95"
               >
                 <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/25 group-hover:bg-white/40 flex items-center justify-center transition-colors">
@@ -1181,9 +1187,12 @@ export default function RoveraProjectsView() {
               </button>
 
               {/* Center Logo */}
-              <h2 className="font-editorial text-lg sm:text-2xl md:text-3xl tracking-[0.25em] uppercase text-zinc-950 font-bold select-none">
+              <Link
+                href="/developments/rovera#we-do"
+                className="font-editorial text-lg sm:text-2xl md:text-3xl tracking-[0.25em] uppercase text-zinc-950 font-bold select-none hover:opacity-75 transition-opacity"
+              >
                 ROVERA
-              </h2>
+              </Link>
 
               {/* FILTERS = Pill Button (Toggles the Red Circle Card) */}
               <div className="relative">

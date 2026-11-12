@@ -16,6 +16,11 @@ export default function Footer() {
   const pathname = usePathname();
   const isRovera = pathname?.includes("/developments/rovera");
 
+  // Suppress footer on ROVERA projects/immersive view — uses dedicated Yodezeen back button & controls
+  if (pathname === "/developments/rovera/projects" || pathname?.startsWith("/developments/rovera/projects/")) {
+    return null;
+  }
+
   // Comprehensive Sitemap Categories (GitHub Clean Style: Light Background, Bold Black Headings)
   const columns = [
     {

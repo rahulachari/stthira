@@ -57,7 +57,29 @@ export default function RoveraView() {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
-    // 1.8s hold allows the 1.62s GIF cycle to complete seamlessly
+    // If returning with a hash (e.g. #we-do from projects page) or already viewed, skip loader immediately
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash;
+      const alreadyLoaded = sessionStorage.getItem("rovera_loaded");
+
+      if (hash || alreadyLoaded) {
+        setPageLoading(false);
+        setLoadingFading(true);
+        if (hash) {
+          setTimeout(() => {
+            const el = document.querySelector(hash);
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }, 150);
+        }
+        return;
+      }
+
+      sessionStorage.setItem("rovera_loaded", "true");
+    }
+
+    // First visit: 1.8s hold allows the logo cycle to complete seamlessly
     const fadeTimer = setTimeout(() => {
       setLoadingFading(true);
       const doneTimer = setTimeout(() => {
@@ -393,7 +415,7 @@ export default function RoveraView() {
           {/* Full-bleed Architectural Project Hero Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
-              src="/images/rovera-grand-double-height-gate.jpg"
+              src="/images/horizontal-1.0.png"
               alt="ROVERA — Sovereign Plotted Sanctuary"
               fill
               priority
@@ -401,8 +423,6 @@ export default function RoveraView() {
               sizes="100vw"
               className="w-full h-full object-cover object-center"
             />
-            {/* Subtle architectural wash for high contrast text readability */}
-            <div className="absolute inset-0 bg-white/75 backdrop-blur-[1px] pointer-events-none" />
             {/* Subtle top shade so the fixed header links remain clear */}
             <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/25 via-black/10 to-transparent pointer-events-none" />
           </div>
@@ -438,7 +458,7 @@ export default function RoveraView() {
           {/* Vertical Architectural Project Hero Background */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
-              src="/images/rovera-wellness-pavilion.jpg"
+              src="/images/vertical-1.0.png"
               alt="ROVERA — Sovereign Plotted Sanctuary"
               fill
               priority
@@ -446,8 +466,6 @@ export default function RoveraView() {
               sizes="100vw"
               className="w-full h-full object-cover object-center"
             />
-            {/* Subtle architectural wash for high contrast text readability */}
-            <div className="absolute inset-0 bg-white/75 backdrop-blur-[1px] pointer-events-none" />
             {/* Subtle top shade so the fixed header links remain clear */}
             <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/25 via-black/10 to-transparent pointer-events-none" />
           </div>

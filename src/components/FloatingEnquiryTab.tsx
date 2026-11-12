@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import EnquiryModal from "./EnquiryModal";
 import { MessageSquare } from "lucide-react";
 
 export default function FloatingEnquiryTab() {
   const [modalOpen, setModalOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Suppress fixed side tab on ROVERA projects/immersive view for full uncluttered viewport
+  if (pathname === "/developments/rovera/projects" || pathname?.startsWith("/developments/rovera/projects/")) {
+    return null;
+  }
 
   return (
     <>
