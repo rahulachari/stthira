@@ -194,8 +194,8 @@ export function AnimatedFooter({
   rightImage = "/animated-footer/hand-right.jpg",
   background = "#ffffff",
   textColor = "#0f172a",
-  charColor = "#3B82F6",
-  hoverColor = "#1E3A8A",
+  charColor = "#d09800",
+  hoverColor = "#d09800",
   hoverCharColor = "#ffffff",
   asciiChars = DEFAULT_ASCII_CHARS,
   columns = 80,
@@ -219,9 +219,9 @@ export function AnimatedFooter({
   const animateInRef = useRef<() => void>(() => {});
   const animateOutRef = useRef<() => void>(() => {});
 
-  // Elite Blue palette defaults
-  const cc = charColor ?? "#3B82F6";
-  const hc = hoverColor ?? "#1E3A8A";
+  // Cheetah Gold palette defaults
+  const cc = charColor ?? "#d09800";
+  const hc = hoverColor ?? "#d09800";
   const hcc = hoverCharColor ?? "#ffffff";
 
   // Live-tunable values read inside the animation loop, so tweaking a color or

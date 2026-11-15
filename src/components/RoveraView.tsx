@@ -46,13 +46,42 @@ export default function RoveraView() {
   const [loadingFading, setLoadingFading] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const [isHeroMuted, setIsHeroMuted] = useState(true);
+  const wasPlayingAudioRef = useRef(false);
 
   const toggleHeroMute = () => {
     if (heroVideoRef.current) {
-      heroVideoRef.current.muted = !heroVideoRef.current.muted;
-      setIsHeroMuted(heroVideoRef.current.muted);
+      const nextMuted = !heroVideoRef.current.muted;
+      heroVideoRef.current.muted = nextMuted;
+      setIsHeroMuted(nextMuted);
+      wasPlayingAudioRef.current = !nextMuted;
     }
   };
+
+  // If audio is playing in hero section, automatically pause/mute when scrolling down past hero
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!heroVideoRef.current) return;
+      // Scroll threshold: 55% of viewport height (past hero section)
+      const isPastHero = window.scrollY > window.innerHeight * 0.55;
+
+      if (isPastHero) {
+        if (!heroVideoRef.current.muted) {
+          wasPlayingAudioRef.current = true;
+          heroVideoRef.current.muted = true;
+          setIsHeroMuted(true);
+        }
+      } else {
+        // When user scrolls back up into hero, restore audio if user had unmuted it
+        if (wasPlayingAudioRef.current && heroVideoRef.current.muted) {
+          heroVideoRef.current.muted = false;
+          setIsHeroMuted(false);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState<string>("ROVERA — Phase 1 Villa Plot");
@@ -452,23 +481,18 @@ export default function RoveraView() {
           <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
         </div>
 
-        {/* Audio Mute/Unmute toggle for Cheetah Hero Video */}
+        {/* Audio Mute/Unmute toggle for Cheetah Hero Video: Icon Only */}
         <button
           type="button"
           onClick={toggleHeroMute}
           aria-label={isHeroMuted ? "Unmute cheetah video audio" : "Mute cheetah video audio"}
-          className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 text-white text-xs font-mono transition-all shadow-lg cursor-pointer hover:border-[#d09800] hover:text-[#d09800]"
+          title={isHeroMuted ? "Unmute audio" : "Mute audio"}
+          className="absolute bottom-5 right-5 sm:bottom-8 sm:right-8 z-20 w-11 h-11 rounded-full flex items-center justify-center bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 text-[#d09800] transition-all shadow-xl cursor-pointer hover:border-[#d09800] hover:scale-105 active:scale-95"
         >
           {isHeroMuted ? (
-            <>
-              <VolumeX className="w-4 h-4 text-[#d09800]" />
-              <span className="hidden sm:inline uppercase tracking-wider text-[11px] font-semibold">Unmute</span>
-            </>
+            <VolumeX className="w-5 h-5 text-[#d09800]" />
           ) : (
-            <>
-              <Volume2 className="w-4 h-4 text-[#d09800]" />
-              <span className="hidden sm:inline uppercase tracking-wider text-[11px] font-semibold">Mute</span>
-            </>
+            <Volume2 className="w-5 h-5 text-[#d09800]" />
           )}
         </button>
 
@@ -835,7 +859,7 @@ export default function RoveraView() {
                 className="object-contain sm:object-cover group-hover:scale-[1.02] transition-transform duration-700"
               />
               <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 pointer-events-none">
-                <span className="bg-[#d09800] text-black font-semibold text-white text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+                <span className="bg-[#d09800] text-black font-semibold text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
                   3.00 Acres Enclave
                 </span>
                 <span className="bg-black/70 backdrop-blur-xs text-white text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
@@ -881,7 +905,7 @@ export default function RoveraView() {
                 <button
                   type="button"
                   onClick={() => openEnquiry("Master Plan CAD & Plot Selection")}
-                  className="flex-1 sm:flex-initial px-6 py-3 bg-[#d09800] text-black font-semibold hover:bg-[#b58400] text-white rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow-sm"
+                  className="flex-1 sm:flex-initial px-6 py-3 bg-[#d09800] text-black font-semibold hover:bg-[#b58400] rounded-full font-mono text-xs uppercase tracking-wider transition-colors shadow-sm"
                 >
                   Reserve Your Plot
                 </button>
@@ -931,18 +955,33 @@ export default function RoveraView() {
                 4K Master Video Tour
               </span>
             </div>
-            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-white">
-              <span className="font-mono uppercase tracking-wide text-[10px] sm:text-xs text-white/90">
+            {/* Desktop Overlay Action Bar */}
+            <div className="hidden sm:flex absolute bottom-4 sm:bottom-6 left-4 right-4 sm:left-6 sm:right-6 items-center justify-between gap-3 text-white">
+              <span className="font-mono uppercase tracking-wide text-xs text-white/90">
                 Drone Aerial &amp; Architectural Video Tour
               </span>
               <button
                 type="button"
                 onClick={() => openEnquiry("Schedule Chauffeured Site Visit")}
-                className="w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-neutral-100 text-zinc-950 px-4 py-2 sm:px-5 sm:py-2 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-wider font-semibold transition-all shadow-md active:scale-95 cursor-pointer text-center"
+                className="inline-flex items-center justify-center bg-[#d09800] hover:bg-[#b58400] text-black px-5 py-2.5 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all shadow-md active:scale-95 cursor-pointer text-center"
               >
                 Book Chauffeured Visit
               </button>
             </div>
+          </div>
+
+          {/* Mobile-optimized action bar placed cleanly below video (avoids cramping video on phones) */}
+          <div className="mt-3.5 sm:hidden flex flex-col gap-2">
+            <span className="font-mono uppercase tracking-wide text-[11px] text-zinc-500 font-medium">
+              Drone Aerial &amp; Architectural Video Tour
+            </span>
+            <button
+              type="button"
+              onClick={() => openEnquiry("Schedule Chauffeured Site Visit")}
+              className="w-full inline-flex items-center justify-center bg-[#d09800] hover:bg-[#b58400] text-black px-5 py-3 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all shadow-md active:scale-95 cursor-pointer text-center"
+            >
+              Book Chauffeured Visit
+            </button>
           </div>
         </div>
       </section>
@@ -1098,15 +1137,15 @@ export default function RoveraView() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
             {/* Card 1: Curated Plot */}
-            <div className="p-7 sm:p-10 rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+            <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-3 sm:mb-4">
                   Curated Plot
                 </p>
-                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 whitespace-nowrap text-zinc-950">
+                <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 text-zinc-950">
                   ₹ 85 Lakhs*
                 </h3>
-                <p className="text-sm text-zinc-500 mb-8">
+                <p className="text-xs sm:text-sm text-zinc-500 mb-6 sm:mb-8">
                   Starting · 1,500 sq ft (30&apos; × 50&apos;)
                 </p>
               </div>
@@ -1120,18 +1159,18 @@ export default function RoveraView() {
             </div>
 
             {/* Card 2: Signature Plot (Featured) */}
-            <div className="p-7 sm:p-10 rounded-3xl bg-zinc-950 text-white shadow-2xl scale-[1.02] border border-zinc-800 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-[#d09800] text-black text-[10px] font-mono font-bold uppercase tracking-widest px-4 py-1 rounded-bl-xl">
+            <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-zinc-950 text-white shadow-2xl md:scale-[1.02] border border-zinc-800 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-[#d09800] text-black text-[10px] font-mono font-bold uppercase tracking-widest px-3.5 sm:px-4 py-1 rounded-bl-xl">
                 Most Popular
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-3 sm:mb-4">
                   Signature Plot
                 </p>
-                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 whitespace-nowrap text-white">
+                <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 text-white">
                   ₹ 1.35 Cr*
                 </h3>
-                <p className="text-sm text-zinc-300 mb-8">
+                <p className="text-xs sm:text-sm text-zinc-300 mb-6 sm:mb-8">
                   Starting · 2,400 sq ft (40&apos; × 60&apos;)
                 </p>
               </div>
@@ -1145,15 +1184,15 @@ export default function RoveraView() {
             </div>
 
             {/* Card 3: Grand Estate */}
-            <div className="p-7 sm:p-10 rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+            <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-3 sm:mb-4">
                   Grand Estate
                 </p>
-                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 whitespace-nowrap text-zinc-950">
+                <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 text-zinc-950">
                   On Request*
                 </h3>
-                <p className="text-sm text-zinc-500 mb-8">
+                <p className="text-xs sm:text-sm text-zinc-500 mb-6 sm:mb-8">
                   Starting · 3,500+ sq ft (50&apos; × 70&apos;)
                 </p>
               </div>

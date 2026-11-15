@@ -284,7 +284,7 @@ export default function Footer() {
             palette={{
               background: "#ffffff",
               ink: "#0f172a",
-              warm: "#1e3a8a",
+              warm: "#d09800",
             }}
             height="clamp(72px, 20vw, 300px)"
             dotGap={6}
@@ -306,7 +306,7 @@ export default function Footer() {
             palette={{
               background: "#ffffff",
               ink: "#0f172a",
-              warm: "#1e3a8a", // Dark royal blue tone instead of orange
+              warm: "#d09800", // Cheetah gold tone
             }}
             height="clamp(72px, 20vw, 300px)"
             dotGap={6}
