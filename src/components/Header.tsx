@@ -83,8 +83,14 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-3 sm:py-4 ${
-          isRovera ? "text-zinc-950" : "text-white"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-3 sm:py-4 ${
+          isRovera
+            ? scrolled
+              ? "bg-white/95 backdrop-blur-md text-zinc-950 shadow-xs border-b border-zinc-200/80"
+              : "bg-transparent text-white"
+            : scrolled
+            ? "bg-black/90 backdrop-blur-md text-white border-b border-neutral-900"
+            : "bg-transparent text-white"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
@@ -196,7 +202,9 @@ export default function Header() {
                 href="https://wa.me/917013485016"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-600 hover:text-black font-medium transition-colors"
+                className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium transition-colors ${
+                  scrolled ? "text-zinc-600 hover:text-black" : "text-white/90 hover:text-white"
+                }`}
               >
                 <span>WhatsApp</span>
               </a>
@@ -214,15 +222,25 @@ export default function Header() {
             {isRovera && (
               <Link
                 href="/"
-                className="hidden md:flex items-center gap-2 shrink-0 border-l border-zinc-200 pl-4 ml-1 transition-opacity hover:opacity-85"
+                className={`hidden md:flex items-center gap-2 shrink-0 border-l pl-4 ml-1 transition-opacity hover:opacity-85 ${
+                  scrolled ? "border-zinc-200" : "border-white/20"
+                }`}
                 title="STTHIRA Developments (Parent Master Developer)"
               >
                 <StthiraEmblem className="text-[#C5A880] w-4 h-5 transition-transform group-hover:scale-105 shrink-0" />
                 <div className="flex flex-col text-left">
-                  <span className="font-editorial text-xs tracking-[0.18em] font-medium uppercase text-zinc-950">
+                  <span
+                    className={`font-editorial text-xs tracking-[0.18em] font-medium uppercase transition-colors ${
+                      scrolled ? "text-zinc-950" : "text-white"
+                    }`}
+                  >
                     STTHIRA
                   </span>
-                  <span className="text-[7px] tracking-[0.25em] text-zinc-500 uppercase -mt-0.5">
+                  <span
+                    className={`text-[7px] tracking-[0.25em] uppercase -mt-0.5 transition-colors ${
+                      scrolled ? "text-zinc-500" : "text-neutral-300"
+                    }`}
+                  >
                     DEVELOPMENTS
                   </span>
                 </div>
@@ -236,7 +254,9 @@ export default function Header() {
                 aria-label="Toggle navigation menu"
                 className={`p-2 transition-colors cursor-pointer shrink-0 flex items-center gap-2 rounded-full ${
                   isRovera
-                    ? "text-zinc-950 hover:bg-black/5"
+                    ? scrolled
+                      ? "text-zinc-950 hover:bg-black/5"
+                      : "text-white hover:bg-white/15"
                     : "text-white hover:text-neutral-300"
                 }`}
               >

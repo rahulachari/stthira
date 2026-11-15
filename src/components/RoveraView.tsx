@@ -396,67 +396,50 @@ export default function RoveraView() {
           </div>
         </div>
       )}
-      {/* 01. MONUMENTAL HERO SECTION (Adaptive Laptop & Mobile) */}
-      <section className="relative w-full bg-white text-zinc-950 border-b border-zinc-200">
+      {/* 01. MONUMENTAL HERO SECTION (High-Definition Cinematic Cheetah Video Background) */}
+      <section className="relative w-full h-[100dvh] min-h-[640px] flex flex-col justify-center items-center overflow-hidden bg-black text-white border-b border-zinc-900">
         
-        {/* =========================================
-            A. DESKTOP / LAPTOP / IPAD HERO (>= 768px)
-            ========================================= */}
-        <div className="hidden md:flex relative min-h-[92vh] sm:min-h-screen w-full flex-col justify-center items-center overflow-hidden bg-white">
-          {/* Full-bleed Architectural Project Hero Background */}
-          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <Image
-              src="/images/horizontal-1.0.png"
-              alt="ROVERA — Sovereign Plotted Sanctuary"
-              fill
-              priority
-              quality={95}
-              sizes="100vw"
-              className="w-full h-full object-cover object-center"
-            />
-            {/* Subtle top shade so the fixed header links remain clear */}
-            <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/25 via-black/10 to-transparent pointer-events-none" />
-          </div>
-
-          {/* Centered Brand Name & Tagline with Static Apple-Style Architectural Typography */}
-          <div className="relative z-10 w-full max-w-[96vw] 2xl:max-w-screen mx-auto px-4 sm:px-6 lg:px-8 text-center select-none flex flex-col items-center justify-center pt-28 sm:pt-32 pb-12 sm:pb-16">
-            <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] font-bold tracking-[-0.045em] text-zinc-950 uppercase leading-none select-none drop-shadow-xs">
-              ROVERA
-            </h1>
-            <p className="mt-4 sm:mt-6 md:mt-8 font-sans text-lg sm:text-2xl md:text-3xl lg:text-4xl text-zinc-800 font-normal tracking-[-0.025em]">
-              Where Luxury Find Its Address
-            </p>
-          </div>
+        {/* Full-bleed Edge-to-Edge Cinematic Cheetah Video Background */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster="/images/cheetah-hero-poster.jpg"
+            className="w-full h-full object-cover object-center scale-[1.24] pointer-events-none"
+          >
+            <source src="/videos/cheetah-hero.mp4" type="video/mp4" />
+          </video>
+          {/* Subtle cinematic gradient overlays for pristine typography legibility */}
+          <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-black/65 via-black/25 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black/70 via-black/25 to-transparent pointer-events-none" />
         </div>
 
         {/* =========================================
-            B. MOBILE DEDICATED HERO (< 768px)
+            A. DESKTOP / LAPTOP / IPAD CONTENT (>= 768px)
             ========================================= */}
-        <div className="flex md:hidden relative min-h-[90dvh] sm:min-h-[100dvh] w-full flex-col justify-center items-center overflow-hidden px-4 text-center bg-white">
-          {/* Vertical Architectural Project Hero Background */}
-          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <Image
-              src="/images/vertical-1.0.png"
-              alt="ROVERA — Sovereign Plotted Sanctuary"
-              fill
-              priority
-              quality={95}
-              sizes="100vw"
-              className="w-full h-full object-cover object-center"
-            />
-            {/* Subtle top shade so the fixed header links remain clear */}
-            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/25 via-black/10 to-transparent pointer-events-none" />
-          </div>
+        <div className="hidden md:flex relative z-10 w-full max-w-[96vw] 2xl:max-w-screen mx-auto px-4 sm:px-6 lg:px-8 text-center select-none flex-col items-center justify-center pt-24 pb-12">
+          <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] font-bold tracking-[-0.045em] text-white uppercase leading-none select-none drop-shadow-[0_4px_32px_rgba(0,0,0,0.85)]">
+            ROVERA
+          </h1>
+          <p className="mt-4 sm:mt-6 md:mt-8 font-sans text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white/95 font-medium tracking-[-0.025em] drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
+            Where Luxury Find Its Address
+          </p>
+        </div>
 
-          {/* Centered Brand Name & Tagline with Static High-Contrast Apple-Style Typography */}
-          <div className="relative z-10 w-full px-4 flex flex-col items-center justify-center select-none pt-24 pb-12">
-            <h1 className="text-6xl sm:text-7xl font-bold tracking-[-0.04em] text-white uppercase leading-none select-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]">
-              ROVERA
-            </h1>
-            <p className="mt-4 font-sans text-xs sm:text-sm text-white font-medium tracking-[-0.01em] px-4 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/25 shadow-xl text-center">
-              Where Luxury Find Its Address
-            </p>
-          </div>
+        {/* =========================================
+            B. MOBILE DEDICATED CONTENT (< 768px)
+            ========================================= */}
+        <div className="flex md:hidden relative z-10 w-full px-4 flex-col items-center justify-center select-none pt-20 pb-10 text-center">
+          <h1 className="text-6xl sm:text-7xl font-bold tracking-[-0.04em] text-white uppercase leading-none select-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+            ROVERA
+          </h1>
+          <p className="mt-4 font-sans text-xs sm:text-sm text-white font-medium tracking-[-0.01em] px-4 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/25 shadow-xl text-center">
+            Where Luxury Find Its Address
+          </p>
         </div>
 
       </section>
