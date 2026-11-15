@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import RoveraView from "@/components/RoveraView";
+import RoveraView from "@/components/rovera/RoveraView";
 
 export const metadata: Metadata = {
   title: "ROVERA by STTHIRA — 3-Acre Luxury Plotted Sanctuary | Devanahalli–Doddaballapura Road",

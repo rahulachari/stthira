@@ -12,11 +12,11 @@ import {
   CheckCircle2,
   ChevronDown,
 } from "lucide-react";
-import CinematicHero from "@/components/CinematicHero";
-import PartnershipBanner from "@/components/PartnershipBanner";
-import EnquiryForm from "@/components/EnquiryForm";
-import EnquiryModal from "@/components/EnquiryModal";
-import StthiraEmblem from "@/components/StthiraEmblem";
+import CinematicHero from "@/components/stthira/CinematicHero";
+import PartnershipBanner from "@/components/stthira/PartnershipBanner";
+import EnquiryForm from "@/components/common/EnquiryForm";
+import EnquiryModal from "@/components/common/EnquiryModal";
+import StthiraEmblem from "@/components/stthira/StthiraEmblem";
 import ReelGallery from "@/components/ui/ReelGallery";
 import FlexCarousel from "@/components/ui/FlexCarousel";
 import DotMatrixNumber from "@/components/ui/DotMatrixNumber";

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import RoveraProjectsView from "@/components/RoveraProjectsView";
+import RoveraProjectsView from "@/components/rovera/RoveraProjectsView";
 
 export const metadata: Metadata = {
   title: "ROVERA Architectural Dossier & Disciplines | STTHIRA",

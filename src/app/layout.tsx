@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import CookieBanner from "@/components/CookieBanner";
-import SmoothScroll from "@/components/SmoothScroll";
-import CinematicOpeningReveal from "@/components/CinematicOpeningReveal";
-import FloatingEnquiryTab from "@/components/FloatingEnquiryTab";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import CookieBanner from "@/components/common/CookieBanner";
+import SmoothScroll from "@/components/common/SmoothScroll";
+import CinematicOpeningReveal from "@/components/stthira/CinematicOpeningReveal";
+import FloatingEnquiryTab from "@/components/common/FloatingEnquiryTab";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { COMPANY_INFO } from "@/lib/data";
 
