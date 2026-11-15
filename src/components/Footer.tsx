@@ -24,17 +24,6 @@ export default function Footer() {
   // Comprehensive Sitemap Categories (GitHub Clean Style: Light Background, Bold Black Headings)
   const columns = [
     {
-      title: t("footer.col1", "DEVELOPMENTS"),
-      links: [
-        { label: t("footer.allDevs", "All Developments"), href: "/developments" },
-        { label: "ROVERA (North Bengaluru)", href: "/developments/rovera" },
-        { label: "ROVERA Architectural Dossier", href: "/developments/rovera/projects" },
-        { label: "STTHIRA TERRA (Nandi)", href: "/developments/terra" },
-        { label: t("footer.masterPlanMatrix", "Master Plan Matrix"), href: "/developments#matrix" },
-        { label: t("footer.plotConfigs", "Plot Configurations"), href: "/developments#configurations" },
-      ],
-    },
-    {
       title: t("footer.col3", "COMPANY"),
       links: [
         { label: t("footer.aboutStthira", "About STTHIRA"), href: "/about" },
@@ -81,7 +70,7 @@ export default function Footer() {
                 <Link href="/developments/rovera" className="group flex items-center transition-opacity hover:opacity-80 shrink-0">
                   <div className="relative h-9 sm:h-11 md:h-13 aspect-[3.4/1] shrink-0 select-none">
                     <Image
-                      src="/images/rovera-logo-dark.png"
+                      src="/images/rovera-logo-color.png"
                       alt="ROVERA — Official Logo"
                       fill
                       priority

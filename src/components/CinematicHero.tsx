@@ -23,22 +23,22 @@ export default function CinematicHero() {
           playsInline
           preload="auto"
           poster="/images/hero-cinematic.jpg"
-          className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-115 brightness-90 scale-105"
+          className="absolute inset-0 w-full h-full object-cover object-center contrast-105 brightness-95 scale-105"
         >
           <source src="/videos/stthira-hero-clean.mp4" type="video/mp4" />
         </video>
 
         {/* Sophisticated Luxury Gradients for High Legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/65 pointer-events-none" />
-        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/60 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
       </div>
 
       {/* Hero Content Overlay */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full text-center flex flex-col items-center justify-center pt-24 pb-16">
-        {/* Subtle Corporate Identity Header */}
-        <div className="inline-flex items-center gap-3 border border-white/20 bg-black/40 backdrop-blur-md px-4 py-1.5 mb-8 animate-fade-in shadow-xl">
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-neutral-300 font-sans">
+        {/* Subtle Corporate Identity Header with Warm Gold Tone */}
+        <div className="inline-flex items-center gap-3 border border-[#C5A880]/35 bg-black/50 backdrop-blur-md px-4 py-1.5 mb-8 animate-fade-in shadow-xl">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[#E8DCC4] font-sans">
             {t("hero.badge", "STTHIRA • Master Plotted Developments • 2026")}
           </span>
         </div>
@@ -48,8 +48,8 @@ export default function CinematicHero() {
           <div className="relative w-12 h-14 sm:w-16 sm:h-20 md:w-20 md:h-24 lg:w-24 lg:h-28 shrink-0">
             <ElectricLogo
               src="/images/stthira-emblem-white.png"
-              color="#e6e7e9"
-              glowColor="#e6e7e9"
+              color="#D4AF37"
+              glowColor="#C5A880"
               scale={0.75}
               strands={4}
               bend={0.6}

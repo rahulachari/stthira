@@ -1,3 +1,4 @@
+@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Instrument+Serif:ital@0;1&family=Doto:wght@400;500;600;700;800;900&family=Italiana&family=Cinzel:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
@@ -88,7 +89,8 @@
   letter-spacing: 0.05em;
 }
 
-/* Clash Display & Architectural Typographic Utilities (PRESERVED STTHIRA NUMBER STYLE) */
+/* Wanted Sans - Numbers & Metrics across all components */
+.font-wanted,
 .font-clash,
 .font-editorial,
 .stthira-number,
@@ -97,9 +99,37 @@
 .metric-num,
 .tabular-nums,
 [data-number] {
-  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+}
+
+/* Apple Website Typography Style for ROVERA */
+.rovera-apple-typography,
+.rovera-apple-typography button,
+.rovera-apple-typography input,
+.rovera-apple-typography select,
+.rovera-apple-typography textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.012em;
+}
+
+.rovera-apple-typography h1,
+.rovera-apple-typography h2,
+.rovera-apple-typography h3,
+.rovera-apple-typography h4,
+.rovera-apple-typography .font-componentry {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  letter-spacing: -0.025em;
+}
+
+.rovera-apple-typography .font-wanted,
+.rovera-apple-typography .stthira-number,
+.rovera-apple-typography .font-number,
+.rovera-apple-typography .tabular-nums {
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif !important;
 }
 
 /* Modern Haute-Couture Architectural Luxury (Italiana & Cinzel) */
