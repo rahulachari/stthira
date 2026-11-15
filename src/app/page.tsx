@@ -57,49 +57,49 @@ export default function HomePage() {
   // Visual Curation Items for React Bits FlexCarousel
   const architecturalArchiveItems = [
     {
-      src: "/images/rovera-avenues.jpg",
+      src: "/images/rovera/rovera-avenues.jpg",
       alt: "50-Foot Tree-Lined Arterial Boulevards",
       title: "Arterial Boulevards",
       subtitle: "50-Ft Tree Canopy • Underground Electrical Grid",
     },
     {
-      src: "/images/rovera-clubhouse.jpg",
+      src: "/images/rovera/rovera-clubhouse.jpg",
       alt: "The Monolith Club Pavilion",
       title: "The Monolith Club",
       subtitle: "20,000 Sq.Ft Concrete & Flamed Basalt Architecture",
     },
     {
-      src: "/images/rovera-wellness-pavilion.jpg",
+      src: "/images/rovera/rovera-wellness-pavilion.jpg",
       alt: "Aura Vitality Spa & Wellness Pavilion",
       title: "Vitality Spa Pavilion",
       subtitle: "Flamed Granite & Slatted Teak Zen Sanctuary",
     },
     {
-      src: "/images/aerial-view.jpg",
+      src: "/images/stthira/aerial-view.jpg",
       alt: "42+ Acre Master Plan Matrix",
       title: "Master Plan Matrix",
       subtitle: "42+ Acre Plotted Enclave • 186 Curated Villa Parcels",
     },
     {
-      src: "/images/landscape-nature.jpg",
+      src: "/images/stthira/landscape-nature.jpg",
       alt: "The Forest Spine Conserved Bioswales",
       title: "The Forest Spine",
       subtitle: "3+ Acres Native Woodland • Rainwater Aquifers",
     },
     {
-      src: "/images/lifestyle-amenities.jpg",
+      src: "/images/stthira/lifestyle-amenities.jpg",
       alt: "Zenith Championship Sports Arena",
       title: "Zenith Sports Arena",
       subtitle: "Plexicushion Tennis Court • Glass Padel Court",
     },
     {
-      src: "/images/entrance-structure.jpg",
+      src: "/images/stthira/entrance-structure.jpg",
       alt: "Monumental Entrance Gateways",
       title: "Basalt Gateways",
       subtitle: "Forensic Cadastral Diligence • 100% Clear Title",
     },
     {
-      src: "/images/modern-architecture.jpg",
+      src: "/images/stthira/modern-architecture.jpg",
       alt: "Architectural Permanence & Structural Honesty",
       title: "Structural Permanence",
       subtitle: "Timeless Plotted Living • Generational Wealth",
@@ -192,7 +192,7 @@ export default function HomePage() {
             {/* Right Clean Visual Plate — Perfectly matches the full height of the text block */}
             <div className="lg:col-span-5 relative w-full h-full min-h-[440px] sm:min-h-[500px] lg:min-h-0 self-stretch rounded-lg overflow-hidden border border-neutral-200 shadow-xl flex flex-col justify-end bg-neutral-100">
               <Image
-                src="/images/brand-story.jpg"
+                src="/images/stthira/brand-story.jpg"
                 alt="STTHIRA Architecture"
                 fill
                 priority
@@ -239,7 +239,7 @@ export default function HomePage() {
             {/* Project Image */}
             <div className="lg:col-span-7 relative min-h-[320px] sm:min-h-[420px] bg-neutral-900">
               <Image
-                src={rovera.coverImage || "/images/hero-cinematic.jpg"}
+                src={rovera.coverImage || "/images/stthira/hero-cinematic.jpg"}
                 alt="ROVERA Master Plotted Community"
                 fill
                 priority
@@ -265,7 +265,7 @@ export default function HomePage() {
               <div className="space-y-4">
                 <div className="relative h-9 w-32">
                   <Image
-                    src="/images/rovera-logo-dark.png"
+                    src="/images/rovera/rovera-logo-dark.png"
                     alt="ROVERA"
                     fill
                     className="object-contain object-left"
@@ -401,7 +401,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
             <div className="md:col-span-4 relative aspect-[3/4] bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 shadow-md">
               <Image
-                src="/images/director-lokesh.jpg"
+                src="/images/stthira/director-lokesh.jpg"
                 alt="Lokesh Mudhaliar — Board of Directors"
                 fill
                 className="object-cover object-top grayscale contrast-110"

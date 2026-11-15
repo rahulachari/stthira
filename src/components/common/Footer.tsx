@@ -70,7 +70,7 @@ export default function Footer() {
                 <Link href="/developments/rovera" className="group flex items-center transition-opacity hover:opacity-80 shrink-0">
                   <div className="relative h-9 sm:h-11 md:h-13 aspect-[3.4/1] shrink-0 select-none">
                     <Image
-                      src="/images/rovera-logo-color.png"
+                      src="/images/rovera/rovera-logo-color.png"
                       alt="ROVERA — Official Logo"
                       fill
                       priority
@@ -111,7 +111,7 @@ export default function Footer() {
                 <Link href="/developments/rovera" className="group flex items-center transition-opacity hover:opacity-80 shrink-0">
                   <div className="relative h-11 sm:h-13 md:h-15 lg:h-17 aspect-[3.4/1] shrink-0 select-none">
                     <Image
-                      src="/images/rovera-logo-dark.png"
+                      src="/images/rovera/rovera-logo-dark.png"
                       alt="ROVERA — Official Logo"
                       fill
                       priority

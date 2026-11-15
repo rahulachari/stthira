@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight, Shield, Award, Landmark, CheckCircle2 } from "lucide-react";
 import { COMPANY_INFO, LEADERSHIP_INFO } from "@/lib/data";
-import PartnershipBanner from "@/components/PartnershipBanner";
-import StthiraEmblem from "@/components/StthiraEmblem";
+import PartnershipBanner from "@/components/stthira/PartnershipBanner";
+import StthiraEmblem from "@/components/stthira/StthiraEmblem";
 
 export const metadata = {
   title: "About STTHIRA — Corporate Heritage & Development Philosophy",
@@ -17,7 +17,7 @@ export default function AboutPage() {
       <section className="bg-black text-white py-24 sm:py-32 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <Image
-            src="/images/brand-story.jpg"
+            src="/images/stthira/brand-story.jpg"
             alt="STTHIRA Architecture Background"
             fill
             className="object-cover object-center grayscale contrast-125"
@@ -173,7 +173,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 relative aspect-[4/3] bg-neutral-900 border border-neutral-300 overflow-hidden shadow-xl">
               <Image
-                src="/images/landscape-nature.jpg"
+                src="/images/stthira/landscape-nature.jpg"
                 alt="STTHIRA Landscape Approach"
                 fill
                 className="object-cover object-center grayscale contrast-120"

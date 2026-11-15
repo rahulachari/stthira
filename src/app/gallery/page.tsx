@@ -1,5 +1,5 @@
 import { DEVELOPMENTS } from "@/lib/data";
-import GalleryView from "@/components/GalleryView";
+import GalleryView from "@/components/common/GalleryView";
 
 export const metadata = {
   title: "Architectural Gallery — Monochromatic Luxury Visuals | STTHIRA",
@@ -11,10 +11,10 @@ export default function GalleryPage() {
   const rovera = DEVELOPMENTS[0];
   const allImages = [
     ...rovera.galleryImages,
-    { url: "/images/hero-cinematic.jpg", title: "Cinematic Gatehouse Perspective", category: "Architecture" },
-    { url: "/images/brand-story.jpg", title: "Sculptural Monolith Cantilever", category: "Architecture" },
-    { url: "/images/director-lokesh.jpg", title: "Executive Governance Portrait", category: "Leadership" },
-    { url: "/images/footer-dark.jpg", title: "Basalt & Cast-In-Place Concrete Geometry", category: "Details" },
+    { url: "/images/stthira/hero-cinematic.jpg", title: "Cinematic Gatehouse Perspective", category: "Architecture" },
+    { url: "/images/stthira/brand-story.jpg", title: "Sculptural Monolith Cantilever", category: "Architecture" },
+    { url: "/images/stthira/director-lokesh.jpg", title: "Executive Governance Portrait", category: "Leadership" },
+    { url: "/images/stthira/footer-dark.jpg", title: "Basalt & Cast-In-Place Concrete Geometry", category: "Details" },
   ];
 
   return (

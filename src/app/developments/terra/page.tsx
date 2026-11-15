@@ -11,7 +11,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { DEVELOPMENTS } from "@/lib/data";
-import EnquiryForm from "@/components/EnquiryForm";
+import EnquiryForm from "@/components/common/EnquiryForm";
 
 export const metadata = {
   title: "STTHIRA TERRA — Sovereign Eco-Luxury Estates | Nandi Foothills",

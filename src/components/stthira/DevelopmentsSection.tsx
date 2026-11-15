@@ -65,7 +65,7 @@ export default function DevelopmentsSection() {
             <div className="flex items-center gap-3">
               <div className="relative h-6 w-20 shrink-0">
                 <Image
-                  src="/images/rovera-logo-white.png"
+                  src="/images/rovera/rovera-logo-white.png"
                   alt="ROVERA"
                   fill
                   className="object-contain object-left"
@@ -145,7 +145,7 @@ export default function DevelopmentsSection() {
                 {activeProject.slug === "rovera" && (
                   <div className="relative w-28 h-8">
                     <Image
-                      src="/images/rovera-logo-white.png"
+                      src="/images/rovera/rovera-logo-white.png"
                       alt="ROVERA Official Logo"
                       fill
                       className="object-contain object-left"

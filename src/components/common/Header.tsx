@@ -128,7 +128,7 @@ export default function Header() {
             >
               <div className="relative h-7 sm:h-9 w-28 sm:w-36 select-none shrink-0">
                 <Image
-                  src="/images/rovera-logo-color.png"
+                  src="/images/rovera/rovera-logo-color.png"
                   alt="ROVERA"
                   fill
                   priority

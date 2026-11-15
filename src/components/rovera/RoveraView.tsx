@@ -294,7 +294,7 @@ export default function RoveraView() {
       label: "Quiet Luxury",
       title: "Crafted for Quiet Luxury",
       text: "An atmosphere designed for calm, elevated living in North Bangalore.",
-      image: "/images/lagos-about1.webp",
+      image: "/images/rovera/lagos-about1.webp",
       alt: "ROVERA villa plot enclave designed for calm, elevated living",
     },
     {
@@ -302,7 +302,7 @@ export default function RoveraView() {
       label: "Purposeful Planning",
       title: "Premium Plots with Purposeful Planning",
       text: "Thoughtfully laid-out villa plots that offer the freedom to design a home that reflects your vision.",
-      image: "/images/lagos-landscape7.webp",
+      image: "/images/rovera/lagos-landscape7.webp",
       alt: "Thoughtfully planned premium villa plots at ROVERA",
     },
     {
@@ -310,7 +310,7 @@ export default function RoveraView() {
       label: "Well-Being",
       title: "A Community Built Around Well-Being",
       text: "Come together to create a neighbourhood that supports balance and everyday ease.",
-      image: "/images/lagos-about3.webp",
+      image: "/images/rovera/lagos-about3.webp",
       alt: "Gated community at ROVERA built around well-being and everyday ease",
     },
     {
@@ -318,35 +318,35 @@ export default function RoveraView() {
       label: "Connected",
       title: "Elevated Living, Seamlessly Connected",
       text: "Exclusive, yet effortlessly linked to key hubs, giving you the best of both retreat and access.",
-      image: "/images/lagos-about4.webp",
+      image: "/images/rovera/lagos-about4.webp",
       alt: "ROVERA villa plots seamlessly connected to North Bangalore hubs",
     },
   ];
 
   // 02. Amenities (12 exact cards from lagos.co.in)
   const lagosAmenities = [
-    { src: "/images/amenities/lagos-amenities-clubhouse-exterior.webp", label: "Clubhouse Exterior" },
-    { src: "/images/amenities/lagos-amenities-clubhouse-entrance.webp", label: "Clubhouse Entrance" },
-    { src: "/images/amenities/lagos-amenities-swimming-pool.webp", label: "Swimming Pool" },
-    { src: "/images/amenities/lagos-amenities-coffee-bar.webp", label: "Coffee Bar" },
-    { src: "/images/amenities/lagos-amenities-party-space.webp", label: "Party Space" },
-    { src: "/images/amenities/lagos-amenities-jogging-track-with-play-area.webp", label: "Jogging Track with Play Area" },
-    { src: "/images/amenities/lagos-amenities-kids-park.webp", label: "Kids Park" },
-    { src: "/images/amenities/lagos-amenities-pet-park.webp", label: "Pet Park" },
-    { src: "/images/amenities/lagos-amenities-picnic-lawn.webp", label: "Picnic Lawn" },
-    { src: "/images/amenities/lagos-amenities-senior-citizen-park.webp", label: "Senior Citizen Park" },
-    { src: "/images/amenities/lagos-amenities-barbecue-area.webp", label: "Barbecue Area" },
-    { src: "/images/amenities/lagos-amenities-wide-driveways.webp", label: "Wide Driveways" },
+    { src: "/images/rovera/amenities/lagos-amenities-clubhouse-exterior.webp", label: "Clubhouse Exterior" },
+    { src: "/images/rovera/amenities/lagos-amenities-clubhouse-entrance.webp", label: "Clubhouse Entrance" },
+    { src: "/images/rovera/amenities/lagos-amenities-swimming-pool.webp", label: "Swimming Pool" },
+    { src: "/images/rovera/amenities/lagos-amenities-coffee-bar.webp", label: "Coffee Bar" },
+    { src: "/images/rovera/amenities/lagos-amenities-party-space.webp", label: "Party Space" },
+    { src: "/images/rovera/amenities/lagos-amenities-jogging-track-with-play-area.webp", label: "Jogging Track with Play Area" },
+    { src: "/images/rovera/amenities/lagos-amenities-kids-park.webp", label: "Kids Park" },
+    { src: "/images/rovera/amenities/lagos-amenities-pet-park.webp", label: "Pet Park" },
+    { src: "/images/rovera/amenities/lagos-amenities-picnic-lawn.webp", label: "Picnic Lawn" },
+    { src: "/images/rovera/amenities/lagos-amenities-senior-citizen-park.webp", label: "Senior Citizen Park" },
+    { src: "/images/rovera/amenities/lagos-amenities-barbecue-area.webp", label: "Barbecue Area" },
+    { src: "/images/rovera/amenities/lagos-amenities-wide-driveways.webp", label: "Wide Driveways" },
   ];
 
   // 03. Gallery (Clubhouse & Landscape views from lagos.co.in)
   const clubhouseGallery = [1, 2, 3, 6, 7, 9].map((e) => ({
-    src: `/images/lagos-clubhouse${e}.webp`,
+    src: `/images/rovera/lagos-clubhouse${e}.webp`,
     alt: `ROVERA clubhouse view ${e}`,
   }));
 
   const landscapeGallery = [1, 6, 3, 9, 4, 7].map((e) => ({
-    src: `/images/lagos-landscape${e}.webp`,
+    src: `/images/rovera/lagos-landscape${e}.webp`,
     alt: `ROVERA landscape view ${e}`,
   }));
 
@@ -521,7 +521,7 @@ export default function RoveraView() {
         >
           <div className="relative w-64 sm:w-80 md:w-96 max-w-[85vw] aspect-[551/308]">
             <Image
-              src="/images/loading-page.gif"
+              src="/images/rovera/loading-page.gif"
               alt="Loading"
               fill
               unoptimized
@@ -543,10 +543,10 @@ export default function RoveraView() {
             muted={isHeroMuted}
             playsInline
             preload="auto"
-            poster="/images/cheetah-hero-poster.jpg"
+            poster="/images/rovera/cheetah-hero-poster.jpg"
             className="w-full h-full object-cover object-center scale-[1.08] pointer-events-none"
           >
-            <source src="/videos/cheetah-hero.mp4" type="video/mp4" />
+            <source src="/videos/rovera/cheetah-hero.mp4" type="video/mp4" />
           </video>
           {/* Subtle cinematic gradient overlays */}
           <div className="absolute inset-0 bg-black/20 pointer-events-none" />
@@ -593,7 +593,7 @@ export default function RoveraView() {
                 </span>
                 <div className="relative h-11 sm:h-14 md:h-16 w-48 sm:w-64 md:w-80 -ml-1">
                   <Image
-                    src="/images/rovera-logo-color.png"
+                    src="/images/rovera/rovera-logo-color.png"
                     alt="ROVERA"
                     fill
                     priority
@@ -689,7 +689,7 @@ export default function RoveraView() {
 
           <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-zinc-200 shadow-xl mb-12 bg-zinc-950">
             <Image
-              src="/images/rovera-grand-double-height-gate.jpg"
+              src="/images/rovera/rovera-grand-double-height-gate.jpg"
               alt="ROVERA Double-Height Grand Entrance Gate"
               fill
               priority
@@ -964,10 +964,10 @@ export default function RoveraView() {
           <div className="bg-white border border-zinc-200/90 rounded-3xl p-3 sm:p-6 shadow-xl overflow-hidden group relative">
             <div
               className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden bg-zinc-950 cursor-pointer"
-              onClick={() => setSelectedLightboxImage("/images/rovera-master-plan-3acres.jpg")}
+              onClick={() => setSelectedLightboxImage("/images/rovera/rovera-master-plan-3acres.jpg")}
             >
               <Image
-                src="/images/rovera-master-plan-3acres.jpg"
+                src="/images/rovera/rovera-master-plan-3acres.jpg"
                 alt="ROVERA 3-Acre Master Plan Cadastral Layout"
                 fill
                 priority
@@ -1026,7 +1026,7 @@ export default function RoveraView() {
                   Reserve Your Plot
                 </button>
                 <a
-                  href="/images/rovera-master-plan-3acres.jpg"
+                  href="/images/rovera/rovera-master-plan-3acres.jpg"
                   download="ROVERA-Master-Plan-3Acres.jpg"
                   className="flex-1 sm:flex-initial px-5 py-3 bg-white border border-zinc-300 hover:border-zinc-500 text-zinc-800 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-colors text-center"
                 >
@@ -1060,10 +1060,10 @@ export default function RoveraView() {
               muted
               playsInline
               preload="auto"
-              poster="/images/rovera-aerial-3acres.jpg"
+              poster="/images/rovera/rovera-aerial-3acres.jpg"
               className="w-full h-full object-cover object-center"
             >
-              <source src="/videos/rovera-sanctuary-hero.mp4" type="video/mp4" />
+              <source src="/videos/rovera/rovera-sanctuary-hero.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
             <div className="absolute top-3 right-3 sm:top-5 sm:right-5">

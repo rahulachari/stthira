@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, MessageSquare, Clock, Globe } from "lucide-react";
-import EnquiryForm from "@/components/EnquiryForm";
+import EnquiryForm from "@/components/common/EnquiryForm";
 import { COMPANY_INFO } from "@/lib/data";
 
 export const metadata = {

@@ -22,10 +22,10 @@ export default function CinematicHero() {
           muted
           playsInline
           preload="auto"
-          poster="/images/hero-cinematic.jpg"
+          poster="/images/stthira/hero-cinematic.jpg"
           className="absolute inset-0 w-full h-full object-cover object-center contrast-105 brightness-95 scale-105"
         >
-          <source src="/videos/stthira-hero-clean.mp4" type="video/mp4" />
+          <source src="/videos/stthira/stthira-hero-clean.mp4" type="video/mp4" />
         </video>
 
         {/* Sophisticated Luxury Gradients for High Legibility */}
@@ -47,7 +47,7 @@ export default function CinematicHero() {
         <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-7 mb-6 select-none">
           <div className="relative w-12 h-14 sm:w-16 sm:h-20 md:w-20 md:h-24 lg:w-24 lg:h-28 shrink-0">
             <ElectricLogo
-              src="/images/stthira-emblem-white.png"
+              src="/images/stthira/stthira-emblem-white.png"
               color="#D4AF37"
               glowColor="#C5A880"
               scale={0.75}

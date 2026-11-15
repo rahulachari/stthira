@@ -87,7 +87,7 @@ export default function ArchitecturalPreloader() {
       <div className="relative w-full h-full flex items-center justify-center pointer-events-auto">
         <LiquidGlassLogo
           ref={logoRef}
-          logo="/images/stthira-emblem-white.png"
+          logo="/images/stthira/stthira-emblem-white.png"
           mark="logo"
           text="STTHIRA"
           ending="wordmark"

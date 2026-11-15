@@ -21,8 +21,8 @@ export default function Rovera3DLogo({
 
   const logoSrc =
     variant === "white"
-      ? "/images/rovera-logo-white.png"
-      : "/images/rovera-logo-dark.png";
+      ? "/images/rovera/rovera-logo-white.png"
+      : "/images/rovera/rovera-logo-dark.png";
 
   return (
     <div

@@ -6,14 +6,14 @@ import { Renderer, Program, Mesh, Triangle, Plane, Texture, RenderTarget } from 
 import './FlexCarousel.css';
 
 const DEFAULT_ITEMS = [
-  { src: '/images/rovera-avenues.jpg', alt: 'Monumental 50-Ft Avenues', title: 'Grand Boulevards', subtitle: 'Phase 1 Arterial Matrix' },
-  { src: '/images/rovera-clubhouse.jpg', alt: 'The Monolith Club', title: 'The Monolith Club', subtitle: '20,000 Sq.Ft Pavilion' },
-  { src: '/images/rovera-wellness-pavilion.jpg', alt: 'Aura Vitality Spa Pavilion', title: 'Vitality Spa Pavilion', subtitle: 'Flamed Granite & Teak Zen Sanctuary' },
-  { src: '/images/aerial-view.jpg', alt: 'Master Layout Perspective', title: 'Master Plan Matrix', subtitle: '42+ Acre Gated Sanctuary' },
-  { src: '/images/landscape-nature.jpg', alt: 'Conserved Native Canopy', title: 'The Forest Spine', subtitle: '3+ Acres Native Ecology' },
-  { src: '/images/modern-architecture.jpg', alt: 'Architectural Restraint', title: 'Basalt Gateways', subtitle: 'Raw Natural Permanence' },
-  { src: '/images/lifestyle-amenities.jpg', alt: 'Zenith Sports Arena', title: 'Zenith Sports Arena', subtitle: 'Championship Courts' },
-  { src: '/images/entrance-structure.jpg', alt: 'Sovereign Portico', title: 'Sovereign Enclave', subtitle: 'Cadastral Title Purity' },
+  { src: '/images/rovera/rovera-avenues.jpg', alt: 'Monumental 50-Ft Avenues', title: 'Grand Boulevards', subtitle: 'Phase 1 Arterial Matrix' },
+  { src: '/images/rovera/rovera-clubhouse.jpg', alt: 'The Monolith Club', title: 'The Monolith Club', subtitle: '20,000 Sq.Ft Pavilion' },
+  { src: '/images/rovera/rovera-wellness-pavilion.jpg', alt: 'Aura Vitality Spa Pavilion', title: 'Vitality Spa Pavilion', subtitle: 'Flamed Granite & Teak Zen Sanctuary' },
+  { src: '/images/stthira/aerial-view.jpg', alt: 'Master Layout Perspective', title: 'Master Plan Matrix', subtitle: '42+ Acre Gated Sanctuary' },
+  { src: '/images/stthira/landscape-nature.jpg', alt: 'Conserved Native Canopy', title: 'The Forest Spine', subtitle: '3+ Acres Native Ecology' },
+  { src: '/images/stthira/modern-architecture.jpg', alt: 'Architectural Restraint', title: 'Basalt Gateways', subtitle: 'Raw Natural Permanence' },
+  { src: '/images/stthira/lifestyle-amenities.jpg', alt: 'Zenith Sports Arena', title: 'Zenith Sports Arena', subtitle: 'Championship Courts' },
+  { src: '/images/stthira/entrance-structure.jpg', alt: 'Sovereign Portico', title: 'Sovereign Enclave', subtitle: 'Cadastral Title Purity' },
 ];
 
 const BEND_PRESETS = {

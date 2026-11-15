@@ -12,14 +12,14 @@ export const metadata = {
 
 export default function PhilosophyPage() {
   const images = [
-    "/images/brand-story.jpg",
-    "/images/entrance-structure.jpg",
-    "/images/aerial-view.jpg",
-    "/images/modern-architecture.jpg",
-    "/images/landscape-nature.jpg",
-    "/images/masterplan-visual.jpg",
-    "/images/lifestyle-amenities.jpg",
-    "/images/hero-cinematic.jpg",
+    "/images/stthira/brand-story.jpg",
+    "/images/stthira/entrance-structure.jpg",
+    "/images/stthira/aerial-view.jpg",
+    "/images/stthira/modern-architecture.jpg",
+    "/images/stthira/landscape-nature.jpg",
+    "/images/stthira/masterplan-visual.jpg",
+    "/images/stthira/lifestyle-amenities.jpg",
+    "/images/stthira/hero-cinematic.jpg",
   ];
 
   return (

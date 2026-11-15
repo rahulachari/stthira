@@ -30,16 +30,16 @@ export interface ReelGalleryProps {
 }
 
 const DEFAULT_IMAGES = [
-  "/images/rovera-avenues.jpg",
-  "/images/rovera-clubhouse.jpg",
-  "/images/aerial-view.jpg",
-  "/images/modern-architecture.jpg",
-  "/images/rovera-wellness-pavilion.jpg",
-  "/images/landscape-nature.jpg",
-  "/images/lifestyle-amenities.jpg",
-  "/images/entrance-structure.jpg",
-  "/images/brand-story.jpg",
-  "/images/hero-cinematic.jpg",
+  "/images/rovera/rovera-avenues.jpg",
+  "/images/rovera/rovera-clubhouse.jpg",
+  "/images/stthira/aerial-view.jpg",
+  "/images/stthira/modern-architecture.jpg",
+  "/images/rovera/rovera-wellness-pavilion.jpg",
+  "/images/stthira/landscape-nature.jpg",
+  "/images/stthira/lifestyle-amenities.jpg",
+  "/images/stthira/entrance-structure.jpg",
+  "/images/stthira/brand-story.jpg",
+  "/images/stthira/hero-cinematic.jpg",
 ];
 
 export default function ReelGallery({

@@ -56,7 +56,7 @@ export default function MasterPlanVisualizer() {
       {/* Plan Visual Canvas */}
       <div className="relative aspect-[16/9] bg-neutral-900 border border-neutral-800 overflow-hidden mb-6 group">
         <Image
-          src="/images/masterplan-visual.jpg"
+          src="/images/stthira/masterplan-visual.jpg"
           alt="ROVERA Architectural Master Plan Layout"
           fill
           className="object-cover object-center grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700"

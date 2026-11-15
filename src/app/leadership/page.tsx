@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { LEADERSHIP_INFO, COMPANY_INFO } from "@/lib/data";
-import PartnershipBanner from "@/components/PartnershipBanner";
-import StthiraEmblem from "@/components/StthiraEmblem";
+import PartnershipBanner from "@/components/stthira/PartnershipBanner";
+import StthiraEmblem from "@/components/stthira/StthiraEmblem";
 
 export const metadata = {
   title: "Leadership & Board of Directors — STTHIRA",

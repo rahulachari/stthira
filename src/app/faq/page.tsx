@@ -1,4 +1,4 @@
-import FaqAccordion from "@/components/FaqAccordion";
+import FaqAccordion from "@/components/common/FaqAccordion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 

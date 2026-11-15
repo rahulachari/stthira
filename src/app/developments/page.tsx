@@ -94,7 +94,7 @@ export default function DevelopmentsPage() {
                     {dev.slug === "rovera" && (
                       <div className="relative w-10 h-10">
                         <Image
-                          src="/images/rovera-logo-dark.png"
+                          src="/images/rovera/rovera-logo-dark.png"
                           alt="ROVERA Official Logo"
                           fill
                           className="object-contain"

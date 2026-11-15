@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
     ],
-    apple: "/images/stthira-logo-white.png",
+    apple: "/images/stthira/stthira-logo-white.png",
   },
   openGraph: {
     type: "website",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     siteName: "STTHIRA",
     images: [
       {
-        url: "/images/hero-cinematic.jpg",
+        url: "/images/stthira/hero-cinematic.jpg",
         width: 1600,
         height: 900,
         alt: "STTHIRA Monumental Entrance Architecture",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "STTHIRA — Luxury Real Estate Development",
     description: "Thoughtfully built. Timelessly envisioned. Discover ROVERA and the STTHIRA portfolio.",
-    images: ["/images/hero-cinematic.jpg"],
+    images: ["/images/stthira/hero-cinematic.jpg"],
   },
   robots: {
     index: true,
@@ -100,7 +100,7 @@ export default function RootLayout({
     name: "STTHIRA Developments",
     alternateName: "STTHIRA",
     url: "https://stthira.com",
-    logo: "https://stthira.com/images/hero-cinematic.jpg",
+    logo: "https://stthira.com/images/stthira/hero-cinematic.jpg",
     description:
       "Elite luxury real-estate development company in India specializing in institutional-grade plotted residential communities.",
     foundingDate: "2026",
