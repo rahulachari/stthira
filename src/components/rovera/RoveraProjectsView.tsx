@@ -827,7 +827,7 @@ export default function RoveraProjectsView() {
   ];
 
   return (
-    <div className="relative w-full bg-[#FAFAFA] text-zinc-950 min-h-screen selection:bg-blue-600 selection:text-white font-sans antialiased">
+    <div className="relative w-full bg-[#FAFAFA] text-zinc-950 min-h-screen selection:bg-[#d09800] selection:text-white font-sans antialiased">
       {/* Yodezeen Signature Circular Cursor */}
       <YodezeenCursor />
 
@@ -884,7 +884,7 @@ export default function RoveraProjectsView() {
             <button
               type="button"
               onClick={() => setEnquiryModalOpen(true)}
-              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer active:scale-95"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#d09800] hover:bg-[#b58400] text-black font-semibold font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer active:scale-95"
             >
               <span className="hidden sm:inline">Schedule Visit</span>
               <span className="sm:hidden">Enquire</span>
@@ -908,7 +908,7 @@ export default function RoveraProjectsView() {
             {/* Bottom Title Bar overlay */}
             <div className="absolute bottom-8 left-6 sm:left-12 right-6 sm:right-12 flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-white">
               <div>
-                <span className="font-mono text-xs uppercase tracking-[0.25em] text-blue-300 block mb-2 font-semibold">
+                <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#d09800] block mb-2 font-semibold">
                   {selectedProject.number} • {selectedProject.categoryLabel}
                 </span>
                 <h1 className="font-componentry text-3xl sm:text-5xl lg:text-6xl font-light tracking-[-0.03em] text-white leading-tight">
@@ -959,7 +959,7 @@ export default function RoveraProjectsView() {
 
               {/* Column 2: KARNATAKA VECTOR MAP & DEVANAHALLI COORDINATES */}
               <div className="py-6 md:py-8 px-0 md:px-6 lg:px-8 flex flex-col items-center justify-center">
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#1E3A8A] font-semibold block mb-2 w-full text-left">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#d09800] font-semibold block mb-2 w-full text-left">
                   LOCATION • KARNATAKA
                 </span>
                 <KarnatakaMapOutline
@@ -1000,7 +1000,7 @@ export default function RoveraProjectsView() {
                   <h3 className="font-componentry text-2xl sm:text-3xl font-medium text-zinc-950 tracking-[-0.02em]">
                     {selectedProject.extent}
                   </h3>
-                  <p className="mt-2 font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">
+                  <p className="mt-2 font-mono text-xs text-[#d09800] font-semibold tracking-wider">
                     24 SOVEREIGN PLOTS • LOW DENSITY
                   </p>
                 </div>
@@ -1015,7 +1015,7 @@ export default function RoveraProjectsView() {
             {/* Left Narrative */}
             <div className="lg:col-span-7 space-y-8">
               <div>
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#1E3A8A] font-semibold block mb-3">
+                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#d09800] font-semibold block mb-3">
                   ARCHITECTURAL NARRATIVE
                 </span>
                 <p className="text-base sm:text-lg text-zinc-800 font-sans leading-relaxed">
@@ -1023,8 +1023,8 @@ export default function RoveraProjectsView() {
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white border border-zinc-200 border-l-4 border-l-[#1E3A8A] space-y-3 shadow-xs">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A8A] font-semibold block">
+              <div className="p-6 rounded-2xl bg-white border border-zinc-200 border-l-4 border-l-[#d09800] space-y-3 shadow-xs">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#d09800] font-semibold block">
                   Design Rationale &amp; Permanence
                 </span>
                 <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed italic">
@@ -1040,7 +1040,7 @@ export default function RoveraProjectsView() {
                 <div className="grid grid-cols-1 gap-3">
                   {selectedProject.highlights.map((h, i) => (
                     <div key={i} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-zinc-200 shadow-2xs">
-                      <CheckCircle2 className="w-4 h-4 text-[#1E3A8A] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-[#d09800] shrink-0 mt-0.5" />
                       <span className="text-xs sm:text-sm text-zinc-800">{h}</span>
                     </div>
                   ))}
@@ -1051,7 +1051,7 @@ export default function RoveraProjectsView() {
             {/* Right Technical Specs Table */}
             <div className="lg:col-span-5 space-y-6">
               <div className="p-6 sm:p-8 rounded-2xl bg-white border border-zinc-200 shadow-md space-y-6">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A8A] font-semibold block border-b border-zinc-100 pb-3">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#d09800] font-semibold block border-b border-zinc-100 pb-3">
                   SPECIFICATION DOSSIER
                 </span>
 
@@ -1082,7 +1082,7 @@ export default function RoveraProjectsView() {
                   <button
                     type="button"
                     onClick={() => setEnquiryModalOpen(true)}
-                    className="w-full py-3.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full font-mono text-xs uppercase tracking-widest font-semibold transition-colors shadow-lg cursor-pointer"
+                    className="w-full py-3.5 bg-[#d09800] hover:bg-[#b58400] text-black font-semibold rounded-full font-mono text-xs uppercase tracking-widest font-semibold transition-colors shadow-lg cursor-pointer"
                   >
                     Schedule Private Site Inspection
                   </button>
@@ -1096,7 +1096,7 @@ export default function RoveraProjectsView() {
           <div className="max-w-7xl mx-auto px-6 sm:px-12 py-12 border-t border-zinc-200">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#1E3A8A] font-semibold block mb-1">
+                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#d09800] font-semibold block mb-1">
                   VISUAL PLATES
                 </span>
                 <h3 className="font-componentry text-2xl sm:text-3xl font-normal text-zinc-950">
@@ -1389,7 +1389,7 @@ export default function RoveraProjectsView() {
             <button
               type="button"
               onClick={() => setEnquiryModalOpen(true)}
-              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer active:scale-95"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#d09800] hover:bg-[#b58400] text-black font-semibold font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-colors shadow cursor-pointer active:scale-95"
             >
               Schedule Visit
             </button>
@@ -1513,7 +1513,7 @@ export default function RoveraProjectsView() {
                     aria-checked={isImmersive}
                     onClick={() => setIsImmersive(!isImmersive)}
                     className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors cursor-pointer ${
-                      isImmersive ? "bg-[#1E3A8A]" : "bg-zinc-300"
+                      isImmersive ? "bg-[#d09800]" : "bg-zinc-300"
                     }`}
                   >
                     <span

@@ -73,7 +73,7 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
       case "courtyard":
         return isActive ? "bg-cyan-500 text-white border-cyan-400" : "bg-cyan-950/40 text-cyan-200 border-cyan-800/60 hover:bg-cyan-900/50";
       case "signature":
-        return isActive ? "bg-blue-600 text-white border-blue-400" : "bg-blue-950/40 text-blue-200 border-blue-800/60 hover:bg-blue-900/50";
+        return isActive ? "bg-[#d09800] text-black font-semibold border-[#d09800]" : "bg-zinc-900 text-zinc-300 border-zinc-700 hover:bg-zinc-800";
       case "grand":
         return isActive ? "bg-indigo-600 text-white border-indigo-400" : "bg-indigo-950/40 text-indigo-200 border-indigo-800/60 hover:bg-indigo-900/50";
       case "corner":
@@ -82,12 +82,12 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
   };
 
   return (
-    <div className="w-full bg-[#080E1A] text-white rounded-3xl border border-blue-950/80 shadow-2xl overflow-hidden font-sans">
+    <div className="w-full bg-[#0c0c0e] text-white rounded-3xl border border-zinc-800 shadow-2xl overflow-hidden font-sans">
       {/* Blueprint Top Header Bar */}
-      <div className="p-6 sm:p-8 border-b border-blue-950 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-[#0B1424]">
+      <div className="p-6 sm:p-8 border-b border-zinc-800 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-[#141418]">
         <div>
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-blue-300 mb-2">
-            <Compass className="w-4 h-4 text-blue-400 animate-spin-slow" />
+          <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#d09800] mb-2">
+            <Compass className="w-4 h-4 text-[#d09800] animate-spin-slow" />
             <span>3.00 Acres Cadastral Blueprint • 24 Curated Parcels</span>
           </div>
           <h3 className="font-componentry text-2xl sm:text-3xl font-medium tracking-[-0.04em] text-white">
@@ -113,8 +113,8 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
                 selectedCategory === cat.id
-                  ? "bg-[#1E3A8A] text-white border border-blue-400 shadow-md scale-102"
-                  : "bg-blue-950/40 text-blue-300 border border-blue-900/50 hover:bg-blue-900/40"
+                  ? "bg-[#d09800] text-black font-semibold border border-[#d09800] shadow-md scale-102"
+                  : "bg-zinc-900/80 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
               }`}
             >
               {cat.label}
@@ -126,20 +126,20 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
       {/* Main Interactive CAD Grid Stage */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
         {/* Left Side: Interactive Cadastral Blueprint Grid (8 cols) */}
-        <div className="lg:col-span-8 p-6 sm:p-8 bg-[#070D18] relative overflow-hidden flex flex-col justify-between">
+        <div className="lg:col-span-8 p-6 sm:p-8 bg-[#09090b] relative overflow-hidden flex flex-col justify-between">
           {/* Subtle CAD Blueprint Grid Background Lines */}
           <div
             className="absolute inset-0 opacity-15 pointer-events-none"
             style={{
               backgroundImage:
-                "linear-gradient(to right, #1E3A8A 1px, transparent 1px), linear-gradient(to bottom, #1E3A8A 1px, transparent 1px)",
+                "linear-gradient(to right, #d09800 1px, transparent 1px), linear-gradient(to bottom, #d09800 1px, transparent 1px)",
               backgroundSize: "32px 32px",
             }}
           />
 
           {/* Top Enclave Landmark Indicators */}
-          <div className="relative z-10 flex items-center justify-between text-xs font-mono text-zinc-400 mb-6 border-b border-blue-950/60 pb-3">
-            <span className="flex items-center gap-1.5 text-blue-300">
+          <div className="relative z-10 flex items-center justify-between text-xs font-mono text-zinc-400 mb-6 border-b border-zinc-800 pb-3">
+            <span className="flex items-center gap-1.5 text-[#d09800]">
               <Trees className="w-3.5 h-3.5" />
               <span>North Botanical Buffer (Nandi Hill Breezes)</span>
             </span>
@@ -150,25 +150,25 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
 
           {/* Civic Amenities Strip (North Wing) */}
           <div className="relative z-10 grid grid-cols-2 gap-3 mb-6">
-            <div className="p-3 bg-blue-950/30 border border-blue-900/40 rounded-xl flex items-center justify-between">
+            <div className="p-3 bg-zinc-900/40 border border-zinc-800 rounded-xl flex items-center justify-between">
               <div>
-                <span className="font-mono text-[10px] text-blue-400 uppercase tracking-wider block">Zone A (Ishanya)</span>
+                <span className="font-mono text-[10px] text-[#d09800] uppercase tracking-wider block">Zone A (Ishanya)</span>
                 <span className="font-componentry text-sm font-medium text-white">10,000 Sq.Ft Resident Clubhouse</span>
               </div>
-              <span className="text-[10px] bg-blue-900/60 text-blue-200 px-2 py-0.5 rounded font-mono">Amenities</span>
+              <span className="text-[10px] bg-[#d09800]/20 text-zinc-200 px-2 py-0.5 rounded font-mono">Amenities</span>
             </div>
-            <div className="p-3 bg-blue-950/30 border border-blue-900/40 rounded-xl flex items-center justify-between">
+            <div className="p-3 bg-zinc-900/40 border border-zinc-800 rounded-xl flex items-center justify-between">
               <div>
-                <span className="font-mono text-[10px] text-blue-400 uppercase tracking-wider block">Zone B</span>
+                <span className="font-mono text-[10px] text-[#d09800] uppercase tracking-wider block">Zone B</span>
                 <span className="font-componentry text-sm font-medium text-white">Aura Vitality Spa &amp; Tennis Arena</span>
               </div>
-              <span className="text-[10px] bg-blue-900/60 text-blue-200 px-2 py-0.5 rounded font-mono">Wellness</span>
+              <span className="text-[10px] bg-[#d09800]/20 text-zinc-200 px-2 py-0.5 rounded font-mono">Wellness</span>
             </div>
           </div>
 
           {/* 24 Parcels Interactive Grid */}
           <div className="relative z-10 space-y-4">
-            <div className="text-[11px] font-mono uppercase tracking-wider text-blue-300/80 flex items-center justify-between">
+            <div className="text-[11px] font-mono uppercase tracking-wider text-[#d09800]/80 flex items-center justify-between">
               <span>North Residential Wing (12 Parcels)</span>
               <span>30-Ft Internal Avenue</span>
             </div>
@@ -200,9 +200,9 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
             </div>
 
             {/* 40-Ft Central Cobblestone Boulevard with Avenue Trees */}
-            <div className="py-2.5 px-4 bg-[#0B162C] border-y border-blue-900/70 rounded-lg flex items-center justify-between text-xs font-mono text-blue-200">
+            <div className="py-2.5 px-4 bg-[#18181b] border-y border-zinc-700 rounded-lg flex items-center justify-between text-xs font-mono text-zinc-200">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-blue-400" />
+                <span className="w-2 h-2 rounded-full bg-[#d09800]" />
                 <span>40-FOOT CENTRAL COBBLESTONE BOULEVARD</span>
               </span>
               <span className="text-[10px] text-zinc-400 hidden sm:inline">
@@ -210,7 +210,7 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
               </span>
             </div>
 
-            <div className="text-[11px] font-mono uppercase tracking-wider text-blue-300/80 flex items-center justify-between">
+            <div className="text-[11px] font-mono uppercase tracking-wider text-[#d09800]/80 flex items-center justify-between">
               <span>South Residential Wing (12 Parcels)</span>
               <span>30-Ft Internal Avenue</span>
             </div>
@@ -243,9 +243,9 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
           </div>
 
           {/* Grand Entrance Gatehouse (South Portal) */}
-          <div className="relative z-10 mt-6 pt-4 border-t border-blue-950/60 flex items-center justify-between text-xs font-mono">
-            <div className="flex items-center gap-2.5 text-blue-300">
-              <ShieldCheck className="w-4 h-4 text-blue-400" />
+          <div className="relative z-10 mt-6 pt-4 border-t border-zinc-800 flex items-center justify-between text-xs font-mono">
+            <div className="flex items-center gap-2.5 text-[#d09800]">
+              <ShieldCheck className="w-4 h-4 text-[#d09800]" />
               <span>8-Meter Double-Height Cantilevered Entrance Portal (State Highway 9 Frontage)</span>
             </div>
             <span className="text-zinc-500 text-[10px]">RFID Access Control</span>
@@ -253,10 +253,10 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
         </div>
 
         {/* Right Side: Selected Parcel Architectural HUD Card (4 cols) */}
-        <div className="lg:col-span-4 p-6 sm:p-8 bg-[#0B1424] border-t lg:border-t-0 lg:border-l border-blue-950 flex flex-col justify-between space-y-6">
+        <div className="lg:col-span-4 p-6 sm:p-8 bg-[#141418] border-t lg:border-t-0 lg:border-l border-zinc-800 flex flex-col justify-between space-y-6">
           <div className="space-y-5">
-            <div className="flex items-center justify-between border-b border-blue-900/40 pb-3">
-              <span className="font-mono text-xs text-blue-400 uppercase tracking-widest">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <span className="font-mono text-xs text-[#d09800] uppercase tracking-widest">
                 Parcel Details
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-300 font-mono text-[10px] uppercase">
@@ -279,14 +279,14 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
             </div>
 
             {/* Spec Matrix */}
-            <div className="grid grid-cols-2 gap-3 p-4 bg-[#070D18] border border-blue-900/40 rounded-xl">
+            <div className="grid grid-cols-2 gap-3 p-4 bg-[#09090b] border border-zinc-800 rounded-xl">
               <div>
                 <span className="font-mono text-[10px] uppercase text-zinc-400 block">Dimensions</span>
                 <span className="font-clash text-lg font-semibold text-white">{activePlot.dimension}</span>
               </div>
               <div>
                 <span className="font-mono text-[10px] uppercase text-zinc-400 block">Plot Area</span>
-                <span className="font-clash text-lg font-semibold text-blue-300">{activePlot.areaSqFt}</span>
+                <span className="font-clash text-lg font-semibold text-[#d09800]">{activePlot.areaSqFt}</span>
               </div>
               <div>
                 <span className="font-mono text-[10px] uppercase text-zinc-400 block">Facing</span>
@@ -301,25 +301,25 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
             {/* Architectural Commitments */}
             <div className="space-y-2 text-xs text-zinc-300 font-light">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d09800] shrink-0" />
                 <span>Ground + 2 Floors Architecture Permitted</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d09800] shrink-0" />
                 <span>Freehold Title Deed with 30-Year Forensic Audit</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d09800] shrink-0" />
                 <span>Dedicated Concealed Optical Fiber &amp; 11kV Ducts</span>
               </div>
             </div>
           </div>
 
-          <div className="space-y-3 pt-4 border-t border-blue-900/40">
+          <div className="space-y-3 pt-4 border-t border-zinc-800">
             <button
               type="button"
               onClick={() => onSelectPlot(`Parcel ${activePlot.number} (${activePlot.areaSqFt})`)}
-              className="w-full py-3.5 px-4 bg-[#1E3A8A] hover:bg-blue-600 text-white font-mono text-xs uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 font-medium"
+              className="w-full py-3.5 px-4 bg-[#d09800] hover:bg-[#b58400] text-black font-mono text-xs uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 font-medium"
             >
               <span>Enquire for Parcel {activePlot.number}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -328,7 +328,7 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
             <button
               type="button"
               onClick={() => onSelectPlot("Download Full 3-Acre Master Plan CAD Dossier")}
-              className="w-full py-2.5 px-4 bg-transparent hover:bg-blue-950/40 border border-blue-900/60 text-blue-200 font-mono text-[11px] uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-4 bg-transparent hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-mono text-[11px] uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download CAD Dossier</span>
@@ -338,14 +338,14 @@ export default function RoveraMasterPlan({ onSelectPlot }: RoveraMasterPlanProps
       </div>
 
       {/* Blueprint Footer Legend */}
-      <div className="p-4 sm:p-5 bg-[#050A14] border-t border-blue-950 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+      <div className="p-4 sm:p-5 bg-[#0c0c0e] border-t border-zinc-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-zinc-400">
         <div className="flex flex-wrap items-center gap-4 sm:gap-6">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-xs bg-cyan-500" />
             <span className="text-[11px]">Courtyard (6)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-xs bg-blue-600" />
+            <span className="w-3 h-3 rounded-xs bg-[#d09800]" />
             <span className="text-[11px]">Signature (12)</span>
           </div>
           <div className="flex items-center gap-2">

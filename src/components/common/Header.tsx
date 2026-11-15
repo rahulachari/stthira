@@ -228,7 +228,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setEnquiryModalOpen(true)}
-                className="px-4 sm:px-5 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white text-xs uppercase tracking-wider font-semibold font-mono transition-all shadow-sm cursor-pointer shrink-0"
+                className="px-4 sm:px-5 py-2 rounded-full bg-[#d09800] hover:bg-[#b58400] text-black text-xs uppercase tracking-wider font-semibold font-mono transition-all shadow-sm cursor-pointer shrink-0"
               >
                 Enquiry
               </button>

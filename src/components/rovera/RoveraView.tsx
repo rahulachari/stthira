@@ -1063,7 +1063,7 @@ export default function RoveraView() {
               poster="/images/rovera/rovera-aerial-3acres.jpg"
               className="w-full h-full object-cover object-center"
             >
-              <source src="/videos/rovera/rovera-sanctuary-hero.mp4" type="video/mp4" />
+              <source src="/videos/rovera/walkthrough.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
             <div className="absolute top-3 right-3 sm:top-5 sm:right-5">
