@@ -28,8 +28,14 @@ export default function EnquiryForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone.trim()) {
-      setErrorMsg("Please enter your contact number.");
+    const cleanPhone = phone.replace(/\D/g, "");
+    if (!cleanPhone) {
+      setErrorMsg("Please enter your 10-digit contact number.");
+      setStatus("error");
+      return;
+    }
+    if (cleanPhone.length !== 10) {
+      setErrorMsg("Contact number must be exactly 10 digits.");
       setStatus("error");
       return;
     }
@@ -142,18 +148,41 @@ export default function EnquiryForm({
         </div>
 
         {/* Field 2: Contact No * */}
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
-            <Phone className="w-4 h-4" />
-          </span>
-          <input
-            type="tel"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder={t("form.phone", "Contact No *")}
-            className="w-full pl-11 pr-4 py-3.5 bg-neutral-50 border border-neutral-300 rounded text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition-all"
-          />
+        <div>
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
+              <Phone className="w-4 h-4" />
+            </span>
+            <input
+              type="tel"
+              required
+              inputMode="numeric"
+              pattern="[0-9]{10}"
+              maxLength={10}
+              value={phone}
+              onKeyDown={(e) => {
+                if (
+                  !/[0-9]/.test(e.key) &&
+                  !["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key) &&
+                  !e.ctrlKey &&
+                  !e.metaKey
+                ) {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => {
+                const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                setPhone(digitsOnly);
+              }}
+              placeholder={t("form.phone", "Contact No * (10 Digits)")}
+              className="w-full pl-11 pr-4 py-3.5 bg-neutral-50 border border-neutral-300 rounded text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition-all"
+            />
+          </div>
+          {phone.length > 0 && phone.length < 10 && (
+            <p className="text-[11px] text-amber-600 mt-1 pl-1 font-mono">
+              10 digits required ({phone.length}/10)
+            </p>
+          )}
         </div>
 
         {/* Field 3: Email */}

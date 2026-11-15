@@ -48,8 +48,14 @@ export default function EnquiryModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!contactNo.trim()) {
-      setErrorMsg("Please enter your contact number.");
+    const cleanPhone = contactNo.replace(/\D/g, "");
+    if (!cleanPhone) {
+      setErrorMsg("Please enter your 10-digit contact number.");
+      setStatus("error");
+      return;
+    }
+    if (cleanPhone.length !== 10) {
+      setErrorMsg("Contact number must be exactly 10 digits.");
       setStatus("error");
       return;
     }
@@ -69,7 +75,7 @@ export default function EnquiryModal({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName: name || "Prospective Buyer",
-          phone: contactNo,
+          phone: cleanPhone,
           email: email || undefined,
           interestedDevelopment: activeProject,
           privacyConsent: consent,
@@ -79,7 +85,7 @@ export default function EnquiryModal({
       const data = await res.json();
       if (res.ok && data.success) {
         setStatus("success");
-        const msg = `Hello STTHIRA, I would like to enquire about ${activeProject}.\nName: ${name || "Prospective Buyer"}\nPhone: ${contactNo}${email ? `\nEmail: ${email}` : ""}`;
+        const msg = `Hello STTHIRA, I would like to enquire about ${activeProject}.\nName: ${name || "Prospective Buyer"}\nPhone: ${cleanPhone}${email ? `\nEmail: ${email}` : ""}`;
         const waLink = `https://wa.me/917013485016?text=${encodeURIComponent(msg)}`;
         setWhatsappUrl(waLink);
         window.open(waLink, "_blank");
@@ -131,7 +137,7 @@ export default function EnquiryModal({
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#1E3A8A] text-white py-3 px-4 text-xs uppercase tracking-widest font-semibold hover:bg-[#0F2744] transition-colors rounded block text-center shadow-sm"
+                  className="w-full bg-[#d09800] text-black py-3 px-4 text-xs uppercase tracking-widest font-semibold hover:bg-[#b58400] transition-colors rounded block text-center shadow-sm"
                 >
                   Continue to WhatsApp &rarr;
                 </a>
@@ -179,19 +185,42 @@ export default function EnquiryModal({
                 />
               </div>
 
-              {/* Field 2: Contact No * */}
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
-                  <Phone className="w-4 h-4" />
-                </span>
-                <input
-                  type="tel"
-                  required
-                  value={contactNo}
-                  onChange={(e) => setContactNo(e.target.value)}
-                  placeholder="Contact No *"
-                  className="w-full pl-10 pr-3 py-3 bg-white border border-neutral-300 rounded text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors"
-                />
+              {/* Field 2: Contact No * (Strictly 10 digits only) */}
+              <div>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+                    <Phone className="w-4 h-4" />
+                  </span>
+                  <input
+                    type="tel"
+                    required
+                    inputMode="numeric"
+                    pattern="[0-9]{10}"
+                    maxLength={10}
+                    value={contactNo}
+                    onKeyDown={(e) => {
+                      if (
+                        !/[0-9]/.test(e.key) &&
+                        !["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key) &&
+                        !e.ctrlKey &&
+                        !e.metaKey
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                      setContactNo(digitsOnly);
+                    }}
+                    placeholder="Contact No * (10 Digits)"
+                    className="w-full pl-10 pr-3 py-3 bg-white border border-neutral-300 rounded text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors"
+                  />
+                </div>
+                {contactNo.length > 0 && contactNo.length < 10 && (
+                  <p className="text-[11px] text-amber-600 mt-1 pl-1 font-mono">
+                    10 digits required ({contactNo.length}/10)
+                  </p>
+                )}
               </div>
 
               {/* Field 3: Email */}

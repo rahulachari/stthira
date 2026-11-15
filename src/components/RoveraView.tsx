@@ -36,10 +36,57 @@ import {
   HeartPulse,
   X,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import EnquiryModal from "@/components/EnquiryModal";
 import StthiraEmblem from "@/components/StthiraEmblem";
 import RoveraMasterPlan from "@/components/RoveraMasterPlan";
 import AnimatedFooter from "@/components/ui/animated-footer";
+
+function formatIndianNumber(num: number) {
+  return new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(Math.round(num));
+}
+
+function AnimatedCounter({
+  target,
+  decimals = 0,
+  suffix = "",
+  active = false,
+}: {
+  target: number;
+  decimals?: number;
+  suffix?: string;
+  active: boolean;
+}) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    setValue(0);
+    const duration = 1800; // ms matching lagos.co.in
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setValue(target);
+        clearInterval(timer);
+      } else {
+        setValue(parseFloat(current.toFixed(decimals)));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [active, target, decimals]);
+
+  const formatted = decimals > 0 ? value.toFixed(decimals) : formatIndianNumber(value);
+  return (
+    <>
+      {formatted}
+      {suffix}
+    </>
+  );
+}
 
 export default function RoveraView() {
   const [pageLoading, setPageLoading] = useState(true);
@@ -94,6 +141,28 @@ export default function RoveraView() {
   const [formConfig, setFormConfig] = useState("Courtyard Villa Parcel (1,500 Sq.Ft)");
   const [formLoading, setFormLoading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  // Snapshot number counter active state on scroll into view
+  const snapshotRef = useRef<HTMLDivElement>(null);
+  const [snapshotActive, setSnapshotActive] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSnapshotActive(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    if (snapshotRef.current) {
+      observer.observe(snapshotRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // Strictly prevent browser from restoring scroll position to middle of the page
@@ -173,11 +242,15 @@ export default function RoveraView() {
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formPhone.trim()) return;
+    const cleanPhone = formPhone.replace(/\D/g, "");
+    if (!cleanPhone || cleanPhone.length !== 10) {
+      alert("Please enter a valid 10-digit contact number.");
+      return;
+    }
     setFormLoading(true);
 
     const clientName = formName.trim() || "Prospective Buyer";
-    const clientPhone = formPhone.trim();
+    const clientPhone = cleanPhone;
     const clientEmail = formEmail.trim();
     const clientConfig = formConfig;
 
@@ -545,36 +618,57 @@ export default function RoveraView() {
             </div>
           </div>
 
-          {/* 4 Large Rounded Stat Cards (Exact Image 2 Specification with Wanted Sans numbers) */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
-                3
-              </p>
-              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Acres</p>
-            </div>
-
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
-                24
-              </p>
-              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Villa Plots</p>
-            </div>
-
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
-                1,500+
-              </p>
-              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Sq Ft &amp; Above</p>
-            </div>
-
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
-                10,000
-              </p>
-              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Sq Ft Clubhouse</p>
-            </div>
+          {/* 4 Large Rounded Stat Cards with Animated Counter (matching lagos.co.in) */}
+          <div ref={snapshotRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {[
+              { value: 3, decimals: 0, suffix: "", label: "Acres" },
+              { value: 24, decimals: 0, suffix: "", label: "Villa Plots" },
+              { value: 1500, decimals: 0, suffix: "+", label: "Sq Ft & Above" },
+              { value: 10000, decimals: 0, suffix: "", label: "Sq Ft Clubhouse" },
+            ].map((item, idx) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                whileHover={{ y: -6 }}
+                className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300 cursor-default"
+              >
+                <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
+                  <AnimatedCounter
+                    target={item.value}
+                    decimals={item.decimals}
+                    suffix={item.suffix}
+                    active={snapshotActive}
+                  />
+                </p>
+                <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">{item.label}</p>
+              </motion.div>
+            ))}
           </div>
+
+          {/* 3 Pill Badges matching Lagos layout */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-3"
+          >
+            <div className="bg-white border border-zinc-200/80 rounded-full py-3 px-5 sm:py-3.5 sm:px-6 flex items-center gap-2 shadow-xs">
+              <MapPin className="w-4 h-4 text-[#d09800] shrink-0" />
+              <span className="text-xs sm:text-sm font-medium text-zinc-800">Devanahalli-Doddaballapura Road</span>
+            </div>
+            <div className="bg-white border border-zinc-200/80 rounded-full py-3 px-5 sm:py-3.5 sm:px-6 flex items-center gap-2 shadow-xs">
+              <Layers className="w-4 h-4 text-[#d09800] shrink-0" />
+              <span className="text-xs sm:text-sm font-medium text-zinc-800">1,500 – 4,800 sq.ft Plots</span>
+            </div>
+            <div className="bg-white border border-zinc-200/80 rounded-full py-3 px-5 sm:py-3.5 sm:px-6 flex items-center gap-2 shadow-xs">
+              <CheckCircle2 className="w-4 h-4 text-[#d09800] shrink-0" />
+              <span className="text-xs sm:text-sm font-medium text-zinc-800">RERA Approved &amp; Clear Title</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -696,7 +790,7 @@ export default function RoveraView() {
             </p>
           </div>
 
-          {/* 4 Alternating Visual Showcase Cards */}
+          {/* 4 Alternating Visual Showcase Cards with Lagos scrolling animation */}
           <div className="space-y-6 sm:space-y-8">
             {whyRoveraItems.map((item, idx) => (
               <div
@@ -705,7 +799,13 @@ export default function RoveraView() {
                   idx % 2 === 1 ? "md:[&>div:first-child]:order-2" : ""
                 }`}
               >
-                <div className="relative overflow-hidden aspect-[4/3] md:aspect-auto min-h-[260px] md:min-h-[380px] bg-zinc-900">
+                <motion.div
+                  initial={{ opacity: 0, x: idx % 2 === 1 ? 40 : -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative overflow-hidden aspect-[4/3] md:aspect-auto min-h-[260px] md:min-h-[380px] bg-zinc-900"
+                >
                   <Image
                     src={item.image}
                     alt={item.alt}
@@ -713,8 +813,14 @@ export default function RoveraView() {
                     sizes="(max-width: 768px) 100vw, 60vw"
                     className="object-cover object-center hover:scale-105 transition-transform duration-700"
                   />
-                </div>
-                <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col justify-center p-6 sm:p-10 lg:p-12"
+                >
                   <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#d09800] mb-3 font-semibold">
                     {item.label}
                   </p>
@@ -724,7 +830,7 @@ export default function RoveraView() {
                   <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
                     {item.text}
                   </p>
-                </div>
+                </motion.div>
               </div>
             ))}
           </div>
@@ -747,9 +853,14 @@ export default function RoveraView() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {lagosAmenities.map((item) => (
-              <div
+            {lagosAmenities.map((item, idx) => (
+              <motion.div
                 key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: (idx % 4) * 0.07 }}
+                whileHover={{ y: -4 }}
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl group border border-zinc-200/90 shadow-xs bg-zinc-900 cursor-pointer"
                 onClick={() => setSelectedLightboxImage(item.src)}
               >
@@ -764,7 +875,7 @@ export default function RoveraView() {
                 <p className="absolute bottom-3 left-3 right-3 text-white text-xs sm:text-sm md:text-base font-medium drop-shadow-sm leading-tight">
                   {item.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -806,9 +917,14 @@ export default function RoveraView() {
 
           {/* Gallery Image Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-            {activeGalleryList.map((item) => (
-              <div
+            {activeGalleryList.map((item, idx) => (
+              <motion.div
                 key={item.src}
+                initial={{ opacity: 0, scale: 0.96 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: (idx % 3) * 0.08 }}
+                whileHover={{ y: -4 }}
                 onClick={() => setSelectedLightboxImage(item.src)}
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl group cursor-pointer border border-zinc-200/90 shadow-xs bg-zinc-900"
               >
@@ -823,7 +939,7 @@ export default function RoveraView() {
                 <span className="absolute bottom-2.5 right-2.5 text-[9px] text-white/90 tracking-wide font-light pointer-events-none bg-black/40 px-2 py-0.5 rounded-sm backdrop-blur-sm">
                   Artist&apos;s impression
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -1137,7 +1253,14 @@ export default function RoveraView() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
             {/* Card 1: Curated Plot */}
-            <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0 }}
+              whileHover={{ y: -6 }}
+              className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+            >
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-3 sm:mb-4">
                   Curated Plot
@@ -1156,10 +1279,17 @@ export default function RoveraView() {
               >
                 Get Cost Sheet
               </button>
-            </div>
+            </motion.div>
 
             {/* Card 2: Signature Plot (Featured) */}
-            <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-zinc-950 text-white shadow-2xl md:scale-[1.02] border border-zinc-800 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              whileHover={{ y: -6 }}
+              className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-zinc-950 text-white shadow-2xl md:scale-[1.02] border border-zinc-800 transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+            >
               <div className="absolute top-0 right-0 bg-[#d09800] text-black text-[10px] font-mono font-bold uppercase tracking-widest px-3.5 sm:px-4 py-1 rounded-bl-xl">
                 Most Popular
               </div>
@@ -1181,10 +1311,17 @@ export default function RoveraView() {
               >
                 Get Cost Sheet
               </button>
-            </div>
+            </motion.div>
 
             {/* Card 3: Grand Estate */}
-            <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.16 }}
+              whileHover={{ y: -6 }}
+              className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+            >
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-3 sm:mb-4">
                   Grand Estate
@@ -1203,7 +1340,7 @@ export default function RoveraView() {
               >
                 Get Cost Sheet
               </button>
-            </div>
+            </motion.div>
           </div>
 
           <p className="text-center text-xs text-zinc-500 mt-8 font-mono">
@@ -1334,12 +1471,33 @@ export default function RoveraView() {
                       <input
                         type="tel"
                         required
+                        inputMode="numeric"
+                        pattern="[0-9]{10}"
+                        maxLength={10}
                         name="phone"
                         value={formPhone}
-                        onChange={(e) => setFormPhone(e.target.value)}
-                        placeholder="Your contact number"
+                        onKeyDown={(e) => {
+                          if (
+                            !/[0-9]/.test(e.key) &&
+                            !["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key) &&
+                            !e.ctrlKey &&
+                            !e.metaKey
+                          ) {
+                            e.preventDefault();
+                          }
+                        }}
+                        onChange={(e) => {
+                          const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                          setFormPhone(digitsOnly);
+                        }}
+                        placeholder="10-digit mobile number"
                         className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#d09800] focus:bg-white transition-all shadow-2xs"
                       />
+                      {formPhone.length > 0 && formPhone.length < 10 && (
+                        <p className="text-[11px] text-amber-600 mt-1 pl-1 font-mono">
+                          10 digits required ({formPhone.length}/10)
+                        </p>
+                      )}
                     </div>
 
                     <div>
