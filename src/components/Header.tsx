@@ -318,51 +318,51 @@ export default function Header() {
                 {isRovera ? (
                   <>
                     <Link
-                      href="/developments/rovera#why-lagos"
+                      href="/developments/rovera#why-rovera"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
                     >
-                      Why Lagos
+                      Why ROVERA
                     </Link>
                     <Link
                       href="/developments/rovera#amenities"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
                     >
                       Amenities
                     </Link>
                     <Link
                       href="/developments/rovera#gallery"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
                     >
                       Gallery
                     </Link>
                     <Link
                       href="/developments/rovera#master-plan"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
                     >
                       Master Plan &amp; Blueprint
                     </Link>
                     <Link
                       href="/developments/rovera#location"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
                     >
                       Location &amp; Connectivity
                     </Link>
                     <Link
                       href="/developments/rovera#pricing"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
                     >
                       Indicative Pricing &amp; Plots
                     </Link>
                     <Link
                       href="/developments/rovera#faq"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
                     >
                       Frequently Asked Questions
                     </Link>
@@ -460,7 +460,7 @@ export default function Header() {
                     setMobileMenuOpen(false);
                     setEnquiryModalOpen(true);
                   }}
-                  className="w-full flex-1 py-3.5 bg-[#0F2744] text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#1E3A8A] transition-colors text-center rounded-full"
+                  className="w-full flex-1 py-3.5 bg-[#d09800] text-black text-xs uppercase tracking-widest font-semibold hover:bg-[#b58400] transition-colors text-center rounded-full"
                 >
                   {isRovera ? "Reserve Your Villa Plot" : "Schedule Private Walkthrough"}
                 </button>

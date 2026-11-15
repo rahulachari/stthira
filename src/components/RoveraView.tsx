@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  Volume2,
+  VolumeX,
   MapPin,
   Trees,
   ShieldCheck,
@@ -42,6 +44,16 @@ import AnimatedFooter from "@/components/ui/animated-footer";
 export default function RoveraView() {
   const [pageLoading, setPageLoading] = useState(true);
   const [loadingFading, setLoadingFading] = useState(false);
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [isHeroMuted, setIsHeroMuted] = useState(true);
+
+  const toggleHeroMute = () => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.muted = !heroVideoRef.current.muted;
+      setIsHeroMuted(heroVideoRef.current.muted);
+    }
+  };
+
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState<string>("ROVERA — Phase 1 Villa Plot");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
@@ -104,6 +116,32 @@ export default function RoveraView() {
     };
   }, [pageLoading]);
 
+  // Luxury scroll animation observer for text, cards, and images
+  useEffect(() => {
+    if (pageLoading || typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    const timer = setTimeout(() => {
+      const elements = document.querySelectorAll(".reveal-on-scroll");
+      elements.forEach((el) => observer.observe(el));
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [pageLoading]);
+
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formPhone.trim()) return;
@@ -147,15 +185,15 @@ export default function RoveraView() {
     setModalOpen(true);
   };
 
-  // 01. Why Lagos (Direct from lagos.co.in)
-  const whyLagosItems = [
+  // 01. Why ROVERA (Architectural Showcase)
+  const whyRoveraItems = [
     {
       id: "luxury",
       label: "Quiet Luxury",
       title: "Crafted for Quiet Luxury",
-      text: "An atmosphere designed for calm, elevated living.",
+      text: "An atmosphere designed for calm, elevated living in North Bangalore.",
       image: "/images/lagos-about1.webp",
-      alt: "Lagos villa plot enclave designed for calm, elevated living",
+      alt: "ROVERA villa plot enclave designed for calm, elevated living",
     },
     {
       id: "planning",
@@ -163,7 +201,7 @@ export default function RoveraView() {
       title: "Premium Plots with Purposeful Planning",
       text: "Thoughtfully laid-out villa plots that offer the freedom to design a home that reflects your vision.",
       image: "/images/lagos-landscape7.webp",
-      alt: "Thoughtfully planned premium villa plots at Lagos",
+      alt: "Thoughtfully planned premium villa plots at ROVERA",
     },
     {
       id: "wellbeing",
@@ -171,7 +209,7 @@ export default function RoveraView() {
       title: "A Community Built Around Well-Being",
       text: "Come together to create a neighbourhood that supports balance and everyday ease.",
       image: "/images/lagos-about3.webp",
-      alt: "Gated community at Lagos built around well-being and everyday ease",
+      alt: "Gated community at ROVERA built around well-being and everyday ease",
     },
     {
       id: "connected",
@@ -179,7 +217,7 @@ export default function RoveraView() {
       title: "Elevated Living, Seamlessly Connected",
       text: "Exclusive, yet effortlessly linked to key hubs, giving you the best of both retreat and access.",
       image: "/images/lagos-about4.webp",
-      alt: "Lagos villa plots seamlessly connected to North Bangalore hubs",
+      alt: "ROVERA villa plots seamlessly connected to North Bangalore hubs",
     },
   ];
 
@@ -202,12 +240,12 @@ export default function RoveraView() {
   // 03. Gallery (Clubhouse & Landscape views from lagos.co.in)
   const clubhouseGallery = [1, 2, 3, 6, 7, 9].map((e) => ({
     src: `/images/lagos-clubhouse${e}.webp`,
-    alt: `Lagos clubhouse view ${e}`,
+    alt: `ROVERA clubhouse view ${e}`,
   }));
 
   const landscapeGallery = [1, 6, 3, 9, 4, 7].map((e) => ({
     src: `/images/lagos-landscape${e}.webp`,
-    alt: `Lagos landscape view ${e}`,
+    alt: `ROVERA landscape view ${e}`,
   }));
 
   const activeGalleryList = galleryCategory === "Clubhouse" ? clubhouseGallery : landscapeGallery;
@@ -360,7 +398,7 @@ export default function RoveraView() {
   ];
 
   return (
-    <div className="rovera-apple-typography bg-white text-zinc-950 selection:bg-[#0F2744] selection:text-white">
+    <div className="rovera-apple-typography bg-white text-zinc-950 selection:bg-[#d09800] selection:text-black">
       {/* 00. ROVERA LOADING PAGE OVERLAY */}
       {pageLoading && (
         <div
@@ -397,9 +435,10 @@ export default function RoveraView() {
         {/* Full-bleed Edge-to-Edge Cinematic Cheetah Video Background */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <video
+            ref={heroVideoRef}
             autoPlay
             loop
-            muted
+            muted={isHeroMuted}
             playsInline
             preload="auto"
             poster="/images/cheetah-hero-poster.jpg"
@@ -413,6 +452,26 @@ export default function RoveraView() {
           <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
         </div>
 
+        {/* Audio Mute/Unmute toggle for Cheetah Hero Video */}
+        <button
+          type="button"
+          onClick={toggleHeroMute}
+          aria-label={isHeroMuted ? "Unmute cheetah video audio" : "Mute cheetah video audio"}
+          className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 text-white text-xs font-mono transition-all shadow-lg cursor-pointer hover:border-[#d09800] hover:text-[#d09800]"
+        >
+          {isHeroMuted ? (
+            <>
+              <VolumeX className="w-4 h-4 text-[#d09800]" />
+              <span className="hidden sm:inline uppercase tracking-wider text-[11px] font-semibold">Unmute</span>
+            </>
+          ) : (
+            <>
+              <Volume2 className="w-4 h-4 text-[#d09800]" />
+              <span className="hidden sm:inline uppercase tracking-wider text-[11px] font-semibold">Mute</span>
+            </>
+          )}
+        </button>
+
         {/* Elegant scroll indicator */}
         <div className="relative z-10 flex flex-col items-center gap-2 pointer-events-none select-none opacity-85 transition-opacity">
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/80">
@@ -423,112 +482,83 @@ export default function RoveraView() {
 
       </section>
 
-      {/* 03. SECTION: PROJECT SNAPSHOT (#snapshot) */}
-      <section id="snapshot" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
-              Project Snapshot
-            </p>
-            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-              Crafted for Quiet Luxury
-            </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-3 font-normal leading-relaxed tracking-[-0.01em]">
-              Lush green surroundings and open skies in a gated community built for wellness and leisure — space to build your forever home, a weekend retreat, or a high-growth investment in North Bangalore.
-            </p>
-          </div>
-
-          {/* Mobile & Tablet Compact 2-Column Grid (< lg) */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:hidden">
-            {snapshotHighlights.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="bg-[#fafaf8] border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
-                >
-                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
-                    <Icon className="w-5 h-5 stroke-[1.8]" />
-                  </div>
-                  <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
-                    {item.label}
-                  </span>
+      {/* 03. SECTION: PROJECT SNAPSHOT (#snapshot) — EXACT IMAGE 2 DESIGN */}
+      <section id="snapshot" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28 reveal-on-scroll">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+            <div className="max-w-2xl">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-4">
+                Project Snapshot
+              </p>
+              <div className="space-y-1">
+                <span className="font-componentry text-3xl sm:text-5xl font-medium tracking-tight text-zinc-950 block">
+                  Welcome to
+                </span>
+                <div className="relative h-11 sm:h-14 md:h-16 w-48 sm:w-64 md:w-80 -ml-1">
+                  <Image
+                    src="/images/rovera-logo-color.png"
+                    alt="ROVERA"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 250px, 320px"
+                    className="object-contain object-left"
+                  />
                 </div>
-              );
-            })}
+              </div>
+              <p className="mt-6 text-sm sm:text-base text-zinc-600 max-w-xl leading-relaxed font-normal">
+                Luxury Villa Plots for Sale in North Bangalore. 3 acres of gated community living near Devanahalli and Yelahanka. Just 30 minutes from Kempegowda International Airport and 5 minutes from Doddaballapur. Easy STRR access. Ready-to-build villa plots near everything that matters.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => openEnquiry("Download ROVERA Brochure")}
+                className="px-8 py-3.5 sm:px-9 sm:py-4 rounded-full bg-zinc-950 text-white hover:bg-[#d09800] hover:text-black font-semibold text-xs sm:text-sm uppercase tracking-wider font-mono transition-all duration-300 shadow-md active:scale-95 cursor-pointer"
+              >
+                Download Brochure
+              </button>
+            </div>
           </div>
 
-          {/* Desktop Detailed 3-Column Grid (>= lg) */}
-          <div className="hidden lg:grid lg:grid-cols-3 gap-5">
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Scale &amp; Setting</span>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                3.0 Acres Boutique Enclave
-              </h3>
-              <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed">
-                Demarcated exclusively for just 24 bespoke villa plots, ensuring absolute quietude and low-density seclusion.
+          {/* 4 Large Rounded Stat Cards (Exact Image 2 Specification with Wanted Sans numbers) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
+                3
               </p>
+              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Acres</p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Parcel Planning</span>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                XL Villa Plot Configurations
-              </h3>
-              <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed">
-                Standardized 1,500 sq.ft, 2,400 sq.ft, 3,500 sq.ft, up to 4,800 sq.ft custom corner estates with 100% Vaastu compliance.
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
+                24
               </p>
+              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Villa Plots</p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Lifestyle &amp; Health</span>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                30+ Curated Amenities
-              </h3>
-              <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed">
-                10,000 sq.ft Resident Clubhouse, Aura Vitality Spa, pickleball arena, tennis, and 1-km rubberized jogging circuit.
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
+                1,500+
               </p>
+              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Sq Ft &amp; Above</p>
             </div>
 
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Civil Engineering</span>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                100% Underground Utilities
-              </h3>
-              <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed">
-                Zero overhead cables. Concealed high-voltage cabling, dedicated optical fiber, dual-piped water, and storm aquifers.
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center justify-center min-h-[130px] sm:min-h-[160px] border border-zinc-200/80 shadow-xs hover:border-[#d09800]/50 hover:shadow-md transition-all duration-300">
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#d09800]">
+                10,000
               </p>
-            </div>
-
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Circulation</span>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                40-Ft Cobblestone Boulevards
-              </h3>
-              <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed">
-                Interlocked granite vehicular pavers with pedestrian bioswales, perimeter drainage, and native tree canopies.
-              </p>
-            </div>
-
-            <div className="p-7 bg-[#fafaf8] border border-zinc-200 rounded-2xl space-y-3 hover:border-[#1E3A8A]/50 transition-colors">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-[#1E3A8A] font-semibold block">Title &amp; Approvals</span>
-              <h3 className="font-componentry text-2xl font-medium tracking-[-0.04em] text-zinc-950">
-                RERA Approved &amp; Bank Certified
-              </h3>
-              <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed">
-                RERA No. PRM/KA/RERA/1250/301/PR/200224/006646 with certified 30-year forensic legal title search report.
-              </p>
+              <p className="text-xs sm:text-sm text-zinc-600 mt-2 font-medium">Sq Ft Clubhouse</p>
             </div>
           </div>
         </div>
       </section>
 
-
       {/* 05. SECTION: ARCHITECTURAL STATEMENT & DOUBLE-HEIGHT GATES (#gates) */}
-      <section id="gates" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+      <section id="gates" className="reveal-on-scroll py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#d09800] mb-2">
               Architectural Statement
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -551,7 +581,7 @@ export default function RoveraView() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
             <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 text-white">
               <div>
-                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wide text-blue-200 block mb-0.5">
+                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wide text-[#d09800] block mb-0.5">
                   8-Meter Monumental Portal
                 </span>
                 <p className="font-componentry text-base sm:text-2xl lg:text-3xl font-medium tracking-[-0.04em] text-white leading-tight">
@@ -571,9 +601,9 @@ export default function RoveraView() {
               return (
                 <div
                   key={item.label}
-                  className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[120px] sm:min-h-[145px]"
+                  className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#d09800]/50 transition-colors min-h-[120px] sm:min-h-[145px]"
                 >
-                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-3 text-[#d09800] shadow-2xs shrink-0">
                     <Icon className="w-5 h-5 stroke-[1.8]" />
                   </div>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
@@ -587,7 +617,7 @@ export default function RoveraView() {
           {/* Desktop Detailed 3-Column Grid (>= lg) */}
           <div className="hidden lg:grid lg:grid-cols-3 gap-6">
             <div className="p-7 bg-white border border-zinc-200 rounded-xl space-y-3 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
+              <div className="w-10 h-10 rounded-full bg-amber-500/10 text-[#d09800] flex items-center justify-center mb-2">
                 <Maximize2 className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -599,7 +629,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-7 bg-white border border-zinc-200 rounded-xl space-y-3 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
+              <div className="w-10 h-10 rounded-full bg-amber-500/10 text-[#d09800] flex items-center justify-center mb-2">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -611,7 +641,7 @@ export default function RoveraView() {
             </div>
 
             <div className="p-7 bg-white border border-zinc-200 rounded-xl space-y-3 shadow-2xs">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center mb-2">
+              <div className="w-10 h-10 rounded-full bg-amber-500/10 text-[#d09800] flex items-center justify-center mb-2">
                 <Sparkles className="w-5 h-5" />
               </div>
               <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
@@ -626,16 +656,16 @@ export default function RoveraView() {
       </section>
 
 
-      {/* 07. SECTION: WHY LAGOS (#why-lagos) — DIRECT FROM LAGOS.CO.IN */}
-      <section id="why-lagos" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+      {/* 07. SECTION: WHY ROVERA (#why-rovera) */}
+      <section id="why-rovera" className="reveal-on-scroll py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12 sm:mb-16">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#1E3A8A] mb-3">
-              Why Lagos
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-3">
+              Why ROVERA
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-zinc-950 leading-[1.08]">
               An exclusive lifestyle where<br className="hidden sm:inline" />{" "}
-              <span className="text-[#1E3A8A]">calm meets connectivity</span>
+              <span className="text-[#d09800]">calm meets connectivity</span>
             </h2>
             <p className="text-zinc-600 text-sm sm:text-base mt-4 font-normal leading-relaxed">
               Lush green surroundings and open skies in a gated community built for wellness and leisure — space to build your forever home, a weekend retreat, or a high-growth investment in North Bangalore&apos;s fastest-growing corridor.
@@ -644,7 +674,7 @@ export default function RoveraView() {
 
           {/* 4 Alternating Visual Showcase Cards */}
           <div className="space-y-6 sm:space-y-8">
-            {whyLagosItems.map((item, idx) => (
+            {whyRoveraItems.map((item, idx) => (
               <div
                 key={item.id}
                 className={`grid md:grid-cols-[1.2fr_0.8fr] gap-6 md:gap-10 items-stretch rounded-3xl bg-white border border-zinc-200/90 shadow-xs overflow-hidden ${
@@ -661,7 +691,7 @@ export default function RoveraView() {
                   />
                 </div>
                 <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12">
-                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#1E3A8A] mb-3 font-semibold">
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#d09800] mb-3 font-semibold">
                     {item.label}
                   </p>
                   <h3 className="font-componentry text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.03em] leading-[1.15] mb-3.5 text-zinc-950">
@@ -678,14 +708,14 @@ export default function RoveraView() {
       </section>
 
       {/* 08. SECTION: AMENITIES (#amenities) — DIRECT FROM LAGOS.CO.IN */}
-      <section id="amenities" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
+      <section id="amenities" className="reveal-on-scroll py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12 sm:mb-14">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-2">
               Amenities
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-zinc-950 leading-[1.08]">
-              Everything you need to <span className="text-[#1E3A8A]">live your best life.</span>
+              Everything you need to <span className="text-[#d09800]">live your best life.</span>
             </h2>
             <p className="text-zinc-600 text-sm sm:text-base mt-3.5 font-normal leading-relaxed">
               A 10,000 sq.ft clubhouse and thoughtfully planned outdoor spaces for wellness, play and community — right at your doorstep.
@@ -721,14 +751,14 @@ export default function RoveraView() {
       </section>
 
       {/* 09. SECTION: GALLERY (#gallery) — DIRECT FROM LAGOS.CO.IN */}
-      <section id="gallery" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+      <section id="gallery" className="reveal-on-scroll py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-10 text-center mx-auto">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-2">
               Gallery
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-zinc-950 leading-[1.08]">
-              A closer look at Lagos.
+              A closer look at ROVERA.
             </h2>
           </div>
 
@@ -776,10 +806,10 @@ export default function RoveraView() {
       </section>
 
       {/* 11. SECTION: MASTER PLAN (#master-plan) */}
-      <section id="master-plan" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+      <section id="master-plan" className="reveal-on-scroll py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-10 sm:mb-12">
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#d09800] mb-2">
               Master Plan &amp; Cadastral Blueprint
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -805,7 +835,7 @@ export default function RoveraView() {
                 className="object-contain sm:object-cover group-hover:scale-[1.02] transition-transform duration-700"
               />
               <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 pointer-events-none">
-                <span className="bg-[#0F2744] text-white text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+                <span className="bg-[#d09800] text-black font-semibold text-white text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
                   3.00 Acres Enclave
                 </span>
                 <span className="bg-black/70 backdrop-blur-xs text-white text-[10px] sm:text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
@@ -821,22 +851,22 @@ export default function RoveraView() {
             {/* Plot Configuration Highlights Bar */}
             <div className="mt-6 pt-6 border-t border-zinc-100 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
-                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Courtyard Plot</span>
+                <span className="text-[10px] font-mono text-[#d09800] font-semibold uppercase tracking-wider block">Courtyard Plot</span>
                 <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">1,500 Sq.Ft</span>
                 <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">30&apos; × 50&apos; • 6 Plots</span>
               </div>
               <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
-                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Signature Plot</span>
+                <span className="text-[10px] font-mono text-[#d09800] font-semibold uppercase tracking-wider block">Signature Plot</span>
                 <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">2,400 Sq.Ft</span>
                 <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">40&apos; × 60&apos; • 12 Plots</span>
               </div>
               <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
-                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Grand Estate</span>
+                <span className="text-[10px] font-mono text-[#d09800] font-semibold uppercase tracking-wider block">Grand Estate</span>
                 <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">3,500 Sq.Ft</span>
                 <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">50&apos; × 70&apos; • 4 Plots</span>
               </div>
               <div className="p-4 bg-[#fafaf8] rounded-xl border border-zinc-200/80">
-                <span className="text-[10px] font-mono text-[#1E3A8A] font-semibold uppercase tracking-wider block">Bespoke Corner</span>
+                <span className="text-[10px] font-mono text-[#d09800] font-semibold uppercase tracking-wider block">Bespoke Corner</span>
                 <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950">4,800 Sq.Ft</span>
                 <span className="text-[11px] font-mono text-zinc-500 block mt-0.5">Dual-Road • 2 Plots</span>
               </div>
@@ -851,7 +881,7 @@ export default function RoveraView() {
                 <button
                   type="button"
                   onClick={() => openEnquiry("Master Plan CAD & Plot Selection")}
-                  className="flex-1 sm:flex-initial px-6 py-3 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow-sm"
+                  className="flex-1 sm:flex-initial px-6 py-3 bg-[#d09800] text-black font-semibold hover:bg-[#b58400] text-white rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-colors shadow-sm"
                 >
                   Reserve Your Plot
                 </button>
@@ -869,10 +899,10 @@ export default function RoveraView() {
       </section>
 
       {/* 12. SECTION: PROJECT WALKTHROUGH VIDEO (#walkthrough) */}
-      <section id="walkthrough" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+      <section id="walkthrough" className="reveal-on-scroll py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[#d09800] mb-2">
               Project Walkthrough
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -919,10 +949,10 @@ export default function RoveraView() {
 
 
       {/* 14. SECTION: LOCATION & CONNECTIVITY (#location / #connected) */}
-      <section id="location" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+      <section id="location" className="reveal-on-scroll py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#d09800] mb-2">
               Location
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -940,9 +970,9 @@ export default function RoveraView() {
               return (
                 <div
                   key={item.label}
-                  className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
+                  className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#d09800]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
                 >
-                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-3 text-[#d09800] shadow-2xs shrink-0">
                     <Icon className="w-5 h-5 stroke-[1.8]" />
                   </div>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
@@ -958,7 +988,7 @@ export default function RoveraView() {
             {connectivityList.map((item) => (
               <div
                 key={item.destination}
-                className="bg-white border border-zinc-200 p-6 rounded-2xl space-y-3 hover:border-[#1E3A8A] transition-colors shadow-2xs"
+                className="bg-white border border-zinc-200 p-6 rounded-2xl space-y-3 hover:border-[#d09800] transition-colors shadow-2xs"
               >
                 <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
                   <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-400 font-medium">
@@ -972,7 +1002,7 @@ export default function RoveraView() {
                   <h4 className="font-componentry text-lg font-medium tracking-[-0.03em] text-zinc-950">
                     {item.destination}
                   </h4>
-                  <span className="font-mono text-[10px] uppercase tracking-wide text-[#1E3A8A] block mt-0.5">
+                  <span className="font-mono text-[10px] uppercase tracking-wide text-[#d09800] block mt-0.5">
                     {item.category}
                   </span>
                 </div>
@@ -983,16 +1013,16 @@ export default function RoveraView() {
             ))}
           </div>
 
-          {/* Exact Address & Map Banner with Dark Blue Accents */}
-          <div className="p-8 bg-[#0F2744] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl border border-blue-900/50">
+          {/* Exact Address & Map Banner with Cheetah Gold Accents */}
+          <div className="p-8 bg-zinc-950 text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl border border-zinc-800">
             <div className="space-y-1.5">
-              <span className="font-mono text-[11px] uppercase tracking-wide text-blue-200">
+              <span className="font-mono text-[11px] uppercase tracking-wide text-[#d09800]">
                 GPS Site Address
               </span>
               <h3 className="font-componentry text-xl sm:text-2xl font-medium tracking-[-0.03em] text-white">
                 Devanahalli, Doddaballapura Main Rd, Kasaba Hobli, Shivapura, Doddaballapur, Karnataka 562163
               </h3>
-              <p className="text-blue-100 text-xs sm:text-sm font-light">
+              <p className="text-zinc-300 text-xs sm:text-sm font-light">
                 Direct State Highway 9 frontage, adjacent to STRR interchange and KIADB Aerospace corridor.
               </p>
             </div>
@@ -1000,20 +1030,20 @@ export default function RoveraView() {
               href="https://maps.app.goo.gl/Pnt9SjxeLpJLzs179"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-[#0F2744] px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wide font-semibold hover:bg-blue-50 transition-colors shrink-0 self-start sm:self-auto shadow"
+              className="inline-flex items-center gap-2 bg-[#d09800] text-black font-semibold px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wide hover:bg-[#b58400] transition-colors shrink-0 self-start sm:self-auto shadow"
             >
               <span>Open in Google Maps</span>
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4 text-black" />
             </a>
           </div>
         </div>
       </section>
 
       {/* 15. SECTION: TESTIMONIALS & LEADERSHIP (#testimonials) */}
-      <section id="testimonials" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
+      <section id="testimonials" className="reveal-on-scroll py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#d09800] mb-2">
               Testimonials
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1031,7 +1061,7 @@ export default function RoveraView() {
                   <h5 className="font-componentry text-base font-medium text-zinc-950">Vikramaditya Rao</h5>
                   <span className="font-mono text-[11px] text-zinc-500">Tech Entrepreneur &amp; Early Patron</span>
                 </div>
-                <span className="font-clash text-sm text-[#1E3A8A] font-semibold">2,400 Sq.Ft Plot</span>
+                <span className="font-clash text-sm text-[#d09800] font-semibold">2,400 Sq.Ft Plot</span>
               </div>
             </div>
 
@@ -1051,96 +1081,103 @@ export default function RoveraView() {
         </div>
       </section>
 
-      {/* 16. SECTION: PRICING & PAYMENT STRUCTURE (#pricing) */}
-      <section id="pricing" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+      {/* 16. SECTION: PRICING & PAYMENT STRUCTURE (#pricing) — EXACT LAGOS DESIGN */}
+      <section id="pricing" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28 reveal-on-scroll">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl mb-12 sm:mb-14">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-3">
               Pricing
             </p>
-            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-              Indicative Starting Prices
+            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-zinc-950 leading-[1.08]">
+              Plot sizes &amp; <span className="text-[#d09800]">starting prices.</span>
             </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-2 font-normal">
+            <p className="text-zinc-600 text-sm sm:text-base mt-3.5 font-normal leading-relaxed">
               Indicative starting prices for our villa plots. Get the complete cost sheet for plot-wise availability and full details.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="p-7 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <span className="font-mono text-xs text-zinc-500 uppercase tracking-wide">Courtyard Plot</span>
-              <div className="flex items-baseline gap-1">
-                <span className="font-clash text-3xl font-semibold text-zinc-950">₹85</span>
-                <span className="text-sm font-mono text-zinc-600">Lakhs* Onwards</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
+            {/* Card 1: Curated Plot */}
+            <div className="p-7 sm:p-10 rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-4">
+                  Curated Plot
+                </p>
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 whitespace-nowrap text-zinc-950">
+                  ₹ 85 Lakhs*
+                </h3>
+                <p className="text-sm text-zinc-500 mb-8">
+                  Starting · 1,500 sq ft (30&apos; × 50&apos;)
+                </p>
               </div>
-              <p className="text-zinc-600 text-xs font-normal">
-                1,500 Sq.Ft (30&apos; × 50&apos;) ideal for 3–4 BHK villa with private lightwell and garden.
-              </p>
               <button
                 type="button"
-                onClick={() => openEnquiry("1,500 Sq.Ft Cost Sheet")}
-                className="w-full mt-2 py-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full text-xs font-mono uppercase tracking-wide transition-colors"
+                onClick={() => openEnquiry("1,500 Sq.Ft Curated Plot Cost Sheet")}
+                className="w-full h-12 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wider font-mono bg-zinc-950 text-white hover:bg-[#d09800] hover:text-black transition-all duration-300 shadow-xs cursor-pointer"
               >
-                Request Cost Sheet
+                Get Cost Sheet
               </button>
             </div>
 
-            <div className="p-7 bg-white border-2 border-[#1E3A8A] rounded-2xl space-y-4 shadow-md relative">
-              <div className="absolute -top-3 left-6 bg-[#0F2744] text-white px-3 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider">
+            {/* Card 2: Signature Plot (Featured) */}
+            <div className="p-7 sm:p-10 rounded-3xl bg-zinc-950 text-white shadow-2xl scale-[1.02] border border-zinc-800 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-[#d09800] text-black text-[10px] font-mono font-bold uppercase tracking-widest px-4 py-1 rounded-bl-xl">
                 Most Popular
               </div>
-              <span className="font-mono text-xs text-zinc-500 uppercase tracking-wide">Signature Plot</span>
-              <div className="flex items-baseline gap-1">
-                <span className="font-clash text-3xl font-semibold text-zinc-950">₹1.35</span>
-                <span className="text-sm font-mono text-zinc-600">Cr* Onwards</span>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-4">
+                  Signature Plot
+                </p>
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 whitespace-nowrap text-white">
+                  ₹ 1.35 Cr*
+                </h3>
+                <p className="text-sm text-zinc-300 mb-8">
+                  Starting · 2,400 sq ft (40&apos; × 60&apos;)
+                </p>
               </div>
-              <p className="text-zinc-600 text-xs font-normal">
-                2,400 Sq.Ft (40&apos; × 60&apos;) ideal for 4–5 BHK luxury residence with plunge pool and portico.
-              </p>
               <button
                 type="button"
-                onClick={() => openEnquiry("2,400 Sq.Ft Cost Sheet")}
-                className="w-full mt-2 py-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full text-xs font-mono uppercase tracking-wide transition-colors"
+                onClick={() => openEnquiry("2,400 Sq.Ft Signature Plot Cost Sheet")}
+                className="w-full h-12 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wider font-mono bg-[#d09800] text-black hover:bg-white hover:text-black transition-all duration-300 shadow-md cursor-pointer"
               >
-                Request Cost Sheet
+                Get Cost Sheet
               </button>
             </div>
 
-            <div className="p-7 bg-white border border-zinc-200 rounded-2xl space-y-4 shadow-2xs">
-              <span className="font-mono text-xs text-zinc-500 uppercase tracking-wide">Grand Estate</span>
-              <div className="flex items-baseline gap-1">
-                <span className="font-clash text-3xl font-semibold text-zinc-950">₹1.98</span>
-                <span className="text-sm font-mono text-zinc-600">Cr* Onwards</span>
+            {/* Card 3: Grand Estate */}
+            <div className="p-7 sm:p-10 rounded-3xl bg-white text-zinc-950 border border-zinc-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d09800] mb-4">
+                  Grand Estate
+                </p>
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-2 whitespace-nowrap text-zinc-950">
+                  On Request*
+                </h3>
+                <p className="text-sm text-zinc-500 mb-8">
+                  Starting · 3,500+ sq ft (50&apos; × 70&apos;)
+                </p>
               </div>
-              <p className="text-zinc-600 text-xs font-normal">
-                3,500+ Sq.Ft (50&apos; × 70&apos; &amp; Corner) for generational trophy mansions with expansive lawns.
-              </p>
               <button
                 type="button"
-                onClick={() => openEnquiry("Grand Estate Cost Sheet")}
-                className="w-full mt-2 py-2.5 bg-[#0F2744] hover:bg-[#1E3A8A] text-white rounded-full text-xs font-mono uppercase tracking-wide transition-colors"
+                onClick={() => openEnquiry("3,500+ Sq.Ft Grand Estate Cost Sheet")}
+                className="w-full h-12 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wider font-mono bg-zinc-950 text-white hover:bg-[#d09800] hover:text-black transition-all duration-300 shadow-xs cursor-pointer"
               >
-                Request Cost Sheet
+                Get Cost Sheet
               </button>
             </div>
           </div>
 
-          <div className="p-6 bg-white border border-zinc-200 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs font-mono text-zinc-600">
-            <div>
-              <strong className="text-zinc-950 uppercase">Milestone Payment Schedule:</strong> 10% on Booking • 20% on Agreement • 50% Linked to Civil Infrastructure Milestones • 20% on Final Registration.
-            </div>
-            <div className="text-[#1E3A8A] font-semibold shrink-0">
-              Approved by SBI, HDFC, ICICI &amp; Axis Bank
-            </div>
-          </div>
+          <p className="text-center text-xs text-zinc-500 mt-8 font-mono">
+            *Prices indicative, subject to revision. Excludes statutory charges and registration.
+          </p>
         </div>
       </section>
 
       {/* 17. SECTION: FAQ ACCORDION (#faq) */}
-      <section id="faq" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
+      <section id="faq" className="reveal-on-scroll py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
+            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#d09800] mb-2">
               FAQ
             </p>
             <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1167,7 +1204,7 @@ export default function RoveraView() {
                     <span className="font-componentry text-base sm:text-lg font-medium text-zinc-950 tracking-[-0.02em]">
                       {faq.question}
                     </span>
-                    <span className="w-7 h-7 rounded-full bg-white border border-zinc-200 flex items-center justify-center shrink-0 text-[#1E3A8A]">
+                    <span className="w-7 h-7 rounded-full bg-white border border-zinc-200 flex items-center justify-center shrink-0 text-[#d09800]">
                       {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </span>
                   </button>
@@ -1184,12 +1221,12 @@ export default function RoveraView() {
       </section>
 
       {/* 18. SECTION: ABOUT THE DEVELOPER (#about-stthira) */}
-      <section id="about-stthira" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+      <section id="about-stthira" className="reveal-on-scroll py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
         <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <div className="flex justify-center">
             <StthiraEmblem className="text-zinc-950 w-10 h-12" />
           </div>
-          <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A]">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#d09800]">
             About the Master Developer
           </p>
           <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
@@ -1212,8 +1249,8 @@ export default function RoveraView() {
           headingLines={[]}
           background="#ffffff"
           textColor="#0f172a"
-          charColor="#3B82F6"
-          hoverColor="#1E3A8A"
+          charColor="#d09800"
+          hoverColor="#d09800"
           hoverCharColor="#ffffff"
           className="pt-16 sm:pt-24 lg:pt-28 pb-16 sm:pb-24 lg:pb-28 border-t border-zinc-200 bg-white"
         >
@@ -1221,7 +1258,7 @@ export default function RoveraView() {
             {/* Header: "Let's Connect" */}
             <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
               <h2 className="font-componentry text-balance text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[-0.04em] text-zinc-950 leading-[1.06]">
-                Let&apos;s <span className="text-[#1E3A8A]">Connect</span>
+                Let&apos;s <span className="text-[#d09800]">Connect</span>
               </h2>
               <p className="text-zinc-600 text-sm sm:text-base mt-3 font-normal leading-relaxed max-w-lg mx-auto">
                 Receive the official brochure, master plan layout, unit pricing dossier, and a private chauffeured site visit invitation.
@@ -1246,7 +1283,7 @@ export default function RoveraView() {
                       value={formName}
                       onChange={(e) => setFormName(e.target.value)}
                       placeholder="Enter your name"
-                      className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
+                      className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#d09800] focus:bg-white transition-all shadow-2xs"
                     />
                   </div>
 
@@ -1262,7 +1299,7 @@ export default function RoveraView() {
                         value={formPhone}
                         onChange={(e) => setFormPhone(e.target.value)}
                         placeholder="Your contact number"
-                        className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
+                        className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#d09800] focus:bg-white transition-all shadow-2xs"
                       />
                     </div>
 
@@ -1277,7 +1314,7 @@ export default function RoveraView() {
                         value={formEmail}
                         onChange={(e) => setFormEmail(e.target.value)}
                         placeholder="name@example.com"
-                        className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
+                        className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#d09800] focus:bg-white transition-all shadow-2xs"
                       />
                     </div>
                   </div>
@@ -1289,7 +1326,7 @@ export default function RoveraView() {
                     <select
                       value={formConfig}
                       onChange={(e) => setFormConfig(e.target.value)}
-                      className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#1E3A8A] focus:bg-white transition-all shadow-2xs"
+                      className="w-full h-12 px-4 rounded-xl border border-zinc-300/80 bg-white/75 backdrop-blur-xs text-zinc-900 text-base sm:text-sm focus:outline-hidden focus:border-[#d09800] focus:bg-white transition-all shadow-2xs"
                     >
                       <option value="Courtyard Villa Parcel (1,500 Sq.Ft)">Courtyard Villa Parcel (1,500 Sq.Ft)</option>
                       <option value="Signature Sanctuary Plot (2,400 Sq.Ft)">Signature Sanctuary Plot (2,400 Sq.Ft)</option>
@@ -1302,7 +1339,7 @@ export default function RoveraView() {
                     <button
                       type="submit"
                       disabled={formLoading}
-                      className="w-full h-12 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] disabled:opacity-60 text-white font-mono text-xs uppercase tracking-wide font-medium transition-colors shadow-md cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full h-12 rounded-full bg-[#d09800] text-black font-semibold hover:bg-[#b58400] disabled:opacity-60 text-white font-mono text-xs uppercase tracking-wide font-medium transition-colors shadow-md cursor-pointer flex items-center justify-center gap-2"
                     >
                       {formLoading ? (
                         <span>Submitting...</span>
