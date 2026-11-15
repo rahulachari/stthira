@@ -81,6 +81,29 @@ export default function RoveraView() {
     return () => clearTimeout(fadeTimer);
   }, []);
 
+  // Lock scroll completely while loading screen is visible to prevent opening from the middle
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      if (pageLoading) {
+        document.body.style.overflow = "hidden";
+        window.scrollTo(0, 0);
+      } else {
+        document.body.style.overflow = "";
+        window.scrollTo(0, 0);
+        const globalLenis = (window as unknown as { __lenis?: { scrollTo: (target: number, opts?: { immediate?: boolean }) => void; resize: () => void } }).__lenis;
+        if (globalLenis) {
+          globalLenis.scrollTo(0, { immediate: true });
+          globalLenis.resize();
+        }
+      }
+    }
+    return () => {
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    };
+  }, [pageLoading]);
+
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formPhone.trim()) return;
@@ -345,7 +368,10 @@ export default function RoveraView() {
           aria-label="Loading ROVERA"
           onClick={() => {
             setLoadingFading(true);
-            setTimeout(() => setPageLoading(false), 250);
+            setTimeout(() => {
+              setPageLoading(false);
+              window.scrollTo(0, 0);
+            }, 250);
           }}
           className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-white cursor-pointer select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             loadingFading
@@ -366,7 +392,7 @@ export default function RoveraView() {
         </div>
       )}
       {/* 01. MONUMENTAL HERO SECTION (High-Definition Cinematic Cheetah Video Background) */}
-      <section className="relative w-full h-[100dvh] min-h-[640px] flex flex-col justify-center items-center overflow-hidden bg-black text-white border-b border-zinc-900">
+      <section className="relative w-full h-[100dvh] min-h-[640px] flex flex-col justify-end items-center overflow-hidden bg-black text-white border-b border-zinc-900 pb-8 sm:pb-10">
         
         {/* Full-bleed Edge-to-Edge Cinematic Cheetah Video Background */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -377,38 +403,22 @@ export default function RoveraView() {
             playsInline
             preload="auto"
             poster="/images/cheetah-hero-poster.jpg"
-            className="w-full h-full object-cover object-center scale-[1.24] pointer-events-none"
+            className="w-full h-full object-cover object-center scale-[1.08] pointer-events-none"
           >
             <source src="/videos/cheetah-hero.mp4" type="video/mp4" />
           </video>
-          {/* Subtle cinematic gradient overlays for pristine typography legibility */}
-          <div className="absolute inset-0 bg-black/30 pointer-events-none" />
-          <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-black/65 via-black/25 to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black/70 via-black/25 to-transparent pointer-events-none" />
+          {/* Subtle cinematic gradient overlays */}
+          <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-black/60 via-black/20 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
         </div>
 
-        {/* =========================================
-            A. DESKTOP / LAPTOP / IPAD CONTENT (>= 768px)
-            ========================================= */}
-        <div className="hidden md:flex relative z-10 w-full max-w-[96vw] 2xl:max-w-screen mx-auto px-4 sm:px-6 lg:px-8 text-center select-none flex-col items-center justify-center pt-24 pb-12">
-          <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] font-bold tracking-[-0.045em] text-white uppercase leading-none select-none drop-shadow-[0_4px_32px_rgba(0,0,0,0.85)]">
-            ROVERA
-          </h1>
-          <p className="mt-4 sm:mt-6 md:mt-8 font-sans text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white/95 font-medium tracking-[-0.025em] drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
-            Where Luxury Find Its Address
-          </p>
-        </div>
-
-        {/* =========================================
-            B. MOBILE DEDICATED CONTENT (< 768px)
-            ========================================= */}
-        <div className="flex md:hidden relative z-10 w-full px-4 flex-col items-center justify-center select-none pt-20 pb-10 text-center">
-          <h1 className="text-6xl sm:text-7xl font-bold tracking-[-0.04em] text-white uppercase leading-none select-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
-            ROVERA
-          </h1>
-          <p className="mt-4 font-sans text-xs sm:text-sm text-white font-medium tracking-[-0.01em] px-4 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/25 shadow-xl text-center">
-            Where Luxury Find Its Address
-          </p>
+        {/* Elegant scroll indicator */}
+        <div className="relative z-10 flex flex-col items-center gap-2 pointer-events-none select-none opacity-85 transition-opacity">
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/80">
+            Scroll
+          </span>
+          <ChevronDown className="w-4 h-4 text-white/80 animate-bounce" />
         </div>
 
       </section>
@@ -1183,7 +1193,7 @@ export default function RoveraView() {
             About the Master Developer
           </p>
           <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-            Building a Legacy of Timeless Integrity
+            Where Luxury Find Its Address
           </h2>
           <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-normal max-w-2xl mx-auto">
             STTHIRA Developments Private Limited is an elite luxury plotted real estate developer in India. Founded on the bedrock principle of institutional permanence, forensic legal clarity, and understated brutalist architectural restraint. ROVERA represents our premier plotted sanctuary in North Bangalore.

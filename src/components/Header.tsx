@@ -197,26 +197,16 @@ export default function Header() {
 
           {/* RIGHT SIDE ACTIONS */}
           <div className="flex items-center gap-3 sm:gap-4">
-            {isRovera && (
-              <a
-                href="https://wa.me/917013485016"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium transition-colors ${
-                  scrolled ? "text-zinc-600 hover:text-black" : "text-white/90 hover:text-white"
-                }`}
+            {/* Global Enquiry (Only shown on non-ROVERA pages; on ROVERA navbar is ultra-clean with only Menu icon) */}
+            {!isRovera && (
+              <button
+                type="button"
+                onClick={() => setEnquiryModalOpen(true)}
+                className="px-4 sm:px-5 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white text-xs uppercase tracking-wider font-semibold font-mono transition-all shadow-sm cursor-pointer shrink-0"
               >
-                <span>WhatsApp</span>
-              </a>
+                Enquiry
+              </button>
             )}
-
-            <button
-              type="button"
-              onClick={() => setEnquiryModalOpen(true)}
-              className="px-4 sm:px-5 py-2 rounded-full bg-[#0F2744] hover:bg-[#1E3A8A] text-white text-xs uppercase tracking-wider font-semibold font-mono transition-all shadow-sm cursor-pointer shrink-0"
-            >
-              Enquiry
-            </button>
 
             {/* ON ROVERA: STTHIRA Branding placed on the RIGHT side */}
             {isRovera && (
@@ -247,47 +237,75 @@ export default function Header() {
               </Link>
             )}
 
-            {/* Menu Toggle: On ROVERA, visible on ALL screen sizes (including desktop) */}
+            {/* Menu Toggle: On ROVERA, visible on ALL screen sizes with buttery-smooth open/close animation */}
             <div className={`items-center shrink-0 ${isRovera ? "flex" : "flex lg:hidden"}`}>
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Toggle navigation menu"
-                className={`p-2 transition-colors cursor-pointer shrink-0 flex items-center gap-2 rounded-full ${
+                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={mobileMenuOpen}
+                className={`py-2 px-2.5 sm:px-3 sm:py-2 transition-all duration-300 cursor-pointer shrink-0 flex items-center gap-2.5 rounded-full border ${
                   isRovera
                     ? scrolled
-                      ? "text-zinc-950 hover:bg-black/5"
-                      : "text-white hover:bg-white/15"
-                    : "text-white hover:text-neutral-300"
+                      ? "text-zinc-950 border-zinc-200/90 hover:bg-black/5 bg-white/60"
+                      : "text-white border-white/25 hover:bg-white/15 bg-black/35 backdrop-blur-md"
+                    : "text-white border-transparent hover:text-neutral-300"
                 }`}
               >
-                {mobileMenuOpen ? (
-                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
-                ) : (
-                  <>
-                    <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-                    {isRovera && (
-                      <span className="hidden sm:inline font-mono text-[11px] uppercase tracking-widest font-semibold">
-                        Menu
-                      </span>
-                    )}
-                  </>
+                {/* Precision animated morphing hamburger-to-close icon */}
+                <div className="relative w-5 h-3.5 flex flex-col justify-between items-center overflow-visible">
+                  <span
+                    className={`h-[1.5px] w-5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform origin-center ${
+                      isRovera && scrolled ? "bg-zinc-950" : "bg-white"
+                    } ${
+                      mobileMenuOpen
+                        ? "translate-y-[6px] rotate-45"
+                        : "translate-y-0 rotate-0"
+                    }`}
+                  />
+                  <span
+                    className={`h-[1.5px] w-5 rounded-full transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isRovera && scrolled ? "bg-zinc-950" : "bg-white"
+                    } ${
+                      mobileMenuOpen
+                        ? "opacity-0 scale-x-0"
+                        : "opacity-100 scale-x-100"
+                    }`}
+                  />
+                  <span
+                    className={`h-[1.5px] w-5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform origin-center ${
+                      isRovera && scrolled ? "bg-zinc-950" : "bg-white"
+                    } ${
+                      mobileMenuOpen
+                        ? "-translate-y-[6px] -rotate-45"
+                        : "translate-y-0 rotate-0"
+                    }`}
+                  />
+                </div>
+                {isRovera && (
+                  <span className="font-mono text-[11px] uppercase tracking-widest font-semibold min-w-[34px] text-left transition-opacity duration-200">
+                    {mobileMenuOpen ? "Close" : "Menu"}
+                  </span>
                 )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Fullscreen Navigation Overlay (Adaptive for Desktop & Mobile on ROVERA) */}
-        {mobileMenuOpen && (
-          <div
-            className={`fixed inset-0 top-[58px] sm:top-[73px] z-40 px-6 sm:px-12 py-8 sm:py-12 flex flex-col justify-between overflow-y-auto border-t h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full backdrop-blur-xl ${
-              isRovera ? "flex" : "lg:hidden flex"
-            } ${
-              isRovera
-                ? "bg-[#FAFAFA]/98 text-zinc-950 border-zinc-200"
-                : "bg-black/98 text-white border-neutral-900"
-            }`}
-          >
+        {/* Fullscreen Navigation Overlay with smooth CSS slide & cross-dissolve */}
+        <div
+          className={`fixed inset-0 top-[58px] sm:top-[73px] z-40 px-6 sm:px-12 py-8 sm:py-12 flex flex-col justify-between overflow-y-auto border-t h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isRovera ? "flex" : "lg:hidden flex"
+          } ${
+            isRovera
+              ? "bg-[#FAFAFA]/98 text-zinc-950 border-zinc-200"
+              : "bg-black/98 text-white border-neutral-900"
+          } ${
+            mobileMenuOpen
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 -translate-y-4 pointer-events-none"
+          }`}
+        >
             <div className="space-y-6 max-w-4xl mx-auto w-full">
               <div
                 className={`text-[10px] tracking-[0.3em] uppercase mb-2 ${
@@ -435,16 +453,28 @@ export default function Header() {
                 isRovera ? "border-zinc-200" : "border-neutral-800"
               }`}
             >
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setEnquiryModalOpen(true);
-                }}
-                className="w-full py-3.5 bg-[#0F2744] text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#1E3A8A] transition-colors text-center rounded-full"
-              >
-                Schedule Private Walkthrough
-              </button>
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setEnquiryModalOpen(true);
+                  }}
+                  className="w-full flex-1 py-3.5 bg-[#0F2744] text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#1E3A8A] transition-colors text-center rounded-full"
+                >
+                  {isRovera ? "Reserve Your Villa Plot" : "Schedule Private Walkthrough"}
+                </button>
+                {isRovera && (
+                  <a
+                    href="https://wa.me/917013485016"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 py-3.5 border border-zinc-300 text-zinc-900 text-xs uppercase tracking-widest font-semibold hover:border-zinc-900 transition-colors text-center rounded-full inline-flex items-center justify-center gap-2"
+                  >
+                    <span>WhatsApp</span>
+                  </a>
+                )}
+              </div>
               <div
                 className={`flex items-center justify-between text-xs ${
                   isRovera ? "text-zinc-500" : "text-neutral-500"
@@ -455,7 +485,6 @@ export default function Header() {
               </div>
             </div>
           </div>
-        )}
       </header>
 
       <EnquiryModal
