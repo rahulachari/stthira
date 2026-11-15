@@ -80,16 +80,42 @@ export default function Header() {
 
   const navLinks = isRovera ? roveraNavLinks : globalNavLinks;
 
+  const roveraDrawerLinks = [
+    { name: "Overview", href: "/developments/rovera#" },
+    { name: "Project Snapshot", href: "/developments/rovera#snapshot" },
+    { name: "XL Villa Plots", href: "/developments/rovera#pricing" },
+    { name: "The ROVERA Difference", href: "/developments/rovera#why-rovera" },
+    { name: "Why ROVERA", href: "/developments/rovera#why-rovera" },
+    { name: "Walkthrough", href: "/developments/rovera#walkthrough" },
+    { name: "Master Plan", href: "/developments/rovera#master-plan" },
+    { name: "Gallery", href: "/developments/rovera#gallery" },
+    { name: "Amenities", href: "/developments/rovera#amenities" },
+    { name: "Location & Connectivity", href: "/developments/rovera#location" },
+    { name: "About STTHIRA", href: "/about" },
+  ];
+
+  const globalDrawerLinks = [
+    { name: "Home", href: "/" },
+    { name: "About STTHIRA", href: "/about" },
+    { name: "ROVERA (Devanahalli)", href: "/developments/rovera" },
+    { name: "STTHIRA TERRA", href: "/developments/terra" },
+    { name: "All Developments", href: "/developments" },
+    { name: "Leadership", href: "/leadership" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Contact", href: "/contact" },
+  ];
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-3 sm:py-4 ${
+        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-500 py-3 sm:py-4 ${
           isRovera
             ? scrolled
-              ? "bg-white/95 backdrop-blur-md text-zinc-950 shadow-xs border-b border-zinc-200/80"
+              ? "bg-black/35 backdrop-blur-md text-white border-b border-white/10"
               : "bg-transparent text-white"
             : scrolled
-            ? "bg-black/90 backdrop-blur-md text-white border-b border-neutral-900"
+            ? "bg-black/80 backdrop-blur-md text-white border-b border-neutral-900"
             : "bg-transparent text-white"
         }`}
       >
@@ -212,25 +238,15 @@ export default function Header() {
             {isRovera && (
               <Link
                 href="/"
-                className={`hidden md:flex items-center gap-2 shrink-0 border-l pl-4 ml-1 transition-opacity hover:opacity-85 ${
-                  scrolled ? "border-zinc-200" : "border-white/20"
-                }`}
+                className="hidden md:flex items-center gap-2 shrink-0 border-l border-white/20 pl-4 ml-1 transition-opacity hover:opacity-85 text-white"
                 title="STTHIRA Developments (Parent Master Developer)"
               >
                 <StthiraEmblem className="text-[#C5A880] w-4 h-5 transition-transform group-hover:scale-105 shrink-0" />
                 <div className="flex flex-col text-left">
-                  <span
-                    className={`font-editorial text-xs tracking-[0.18em] font-medium uppercase transition-colors ${
-                      scrolled ? "text-zinc-950" : "text-white"
-                    }`}
-                  >
+                  <span className="font-editorial text-xs tracking-[0.18em] font-medium uppercase text-white">
                     STTHIRA
                   </span>
-                  <span
-                    className={`text-[7px] tracking-[0.25em] uppercase -mt-0.5 transition-colors ${
-                      scrolled ? "text-zinc-500" : "text-neutral-300"
-                    }`}
-                  >
+                  <span className="text-[7px] tracking-[0.25em] uppercase -mt-0.5 text-neutral-300 font-sans">
                     DEVELOPMENTS
                   </span>
                 </div>
@@ -244,38 +260,26 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={mobileMenuOpen}
-                className={`py-2 px-2.5 sm:px-3 sm:py-2 transition-all duration-300 cursor-pointer shrink-0 flex items-center gap-2.5 rounded-full border ${
-                  isRovera
-                    ? scrolled
-                      ? "text-zinc-950 border-zinc-200/90 hover:bg-black/5 bg-white/60"
-                      : "text-white border-white/25 hover:bg-white/15 bg-black/35 backdrop-blur-md"
-                    : "text-white border-transparent hover:text-neutral-300"
-                }`}
+                className="py-2 px-3 sm:px-3.5 transition-all duration-300 cursor-pointer shrink-0 flex items-center gap-2.5 rounded-full border border-white/25 hover:border-white/40 bg-black/40 hover:bg-white/15 text-white backdrop-blur-md"
               >
                 {/* Precision animated morphing hamburger-to-close icon */}
                 <div className="relative w-5 h-3.5 flex flex-col justify-between items-center overflow-visible">
                   <span
-                    className={`h-[1.5px] w-5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform origin-center ${
-                      isRovera && scrolled ? "bg-zinc-950" : "bg-white"
-                    } ${
+                    className={`h-[1.5px] w-5 rounded-full bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform origin-center ${
                       mobileMenuOpen
                         ? "translate-y-[6px] rotate-45"
                         : "translate-y-0 rotate-0"
                     }`}
                   />
                   <span
-                    className={`h-[1.5px] w-5 rounded-full transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                      isRovera && scrolled ? "bg-zinc-950" : "bg-white"
-                    } ${
+                    className={`h-[1.5px] w-5 rounded-full bg-white transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                       mobileMenuOpen
                         ? "opacity-0 scale-x-0"
                         : "opacity-100 scale-x-100"
                     }`}
                   />
                   <span
-                    className={`h-[1.5px] w-5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform origin-center ${
-                      isRovera && scrolled ? "bg-zinc-950" : "bg-white"
-                    } ${
+                    className={`h-[1.5px] w-5 rounded-full bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform origin-center ${
                       mobileMenuOpen
                         ? "-translate-y-[6px] -rotate-45"
                         : "translate-y-0 rotate-0"
@@ -283,7 +287,7 @@ export default function Header() {
                   />
                 </div>
                 {isRovera && (
-                  <span className="font-mono text-[11px] uppercase tracking-widest font-semibold min-w-[34px] text-left transition-opacity duration-200">
+                  <span className="font-mono text-[11px] uppercase tracking-widest font-semibold min-w-[34px] text-left transition-opacity duration-200 text-white">
                     {mobileMenuOpen ? "Close" : "Menu"}
                   </span>
                 )}
@@ -291,201 +295,90 @@ export default function Header() {
             </div>
           </div>
         </div>
-
-        {/* Fullscreen Navigation Overlay with smooth CSS slide & cross-dissolve */}
-        <div
-          className={`fixed inset-0 top-[58px] sm:top-[73px] z-40 px-6 sm:px-12 py-8 sm:py-12 flex flex-col justify-between overflow-y-auto border-t h-[calc(100vh-58px)] sm:h-[calc(100vh-73px)] w-full max-w-full backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isRovera ? "flex" : "lg:hidden flex"
-          } ${
-            isRovera
-              ? "bg-[#FAFAFA]/98 text-zinc-950 border-zinc-200"
-              : "bg-black/98 text-white border-neutral-900"
-          } ${
-            mobileMenuOpen
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 -translate-y-4 pointer-events-none"
-          }`}
-        >
-            <div className="space-y-6 max-w-4xl mx-auto w-full">
-              <div
-                className={`text-[10px] tracking-[0.3em] uppercase mb-2 ${
-                  isRovera ? "text-zinc-400" : "text-neutral-500"
-                }`}
-              >
-                {isRovera ? "ROVERA Navigation" : "Navigation"}
-              </div>
-              <div className="flex flex-col space-y-4">
-                {isRovera ? (
-                  <>
-                    <Link
-                      href="/developments/rovera#why-rovera"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
-                    >
-                      Why ROVERA
-                    </Link>
-                    <Link
-                      href="/developments/rovera#amenities"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
-                    >
-                      Amenities
-                    </Link>
-                    <Link
-                      href="/developments/rovera#gallery"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
-                    >
-                      Gallery
-                    </Link>
-                    <Link
-                      href="/developments/rovera#master-plan"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
-                    >
-                      Master Plan &amp; Blueprint
-                    </Link>
-                    <Link
-                      href="/developments/rovera#location"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
-                    >
-                      Location &amp; Connectivity
-                    </Link>
-                    <Link
-                      href="/developments/rovera#pricing"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
-                    >
-                      Indicative Pricing &amp; Plots
-                    </Link>
-                    <Link
-                      href="/developments/rovera#faq"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#d09800] transition-colors"
-                    >
-                      Frequently Asked Questions
-                    </Link>
-                    <Link
-                      href="/about"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-xl sm:text-2xl text-zinc-600 hover:text-black transition-colors pt-3 border-t border-zinc-200"
-                    >
-                      About STTHIRA Developments
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      href="/"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl transition-colors text-white hover:text-neutral-400"
-                    >
-                      {t("nav.home", "Home")}
-                    </Link>
-                    <Link
-                      href="/about"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl transition-colors text-white hover:text-neutral-400"
-                    >
-                      {t("nav.about", "About STTHIRA")}
-                    </Link>
-                    <div className="border-l pl-4 py-1 space-y-2 border-neutral-800">
-                      <Link
-                        href="/developments"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="font-editorial text-xl block text-neutral-300 hover:text-white"
-                      >
-                        {t("nav.developments", "Our Developments")}
-                      </Link>
-                      <Link
-                        href="/developments/rovera"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="font-editorial text-base font-medium flex items-center justify-between text-white"
-                      >
-                        <span>↳ ROVERA (Devanahalli)</span>
-                        <span className="text-[9px] uppercase tracking-wider text-blue-600 font-semibold">Featured</span>
-                      </Link>
-                      <Link
-                        href="/developments/terra"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="font-editorial text-base flex items-center justify-between text-neutral-300 hover:text-white"
-                      >
-                        <span>↳ STTHIRA TERRA</span>
-                        <span className="text-[9px] uppercase tracking-wider text-neutral-400">Sanctuary</span>
-                      </Link>
-                    </div>
-                    <Link
-                      href="/leadership"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl transition-colors text-white hover:text-neutral-400"
-                    >
-                      {t("nav.leadership", "Leadership")}
-                    </Link>
-                    <Link
-                      href="/gallery"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl transition-colors text-white hover:text-neutral-400"
-                    >
-                      {t("nav.gallery", "Gallery")}
-                    </Link>
-                    <Link
-                      href="/faq"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl transition-colors text-white hover:text-neutral-400"
-                    >
-                      {t("nav.faq", "FAQ")}
-                    </Link>
-                    <Link
-                      href="/contact"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl transition-colors text-white hover:text-neutral-400"
-                    >
-                      {t("nav.contact", "Contact")}
-                    </Link>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div
-              className={`pt-6 border-t space-y-4 ${
-                isRovera ? "border-zinc-200" : "border-neutral-800"
-              }`}
-            >
-              <div className="flex flex-col sm:flex-row items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setEnquiryModalOpen(true);
-                  }}
-                  className="w-full flex-1 py-3.5 bg-[#d09800] text-black text-xs uppercase tracking-widest font-semibold hover:bg-[#b58400] transition-colors text-center rounded-full"
-                >
-                  {isRovera ? "Reserve Your Villa Plot" : "Schedule Private Walkthrough"}
-                </button>
-                {isRovera && (
-                  <a
-                    href="https://wa.me/917013485016"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-6 py-3.5 border border-zinc-300 text-zinc-900 text-xs uppercase tracking-widest font-semibold hover:border-zinc-900 transition-colors text-center rounded-full inline-flex items-center justify-center gap-2"
-                  >
-                    <span>WhatsApp</span>
-                  </a>
-                )}
-              </div>
-              <div
-                className={`flex items-center justify-between text-xs ${
-                  isRovera ? "text-zinc-500" : "text-neutral-500"
-                }`}
-              >
-                <span>© 2026 STTHIRA DEVELOPMENTS</span>
-                <LanguageSwitcher dropUp={true} theme={isRovera ? "light" : "dark"} />
-              </div>
-            </div>
-          </div>
       </header>
+
+      {/* 01. Translucent Blurred Backdrop matching Image 1 */}
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-md z-40 transition-opacity duration-300 ease-out ${
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* 02. Sleek Right-Hand Side Drawer matching Image 1 (https://lagos.co.in/) */}
+      <aside
+        className={`fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[420px] max-w-[90vw] bg-[#111113] text-white shadow-2xl flex flex-col justify-between overflow-y-auto border-l border-neutral-800/80 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation Menu"
+      >
+        {/* Top Header of Drawer: STTHIRA DEVELOPMENTS Brand + Circular 'X' Close Button */}
+        <div className="p-6 sm:p-7 flex items-center justify-between border-b border-neutral-800/80 shrink-0">
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 transition-opacity hover:opacity-90"
+          >
+            <StthiraEmblem className="text-[#C5A880] w-6 h-7 shrink-0" />
+            <div className="flex flex-col text-left">
+              <span className="font-editorial text-sm tracking-[0.2em] font-medium uppercase text-white">
+                STTHIRA
+              </span>
+              <span className="text-[8px] tracking-[0.25em] text-neutral-400 uppercase -mt-0.5 font-sans">
+                DEVELOPMENTS
+              </span>
+            </div>
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+            className="w-10 h-10 rounded-full border border-neutral-700 hover:border-neutral-500 flex items-center justify-center text-white bg-white/5 hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Navigation Links list */}
+        <nav className="flex-1 overflow-y-auto py-2">
+          {(isRovera ? roveraDrawerLinks : globalDrawerLinks).map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between py-4 px-6 sm:px-8 border-b border-neutral-800/60 text-base sm:text-lg font-medium text-neutral-200 hover:text-[#d09800] group transition-colors"
+            >
+              <span className="group-hover:translate-x-1.5 transition-transform duration-200">
+                {item.name}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-neutral-700 group-hover:bg-[#d09800] transition-colors" />
+            </Link>
+          ))}
+        </nav>
+
+        {/* Footer Area with CTA */}
+        <div className="p-6 sm:p-8 border-t border-neutral-800/80 space-y-4 bg-[#0d0d0f] shrink-0">
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setEnquiryModalOpen(true);
+            }}
+            className="w-full py-3.5 bg-[#d09800] text-black text-xs uppercase tracking-widest font-semibold hover:bg-[#b58400] transition-colors text-center rounded-full shadow-lg cursor-pointer"
+          >
+            {isRovera ? "Reserve Your Villa Plot" : "Schedule Private Walkthrough"}
+          </button>
+
+          <div className="flex items-center justify-between text-xs text-neutral-500 pt-1">
+            <span>© 2026 STTHIRA DEVELOPMENTS</span>
+            <LanguageSwitcher dropUp={true} theme="dark" />
+          </div>
+        </div>
+      </aside>
 
       <EnquiryModal
         isOpen={enquiryModalOpen}
