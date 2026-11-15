@@ -45,7 +45,7 @@ export default function RoveraView() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState<string>("ROVERA — Phase 1 Villa Plot");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [galleryCategory, setGalleryCategory] = useState<"clubhouse" | "landscape">("clubhouse");
+  const [galleryCategory, setGalleryCategory] = useState<"Clubhouse" | "Landscape">("Clubhouse");
   const [selectedLightboxImage, setSelectedLightboxImage] = useState<string | null>(null);
   const [formName, setFormName] = useState("");
   const [formPhone, setFormPhone] = useState("");
@@ -124,101 +124,70 @@ export default function RoveraView() {
     setModalOpen(true);
   };
 
-  const amenities = [
+  // 01. Why Lagos (Direct from lagos.co.in)
+  const whyLagosItems = [
     {
-      title: "The Resident Club Pavilion",
-      category: "Private Social Club",
-      spec: "10,000 Sq.Ft Resident Clubhouse",
-      description: "Monolithic flamed stone & glass pavilion featuring a resident library salon, private dining lounge, and executive concierge desk.",
-      image: "/images/rovera-clubhouse-exterior.jpg",
+      id: "luxury",
+      label: "Quiet Luxury",
+      title: "Crafted for Quiet Luxury",
+      text: "An atmosphere designed for calm, elevated living.",
+      image: "/images/lagos-about1.webp",
+      alt: "Lagos villa plot enclave designed for calm, elevated living",
     },
     {
-      title: "Azure Lap Pool & Sunken Deck",
-      category: "Aquatics & Wellness",
-      spec: "25m Lap Pool & Hydrotherapy",
-      description: "Sunken timber sundeck, heated hydrotherapy vitality pools, and private poolside cabanas with bamboo zen garden views.",
-      image: "/images/rovera-pool-deck.jpg",
+      id: "planning",
+      label: "Purposeful Planning",
+      title: "Premium Plots with Purposeful Planning",
+      text: "Thoughtfully laid-out villa plots that offer the freedom to design a home that reflects your vision.",
+      image: "/images/lagos-landscape7.webp",
+      alt: "Thoughtfully planned premium villa plots at Lagos",
     },
     {
-      title: "Private Library Salon & Dining Lounge",
-      category: "Social Sanctuary",
-      spec: "Double-Height Resident Salon",
-      description: "Curated architectural library, private meeting suites, and fireplace lounge with bespoke Italian furnishings.",
-      image: "/images/rovera-clubhouse-lounge.jpg",
+      id: "wellbeing",
+      label: "Well-Being",
+      title: "A Community Built Around Well-Being",
+      text: "Come together to create a neighbourhood that supports balance and everyday ease.",
+      image: "/images/lagos-about3.webp",
+      alt: "Gated community at Lagos built around well-being and everyday ease",
     },
     {
-      title: "Sunken Courtyard & Fire Lounge",
-      category: "Outdoor Living",
-      spec: "Intimate Evening Sanctuary",
-      description: "Polished terrazzo patio with modern oatmeal linen loungers, corten steel fire bowl, and sculpted boxwood borders.",
-      image: "/images/rovera-courtyard-lounge.jpg",
-    },
-    {
-      title: "Architectural Pergola Walkway",
-      category: "Landscape Architecture",
-      spec: "Geometric Shade Trellis",
-      description: "Slender steel shaded colonnade with flowering wisteria vines, flamed limestone pavers, and linear architectural shadow play.",
-      image: "/images/rovera-pergola-walkway.jpg",
-    },
-    {
-      title: "Sensory Zen Meditation Garden",
-      category: "Wellness & Nature",
-      spec: "Aromatic Botanical Haven",
-      description: "Stepping stone pathways through moss mounds, black pines, raked white gravel river, and calming granite water fountain.",
-      image: "/images/rovera-zen-garden.jpg",
+      id: "connected",
+      label: "Connected",
+      title: "Elevated Living, Seamlessly Connected",
+      text: "Exclusive, yet effortlessly linked to key hubs, giving you the best of both retreat and access.",
+      image: "/images/lagos-about4.webp",
+      alt: "Lagos villa plots seamlessly connected to North Bangalore hubs",
     },
   ];
 
-  const galleryItems = [
-    {
-      title: "The Resident Club Pavilion",
-      category: "clubhouse",
-      categoryLabel: "Clubhouse",
-      image: "/images/rovera-clubhouse-exterior.jpg",
-    },
-    {
-      title: "Azure Lap Pool & Sunken Deck",
-      category: "clubhouse",
-      categoryLabel: "Clubhouse",
-      image: "/images/rovera-pool-deck.jpg",
-    },
-    {
-      title: "Private Library Salon & Dining Lounge",
-      category: "clubhouse",
-      categoryLabel: "Clubhouse",
-      image: "/images/rovera-clubhouse-lounge.jpg",
-    },
-    {
-      title: "Aura Vitality Spa & Wellness",
-      category: "clubhouse",
-      categoryLabel: "Clubhouse",
-      image: "/images/rovera-wellness-pavilion.jpg",
-    },
-    {
-      title: "Sunken Courtyard & Fire Lounge",
-      category: "landscape",
-      categoryLabel: "Landscape",
-      image: "/images/rovera-courtyard-lounge.jpg",
-    },
-    {
-      title: "Architectural Pergola Walkway",
-      category: "landscape",
-      categoryLabel: "Landscape",
-      image: "/images/rovera-pergola-walkway.jpg",
-    },
-    {
-      title: "Sensory Zen Meditation Garden",
-      category: "landscape",
-      categoryLabel: "Landscape",
-      image: "/images/rovera-zen-garden.jpg",
-    },
-    {
-      title: "40-Ft Cobblestone Tree-Lined Boulevards",
-      category: "landscape",
-      categoryLabel: "Landscape",
-      image: "/images/rovera-internal-boulevard.jpg",
-    },
+  // 02. Amenities (12 exact cards from lagos.co.in)
+  const lagosAmenities = [
+    { src: "/images/amenities/lagos-amenities-clubhouse-exterior.webp", label: "Clubhouse Exterior" },
+    { src: "/images/amenities/lagos-amenities-clubhouse-entrance.webp", label: "Clubhouse Entrance" },
+    { src: "/images/amenities/lagos-amenities-swimming-pool.webp", label: "Swimming Pool" },
+    { src: "/images/amenities/lagos-amenities-coffee-bar.webp", label: "Coffee Bar" },
+    { src: "/images/amenities/lagos-amenities-party-space.webp", label: "Party Space" },
+    { src: "/images/amenities/lagos-amenities-jogging-track-with-play-area.webp", label: "Jogging Track with Play Area" },
+    { src: "/images/amenities/lagos-amenities-kids-park.webp", label: "Kids Park" },
+    { src: "/images/amenities/lagos-amenities-pet-park.webp", label: "Pet Park" },
+    { src: "/images/amenities/lagos-amenities-picnic-lawn.webp", label: "Picnic Lawn" },
+    { src: "/images/amenities/lagos-amenities-senior-citizen-park.webp", label: "Senior Citizen Park" },
+    { src: "/images/amenities/lagos-amenities-barbecue-area.webp", label: "Barbecue Area" },
+    { src: "/images/amenities/lagos-amenities-wide-driveways.webp", label: "Wide Driveways" },
   ];
+
+  // 03. Gallery (Clubhouse & Landscape views from lagos.co.in)
+  const clubhouseGallery = [1, 2, 3, 6, 7, 9].map((e) => ({
+    src: `/images/lagos-clubhouse${e}.webp`,
+    alt: `Lagos clubhouse view ${e}`,
+  }));
+
+  const landscapeGallery = [1, 6, 3, 9, 4, 7].map((e) => ({
+    src: `/images/lagos-landscape${e}.webp`,
+    alt: `Lagos landscape view ${e}`,
+  }));
+
+  const activeGalleryList = galleryCategory === "Clubhouse" ? clubhouseGallery : landscapeGallery;
 
   const connectivityList = [
     {
@@ -647,183 +616,151 @@ export default function RoveraView() {
       </section>
 
 
-      {/* 07. SECTION: WHY ROVERA / GROWTH CORRIDOR (#why-rovera) */}
-      <section id="why-rovera" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-3xl mb-14">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A] mb-2">
-              Why ROVERA
+      {/* 07. SECTION: WHY LAGOS (#why-lagos) — DIRECT FROM LAGOS.CO.IN */}
+      <section id="why-lagos" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl mb-12 sm:mb-16">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#1E3A8A] mb-3">
+              Why Lagos
             </p>
-            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-              Elevated Living, Seamlessly Connected
+            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-zinc-950 leading-[1.08]">
+              An exclusive lifestyle where<br className="hidden sm:inline" />{" "}
+              <span className="text-[#1E3A8A]">calm meets connectivity</span>
             </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-3 font-normal leading-relaxed tracking-[-0.01em]">
-              Lush green surroundings and open skies in a gated community built for wellness and leisure — space to build your forever home, a weekend retreat, or a high-growth investment in North Bangalore.
+            <p className="text-zinc-600 text-sm sm:text-base mt-4 font-normal leading-relaxed">
+              Lush green surroundings and open skies in a gated community built for wellness and leisure — space to build your forever home, a weekend retreat, or a high-growth investment in North Bangalore&apos;s fastest-growing corridor.
             </p>
           </div>
 
-          {/* Mobile & Tablet Compact 2-Column Grid (< lg) */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:hidden">
-            {connectivityHighlights.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="bg-[#fafaf8] border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-xs hover:border-[#1E3A8A]/50 transition-colors min-h-[130px] sm:min-h-[145px]"
-                >
-                  <div className="w-12 h-12 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center mb-3 text-[#1E3A8A] shadow-2xs shrink-0">
-                    <Icon className="w-5 h-5 stroke-[1.8]" />
-                  </div>
-                  <span className="font-sans text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight leading-snug">
-                    {item.label}
-                  </span>
+          {/* 4 Alternating Visual Showcase Cards */}
+          <div className="space-y-6 sm:space-y-8">
+            {whyLagosItems.map((item, idx) => (
+              <div
+                key={item.id}
+                className={`grid md:grid-cols-[1.2fr_0.8fr] gap-6 md:gap-10 items-stretch rounded-3xl bg-white border border-zinc-200/90 shadow-xs overflow-hidden ${
+                  idx % 2 === 1 ? "md:[&>div:first-child]:order-2" : ""
+                }`}
+              >
+                <div className="relative overflow-hidden aspect-[4/3] md:aspect-auto min-h-[260px] md:min-h-[380px] bg-zinc-900">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                    className="object-cover object-center hover:scale-105 transition-transform duration-700"
+                  />
                 </div>
-              );
-            })}
-          </div>
-
-          {/* Desktop Detailed 3-Column Grid (>= lg) */}
-          <div className="hidden lg:grid lg:grid-cols-3 gap-5">
-            <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">01 • INFRASTRUCTURE</span>
-              <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
-                Satellite Town Ring Road (STRR)
-              </h3>
-              <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                Located just 5 minutes from the upcoming 6-lane STRR expressway, offering signal-free connectivity across Bangalore&apos;s perimeter.
-              </p>
-            </div>
-
-            <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">02 • EMPLOYMENT SEZ</span>
-              <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
-                Foxconn Mega Tech Campus
-              </h3>
-              <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                12 minutes from the 300-acre Foxconn semiconductor &amp; electronics manufacturing plant creating over 50,000 engineering jobs.
-              </p>
-            </div>
-
-            <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">03 • AEROSPACE HUB</span>
-              <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
-                KIADB Aerospace &amp; Defense Park
-              </h3>
-              <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                14 minutes from global aerospace leaders including Boeing, Airbus, and Collins Aerospace research centers.
-              </p>
-            </div>
-
-            <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">04 • GLOBAL TRANSIT</span>
-              <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
-                Kempegowda International Airport
-              </h3>
-              <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                Fast-track 15-minute commute to BLR Airport Terminal 2 without entering downtown traffic congestion zones.
-              </p>
-            </div>
-
-            <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">05 • WORLD-CLASS EDUCATION</span>
-              <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
-                International School Belt
-              </h3>
-              <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                Within 18 minutes of Stonehill International, Canadian International, and Vidyashilp Academy world schools.
-              </p>
-            </div>
-
-            <div className="p-6 bg-[#fafaf8] border border-zinc-200 rounded-xl space-y-2">
-              <span className="font-mono text-xs text-[#1E3A8A] font-semibold tracking-wider">06 • HEALTHCARE</span>
-              <h3 className="font-componentry text-xl font-medium tracking-[-0.03em] text-zinc-950">
-                Tertiary Care Centers
-              </h3>
-              <p className="text-zinc-600 text-xs font-normal leading-relaxed">
-                10 minutes from Manipal Hospital Doddaballapur and Aster CMI Aerotropolis emergency medical care centers.
-              </p>
-            </div>
+                <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12">
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#1E3A8A] mb-3 font-semibold">
+                    {item.label}
+                  </p>
+                  <h3 className="font-componentry text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.03em] leading-[1.15] mb-3.5 text-zinc-950">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
+                    {item.text}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 09. SECTION: WELL-BEING SANCTUARY (#wellbeing) */}
-      <section id="wellbeing" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5 space-y-5">
-              <p className="font-mono text-xs font-medium uppercase tracking-wide text-[#1E3A8A]">
-                Wellbeing
-              </p>
-              <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-medium tracking-[-0.05em] text-zinc-950 leading-[1.04]">
-                A Community Built Around Well-Being
-              </h2>
-              <p className="text-zinc-600 text-sm sm:text-base font-normal leading-relaxed tracking-[-0.01em]">
-                Lush green surroundings and open skies in a gated community built for wellness and leisure — space to build your forever home, a weekend retreat, or a high-growth investment in North Bangalore.
-              </p>
+      {/* 08. SECTION: AMENITIES (#amenities) — DIRECT FROM LAGOS.CO.IN */}
+      <section id="amenities" className="py-20 sm:py-28 bg-white border-b border-zinc-200 scroll-mt-28">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl mb-12 sm:mb-14">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#1E3A8A] mb-2">
+              Amenities
+            </p>
+            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-zinc-950 leading-[1.08]">
+              Everything you need to <span className="text-[#1E3A8A]">live your best life.</span>
+            </h2>
+            <p className="text-zinc-600 text-sm sm:text-base mt-3.5 font-normal leading-relaxed">
+              A 10,000 sq.ft clubhouse and thoughtfully planned outdoor spaces for wellness, play and community — right at your doorstep.
+            </p>
+          </div>
 
-              <div className="space-y-4 pt-2">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#1E3A8A] shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-componentry text-lg font-medium tracking-[-0.02em] text-zinc-950">
-                      Hydrotherapy &amp; Vitality Spa
-                    </h4>
-                    <p className="text-zinc-600 text-xs font-normal">
-                      Indoor-outdoor vitality pools with flamed granite louvers and restorative water cascades.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#1E3A8A] shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-componentry text-lg font-medium tracking-[-0.02em] text-zinc-950">
-                      Sensory Botanical Aromatherapy
-                    </h4>
-                    <p className="text-zinc-600 text-xs font-normal">
-                      Aromatic lavender, neem, and frangipani borders that enrich air purity and release therapeutic natural scents.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#1E3A8A] shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-componentry text-lg font-medium tracking-[-0.02em] text-zinc-950">
-                      Zero Noise &amp; Decibel Insulation
-                    </h4>
-                    <p className="text-zinc-600 text-xs font-normal">
-                      Layered evergreen perimeter berms absorbing highway sounds, allowing the pure cadence of birds and rustling leaves.
-                    </p>
-                  </div>
-                </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            {lagosAmenities.map((item) => (
+              <div
+                key={item.label}
+                className="relative aspect-[4/3] overflow-hidden rounded-2xl group border border-zinc-200/90 shadow-xs bg-zinc-900 cursor-pointer"
+                onClick={() => setSelectedLightboxImage(item.src)}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.label}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                <p className="absolute bottom-3 left-3 right-3 text-white text-xs sm:text-sm md:text-base font-medium drop-shadow-sm leading-tight">
+                  {item.label}
+                </p>
               </div>
-            </div>
+            ))}
+          </div>
 
-            <div className="lg:col-span-7 relative aspect-[16/10] rounded-2xl overflow-hidden border border-zinc-200 shadow-xl bg-zinc-100">
-              <Image
-                src="/images/rovera-wellness-pavilion.jpg"
-                alt="ROVERA Wellbeing Pavilion"
-                fill
-                priority
-                quality={95}
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              {/* Top badge */}
-              <div className="absolute top-3 right-3 sm:top-5 sm:right-5">
-                <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded-full font-mono text-[9px] sm:text-[10px] font-medium uppercase tracking-wider">
-                  Residents Only
+          <p className="text-center text-xs text-zinc-500 mt-8 font-mono">
+            Artist&apos;s impression. Amenities are indicative and subject to change.
+          </p>
+        </div>
+      </section>
+
+      {/* 09. SECTION: GALLERY (#gallery) — DIRECT FROM LAGOS.CO.IN */}
+      <section id="gallery" className="py-20 sm:py-28 bg-[#fafaf8] border-b border-zinc-200 scroll-mt-28">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl mb-10 text-center mx-auto">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#1E3A8A] mb-2">
+              Gallery
+            </p>
+            <h2 className="font-componentry text-balance text-3xl sm:text-5xl font-semibold tracking-[-0.04em] text-zinc-950 leading-[1.08]">
+              A closer look at Lagos.
+            </h2>
+          </div>
+
+          {/* Category Pill Buttons */}
+          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-10">
+            {(["Clubhouse", "Landscape"] as const).map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setGalleryCategory(tab)}
+                className={`px-6 h-11 rounded-full text-sm font-medium border transition-colors cursor-pointer ${
+                  galleryCategory === tab
+                    ? "bg-zinc-950 text-white border-zinc-950 shadow-sm"
+                    : "border-zinc-300 text-zinc-600 bg-white hover:border-zinc-950 hover:text-zinc-950"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          {/* Gallery Image Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            {activeGalleryList.map((item) => (
+              <div
+                key={item.src}
+                onClick={() => setSelectedLightboxImage(item.src)}
+                className="relative aspect-[4/3] overflow-hidden rounded-2xl group cursor-pointer border border-zinc-200/90 shadow-xs bg-zinc-900"
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 text-[9px] text-white/90 tracking-wide font-light pointer-events-none bg-black/40 px-2 py-0.5 rounded-sm backdrop-blur-sm">
+                  Artist&apos;s impression
                 </span>
               </div>
-              {/* Bottom title */}
-              <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 text-white">
-                <span className="font-componentry text-base sm:text-xl font-medium tracking-[-0.03em] leading-tight block">
-                  Aura Vitality Spa &amp; Zen Garden
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -867,7 +804,7 @@ export default function RoveraView() {
               </div>
               <div className="absolute bottom-4 right-4 bg-black/75 hover:bg-black text-white text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full shadow-lg flex items-center gap-2 pointer-events-auto transition-colors">
                 <Maximize2 className="w-3.5 h-3.5" />
-                <span>Tap to Expand Fullscreen</span>
+                <span>View Fullscreen</span>
               </div>
             </div>
 

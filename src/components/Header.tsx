@@ -300,11 +300,32 @@ export default function Header() {
                 {isRovera ? (
                   <>
                     <Link
+                      href="/developments/rovera#why-lagos"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                    >
+                      Why Lagos
+                    </Link>
+                    <Link
+                      href="/developments/rovera#amenities"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                    >
+                      Amenities
+                    </Link>
+                    <Link
+                      href="/developments/rovera#gallery"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
+                    >
+                      Gallery
+                    </Link>
+                    <Link
                       href="/developments/rovera#master-plan"
                       onClick={() => setMobileMenuOpen(false)}
                       className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
                     >
-                      Master Plan &amp; Cadastral Blueprint
+                      Master Plan &amp; Blueprint
                     </Link>
                     <Link
                       href="/developments/rovera#location"
@@ -312,27 +333,6 @@ export default function Header() {
                       className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
                     >
                       Location &amp; Connectivity
-                    </Link>
-                    <Link
-                      href="/developments/rovera#snapshot"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
-                    >
-                      Project Snapshot
-                    </Link>
-                    <Link
-                      href="/developments/rovera#gates"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
-                    >
-                      Monumental Gatehouse
-                    </Link>
-                    <Link
-                      href="/developments/rovera#wellbeing"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-editorial text-2xl sm:text-3xl text-zinc-950 hover:text-[#1E3A8A] transition-colors"
-                    >
-                      Well-being Sanctuary
                     </Link>
                     <Link
                       href="/developments/rovera#pricing"

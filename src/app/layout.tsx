@@ -7,7 +7,6 @@ import CookieBanner from "@/components/CookieBanner";
 import SmoothScroll from "@/components/SmoothScroll";
 import CinematicOpeningReveal from "@/components/CinematicOpeningReveal";
 import FloatingEnquiryTab from "@/components/FloatingEnquiryTab";
-import ScrollToHeroSling from "@/components/ScrollToHeroSling";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { COMPANY_INFO } from "@/lib/data";
 
@@ -139,7 +138,6 @@ export default function RootLayout({
             <SmoothScroll>
               <Header />
               <FloatingEnquiryTab />
-              <ScrollToHeroSling />
               <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
               <Footer />
               <CookieBanner />
